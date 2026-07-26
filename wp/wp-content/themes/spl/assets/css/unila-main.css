@@ -1822,7 +1822,7 @@ img{
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     inset: 0 /* 0px */;
     border-radius: 9999px;
-    background-image: linear-gradient(164deg, #EF353F 13.86%, #1e60a3 108.55%);
+    background-image: linear-gradient(164deg, #00a8df 13.86%, #1e60a3 108.55%);
     pointer-events: none;
     content: '' }
 .btn-solid [class*="fa-"]{
@@ -1914,7 +1914,7 @@ img{
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     inset: 0 /* 0px */;
     border-radius: 9999px;
-    background-image: linear-gradient(164deg, #EF353F 13.86%, #1e60a3 108.55%);
+    background-image: linear-gradient(164deg, #00a8df 13.86%, #1e60a3 108.55%);
     pointer-events: none;
     content: '' }
 .btn-lined [class*="fa-"]{
@@ -2007,7 +2007,7 @@ img{
 }
 #buttonMenu .bar{
   --tw-bg-opacity: 1;
-  --tw-shadow: 0 0 0 #b91c1c, 0 0 1px #b91c1c, 0 0 8px #b91c1c, 0 0 16px #b91c1c;
+  --tw-shadow: 0 0 0 #1e60a3, 0 0 1px #1e60a3, 0 0 8px #1e60a3, 0 0 16px #1e60a3;
   --tw-shadow-colored: 0 0 0 var(--tw-shadow-color), 0 0 1px var(--tw-shadow-color), 0 0 8px var(--tw-shadow-color), 0 0 16px var(--tw-shadow-color);
   position: absolute;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
@@ -2702,12 +2702,12 @@ textarea{
 }
 .pager span:hover, .pager a:hover{
   --tw-text-opacity: 1;
-  background-image: linear-gradient(164deg, #EF353F 13.86%, #1e60a3 108.55%);
+  background-image: linear-gradient(164deg, #00a8df 13.86%, #1e60a3 108.55%);
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .pager li.active span, .pager li.active a{
   --tw-text-opacity: 1;
-  background-image: linear-gradient(164deg, #EF353F 13.86%, #1e60a3 108.55%);
+  background-image: linear-gradient(164deg, #00a8df 13.86%, #1e60a3 108.55%);
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .custom-scroll-dark::-webkit-scrollbar {
@@ -2812,7 +2812,7 @@ textarea{
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     inset: 0 /* 0px */;
     border-radius: 9999px;
-    background-image: linear-gradient(164deg, #EF353F 13.86%, #1e60a3 108.55%);
+    background-image: linear-gradient(164deg, #00a8df 13.86%, #1e60a3 108.55%);
     pointer-events: none;
     content: '' }
 .swiper-button > *.swiper-button-disabled{
@@ -2953,7 +2953,7 @@ textarea{
       transition-property: all;
       transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
       border-radius: 9999px;
-      background-image: linear-gradient(164deg, #EF353F 13.86%, #1e60a3 108.55%);
+      background-image: linear-gradient(164deg, #00a8df 13.86%, #1e60a3 108.55%);
       width: calc(8/1920*100rem);
       height: calc(8/1920*100rem);
       content: '' }
@@ -4560,7 +4560,7 @@ header.process-loading .walker-preview img .mask span{
 }
 header .button-search{
   cursor: pointer;
-  background-image: linear-gradient(164deg, #EF353F 13.86%, #1e60a3 108.55%);
+  background-image: linear-gradient(164deg, #00a8df 13.86%, #1e60a3 108.55%);
   background-clip: text;
   color: transparent;
   font-size: calc(20/1920*100rem);
@@ -7163,7 +7163,7 @@ header .wpml-ls.wpml-ls-legacy-dropdown-click > ul > li > .wpml-ls-sub-menu{
   position: absolute;
   bottom: 0 /* 0px */;
   left: 0 /* 0px */;
-  background-image: linear-gradient(180deg, #EF353F 0%, #1e60a3 100%);
+  background-image: linear-gradient(180deg, #00a8df 0%, #1e60a3 100%);
   width: 100%;
   height: 1px;
   content: var(--tw-content);
