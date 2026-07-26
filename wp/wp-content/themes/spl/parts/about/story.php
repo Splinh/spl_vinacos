@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $title     = $data['title'] ?? 'Nghiên cứu <br/> sản xuất <br/> mỹ phẩm';
-$image_url = 'https://unila.com.vn/wp-content/uploads/2026/04/Hanh-dong-vi-mot-ky-nguyen-my-pham-sach-tu-nguon.jpg';
+$image_url = get_template_directory_uri() . '/static/img/story-vinacos.jpg';
 ?>
 <section class="about-1-section section-large">
 	<div class="container">

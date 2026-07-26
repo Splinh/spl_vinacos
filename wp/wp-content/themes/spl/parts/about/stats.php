@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $title = $data['title'] ?? 'Những con số biết nói';
-$center_image = 'https://unila.com.vn/wp-content/uploads/2026/03/NHUNG-CON-SO-BIET-NOI-e1775466007157.png';
+$center_image = get_template_directory_uri() . '/static/img/stats-vinacos.png';
 
 $stats = [
 	[
