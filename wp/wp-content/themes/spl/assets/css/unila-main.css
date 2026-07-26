@@ -4000,7 +4000,25 @@ textarea{
   opacity: 1 !important;
 }
 .home-banner .banner-title{
-  margin-bottom: 60%;
+  margin-bottom: 1.25rem;
+}
+@media (max-width: 767px){
+  .home-banner .caption{
+    top: 12% !important;
+    bottom: auto !important;
+  }
+  .home-banner .banner-title{
+    margin-bottom: 1rem !important;
+  }
+  .home-banner .split-parent{
+    font-size: 1.5rem !important;
+    line-height: 1.25 !important;
+  }
+  .home-banner .desc{
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+    max-width: 96% !important;
+  }
 }
 @media (min-width: 768px){
   .home-banner .banner-title{
