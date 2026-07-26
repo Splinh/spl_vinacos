@@ -7583,38 +7583,142 @@ header .wpml-ls.wpml-ls-legacy-dropdown-click > ul > li > a::after {
   z-index: 10 !important;
 }
 
-header .button-menu {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: space-between !important;
-  width: 26px !important;
-  height: 18px !important;
-  cursor: pointer !important;
-  z-index: 100 !important;
-  margin-left: 12px !important;
-}
-header .button-menu span {
+#buttonMenu {
+  --tw-rotate: 0deg;
+  position: relative;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  z-index: 50;
+  transition-duration: 150ms;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  margin: 0;
+  border-style: none;
+  background-image: none;
+  background-color: transparent;
+  padding: 0;
+  width: 28px;
+  min-width: 28px;
+  height: 32px;
   display: block !important;
-  width: 100% !important;
-  height: 2px !important;
-  background-color: #1e60a3 !important;
-  border-radius: 2px !important;
-  transition: all 0.3s ease-in-out !important;
 }
-header .button-menu.active span:nth-child(1) {
-  transform: translateY(8px) rotate(45deg) !important;
-}
-header .button-menu.active span:nth-child(2) {
-  opacity: 0 !important;
-}
-header .button-menu.active span:nth-child(3) {
-  transform: translateY(-8px) rotate(-45deg) !important;
-}
-
 @media (min-width: 1024px) {
-  header .button-menu {
+  #buttonMenu {
     display: none !important;
   }
+}
+#buttonMenu .line {
+  --tw-rotate: 0deg;
+  --tw-bg-opacity: 1;
+  display: block;
+  position: absolute;
+  left: 0;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  opacity: 1;
+  transition-duration: 150ms;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 9999px;
+  background-color: #1e60a3;
+  width: 100%;
+  height: 2px;
+}
+#buttonMenu .line:nth-child(1) {
+  top: 4px;
+}
+#buttonMenu .line:nth-child(2) {
+  --tw-translate-y: -50%;
+  top: 50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+#buttonMenu .line:nth-child(3) {
+  bottom: 4px;
+}
+#buttonMenu #pulseMe {
+  --tw-translate-x: -50%;
+  --tw-translate-y: -50%;
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  justify-content: center;
+  align-items: center;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  z-index: 1;
+  width: 30px;
+  min-width: 34px;
+  height: 34px;
+}
+#buttonMenu .bar {
+  --tw-bg-opacity: 1;
+  position: absolute;
+  box-shadow: 0 0 0 #1e60a3, 0 0 1px #1e60a3, 0 0 8px #1e60a3, 0 0 16px #1e60a3;
+  border-radius: calc(4/1920*100rem);
+  background-color: #1e60a3;
+}
+#buttonMenu .bar.left {
+  width: 1px;
+  animation: leftBar 2s linear infinite;
+}
+#buttonMenu .bar.top {
+  height: 1px;
+  animation: topBar 2s linear infinite;
+}
+#buttonMenu .bar.right {
+  width: 1px;
+  animation: rightBar 2s linear infinite;
+}
+#buttonMenu .bar.bottom {
+  height: 1px;
+  animation: bottomBar 2s linear infinite;
+}
+#buttonMenu.open .line:nth-child(2),
+#buttonMenu:hover .line:nth-child(2) {
+  width: 15px;
+}
+#buttonMenu.open .bar,
+#buttonMenu:hover .bar,
+#buttonMenu.active .bar {
+  display: none !important;
+}
+
+#buttonMenu.active .line:nth-child(1) {
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+#buttonMenu.active .line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+#buttonMenu.active .line:nth-child(3) {
+  bottom: auto;
+  top: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+}
+
+@keyframes leftBar {
+  0% { top: 0; height: 0; }
+  25% { top: 0; height: 100%; }
+  50% { top: 100%; height: 0; }
+  100% { top: 100%; height: 0; }
+}
+@keyframes topBar {
+  0% { left: 0; width: 0; }
+  25% { left: 0; width: 0; }
+  50% { left: 0; width: 100%; }
+  75% { left: 100%; width: 0; }
+  100% { left: 100%; width: 0; }
+}
+@keyframes rightBar {
+  0% { bottom: 0; height: 0; }
+  50% { bottom: 0; height: 0; }
+  75% { bottom: 0; height: 100%; }
+  100% { bottom: 100%; height: 0; }
+}
+@keyframes bottomBar {
+  0% { right: 0; width: 0; }
+  75% { right: 0; width: 0; }
+  100% { right: 0; width: 100%; }
 }
 
 .mobile-wrap {

@@ -141,11 +141,17 @@ defined( 'ABSPATH' ) || exit;
 					</ul>
 				</div>
 			</div>
-			<div class="button-menu" id="buttonMenu">
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
+			<button type="button" id="buttonMenu" aria-controls="toggleMenu" data-target="#toggleMenu">
+				<span class="line"></span>
+				<span class="line"></span>
+				<span class="line"></span>
+				<span id="pulseMe">
+					<span class="bar left"></span>
+					<span class="bar top"></span>
+					<span class="bar right"></span>
+					<span class="bar bottom"></span>
+				</span>
+			</button>
 		</div>
 	</div>
 </header>
