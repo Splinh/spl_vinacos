@@ -7592,10 +7592,13 @@ header .button-menu {
   font-size: 24px;
   margin-left: 12px;
 }
-header .button-menu svg {
-  width: 26px;
-  height: 26px;
+header .button-menu svg,
+header .button-menu .spl-icon {
+  width: 26px !important;
+  height: 26px !important;
+  stroke: #1e60a3 !important;
   color: #1e60a3 !important;
+  display: block !important;
 }
 
 @media (min-width: 1024px) {
