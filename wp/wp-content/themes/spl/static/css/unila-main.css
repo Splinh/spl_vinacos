@@ -4004,7 +4004,7 @@ textarea{
 }
 @media (max-width: 767px){
   .home-banner .banner-slider{
-    padding-top: 135% !important;
+    padding-top: 140% !important;
   }
   .home-banner .key-img-box{
     position: absolute !important;
@@ -4019,7 +4019,7 @@ textarea{
     width: 100% !important;
     height: 100% !important;
     object-fit: cover !important;
-    object-position: center 25% !important;
+    object-position: center 60% !important;
   }
   .home-banner .caption{
     top: 4% !important;
@@ -4029,11 +4029,11 @@ textarea{
     margin-bottom: 0.4rem !important;
   }
   .home-banner .split-parent{
-    font-size: 1.35rem !important;
+    font-size: 1.4rem !important;
     line-height: 1.25 !important;
   }
   .home-banner .desc{
-    font-size: 13.5px !important;
+    font-size: 14px !important;
     line-height: 1.35 !important;
     max-width: 98% !important;
   }
