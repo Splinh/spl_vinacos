@@ -4004,7 +4004,7 @@ textarea{
 }
 @media (max-width: 767px){
   .home-banner .banner-slider{
-    padding-top: 170% !important;
+    padding-top: 135% !important;
   }
   .home-banner .key-img-box{
     position: absolute !important;
@@ -4018,27 +4018,27 @@ textarea{
   .home-banner .key-img-box img.mb{
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
-    object-position: bottom center !important;
+    object-fit: cover !important;
+    object-position: center 25% !important;
   }
   .home-banner .caption{
-    top: 6% !important;
+    top: 4% !important;
     bottom: auto !important;
   }
   .home-banner .banner-title{
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 0.4rem !important;
   }
   .home-banner .split-parent{
-    font-size: 1.4rem !important;
+    font-size: 1.35rem !important;
     line-height: 1.25 !important;
   }
   .home-banner .desc{
-    font-size: 14px !important;
+    font-size: 13.5px !important;
     line-height: 1.35 !important;
     max-width: 98% !important;
   }
   .home-banner .swiper-pagination{
-    bottom: 12px !important;
+    bottom: 8px !important;
   }
 }
 @media (min-width: 768px){
