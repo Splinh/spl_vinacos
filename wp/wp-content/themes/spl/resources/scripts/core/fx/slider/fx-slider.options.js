@@ -8,7 +8,7 @@
 import { $ as qs } from '../../dom.js';
 
 export const parseOptions = (el) => {
-	const json = el ? qs('.swiper-wrapper', el)?.dataset?.swiperOptions : null;
+	const json = el?.dataset?.fxSlider || el?.dataset?.swiperOptions || qs('.swiper-wrapper', el)?.dataset?.swiperOptions || qs('.swiper-wrapper', el)?.dataset?.fxSlider || null;
 	if (!json) return {};
 	try {
 		return JSON.parse(json);

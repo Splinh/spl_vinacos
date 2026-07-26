@@ -1,149 +1,99 @@
 <?php
 /**
- * Home page — Hero Slider section.
- *
- * Banner images are pre-designed at a fixed ratio — display at natural size,
- * no cropping (object-cover would cut the logo/text in the banner).
- *
- * Supports separate mobile banner (880×660) via ACF `bg_image_mobile` field.
- * Uses <picture> + <source media> to serve the correct image per breakpoint.
+ * Hero Banner Slider — 100% Unila HTML structure & VINACOS titles.
  *
  * @package SPL
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$data   = $args ?? [];
-$slides = $data['slides'] ?? [];
+$section = $args ?? array();
+$slides  = $section['slides'] ?? array();
 
-// Fallback slides if empty.
-if ( empty( $slides ) ) {
-	$slides = [
-		[
-			'bg_image'        => get_theme_file_uri( 'resources/img/banner-he-sang-chanh.jpg' ),
-			'bg_image_mobile' => '',
-			'link'            => [ 'url' => '#', 'title' => 'Xem ngay' ],
-			'title'           => 'Banner Hè Sang Chảnh',
-		],
-	];
-}
+$default_vinacos_slides = array(
+	array(
+		'title_lines' => array( 'MỞ LỐI KỶ NGUYÊN', 'MỸ PHẨM VIỆT', 'CHUẨN KHOA HỌC' ),
+		'desc'        => 'VINACOS là đơn vị tiên phong ứng dụng khoa học vào nghiên cứu và gia công mỹ phẩm sạch. Dẫn đầu để đặt ra tiêu chuẩn mới cho thương hiệu mỹ phẩm Việt.',
+		'btn_text'    => 'Xem thêm',
+		'btn_link'    => '#about-us',
+	),
+	array(
+		'title_lines' => array( 'HIỂU LÀN DA VIỆT', 'ĐỒNG HÀNH', 'THƯƠNG HIỆU VIỆT' ),
+		'desc'        => 'VINACOS tin rằng người Việt xứng đáng được chăm sóc bằng những công thức an toàn, lành tính, chuẩn y khoa.',
+		'btn_text'    => 'Xem thêm',
+		'btn_link'    => '#services',
+	),
+	array(
+		'title_lines' => array( 'RỦI RO LỚN NHẤT', 'LÀ SAI TỪ CÔNG THỨC' ),
+		'desc'        => 'VINACOS đặt sự an toàn và tính minh bạch lên hàng đầu: 0% sai sót về hoạt chất cấm – 100% kiểm nghiệm công thức – Hồ sơ pháp lý A-Z.',
+		'btn_text'    => 'Xem thêm',
+		'btn_link'    => '#rd-system',
+	),
+	array(
+		'title_lines' => array( 'SỨC MẠNH', 'TỪ HỆ THỐNG R&D' ),
+		'desc'        => '300+ công thức độc quyền. 10+ năm kinh nghiệm R&D. Đằng sau mỗi sản phẩm là dữ liệu khoa học & kiểm định lâm sàng.',
+		'btn_text'    => 'Xem thêm',
+		'btn_link'    => '#products',
+	),
+);
+
+$img_base = get_template_directory_uri() . '/static/img/banner';
 ?>
-<section class="relative w-full overflow-hidden bg-white"
-	aria-label="<?php esc_attr_e( 'Banners nổi bật', 'spl' ); ?>">
 
-	<!-- Slide Track -->
-	<div id="hero-slider" class="relative w-full">
-		<?php foreach ( $slides as $index => $slide ) :
-			$img_raw    = $slide['bg_image'] ?? 0;
-			$mobile_raw = $slide['bg_image_mobile'] ?? 0;
+<section class="home-banner one-scroll">
+	<div class="banner-slider">
+		<div class="swiper key-visual-swiper start">
+			<div class="swiper-wrapper key-visual-wrapper">
+				<?php for ( $i = 0; $i < 4; $i++ ) : 
+					$s = $slides[ $i ] ?? array();
+					$v = $default_vinacos_slides[ $i ];
 
-			// Desktop image: support both attachment ID and direct URL.
-			if ( is_numeric( $img_raw ) && (int) $img_raw > 0 ) {
-				$img_url = wp_get_attachment_image_url( (int) $img_raw, 'full' );
-			} else {
-				$img_url = (string) $img_raw;
-			}
+					$desktop_img = $img_base . '/slide' . ( $i + 1 ) . '-desktop.jpg';
+					$mobile_img  = $img_base . '/slide' . ( $i + 1 ) . '-mobile.jpg';
 
-			if ( ! $img_url ) {
-				$img_url = function_exists( 'wc_placeholder_img_src' )
-					? wc_placeholder_img_src( 'full' )
-					: get_theme_file_uri( 'resources/img/placeholder.jpg' );
-			}
+					$title_lines = array();
+					if ( ! empty( $s['title_line_1'] ) ) { $title_lines[] = $s['title_line_1']; }
+					if ( ! empty( $s['title_line_2'] ) ) { $title_lines[] = $s['title_line_2']; }
+					if ( ! empty( $s['title_line_3'] ) ) { $title_lines[] = $s['title_line_3']; }
+					if ( empty( $title_lines ) ) {
+						$title_lines = $v['title_lines'];
+					}
 
-			// Mobile image: optional, falls back to desktop.
-			$mobile_url = '';
-			if ( is_numeric( $mobile_raw ) && (int) $mobile_raw > 0 ) {
-				$mobile_url = wp_get_attachment_image_url( (int) $mobile_raw, 'large' );
-			} elseif ( ! empty( $mobile_raw ) && is_string( $mobile_raw ) ) {
-				$mobile_url = $mobile_raw;
-			}
-
-			$link       = $slide['link'] ?? null;
-			$title      = $slide['title'] ?? '';
-			$is_active  = $index === 0;
-
-			// First slide flows in document (sets container height), rest are absolute overlay.
-			if ( $is_active ) :
-			?>
-			<div class="hero-slide relative w-full opacity-100 z-10"
-				aria-hidden="false">
-				<picture>
-					<?php if ( $mobile_url ) : ?>
-						<source media="(max-width: 767px)"
-							srcset="<?php echo esc_url( $mobile_url ); ?>"
-							width="880" height="660">
-					<?php endif; ?>
-					<img src="<?php echo esc_url( $img_url ); ?>"
-						alt="<?php echo esc_attr( $title ); ?>"
-						width="1920" height="750"
-						loading="eager"
-						fetchpriority="high"
-						decoding="async"
-						class="w-full h-auto block select-none"
-					/>
-				</picture>
-				<?php if ( $link && ! empty( $link['url'] ) ) : ?>
-					<a href="<?php echo esc_url( $link['url'] ); ?>"
-						class="absolute inset-0 block z-[1]"
-						target="<?php echo esc_attr( $link['target'] ?? '' ); ?>">
-						<span class="sr-only"><?php echo esc_html( $link['title'] ?: $title ); ?></span>
-					</a>
-				<?php endif; ?>
+					$desc     = ! empty( $s['description'] ) ? $s['description'] : $v['desc'];
+					$btn_text = $v['btn_text'];
+					$btn_url  = $v['btn_link'];
+				?>
+				<div class="swiper-slide key-visual-slide" data-swiper-autoplay="2999">
+					<div class="image key-img-box">
+						<img class="mb" src="<?php echo esc_url( $mobile_img ); ?>" alt="">
+						<img src="<?php echo esc_url( $desktop_img ); ?>" alt="<?php echo esc_attr( $title_lines[0] ?? '' ); ?>">
+					</div>
+					<div class="caption container">
+						<div class="content">
+							<div class="banner-title">
+								<?php foreach ( $title_lines as $line ) : ?>
+								<div class="split-parent"><strong><?php echo esc_html( $line ); ?></strong></div>
+								<?php endforeach; ?>
+							</div>
+							<?php if ( ! empty( $desc ) ) : ?>
+							<div class="desc">
+								<p><?php echo esc_html( $desc ); ?></p>
+							</div>
+							<?php endif; ?>
+						</div>
+						<?php if ( ! empty( $btn_text ) ) : ?>
+						<div class="button mt-4 xl:mt-6">
+							<a class="btn-lined" href="<?php echo esc_url( $btn_url ); ?>" title="<?php echo esc_attr( $btn_text ); ?>">
+								<span><?php echo esc_html( $btn_text ); ?></span>
+								<?= spl_icon( 'plus', '', 16 ) ?>
+							</a>
+						</div>
+						<?php endif; ?>
+					</div>
+				</div>
+				<?php endfor; ?>
 			</div>
-			<?php else : ?>
-			<div class="hero-slide absolute inset-0 w-full h-full opacity-0 z-0 pointer-events-none"
-				aria-hidden="true">
-				<picture>
-					<?php if ( $mobile_url ) : ?>
-						<source media="(max-width: 767px)"
-							srcset="<?php echo esc_url( $mobile_url ); ?>"
-							width="880" height="660">
-					<?php endif; ?>
-					<img src="<?php echo esc_url( $img_url ); ?>"
-						alt="<?php echo esc_attr( $title ); ?>"
-						width="1920" height="750"
-						loading="lazy"
-						fetchpriority="low"
-						decoding="async"
-						class="w-full h-full object-contain object-top select-none"
-					/>
-				</picture>
-				<?php if ( $link && ! empty( $link['url'] ) ) : ?>
-					<a href="<?php echo esc_url( $link['url'] ); ?>"
-						class="absolute inset-0 block z-[1]"
-						target="<?php echo esc_attr( $link['target'] ?? '' ); ?>">
-						<span class="sr-only"><?php echo esc_html( $link['title'] ?: $title ); ?></span>
-					</a>
-				<?php endif; ?>
-			</div>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	</div>
-
-	<?php if ( count( $slides ) > 1 ) : ?>
-		<!-- Prev / Next arrows -->
-		<button onclick="moveHeroSlide(-1)"
-			aria-label="<?php esc_attr_e( 'Banner trước', 'spl' ); ?>"
-			class="absolute left-3 sm:left-5 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
-			<?php echo spl_icon( 'chevron-left', 'w-5 h-5' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-		</button>
-		<button onclick="moveHeroSlide(1)"
-			aria-label="<?php esc_attr_e( 'Banner kế tiếp', 'spl' ); ?>"
-			class="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 bg-black/30 hover:bg-black/50 text-white w-10 h-10 rounded-full flex items-center justify-center transition-all z-20 focus:outline-none">
-			<?php echo spl_icon( 'chevron-right', 'w-5 h-5' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-		</button>
-
-		<!-- Dot indicators -->
-		<div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2 z-20" role="tablist" aria-label="<?php esc_attr_e( 'Chọn banner', 'spl' ); ?>">
-			<?php foreach ( $slides as $index => $slide ) : ?>
-				<button onclick="setHeroSlide(<?php echo (int) $index; ?>)"
-					role="tab"
-					data-active="<?php echo $index === 0 ? 'true' : 'false'; ?>"
-					aria-selected="<?php echo $index === 0 ? 'true' : 'false'; ?>"
-					aria-label="<?php echo esc_attr( sprintf( __( 'Xem slide %d', 'spl' ), $index + 1 ) ); ?>"
-					class="hero-dot cursor-pointer focus:outline-none">
-				</button>
-			<?php endforeach; ?>
+			<div class="swiper-pagination container"></div>
 		</div>
-	<?php endif; ?>
+	</div>
 </section>

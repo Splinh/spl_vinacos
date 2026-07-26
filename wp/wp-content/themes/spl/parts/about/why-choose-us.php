@@ -10,30 +10,30 @@ use SPL\Core\Helper;
 defined( 'ABSPATH' ) || exit;
 
 $data  = $args ?? [];
-$title = $data['title'] ?? 'Tại sao chọn dailyxedien.vn?';
-$desc  = $data['description'] ?? 'Những lý do khách hàng tin tưởng và gắn bó với chúng tôi';
+$title = $data['title'] ?? 'Tại sao chọn VINACOS?';
+$desc  = $data['description'] ?? 'Những năng lực vượt trội khẳng định vị thế thương hiệu gia công mỹ phẩm hàng đầu';
 $items = ! empty( $data['items'] ) ? $data['items'] : [
 	[
-		'title' => 'Sản phẩm chính hãng',
-		'desc'  => 'Nhập khẩu và phân phối trực tiếp từ nhà máy, đầy đủ giấy tờ và CO/CQ.',
+		'title' => 'Nhà máy chuẩn GMP & FDA',
+		'desc'  => 'Dây chuyền sản xuất tự động khép kín, đạt chuẩn Bộ Y tế và tiêu chuẩn xuất khẩu FDA Hoa Kỳ.',
 		'icon'  => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>',
 		'class' => 'bg-blue-50 text-blue-500',
 	],
 	[
-		'title' => 'Giá tốt - Trả góp 0%',
-		'desc'  => 'Cam kết giá cạnh tranh nhất thị trường. Hỗ trợ trả góp lãi suất 0% nhanh chóng.',
+		'title' => 'Phòng lab R&D chuyên sâu',
+		'desc'  => 'Sở hữu 300+ công thức mỹ phẩm độc quyền, thử nghiệm độ ổn định và kiểm nghiệm lâm sàng an toàn.',
 		'icon'  => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 15h2a2 2 0 1 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 17"/><path d="m7 21 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"/><path d="m2 16 6 6"/><circle cx="16" cy="9" r="2.9"/><circle cx="6" cy="5" r="3"/></svg>',
 		'class' => 'bg-emerald-50 text-emerald-500',
 	],
 	[
-		'title' => 'Tư vấn tận tâm',
-		'desc'  => 'Đội ngũ nhân viên được đào tạo bài bản, tư vấn đúng nhu cầu, không ép bán hàng.',
+		'title' => 'Nguyên liệu nhập khẩu COA',
+		'desc'  => 'Đối tác nguyên liệu quốc tế uy tín: Behn Meyer, Clariant, DSM, Seppic, Solabia, NOF, CIDOLS.',
 		'icon'  => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></svg>',
 		'class' => 'bg-amber-50 text-amber-500',
 	],
 	[
-		'title' => 'Hậu mãi minh bạch',
-		'desc'  => 'Bảo hành chính hãng, sửa chữa tại đại lý, theo dõi lịch sử bảo trì dễ dàng.',
+		'title' => 'Gia công trọn gói A-Z',
+		'desc'  => 'Tư vấn concept, thiết kế bao bì, làm mẫu thử, sản xuất và hoàn thiện hồ sơ công bố Y tế nhanh.',
 		'icon'  => '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
 		'class' => 'bg-rose-50 text-rose-500',
 	],

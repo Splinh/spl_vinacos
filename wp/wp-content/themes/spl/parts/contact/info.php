@@ -1,91 +1,73 @@
 <?php
 /**
- * Contact — Info cards section.
+ * Contact — 100% Unila Contact Section (Address & Interactive Form).
  *
  * @package SPL
  */
 
-use SPL\Core\Helper;
-
 defined( 'ABSPATH' ) || exit;
 
-$data  = $args ?? [];
-$cards = ! empty( $data['cards'] ) ? $data['cards'] : [
-	[
-		'title' => 'Hotline 24/7',
-		'value' => '0933 505 222',
-		'note'  => 'Tư vấn & đặt hàng mọi lúc',
-	],
-	[
-		'title' => 'Email',
-		'value' => 'info@dailyxedien.vn',
-		'note'  => 'Phản hồi trong vòng 2 giờ',
-	],
-	[
-		'title' => 'Chat Zalo',
-		'value' => 'Nhắn tin ngay',
-		'note'  => 'Trả lời nhanh trong 5 phút',
-	],
-	[
-		'title' => 'Showroom chính',
-		'value' => '466 Nguyễn Duy Trinh, Thủ Đức',
-		'note'  => 'Mở cửa: 8:00 – 21:00',
-	],
-];
-
-$fallback_icons = [
-	'<svg class="icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
-	'<svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
-	'<svg class="icon" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>',
-	'<svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
-];
+$section = $args ?? array();
 ?>
-<?php if ( ! empty( $cards ) ) : ?>
-<section class="mb-14 md:mb-20 mt-12">
+<section class="global-breadcrumb">
 	<div class="container">
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-			<?php foreach ( $cards as $index => $card ) :
-				// Determine link destination
-				$link_url = '#';
-				$target   = '';
-				$val      = trim( (string) ( $card['value'] ?? '' ) );
-				if ( 0 === $index ) {
-					$link_url = 'tel:' . preg_replace( '/[^0-9+]/', '', $val );
-				} elseif ( 1 === $index ) {
-					$link_url = 'mailto:' . $val;
-				} elseif ( 2 === $index ) {
-					$link_url = 'https://zalo.me/' . preg_replace( '/[^0-9+]/', '', $val ?: '0933505222' );
-					$target   = 'target="_blank"';
-				} else {
-					$link_url = 'https://maps.google.com/?q=' . urlencode( $val );
-					$target   = 'target="_blank"';
-				}
+		<nav aria-label="breadcrumbs" class="rank-math-breadcrumb">
+			<p>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+				<span class="separator"> - </span>
+				<span class="last">VINACOS Việt Nam – Liên hệ</span>
+			</p>
+		</nav>
+	</div>
+</section>
 
-				// Color mappings for icons
-				$color_classes = [
-					'bg-primary-50 text-primary-500',
-					'bg-emerald-50 text-emerald-500',
-					'bg-blue-50 text-blue-500',
-					'bg-amber-50 text-amber-500',
-				];
-				$bg_color = $color_classes[ $index % count( $color_classes ) ];
-				?>
-				<a href="<?php echo esc_url( $link_url ); ?>" <?php echo $target; ?> class="contact-card bg-white border border-slate-100 rounded-2xl p-6 shadow-premium hover:shadow-hover-card hover:-translate-y-1 transition-all text-center group cursor-pointer block">
-					<div class="w-16 h-16 rounded-2xl <?php echo esc_attr( $bg_color ); ?> flex items-center justify-center mx-auto mb-4 transition-transform <?php echo 0 === $index ? 'pulse-ring' : ''; ?>">
-						<?php
-						$icon = trim( (string) ( $card['icon'] ?? '' ) );
-						$icon = $icon ?: $fallback_icons[ $index % count( $fallback_icons ) ];
-						echo wp_kses( $icon, Helper::ksesSVG() );
-						?>
+<section class="contact-section section-large">
+	<div class="container">
+		<div class="row -mt-10">
+			<div class="col w-full mt-10 lg:w-1/3">
+				<div class="box-contact">
+					<h1 class="site-title">Liên hệ</h1>
+					<div class="footer-address mt-8">
+						<h2>CÔNG TY TNHH VINACOS</h2>
+						<ul class="mt-5">
+							<li><strong>Trụ sở: </strong>4E đường Cư Xá Đồng Tiến, Phường Diên Hồng, TP. Hồ Chí Minh, Việt Nam</li>
+							<li><strong>Nhà máy:</strong> 160 A12, Khu phố 2, Phường Phú Tân, Tỉnh Vĩnh Long, Việt Nam</li>
+							<li><strong>Hotline: </strong><a href="tel:0933505222">0933.505.222</a> – <a href="tel:0946544904">0946.544.904</a></li>
+							<li><strong>Email: </strong><a href="mailto:giacongvinacos@gmail.com">giacongvinacos@gmail.com</a></li>
+						</ul>
 					</div>
-					<h3 class="font-bold text-slate-800 mb-1 text-sm"><?php echo esc_html( $card['title'] ?? '' ); ?></h3>
-					<p class="text-base font-black text-slate-900 tracking-tight group-hover:text-primary-500 transition-colors"><?php echo wp_kses_post( $card['value'] ?? '' ); ?></p>
-					<?php if ( ! empty( $card['note'] ) ) : ?>
-						<p class="text-xs text-slate-400 mt-1"><?php echo esc_html( $card['note'] ); ?></p>
-					<?php endif; ?>
-				</a>
-			<?php endforeach; ?>
+				</div>
+			</div>
+			<div class="col w-full mt-10 lg:w-2/3">
+				<div class="contact-form">
+					<form action="#" method="post" class="wpcf7-form">
+						<h3>Vui lòng để lại thông tin để nhận TƯ VẤN GIẢI PHÁP PRODUCT INSIGHT MIỄN PHÍ.</h3>
+						<div class="row">
+							<div class="form-group col mt-8 w-full sm:w-1/2">
+								<input class="wpcf7-form-control wpcf7-text" placeholder="Họ và tên *" required type="text" name="FullName" />
+							</div>
+							<div class="form-group col mt-8 w-full sm:w-1/2">
+								<input class="wpcf7-form-control wpcf7-tel" placeholder="Số điện thoại *" required type="tel" name="Phone" />
+							</div>
+							<div class="form-group col mt-8 w-full sm:w-1/2">
+								<input class="wpcf7-form-control wpcf7-email" placeholder="Email *" required type="email" name="Email" />
+							</div>
+							<div class="form-group col mt-8 w-full sm:w-1/2">
+								<input class="wpcf7-form-control wpcf7-text" placeholder="Nhu cầu gia công (vd: Kem chống nắng, Serum...)" type="text" name="Need" />
+							</div>
+							<div class="form-group col mt-8 w-full">
+								<textarea class="wpcf7-form-control wpcf7-textarea" placeholder="Nội dung lời nhắn..." rows="4" name="Message"></textarea>
+							</div>
+							<div class="form-group col mt-8 w-full">
+								<button type="submit" class="btn-lined">
+									<span>Gửi yêu cầu tư vấn</span>
+									<?= spl_icon( 'plus', '', 16 ) ?>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </section>
-<?php endif; ?>

@@ -26,6 +26,55 @@ function spl_register_nav_menus(): void {
 }
 
 // --------------------------------------------------
+// Enqueue Unila Core Assets
+// --------------------------------------------------
+
+add_action( 'wp_enqueue_scripts', 'spl_enqueue_unila_assets', 20 );
+function spl_enqueue_unila_assets(): void {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$ver = '1.1.2';
+	$dir = get_template_directory_uri() . '/static';
+
+	// Unila Core CSS — global.min.css (reset, grid, typography, header, footer).
+	wp_enqueue_style( 'unila-global', $dir . '/css/unila-global.css', [], $ver );
+
+	// Unila Page CSS — main.min.css (home sections, banners, sliders, cards, etc.).
+	wp_enqueue_style( 'unila-main', $dir . '/css/unila-main.css', [ 'unila-global' ], $ver );
+
+	// Unila Core JS — global.min.js (jQuery + Swiper + animations).
+	wp_enqueue_script( 'unila-global-js', $dir . '/js/unila-global.js', [], $ver, true );
+
+	// Unila Page JS — main.min.js (header, slider, search, mobile menu interactions).
+	wp_enqueue_script( 'unila-main-js', $dir . '/js/unila-main.js', [ 'unila-global-js' ], $ver, true );
+}
+
+// Dequeue conflicting HD theme assets on Unila-style pages.
+add_action( 'wp_enqueue_scripts', 'spl_dequeue_conflicting_assets', 999 );
+add_action( 'wp_print_styles', 'spl_dequeue_conflicting_assets', 999 );
+function spl_dequeue_conflicting_assets(): void {
+	// Always isolate assets across all Unila pages, posts, products & archives.
+
+
+	// Theme compiled CSS conflicts with Unila grid/layout/typography.
+	foreach ( [ 'index-css', 'share-css', 'page-css', 'woocommerce-css' ] as $h ) {
+		wp_dequeue_style( $h );
+		wp_deregister_style( $h );
+	}
+
+	// Theme JS + WP jQuery — Unila global.js bundles jQuery 3.7.1 already.
+	// Two jQuery instances cause conflicts ($ undefined, event binding issues).
+	foreach ( [ 'jquery-core', 'jquery', 'jquery-migrate', 'index-js', 'home-js', 'preflight-js', 'dxd-js' ] as $h ) {
+		wp_dequeue_script( $h );
+		wp_deregister_script( $h );
+	}
+}
+
+
+
+// --------------------------------------------------
 // Main nav fallback (when no menu assigned to main-nav)
 // --------------------------------------------------
 

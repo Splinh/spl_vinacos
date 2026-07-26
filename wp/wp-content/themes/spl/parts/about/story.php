@@ -7,95 +7,34 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$data         = $args ?? [];
-$title        = $data['title'] ?? 'Chúng tôi là ai?';
-$content      = $data['content'] ?? '<strong>Dailyxedien.vn</strong> là hệ thống phân phối xe điện, xe máy điện và xe 50cc chính hãng, hoạt động với mục tiêu mang đến trải nghiệm mua xe rõ ràng, minh bạch cho mọi khách hàng.<br><br>Chúng tôi không chỉ bán xe — chúng tôi hướng dẫn khách hàng chọn đúng sản phẩm phù hợp với nhu cầu thực tế. Từ xe đi làm hằng ngày, xe đi học cho con, đến xe vận chuyển nhỏ cho kinh doanh — mỗi dòng xe đều được tư vấn kỹ lưỡng.';
-$image_id     = $data['image'] ?? 0;
-$badge_number = $data['badge_number'] ?? 'Uy tín hàng đầu';
-$badge_label  = $data['badge_label'] ?? 'Đại lý ủy quyền chính hãng';
-
-$image_url = $image_id ? wp_get_attachment_image_url( $image_id, 'large' ) : 'https://dailyxedien.vn/wp-content/uploads/2026/02/khai-truong-dai-ly-xe-dien-bluera-viet-nhat-ron-bike-pro-tai-can-tho-dlxd.jpg';
+$title     = $data['title'] ?? 'Nghiên cứu <br/> sản xuất <br/> mỹ phẩm';
+$image_url = 'https://unila.com.vn/wp-content/uploads/2026/04/Hanh-dong-vi-mot-ky-nguyen-my-pham-sach-tu-nguon.jpg';
 ?>
-<section class="py-12 md:py-16 bg-white overflow-hidden">
-	<div class="max-w-7xl mx-auto px-4">
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
-			
-			<!-- Image (Left on Desktop) -->
-			<div class="relative group reveal">
-				<div class="absolute -inset-4 bg-gradient-to-r from-primary-500/20 to-emerald-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-				<div class="relative rounded-2xl overflow-hidden shadow-hover-card">
-					<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="w-full h-72 md:h-96 object-cover" loading="lazy">
-					<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/80 to-transparent p-6">
-						<p class="text-white text-sm font-bold">Đội ngũ dailyxedien.vn</p>
-						<p class="text-slate-300 text-xs mt-1">Tận tâm phục vụ khách hàng mỗi ngày</p>
-					</div>
-				</div>
-				<!-- Floating badge -->
-				<div class="absolute -bottom-4 -right-4 md:-right-6 bg-white rounded-2xl shadow-premium p-4 border border-slate-100">
-					<div class="flex items-center gap-3">
-						<div class="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-							<svg class="w-5 h-5 text-emerald-500 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
-						</div>
-						<div>
-							<p class="text-sm font-bold text-slate-800"><?php echo esc_html( $badge_number ); ?></p>
-							<p class="text-[10px] text-slate-400"><?php echo esc_html( $badge_label ); ?></p>
-						</div>
+<section class="about-1-section section-large">
+	<div class="container">
+		<div class="row -mt-10 items-center">
+			<div class="col w-full mt-10 lg:w-5/12">
+				<div class="block-content block-content-1">
+					<h1 class="site-title" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+						<?php echo wp_kses_post( $title ); ?>
+					</h1>
+					<div class="site-desc mt-6" data-aos="fade-up" data-aos-duration="700" data-aos-delay="800">
+						<h2><span style="font-size: 14pt;"><strong>VINACOS &#8211; Hành động vì một kỷ nguyên mỹ phẩm sạch từ nguồn lực Việt.</strong></span></h2>
+						<p><strong><span style="color: #993300;"><i>Dẫn đầu</i></span></strong></p>
+						<p><i><span style="font-weight: 400;">VINACOS là doanh nghiệp khoa học &amp; công nghệ tiên phong trong nghiên cứu và sản xuất mỹ phẩm sạch tại Việt Nam.</span></i></p>
+						<p><span style="font-weight: 400;">Chúng tôi đặt tâm huyết vào con người, thiết bị và quy trình để mỗi sản phẩm đến tay đối tác đều được đảm bảo chất lượng. Dẫn đầu với VINACOS là đặt ra tiêu chuẩn mới, góp phần chứng minh mỹ phẩm Việt hoàn toàn có thể sánh ngang thế giới.</span></p>
+						<p><strong><span style="color: #993300;"><i>Thấu hiểu</i></span></strong></p>
+						<p><i><span style="font-weight: 400;">VINACOS đồng hành cùng các thương hiệu Việt, dùng nghiên cứu khoa học và sản xuất tạo ra những sản phẩm lành tính xứng đáng với làn da Việt.</span></i></p>
+						<p><span style="font-weight: 400;">Chúng tôi hiểu rằng người Việt xứng đáng được chăm sóc bằng những gì thực sự an toàn. Và các thương hiệu muốn làm điều đó cần một đối tác không chỉ biết sản xuất, mà còn biết lắng nghe, tư vấn và cùng định hình sản phẩm từ đầu.</span></p>
+						<p><span style="font-weight: 400;">VINACOS ở đây để làm đúng điều đó. Với nền tảng nghiên cứu khoa học và đội ngũ am hiểu ngành, chúng tôi cùng các đối tác đi từ ý tưởng đến thành quả, cho đến khi giá trị sản phẩm đến được với khách hàng.</span></p>
 					</div>
 				</div>
 			</div>
-
-			<!-- Text Content (Right on Desktop) -->
-			<div class="space-y-6 reveal">
-				<div>
-					<div class="flex items-center gap-3 mb-4">
-						<span class="w-1.5 h-6 bg-primary-500 rounded-full"></span>
-						<h2 class="text-2xl md:text-3xl font-black text-slate-900 tracking-tight"><?php echo esc_html( $title ); ?></h2>
-					</div>
-					<div class="text-sm md:text-base text-slate-600 leading-relaxed story-text-content">
-						<?php echo wp_kses_post( wpautop( $content ) ); ?>
-					</div>
-				</div>
-
-				<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-					<div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-						<div class="w-8 h-8 rounded-lg bg-primary-50 text-primary-500 flex items-center justify-center shrink-0 mt-0.5">
-							<svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-						</div>
-						<div>
-							<p class="text-sm font-bold text-slate-800">100% chính hãng</p>
-							<p class="text-xs text-slate-500 mt-0.5">Nhập trực tiếp từ nhà sản xuất</p>
-						</div>
-					</div>
-					<div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-						<div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-500 flex items-center justify-center shrink-0 mt-0.5">
-							<svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-						</div>
-						<div>
-							<p class="text-sm font-bold text-slate-800">Trả góp 0%</p>
-							<p class="text-xs text-slate-500 mt-0.5">Hỗ trợ hồ sơ nhanh chóng</p>
-						</div>
-					</div>
-					<div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-						<div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-500 flex items-center justify-center shrink-0 mt-0.5">
-							<svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-						</div>
-						<div>
-							<p class="text-sm font-bold text-slate-800">Bảo hành chính hãng</p>
-							<p class="text-xs text-slate-500 mt-0.5">Hệ thống bảo hành toàn quốc</p>
-						</div>
-					</div>
-					<div class="flex items-start gap-3 p-4 bg-slate-50 rounded-xl border border-slate-100">
-						<div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center shrink-0 mt-0.5">
-							<svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-						</div>
-						<div>
-							<p class="text-sm font-bold text-slate-800">Giao xe tận nơi</p>
-							<p class="text-xs text-slate-500 mt-0.5">Miễn phí bán kính 10km</p>
-						</div>
-					</div>
+			<div class="col w-full mt-10 lg:w-7/12">
+				<div class="image image-1 img-contain" data-aos="fade-left" data-aos-duration="700" data-aos-delay="300">
+					<img class="lozad" src="<?php echo esc_url( $image_url ); ?>" data-src="<?php echo esc_url( $image_url ); ?>" loading="lazy" alt="Hành động vì một kỷ nguyên mỹ phẩm sạch từ nguồn lực Việt.">
 				</div>
 			</div>
-
 		</div>
 	</div>
 </section>

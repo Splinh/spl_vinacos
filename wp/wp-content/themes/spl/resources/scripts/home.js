@@ -571,5 +571,38 @@
 			const messageInput = $( '#consult-message' );
 			if ( messageInput ) messageInput.value = '';
 		};
+
+		// ----------------------------------------------------
+		// J. UNILA COUNT-UP COUNTERS OBSERVER
+		// ----------------------------------------------------
+		const countElements = $$( '.count-up' );
+		if ( countElements.length && 'IntersectionObserver' in window ) {
+			const countObserver = new IntersectionObserver( ( entries, observer ) => {
+				entries.forEach( ( entry ) => {
+					if ( entry.isIntersecting ) {
+						const el = entry.target;
+						const target = parseInt( el.getAttribute( 'data-count' ) || '0', 10 );
+						let start = 0;
+						const duration = 2000;
+						const stepTime = Math.abs( Math.floor( duration / target ) ) || 20;
+
+						const timer = setInterval( () => {
+							start += Math.ceil( target / 50 ) || 1;
+							if ( start >= target ) {
+								el.textContent = target;
+								clearInterval( timer );
+							} else {
+								el.textContent = start;
+							}
+						}, stepTime );
+
+						observer.unobserve( el );
+					}
+				} );
+			}, { threshold: 0.2 } );
+
+			countElements.forEach( ( el ) => countObserver.observe( el ) );
+		}
 	} );
 } )();
+

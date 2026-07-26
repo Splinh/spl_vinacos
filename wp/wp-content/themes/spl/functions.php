@@ -80,6 +80,7 @@ define( 'THEME_URL', get_template_directory_uri() . '/' );
 // ── Project includes ────────────────────────────────
 
 require_once __DIR__ . '/inc/critical-css.php';
+require_once __DIR__ . '/inc/icons.php';
 require_once __DIR__ . '/inc/inline-js.php';
 require_once __DIR__ . '/inc/product-cache.php';
 require_once __DIR__ . '/inc/setup.php';

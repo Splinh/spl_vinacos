@@ -3,7 +3,7 @@
  * Template Name: Trang Chủ
  *
  * Home page template with ACF flexible content.
- * Renders sections from the htmlmau mockup.
+ * Replicates Unila design 100% with Labcos cosmetics OEM/ODM content.
  *
  * @package SPL
  */
@@ -31,66 +31,50 @@ if ( $sections ) :
 				get_template_part( 'parts/home/hero-slider', null, $section );
 				break;
 
-			case 'usp_bar':
-				get_template_part( 'parts/home/usp-bar', null, $section );
+			case 'about_section':
+				get_template_part( 'parts/home/about-section', null, $section );
 				break;
 
+			case 'rd_system':
+				get_template_part( 'parts/home/rd-system', null, $section );
+				break;
+
+			case 'key_numbers':
+				get_template_part( 'parts/home/key-numbers', null, $section );
+				break;
+
+			case 'product_showcase':
 			case 'categories':
-				get_template_part( 'parts/home/categories', null, $section );
+				get_template_part( 'parts/home/product-showcase', null, $section );
 				break;
 
-			case 'best_sellers':
-				get_template_part( 'parts/home/best-sellers', null, $section );
-				break;
-
-			case 'tech_spotlight':
-				get_template_part( 'parts/home/tech-spotlight', null, $section );
-				break;
-
-			case 'promo_banners':
-				get_template_part( 'parts/home/promo-banners', null, $section );
-				break;
-
-			case 'media_reviews':
-				get_template_part( 'parts/home/media-reviews', null, $section );
-				break;
-
-			case 'portfolio_gallery':
-				get_template_part( 'parts/home/portfolio-gallery', null, $section );
-				break;
-
-			case 'store_locator':
-				get_template_part( 'parts/home/store-locator', null, $section );
-				break;
-
+			case 'partners_section':
 			case 'brands':
-				get_template_part( 'parts/home/brands', null, $section );
+				get_template_part( 'parts/home/partners-section', null, $section );
 				break;
 
+			case 'news_section':
 			case 'news':
-				get_template_part( 'parts/home/news', null, $section );
+				get_template_part( 'parts/home/news-section', null, $section );
 				break;
 
+			case 'consult_modal':
 			case 'consult_form':
-				get_template_part( 'parts/home/consult-form', null, $section );
+				get_template_part( 'parts/home/consult-modal', null, $section );
 				break;
 		endswitch;
 	endforeach;
 
 else :
-	// Fallback: render basic mock sections in correct order when ACF is not configured.
+	// Fallback: render default Unila sections in exact visual sequence
 	get_template_part( 'parts/home/hero-slider' );
-	get_template_part( 'parts/home/usp-bar' );
-	get_template_part( 'parts/home/categories' );
-	get_template_part( 'parts/home/best-sellers' );
-	get_template_part( 'parts/home/tech-spotlight' );
-	get_template_part( 'parts/home/promo-banners' );
-	get_template_part( 'parts/home/media-reviews' );
-	get_template_part( 'parts/home/portfolio-gallery' );
-	get_template_part( 'parts/home/store-locator' );
-	get_template_part( 'parts/home/brands' );
-	get_template_part( 'parts/home/news' );
-	get_template_part( 'parts/home/consult-form' );
+	get_template_part( 'parts/home/about-section' );
+	get_template_part( 'parts/home/rd-system' );
+	get_template_part( 'parts/home/key-numbers' );
+	get_template_part( 'parts/home/product-showcase' );
+	get_template_part( 'parts/home/partners-section' );
+	get_template_part( 'parts/home/news-section' );
+	get_template_part( 'parts/home/consult-modal' );
 endif;
 
 get_footer();

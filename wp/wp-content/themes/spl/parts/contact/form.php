@@ -67,29 +67,26 @@ $zalo_url  = ! empty( $social['zalo']['url'] ) ? $social['zalo']['url'] : 'https
 							<div>
 								<label for="contact-email" class="block text-xs font-bold text-slate-700 mb-2">Email</label>
 								<input type="email" id="contact-email" name="email" placeholder="email@example.com"
-									class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-primary-500 transition-all">
-							</div>
-
-							<!-- Subject -->
+									class="w-full px-4 py-3 bg-slate-50 border border-slat							<!-- Subject -->
 							<div>
-								<label for="contact-subject" class="block text-xs font-bold text-slate-700 mb-2">Chủ đề <span class="text-red-500">*</span></label>
+								<label for="contact-subject" class="block text-xs font-bold text-slate-700 mb-2">Nhu cầu gia công <span class="text-red-500">*</span></label>
 								<select id="contact-subject" name="subject" required
 									class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-primary-500 transition-all appearance-none cursor-pointer">
-									<option value="">— Chọn chủ đề —</option>
-									<option value="tu-van">Tư vấn mua xe</option>
-									<option value="bao-hanh">Bảo hành & Sửa chữa</option>
-									<option value="tra-gop">Hỏi về trả góp</option>
-									<option value="hop-tac">Hợp tác đại lý</option>
-									<option value="gop-y">Góp ý dịch vụ</option>
-									<option value="khieu-nai">Khiếu nại</option>
-									<option value="khac">Khác</option>
+									<option value="">— Chọn dịch vụ gia công —</option>
+									<option value="serum">Gia công Serum / Essence chuyên sâu</option>
+									<option value="kem">Gia công Kem vỡ nước không Silicone</option>
+									<option value="mat-na">Gia công Mặt nạ & Tẩy tế bào chết</option>
+									<option value="duoc-my-pham">Gia công Dược mỹ phẩm Clinic / Spa</option>
+									<option value="sample">Đăng ký nhận Sample thử nghiệm</option>
+									<option value="bao-gia">Yêu cầu báo giá trọn gói OEM/ODM</option>
+									<option value="khac">Nhu cầu khác</option>
 								</select>
 							</div>
 
 							<!-- Message -->
 							<div>
-								<label for="contact-message" class="block text-xs font-bold text-slate-700 mb-2">Nội dung <span class="text-red-500">*</span></label>
-								<textarea id="contact-message" name="message" required rows="5" placeholder="Mô tả chi tiết nội dung bạn muốn liên hệ..."
+								<label for="contact-message" class="block text-xs font-bold text-slate-700 mb-2">Nội dung chi tiết <span class="text-red-500">*</span></label>
+								<textarea id="contact-message" name="message" required rows="5" placeholder="Mô tả ý tưởng sản phẩm, số lượng dự kiến hoặc yêu cầu công thức..."
 									class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm outline-none focus:bg-white focus:border-primary-500 transition-all resize-y"></textarea>
 							</div>
 
@@ -97,7 +94,7 @@ $zalo_url  = ! empty( $social['zalo']['url'] ) ? $social['zalo']['url'] : 'https
 							<button type="submit" id="contact-submit-btn"
 								class="w-full sm:w-auto bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 py-3.5 rounded-xl shadow-lg shadow-primary-500/20 hover:shadow-primary-500/30 transition-all flex items-center justify-center gap-2 text-sm active:scale-[0.98]">
 								<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-								<span>Gửi tin nhắn</span>
+								<span>Gửi yêu cầu tư vấn</span>
 							</button>
 						</form>
 					<?php endif; ?>
@@ -113,23 +110,23 @@ $zalo_url  = ! empty( $social['zalo']['url'] ) ? $social['zalo']['url'] : 'https
 						<div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-500 flex items-center justify-center">
 							<svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
 						</div>
-						<h3 class="font-bold text-slate-800 text-sm"><?php echo esc_html( $hotline_title ); ?></h3>
+						<h3 class="font-bold text-slate-800 text-sm">Thời Gian Làm Việc</h3>
 					</div>
 					<div class="space-y-3 text-sm">
 						<div class="flex justify-between items-center py-2 border-b border-slate-50">
 							<span class="text-slate-600">Thứ 2 – Thứ 6</span>
-							<span class="font-bold text-slate-800">8:00 – 21:00</span>
+							<span class="font-bold text-slate-800">8:00 – 17:30</span>
 						</div>
 						<div class="flex justify-between items-center py-2 border-b border-slate-50">
 							<span class="text-slate-600">Thứ 7</span>
-							<span class="font-bold text-slate-800">8:00 – 20:00</span>
+							<span class="font-bold text-slate-800">8:00 – 12:00</span>
 						</div>
 						<div class="flex justify-between items-center py-2 border-b border-slate-50">
 							<span class="text-slate-600">Chủ nhật</span>
-							<span class="font-bold text-slate-800">9:00 – 18:00</span>
+							<span class="font-bold text-slate-400">Nghỉ</span>
 						</div>
 						<div class="flex justify-between items-center py-2">
-							<span class="text-slate-600">Hotline tư vấn</span>
+							<span class="text-slate-600">Tư vấn Kỹ thuật R&D</span>
 							<span class="font-bold text-emerald-600">24/7</span>
 						</div>
 					</div>
@@ -156,7 +153,7 @@ $zalo_url  = ! empty( $social['zalo']['url'] ) ? $social['zalo']['url'] : 'https
 							<?php endif; ?>
 							<?php if ( $yt_url ) : ?>
 								<a href="<?php echo esc_url( $yt_url ); ?>" class="flex items-center gap-3 p-3 bg-red-50 hover:bg-red-100 rounded-xl transition-colors group" target="_blank" rel="noopener">
-									<svg class="w-5 h-5 text-red-600 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
+									<svg class="w-5 h-5 text-red-600 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 1 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 1 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg>
 									<span class="text-xs font-semibold text-slate-700">YouTube</span>
 								</a>
 							<?php endif; ?>
@@ -177,8 +174,8 @@ $zalo_url  = ! empty( $social['zalo']['url'] ) ? $social['zalo']['url'] : 'https
 						<div class="w-12 h-12 rounded-xl bg-white/15 flex items-center justify-center mb-4">
 							<svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
 						</div>
-						<h3 class="font-bold text-lg mb-2">Hỗ trợ khẩn cấp</h3>
-						<p class="text-sm text-white/75 mb-4 leading-relaxed">Đội ngũ kỹ thuật hỗ trợ cứu hộ xe điện tận nơi 24/7. Gọi ngay khi gặp sự cố.</p>
+						<h3 class="font-bold text-lg mb-2">Tư vấn Kỹ thuật R&D</h3>
+						<p class="text-sm text-white/75 mb-4 leading-relaxed">Đội ngũ dược sĩ & kỹ sư hóa mỹ phẩm hỗ trợ tư vấn 1-1 công thức độc quyền và thủ tục công bố Y tế.</p>
 						<a href="<?php echo esc_url( $hotline_url ); ?>" class="inline-flex items-center gap-2 bg-white text-primary-600 hover:bg-slate-50 px-5 py-2.5 rounded-xl text-sm font-bold transition-all shadow-md">
 							<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
 							<span><?php echo esc_html( $hotline ); ?></span>

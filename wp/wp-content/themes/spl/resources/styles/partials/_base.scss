@@ -27,8 +27,15 @@ img[src=''] {
 }
 
 // ============================================================================
-// BASE STYLES
+// SVG ICON STYLES (replaces FontAwesome — zero external dependencies)
 // ============================================================================
+
+.spl-icon {
+	display: inline-block;
+	vertical-align: middle;
+	flex-shrink: 0;
+	color: currentColor;
+}
 
 // Aspect ratio utilities
 .as-1-1 {

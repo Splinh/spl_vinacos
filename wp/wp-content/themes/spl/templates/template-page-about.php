@@ -1,90 +1,36 @@
 <?php
 /**
- * Template Name: Giới Thiệu
- *
- * About page template with ACF flexible content.
+ * Template Name: Giới Thiệu — 100% Exact Unila HTML layout for /tam-the-cong-su-unila-viet-nam/.
  *
  * @package SPL
  */
-
-use SPL\Core\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
 get_header();
 ?>
 
-<!-- Breadcrumb -->
-<div class="breadcrumb-bar">
-	<div class="container">
-		<nav class="breadcrumb" aria-label="Breadcrumb">
-			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-				<svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-				<?php esc_html_e( 'Trang chủ', 'spl' ); ?>
-			</a>
-			<svg class="icon breadcrumb__sep" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-			<span class="breadcrumb__current"><?php the_title(); ?></span>
-		</nav>
-	</div>
-</div>
+<!-- Banner Child & Breadcrumbs -->
+<?php get_template_part( 'parts/about/hero' ); ?>
+
+<!-- About Section 1: Tổ chức kiên định & Thông điệp từ trái tim -->
+<?php get_template_part( 'parts/about/story' ); ?>
+<?php get_template_part( 'parts/about/message' ); ?>
+
+<!-- About Section 2: Timeline Từng mốc dấu ấn -->
+<?php get_template_part( 'parts/about/timeline' ); ?>
+
+<!-- About Section 3: Tầm nhìn & Sứ mệnh -->
+<?php get_template_part( 'parts/about/mission' ); ?>
+
+<!-- About Section 4: Những con số biết nói -->
+<?php get_template_part( 'parts/about/stats' ); ?>
+
+<!-- About Section 5: Sức mạnh tập thể (Slide 8 phòng ban) -->
+<?php get_template_part( 'parts/about/team' ); ?>
+
+<!-- About Section 6: Nhà máy & Quy trình sản xuất -->
+<?php get_template_part( 'parts/about/cta' ); ?>
 
 <?php
-$sections = Helper::getField( 'about_sections' );
-
-if ( $sections ) :
-	foreach ( $sections as $section ) :
-		// Skip disabled sections.
-		if ( ! empty( $section['disable'] ) ) :
-			continue;
-		endif;
-
-		$layout = $section['acf_fc_layout'] ?? '';
-
-		switch ( $layout ) :
-			case 'about_hero':
-				get_template_part( 'parts/about/hero', null, $section );
-				break;
-			case 'about_story':
-				get_template_part( 'parts/about/story', null, $section );
-				break;
-			case 'about_mission':
-				get_template_part( 'parts/about/mission', null, $section );
-				break;
-			case 'about_values':
-				get_template_part( 'parts/about/values', null, $section );
-				break;
-			case 'about_why_choose_us':
-				get_template_part( 'parts/about/why-choose-us', null, $section );
-				break;
-			case 'about_timeline':
-				get_template_part( 'parts/about/timeline', null, $section );
-				break;
-			case 'about_team':
-				get_template_part( 'parts/about/team', null, $section );
-				break;
-			case 'about_partners':
-				get_template_part( 'parts/about/partners', null, $section );
-				break;
-			case 'about_stats':
-				get_template_part( 'parts/about/stats', null, $section );
-				break;
-			case 'about_cta':
-				get_template_part( 'parts/about/cta', null, $section );
-				break;
-		endswitch;
-	endforeach;
-
-else :
-	// Fallback when ACF not configured.
-	get_template_part( 'parts/about/hero' );
-	get_template_part( 'parts/about/story' );
-	get_template_part( 'parts/about/mission' );
-	get_template_part( 'parts/about/values' );
-	get_template_part( 'parts/about/why-choose-us' );
-	get_template_part( 'parts/about/timeline' );
-	get_template_part( 'parts/about/team' );
-	get_template_part( 'parts/about/partners' );
-	get_template_part( 'parts/about/cta' );
-endif;
-
 get_footer();
