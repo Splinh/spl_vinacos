@@ -4310,7 +4310,15 @@ header .header-logo{
 }
 header .header-logo img{
   width: auto;
-  height: calc(32/1920*100rem);
+  height: 52px !important;
+  max-height: 64px !important;
+  object-fit: contain;
+}
+@media (min-width: 1200px){
+  header .header-logo img{
+    height: 60px !important;
+    max-height: 68px !important;
+  }
 }
 header .header-center{
   display: none;

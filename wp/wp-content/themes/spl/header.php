@@ -25,7 +25,7 @@ defined( 'ABSPATH' ) || exit;
 		<div class="header-logo">
 			<p>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<img decoding="async" class="alignnone size-full wp-image-81" src="<?php echo esc_url( get_template_directory_uri() . '/static/img/logo.png' ); ?>" alt="VINACOS" width="171" height="32" />
+					<img decoding="async" class="alignnone size-full wp-image-81" src="<?php echo esc_url( get_template_directory_uri() . '/static/img/logo.png' ); ?>" alt="VINACOS" style="height: 56px; width: auto; max-height: 64px; object-fit: contain;" />
 				</a>
 			</p>
 		</div>
