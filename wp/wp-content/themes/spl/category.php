@@ -1,6 +1,6 @@
 <?php
 /**
- * Post Archive Template
+ * Post Category Taxonomy Archive Template
  *
  * Uses the exact same news archive layout as home.php.
  *

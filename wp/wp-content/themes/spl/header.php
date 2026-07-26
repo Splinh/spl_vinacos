@@ -36,63 +36,53 @@ defined( 'ABSPATH' ) || exit;
 						<a href="<?php echo esc_url( home_url( '/tam-the-cong-su-unila-viet-nam/' ) ); ?>">TÂM THẾ CỘNG SỰ</a>
 					</li>
 					<li class="menu-item menu-item-type-taxonomy menu-item-object-products menu-item-has-children">
-						<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Sản phẩm</a>
+						<a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>">Sản phẩm</a>
 						<div class="mega-menu">
 							<div class="container">
 								<ul class="sub-menu">
-									<li class="menu-item menu-item-has-children">
-										<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Sản Phẩm Chăm Sóc Da Mặt</a>
-										<div class="mega-wrap">
-											<ul class="sub-menu">
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-sua-rua-mat-dang-kem-unila/' ) ); ?>" data-walker-img="https://unila.com.vn/wp-content/uploads/2026/04/CHAT-1.jpg">Sữa Rửa Mặt Dạng Kem</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>" data-walker-img="https://unila.com.vn/wp-content/uploads/2026/04/CHAT-SON-2.jpg">Tẩy Tế Bào Chết Mặt</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>" data-walker-img="https://unila.com.vn/wp-content/uploads/2026/04/CHAT-3.jpg">Toner / Nước Hoa Hồng</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>" data-walker-img="https://unila.com.vn/wp-content/uploads/2026/04/CHAT-SON-4.jpg">Serum / Tinh Chất</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Kem Dưỡng Da Mặt</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Mặt Nạ Dưỡng Da</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Chống Nắng</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Son Dưỡng Môi</a></li>
-											</ul>
-											<div class="walker-preview img-cover"><img src="https://unila.com.vn/wp-content/uploads/2026/04/CHAT-1.jpg" alt="Preview"></div>
-										</div>
-									</li>
-									<li class="menu-item menu-item-has-children">
-										<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Sản Phẩm Chăm Sóc Body</a>
-										<div class="mega-wrap">
-											<ul class="sub-menu">
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Tẩy Tế Bào Chết Body</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Sữa Tắm</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Tắm Trắng</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Body Oil</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Kem Body</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Chống Nắng Body</a></li>
-											</ul>
-											<div class="walker-preview img-cover"><img src="https://unila.com.vn/wp-content/uploads/2026/04/CHAT-SON-2.jpg" alt="Preview"></div>
-										</div>
-									</li>
-									<li class="menu-item menu-item-has-children">
-										<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Sản Phẩm Chăm Sóc Tóc</a>
-										<div class="mega-wrap">
-											<ul class="sub-menu">
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Dầu Gội</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Dầu Xả</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Tẩy Tế Bào Chết Da Đầu</a></li>
-											</ul>
-											<div class="walker-preview img-cover"><img src="https://unila.com.vn/wp-content/uploads/2026/04/CHAT-3.jpg" alt="Preview"></div>
-										</div>
-									</li>
-									<li class="menu-item menu-item-has-children">
-										<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Sản Phẩm Cá Nhân & Spa</a>
-										<div class="mega-wrap">
-											<ul class="sub-menu">
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Nước Hoa</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Body Mist</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Lăn Khử Mùi</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Sản Phẩm Dành Cho Spa</a></li>
-											</ul>
-											<div class="walker-preview img-cover"><img src="https://unila.com.vn/wp-content/uploads/2026/04/CHAT-SON-4.jpg" alt="Preview"></div>
-										</div>
-									</li>
+									<?php
+									$mega_cats = array(
+										array( 'slug' => 'cham-soc-da-mat', 'title' => 'Chăm sóc da mặt & Body' ),
+										array( 'slug' => 'tinh-dau', 'title' => 'Tinh dầu thiên nhiên' ),
+										array( 'slug' => 'dau-nen', 'title' => 'Dầu nền nguyên chất' ),
+										array( 'slug' => 'bot-nguyen-lieu', 'title' => 'Bột nguyên liệu & Gia dụng' ),
+									);
+
+									foreach ( $mega_cats as $mc ) :
+										$term = get_term_by( 'slug', $mc['slug'], 'product_cat' );
+										$term_url = $term ? get_term_link( $term ) : home_url( '/shop/' );
+										
+										// Get up to 5 products for sub-menu
+										$prods = get_posts( array(
+											'post_type'      => 'product',
+											'posts_per_page' => 5,
+											'tax_query'      => array(
+												array(
+													'taxonomy' => 'product_cat',
+													'field'    => 'slug',
+													'terms'    => $mc['slug'],
+												),
+											),
+										) );
+										
+										$preview_img = ! empty( $prods ) ? get_the_post_thumbnail_url( $prods[0]->ID, 'medium' ) : get_template_directory_uri() . '/static/img/logo.png';
+										?>
+										<li class="menu-item menu-item-has-children">
+											<a href="<?php echo esc_url( $term_url ); ?>"><?php echo esc_html( $mc['title'] ); ?></a>
+											<div class="mega-wrap">
+												<ul class="sub-menu">
+													<?php if ( ! empty( $prods ) ) : ?>
+														<?php foreach ( $prods as $p ) : ?>
+															<li><a href="<?php echo esc_url( get_permalink( $p ) ); ?>"><?php echo esc_html( get_the_title( $p ) ); ?></a></li>
+														<?php endforeach; ?>
+													<?php else : ?>
+														<li><a href="<?php echo esc_url( $term_url ); ?>">Xem tất cả</a></li>
+													<?php endif; ?>
+												</ul>
+												<div class="walker-preview img-cover"><img src="<?php echo esc_url( $preview_img ); ?>" alt="<?php echo esc_attr( $mc['title'] ); ?>"></div>
+											</div>
+										</li>
+									<?php endforeach; ?>
 								</ul>
 							</div>
 						</div>
@@ -105,18 +95,37 @@ defined( 'ABSPATH' ) || exit;
 						<div class="mega-menu">
 							<div class="container">
 								<ul class="sub-menu">
-									<li class="menu-item"><a href="<?php echo esc_url( home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>">Xu hướng mỹ phẩm</a></li>
-									<li class="menu-item"><a href="<?php echo esc_url( home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>">Tin Tức Mỹ Phẩm VINACOS</a></li>
-									<li class="menu-item menu-item-has-children">
-										<a href="<?php echo esc_url( home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>">Sự Kiện</a>
-										<div class="mega-wrap">
-											<ul class="sub-menu">
-												<li><a href="<?php echo esc_url( home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>">Hoạt động công ty</a></li>
-												<li><a href="<?php echo esc_url( home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>">Hoạt động xã hội</a></li>
-											</ul>
-											<div class="walker-preview img-cover"><img src="https://unila.com.vn/wp-content/uploads/2026/04/LAB.jpg" alt="Preview"></div>
-										</div>
-									</li>
+									<?php
+									$news_cats = array(
+										array( 'slug' => 'tin-tuc', 'title' => 'Tin Tức & Thị Trường' ),
+										array( 'slug' => 'blog', 'title' => 'Blog Làm Đẹp' ),
+										array( 'slug' => 'dich-vu-xe-dien', 'title' => 'Dịch Vụ Gia Công' ),
+									);
+
+									foreach ( $news_cats as $nc ) :
+										$cat = get_category_by_slug( $nc['slug'] );
+										$cat_url = $cat ? get_category_link( $cat ) : home_url( '/tin-tuc-unila-viet-nam/' );
+										
+										$posts = get_posts( array(
+											'post_type'      => 'post',
+											'posts_per_page' => 4,
+											'category_name'  => $nc['slug'],
+										) );
+										
+										$preview_img = ! empty( $posts ) ? get_the_post_thumbnail_url( $posts[0]->ID, 'medium' ) : get_template_directory_uri() . '/static/img/logo.png';
+										?>
+										<li class="menu-item menu-item-has-children">
+											<a href="<?php echo esc_url( $cat_url ); ?>"><?php echo esc_html( $nc['title'] ); ?></a>
+											<div class="mega-wrap">
+												<ul class="sub-menu">
+													<?php foreach ( $posts as $ps ) : ?>
+														<li><a href="<?php echo esc_url( get_permalink( $ps ) ); ?>"><?php echo esc_html( get_the_title( $ps ) ); ?></a></li>
+													<?php endforeach; ?>
+												</ul>
+												<div class="walker-preview img-cover"><img src="<?php echo esc_url( $preview_img ); ?>" alt="<?php echo esc_attr( $nc['title'] ); ?>"></div>
+											</div>
+										</li>
+									<?php endforeach; ?>
 								</ul>
 							</div>
 						</div>

@@ -30,7 +30,16 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 			<p>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
 				<span class="separator"> - </span>
-				<span class="last">Sản phẩm</span>
+				<?php
+				$queried_obj = get_queried_object();
+				if ( is_tax( 'product_cat' ) && ! empty( $queried_obj->name ) ) :
+					?>
+					<a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>">Sản phẩm</a>
+					<span class="separator"> - </span>
+					<span class="last"><?php echo esc_html( $queried_obj->name ); ?></span>
+				<?php else : ?>
+					<span class="last">Sản phẩm</span>
+				<?php endif; ?>
 			</p>
 		</nav>
 	</div>
@@ -42,87 +51,88 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 			<!-- Main Left Product List (2/3) -->
 			<div class="col w-full mt-10 lg:w-2/3 xl:w-3/4">
 				<div class="product-wrap">
+					<?php
+					$queried_obj = get_queried_object();
+					$page_title = 'Sản phẩm gia công VINACOS';
+					if ( is_tax( 'product_cat' ) && ! empty( $queried_obj->name ) ) {
+						$page_title = $queried_obj->name;
+					}
+					?>
 					<h1 class="site-title">
-						Sản phẩm gia công VINACOS
+						<?php echo esc_html( $page_title ); ?>
 					</h1>
 					<div class="product-list mt-10">
 						<?php
-						$products = array(
-							array(
-								'title' => 'Sữa Rửa Mặt Dạng Kem',
-								'url'   => home_url( '/san-pham-sua-rua-mat-dang-kem-unila/' ),
-								'front' => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-SUA-RUA-MAT-DANG-KEM-min-1.png',
-								'back'  => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-SUA-RUA-MAT-DANG-KEM-min-1.png',
-								'desc'  => 'Sữa Rửa Mặt Dạng Kem với kết cấu chất kem đặc, kết hợp cùng nhiều hoạt chất dưỡng da làm sáng da, cấp ẩm, tẩy tế bào chết nhẹ nhàng và làm sạch sâu bụi mịn.',
-								'tag'   => 'Hot',
-							),
-							array(
-								'title' => 'Lăn khử mùi',
-								'url'   => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-								'front' => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-LAN-KHU-MUI-min-1.png',
-								'back'  => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-LAN-KHU-MUI-min-1.png',
-								'desc'  => 'Công thức lăn khử mùi kiểm soát tuyến mồ hôi hiệu quả 48h, kháng khuẩn, mờ thâm vùng da dưới cánh tay không gây ố vàng áo.',
-								'tag'   => 'New',
-							),
-							array(
-								'title' => 'Serum Dưỡng Môi',
-								'url'   => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-								'front' => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-Serum-duong-moi-min.png',
-								'back'  => 'https://unila.com.vn/wp-content/uploads/2024/07/SERUM-DUONG-MOI-min.jpg',
-								'desc'  => 'Chiết xuất từ thiên nhiên, mang đến công dụng làm mềm lớp biểu bì môi, hỗ trợ làm lành vết nứt nẻ trên môi.',
-								'tag'   => 'New',
-							),
-							array(
-								'title' => 'Tẩy Tế Bào Chết Kem Muối',
-								'url'   => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-								'front' => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-TAY-TE-BAO-KEM-MUOI.png',
-								'back'  => 'https://unila.com.vn/wp-content/uploads/2024/07/KEM-MUOI-min.jpg',
-								'desc'  => 'Chất muối sánh mịn kết hợp cùng hạt muối khoáng, giúp loại bỏ lớp sừng dư thừa trên cơ thể để lộ ra làn da sáng mịn, khỏe mạnh.',
-								'tag'   => 'New',
-							),
-							array(
-								'title' => 'Body Mist',
-								'url'   => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-								'front' => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-Body-Mist-min-1.png',
-								'back'  => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-Body-Mist-min-1.png',
-								'desc'  => 'Xịt thâm body hương thơm nhẹ nhàng quyến rũ, khóa ẩm dài lâu mang lại cảm giác tươi mát dễ chịu suốt ngày dài.',
-								'tag'   => 'Hot',
-							),
-							array(
-								'title' => 'Nước Hoa Cao Cấp',
-								'url'   => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-								'front' => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-SUA-RUA-MAT-DANG-KEM-min-1.png',
-								'back'  => 'https://unila.com.vn/wp-content/uploads/2024/07/ANH-BIA-SUA-RUA-MAT-DANG-KEM-min-1.png',
-								'desc'  => 'Gia công nước hoa tinh dầu nhập khẩu Pháp với 3 tầng hương độc đáo, độ lưu hương từ 8 đến 12 tiếng.',
-								'tag'   => 'Best',
-							),
+						$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+						$args  = array(
+							'post_type'      => 'product',
+							'post_status'    => 'publish',
+							'posts_per_page' => 12,
+							'paged'          => $paged,
 						);
+						if ( is_tax( 'product_cat' ) && ! empty( $queried_obj->slug ) ) {
+							$args['tax_query'] = array(
+								array(
+									'taxonomy' => 'product_cat',
+									'field'    => 'slug',
+									'terms'    => $queried_obj->slug,
+								),
+							);
+						}
 
-						foreach ( $products as $prod ) :
+						$product_query = new WP_Query( $args );
+
+						if ( $product_query->have_posts() ) :
+							while ( $product_query->have_posts() ) :
+								$product_query->the_post();
+								$p_id       = get_the_ID();
+								$p_title    = get_the_title();
+								$p_url      = get_permalink();
+								$p_thumb    = get_the_post_thumbnail_url( $p_id, 'medium_large' ) ?: get_template_directory_uri() . '/static/img/logo.png';
+								$p_desc     = get_the_excerpt() ?: wp_trim_words( get_the_content(), 20 );
+								?>
+								<article class="product-item">
+									<div class="image">
+										<a class="img-scale flipper" href="<?php echo esc_url( $p_url ); ?>" title="<?php echo esc_attr( $p_title ); ?>">
+											<img class="lozad front" src="<?php echo esc_url( $p_thumb ); ?>" data-src="<?php echo esc_url( $p_thumb ); ?>" loading="lazy" alt="<?php echo esc_attr( $p_title ); ?>">
+											<img class="lozad back" src="<?php echo esc_url( $p_thumb ); ?>" data-src="<?php echo esc_url( $p_thumb ); ?>" loading="lazy" alt="<?php echo esc_attr( $p_title ); ?>">
+										</a>
+										<span class="product-tag">HOT</span>
+									</div>
+									<div class="caption">
+										<h3 class="title">
+											<a href="<?php echo esc_url( $p_url ); ?>" title="<?php echo esc_attr( $p_title ); ?>">
+												<?php echo esc_html( $p_title ); ?>
+											</a>
+										</h3>
+										<div class="desc">
+											<?php echo esc_html( wp_strip_all_tags( $p_desc ) ); ?>
+										</div>
+									</div>
+								</article>
+								<?php
+							endwhile;
+							wp_reset_postdata();
+						else :
+							echo '<p class="col-span-full text-slate-500">Chưa có sản phẩm nào trong danh mục này.</p>';
+						endif;
 						?>
-						<article class="product-item">
-							<div class="image">
-								<a class="img-scale flipper" href="<?php echo esc_url( $prod['url'] ); ?>" title="<?php echo esc_attr( $prod['title'] ); ?>">
-									<img class="lozad front" src="<?php echo esc_url( $prod['front'] ); ?>" data-src="<?php echo esc_url( $prod['front'] ); ?>" loading="lazy" alt="<?php echo esc_attr( $prod['title'] ); ?>">
-									<img class="lozad back" src="<?php echo esc_url( $prod['back'] ); ?>" data-src="<?php echo esc_url( $prod['back'] ); ?>" loading="lazy" alt="<?php echo esc_attr( $prod['title'] ); ?>">
-								</a>
-								<?php if ( ! empty( $prod['tag'] ) ) : ?>
-									<span class="product-tag"><?php echo esc_html( $prod['tag'] ); ?></span>
-								<?php endif; ?>
-							</div>
-							<div class="caption">
-								<h3 class="title">
-									<a href="<?php echo esc_url( $prod['url'] ); ?>" title="<?php echo esc_attr( $prod['title'] ); ?>">
-										<?php echo esc_html( $prod['title'] ); ?>
-									</a>
-								</h3>
-								<div class="desc">
-									<?php echo esc_html( $prod['desc'] ); ?>
-								</div>
-							</div>
-						</article>
-						<?php endforeach; ?>
 					</div>
+
+					<?php if ( $product_query->max_num_pages > 1 ) : ?>
+						<div class="pagination-wrap mt-8">
+							<?php
+							echo paginate_links( array(
+								'base'      => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+								'format'    => '?paged=%#%',
+								'current'   => max( 1, get_query_var( 'paged' ) ),
+								'total'     => $product_query->max_num_pages,
+								'prev_text' => '&laquo; Trước',
+								'next_text' => 'Sau &raquo;',
+							) );
+							?>
+						</div>
+					<?php endif; ?>
 				</div>
 			</div>
 
@@ -133,41 +143,28 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 					<div class="box-close"><?= spl_icon( 'close', '', 16 ) ?></div>
 					<div class="box-body">
 						<ul class="mega-list">
-							<li class="has-mega active">
-								<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>" title="Sản Phẩm Chăm Sóc Da Mặt">Sản Phẩm Chăm Sóc Da Mặt</a>
-								<span class="toggle-mega"></span>
-								<ul class="mega-list">
-									<li class="active"><a href="<?php echo esc_url( home_url( '/san-pham-sua-rua-mat-dang-kem-unila/' ) ); ?>">Sữa Rửa Mặt Dạng Kem</a></li>
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Tẩy Tế Bào Chết Mặt</a></li>
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Toner / Nước Hoa Hồng</a></li>
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Serum / Tinh Chất</a></li>
-								</ul>
+							<li class="<?php echo ( ! is_tax( 'product_cat' ) ) ? 'active' : ''; ?>">
+								<a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>">Tất cả sản phẩm</a>
 							</li>
-							<li class="has-mega">
-								<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>" title="Sản Phẩm Chăm Sóc Body">Sản Phẩm Chăm Sóc Body</a>
-								<span class="toggle-mega"></span>
-								<ul class="mega-list">
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Sữa Tắm</a></li>
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Tắm Trắng</a></li>
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Kem Body</a></li>
-								</ul>
-							</li>
-							<li class="has-mega">
-								<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>" title="Sản Phẩm Chăm Sóc Tóc">Sản Phẩm Chăm Sóc Tóc</a>
-								<span class="toggle-mega"></span>
-								<ul class="mega-list">
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Dầu Gội</a></li>
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Dầu Xả</a></li>
-								</ul>
-							</li>
-							<li class="has-mega">
-								<a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>" title="Sản Phẩm Cá Nhân">Sản Phẩm Cá Nhân</a>
-								<span class="toggle-mega"></span>
-								<ul class="mega-list">
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Nước Hoa</a></li>
-									<li><a href="<?php echo esc_url( home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>">Lăn Khử Mùi</a></li>
-								</ul>
-							</li>
+							<?php
+							$p_terms = get_terms( array(
+								'taxonomy'   => 'product_cat',
+								'slug'       => array( 'tinh-dau', 'dau-nen', 'bot-nguyen-lieu', 'san-pham-gia-dung', 'cham-soc-co-the', 'cham-soc-da-mat', 'cham-soc-me-bim', 'san-pham-cho-nam', 'best-seller' ),
+								'hide_empty' => false,
+							) );
+							if ( ! empty( $p_terms ) && ! is_wp_error( $p_terms ) ) :
+								foreach ( $p_terms as $term ) :
+									$is_active = ( is_tax( 'product_cat' ) && $queried_obj && $queried_obj->term_id === $term->term_id ) ? 'active' : '';
+									?>
+									<li class="<?php echo esc_attr( $is_active ); ?>">
+										<a href="<?php echo esc_url( get_term_link( $term ) ); ?>" title="<?php echo esc_attr( $term->name ); ?>">
+											<?php echo esc_html( $term->name ); ?> (<?php echo (int) $term->count; ?>)
+										</a>
+									</li>
+									<?php
+								endforeach;
+							endif;
+							?>
 						</ul>
 					</div>
 				</div>
