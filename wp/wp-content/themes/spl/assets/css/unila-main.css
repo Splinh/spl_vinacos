@@ -7585,26 +7585,40 @@ header .wpml-ls.wpml-ls-legacy-dropdown-click > ul > li > a::after {
 
 header .button-menu {
   display: flex !important;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  color: #1e60a3 !important;
-  font-size: 24px;
-  margin-left: 12px;
-}
-header .button-menu svg,
-header .button-menu .spl-icon {
+  flex-direction: column !important;
+  justify-content: space-between !important;
   width: 26px !important;
-  height: 26px !important;
-  stroke: #1e60a3 !important;
-  color: #1e60a3 !important;
+  height: 18px !important;
+  cursor: pointer !important;
+  z-index: 100 !important;
+  margin-left: 12px !important;
+}
+header .button-menu span {
   display: block !important;
+  width: 100% !important;
+  height: 2px !important;
+  background-color: #1e60a3 !important;
+  border-radius: 2px !important;
+  transition: all 0.3s ease-in-out !important;
+}
+header .button-menu.active span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg) !important;
+}
+header .button-menu.active span:nth-child(2) {
+  opacity: 0 !important;
+}
+header .button-menu.active span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg) !important;
 }
 
 @media (min-width: 1024px) {
   header .button-menu {
     display: none !important;
   }
+}
+
+.mobile-wrap {
+  background-color: rgba(30, 96, 163, 0.96) !important;
 }
 
 /*# sourceMappingURL=main.min.css.map */

@@ -142,7 +142,9 @@ defined( 'ABSPATH' ) || exit;
 				</div>
 			</div>
 			<div class="button-menu" id="buttonMenu">
-				<?= spl_icon( 'menu', '', 24 ) ?>
+				<span></span>
+				<span></span>
+				<span></span>
 			</div>
 		</div>
 	</div>
