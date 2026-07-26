@@ -28,22 +28,22 @@
 	 * Usage semantic: .text-primary, .bg-primary, .bg-accent, .bg-navy ...
 	 * Usage scale (theo htmlmau): .bg-primary-600, .text-primary-500 ...
 	 * ====================================================================== */
-	--color-primary: #1e73be;
-	--color-primary-hover: #155a92;
+	--color-primary: #1e60a3;
+	--color-primary-hover: #164f88;
 	--color-secondary: #002647;
 	--color-secondary-hover: #001a33;
 
-	/* Primary scale (xanh thương hiệu) */
-	--color-primary-50: #eaf3fb;
-	--color-primary-100: #cfe3f5;
-	--color-primary-200: #a6ccec;
-	--color-primary-300: #6ba9dd;
-	--color-primary-400: #3d8ccf;
-	--color-primary-500: #1e73be;
-	--color-primary-600: #155a92;
-	--color-primary-700: #104a78;
-	--color-primary-800: #0d3c61;
-	--color-primary-900: #002647;
+	/* Primary scale (xanh VINACOS logo) */
+	--color-primary-50: #eef5fc;
+	--color-primary-100: #d9e8f7;
+	--color-primary-200: #b8d4ee;
+	--color-primary-300: #88b7e2;
+	--color-primary-400: #5193d2;
+	--color-primary-500: #1e60a3;
+	--color-primary-600: #19528d;
+	--color-primary-700: #164273;
+	--color-primary-800: #16385e;
+	--color-primary-900: #16304e;
 	--color-primary-950: #001a33;
 
 	/* Accent (cam CTA) */
