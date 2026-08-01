@@ -56,9 +56,9 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 					) );
 				else :
 					$about_url   = $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' );
-					$shop_url    = $is_en ? home_url( '/en/cosmetics-oem-products/' ) : home_url( '/shop/' );
-					$oem_url     = $is_en ? home_url( '/en/oem-odm-cosmetics-manufacturing/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' );
-					$news_url    = $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc/' );
+					$shop_url    = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' );
+					$oem_url     = $is_en ? home_url( '/en/rd-system-oem-odm/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' );
+					$news_url    = $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' );
 					$contact_url = $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' );
 
 					$about_label   = $is_en ? 'PARTNER MINDSET' : 'TÂM THẾ CỘNG SỰ';

@@ -89,10 +89,10 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 					<p class="footer-title"><?php echo esc_html( pll__( 'Liên kết nhanh' ) ); ?></p>
 					<ul id="footer-1" class="footer-menu">
 						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'Giới thiệu' ) ); ?></a></li>
-						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/cosmetics-oem-products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'Sản phẩm' ) ); ?></a></li>
-						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/oem-odm-cosmetics-manufacturing/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'OEM/ODM' ) ); ?></a></li>
-						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/careers/' ) : home_url( '/tuyen-dung/' ) ); ?>"><?php echo esc_html( pll__( 'Tuyển dụng' ) ); ?></a></li>
-						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'Tin tức' ) ); ?></a></li>
+						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'Sản phẩm' ) ); ?></a></li>
+						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/rd-system-oem-odm/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'OEM/ODM' ) ); ?></a></li>
+						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' ) ); ?>"><?php echo esc_html( pll__( 'Tuyển dụng' ) ); ?></a></li>
+						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' ) ); ?>"><?php echo esc_html( pll__( 'Tin tức' ) ); ?></a></li>
 						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' ) ); ?>"><?php echo esc_html( pll__( 'Liên hệ' ) ); ?></a></li>
 					</ul>
 				</div>

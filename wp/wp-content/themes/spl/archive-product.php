@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 $is_en      = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
-$banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
+$banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'brand-banner-en.png' : 'brand-banner-vi.png' );
 
 $home_label     = $is_en ? 'Home' : 'Trang chủ';
 $products_label = $is_en ? 'Cosmetics Portfolio' : 'Sản phẩm';
