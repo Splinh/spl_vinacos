@@ -1,19 +1,19 @@
 <?php
 /**
- * Process and resize Brand Banner images using imagecreatefromstring to exact 1920x600 banner dimensions.
+ * Process navy blue Brand Banner images to exact 1920x520 banner dimensions.
  *
  * Usage: php -r "require 'wp/wp-load.php'; require 'wp/wp-content/themes/spl/process-brand-banners.php';"
  */
 
 defined( 'ABSPATH' ) || exit;
 
-echo "=== PROCESSING BRAND BANNERS TO EXACT 1920x600 DIMENSIONS ===\n";
+echo "=== PROCESSING NAVY BRAND BANNERS TO EXACT 1920x520 DIMENSIONS ===\n";
 
-$src_vi = 'C:/Users/MSI/.gemini/antigravity-ide/brain/7df3c5d1-c15c-4c54-8b46-66ffd70f1bcf/brand_banner_vi_wide_1785553993958.png';
-$src_en = 'C:/Users/MSI/.gemini/antigravity-ide/brain/7df3c5d1-c15c-4c54-8b46-66ffd70f1bcf/brand_banner_en_wide_1785554006873.png';
+$src_vi = 'C:/Users/MSI/.gemini/antigravity-ide/brain/7df3c5d1-c15c-4c54-8b46-66ffd70f1bcf/about_banner_vi_navy_1785554575038.png';
+$src_en = 'C:/Users/MSI/.gemini/antigravity-ide/brain/7df3c5d1-c15c-4c54-8b46-66ffd70f1bcf/about_banner_en_navy_1785554588396.png';
 
 $target_w = 1920;
-$target_h = 600;
+$target_h = 520;
 
 function create_exact_banner( $src_file, $dest_basename ) {
 	global $target_w, $target_h;
@@ -42,7 +42,7 @@ function create_exact_banner( $src_file, $dest_basename ) {
 	$canvas = imagecreatetruecolor( $target_w, $target_h );
 
 	// Calculate cover crop coordinates
-	$src_ratio = $src_w / $src_h;
+	$src_ratio    = $src_w / $src_h;
 	$target_ratio = $target_w / $target_h;
 
 	if ( $src_ratio > $target_ratio ) {
@@ -59,7 +59,6 @@ function create_exact_banner( $src_file, $dest_basename ) {
 
 	imagecopyresampled( $canvas, $img_src, 0, 0, $crop_x, $crop_y, $target_w, $target_h, $crop_w, $crop_h );
 
-	// Save JPG and PNG
 	imagejpeg( $canvas, $dest_jpg_static, 95 );
 	imagejpeg( $canvas, $dest_jpg_assets, 95 );
 	imagepng( $canvas, $dest_png_static, 6 );
@@ -68,10 +67,10 @@ function create_exact_banner( $src_file, $dest_basename ) {
 	imagedestroy( $img_src );
 	imagedestroy( $canvas );
 
-	echo "Saved exact 1920x600 banner: {$dest_basename} (.jpg & .png)\n";
+	echo "Saved exact {$target_w}x{$target_h} banner: {$dest_basename} (.jpg & .png)\n";
 }
 
 create_exact_banner( $src_vi, 'brand-banner-vi' );
 create_exact_banner( $src_en, 'brand-banner-en' );
 
-echo "=== DONE PROCESSING BANNERS ===\n";
+echo "=== DONE PROCESSING NAVY BANNERS ===\n";
