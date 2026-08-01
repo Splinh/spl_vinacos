@@ -67,10 +67,23 @@ $post_date    = get_the_date( 'd/m/Y', $post_id );
 									</a>
 								</li>
 								<?php
+								$cat_slugs = $is_en 
+									? array( 'news-industry-trends', 'beauty-skincare-blog', 'oem-odm-insights' )
+									: array( 'tin-tuc', 'blog', 'dich-vu-xe-dien' );
+
 								$cats = get_categories( array(
-									'slug'       => array( 'tin-tuc', 'blog', 'dich-vu-xe-dien' ),
+									'slug'       => $cat_slugs,
 									'hide_empty' => false,
 								) );
+
+								if ( empty( $cats ) ) {
+									$cats = get_categories( array(
+										'hide_empty' => false,
+										'number'     => 3,
+										'exclude'    => array( 1 ),
+									) );
+								}
+
 								foreach ( $cats as $c ) :
 									?>
 									<li>
