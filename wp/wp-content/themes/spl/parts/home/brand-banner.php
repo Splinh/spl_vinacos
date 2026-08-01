@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 $is_en    = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $subtitle = $is_en ? 'ACTING FOR AN ERA OF CLEAN COSMETICS' : 'HÀNH ĐỘNG VÌ MỘT KỶ NGUYÊN MỸ PHẨM SẠCH';
 $title    = $is_en ? 'POWERED BY VIETNAMESE RESOURCES' : 'TỪ NGUỒN LỰC VIỆT';
-$img_name = $is_en ? 'brand-banner-en.png' : 'brand-banner-vi.png';
+$img_name = $is_en ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg';
 $img_url  = get_template_directory_uri() . '/static/img/banner/' . $img_name;
 ?>
 
