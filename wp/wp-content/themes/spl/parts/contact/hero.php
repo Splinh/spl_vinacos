@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 $data  = $args ?? [];
 $title = $data['title'] ?? 'Liên hệ <span class="text-emerald-400">&</span> Góp ý';
-$desc  = $data['description'] ?? 'Chúng tôi luôn lắng nghe! Hãy liên hệ để được tư vấn, hỗ trợ hoặc gửi góp ý giúp dailyxedien.vn phục vụ bạn tốt hơn.';
+$desc  = $data['description'] ?? 'Chúng tôi luôn lắng nghe! Hãy liên hệ để được tư vấn, hỗ trợ hoặc gửi góp ý giúp VINACOS phục vụ bạn tốt hơn.';
 ?>
 <section class="relative w-full bg-gradient-to-br from-primary-600 via-primary-500 to-primary-700 overflow-hidden">
 	<div class="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(16,185,129,0.12),transparent_50%)]"></div>

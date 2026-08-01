@@ -10,6 +10,8 @@
  * @package SPL\Modules\PLL\Pro
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Pro;
 
 use SPL\Core\DB;
@@ -314,7 +316,9 @@ final class ShareSlugs implements PllFeatureInterface {
 
 			if ( 0 === (int) $p->post_parent && count( $revparts ) === $count + 1 && $p->post_name === $revparts[ $count ] ) {
 				$foundid = $page->ID;
-				if ( $page->post_type === $post_type ) {
+				if ( is_string( $post_type ) ? $page->post_type === $post_type
+					: in_array( $page->post_type, $post_type, true )
+				) {
 					break;
 				}
 			}
@@ -340,7 +344,7 @@ final class ShareSlugs implements PllFeatureInterface {
 		}
 
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$lang = sanitize_key( $_POST['term_lang_choice'] ?? $_POST['inline_lang_choice'] ?? '' );
+		$lang = sanitize_key( wp_unslash( $_POST['term_lang_choice'] ?? $_POST['inline_lang_choice'] ?? '' ) );
 
 		if ( empty( $lang ) || ! \PLL()->model->get_language( $lang ) ) {
 			return $slug;
@@ -387,7 +391,7 @@ final class ShareSlugs implements PllFeatureInterface {
 			do {
 				$try = $slug . '-' . $num;
 				++$num;
-			} while ( $this->termSlugExistsInLang( $try, $lang, $taxonomy, $term_id ) );
+			} while ( $num <= 100 && $this->termSlugExistsInLang( $try, $lang, $taxonomy, $term_id ) );
 			$slug = $try;
 		}
 

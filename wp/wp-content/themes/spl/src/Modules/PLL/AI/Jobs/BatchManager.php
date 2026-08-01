@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI\Jobs
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI\Jobs;
 
 use SPL\Modules\PLL\AI\TranslationCoordinator;
@@ -34,7 +36,7 @@ final class BatchManager {
 			static function ( array $schedules ): array {
 				$schedules['minute'] = [
 					'interval' => MINUTE_IN_SECONDS,
-					'display'  => __( 'Every minute', 'SPL' ),
+					'display'  => __( 'Every minute', 'spl' ),
 				];
 
 				return $schedules;
@@ -99,7 +101,7 @@ final class BatchManager {
 				]
 			);
 		} catch ( \Throwable $e ) {
-			$message = $e->getMessage() ?: __( 'Unexpected translation job failure.', 'SPL' );
+			$message = $e->getMessage() ?: __( 'Unexpected translation job failure.', 'spl' );
 			$this->markJobFailed( $job->id, $message );
 
 			return new \WP_Error( 'hd_pll_ai_job_exception', $message );
@@ -181,7 +183,7 @@ final class BatchManager {
 				$job->id,
 				sprintf(
 					/* translators: %d: stale running timeout in seconds. */
-					__( 'Translation job exceeded the running timeout (%d seconds).', 'SPL' ),
+					__( 'Translation job exceeded the running timeout (%d seconds).', 'spl' ),
 					$ttl
 				)
 			);

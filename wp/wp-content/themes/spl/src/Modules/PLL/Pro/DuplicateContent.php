@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\Pro
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Pro;
 
 use SPL\Modules\PLL\Contracts\PllFeatureInterface;
@@ -33,7 +35,7 @@ final class DuplicateContent implements PllFeatureInterface {
 		if ( $this->isReferencePluginActive() ) {
 			_doing_it_wrong(
 				__METHOD__,
-				esc_html__( 'Disable Duplicate Content Addon For Polylang before enabling HD duplicate content hooks.', 'SPL' ),
+				esc_html__( 'Disable Duplicate Content Addon For Polylang before enabling HD duplicate content hooks.', 'spl' ),
 				THEME_VERSION
 			);
 			return;
@@ -90,15 +92,19 @@ final class DuplicateContent implements PllFeatureInterface {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ?? '' ), 'new-post-translation' ) ) {
+		if ( ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ?? '' ) ), 'new-post-translation' ) ) {
 			return;
 		}
 
-		$from_post_id = absint( $_GET['from_post'] );
-		$new_lang     = sanitize_key( $_GET['new_lang'] );
+		if ( ! current_user_can( 'edit_posts' ) ) {
+			return;
+		}
 
-		$existing = \pll_get_post( $from_post_id, $new_lang );
-		if ( $existing && $existing !== $from_post_id ) {
+		$from_post_id = absint( wp_unslash( $_GET['from_post'] ) );
+		$new_lang     = sanitize_key( wp_unslash( $_GET['new_lang'] ) );
+
+		$existing = (int) \pll_get_post( $from_post_id, $new_lang );
+		if ( $existing > 0 && $existing !== $from_post_id ) {
 			wp_safe_redirect( get_edit_post_link( $existing, 'raw' ) );
 			exit;
 		}
@@ -142,8 +148,8 @@ final class DuplicateContent implements PllFeatureInterface {
 			printf(
 				'<td class="pll-column-icon"><a href="%s" title="%s" class="pll_icon_replace" data-hd-pll-replace-confirm="%s"></a></td>',
 				esc_url( $url ),
-				esc_attr__( 'Replace this translation with source content', 'SPL' ),
-				esc_attr__( 'Replace this translation with the source content?', 'SPL' )
+				esc_attr__( 'Replace this translation with source content', 'spl' ),
+				esc_attr__( 'Replace this translation with the source content?', 'spl' )
 			);
 
 			return;
@@ -165,7 +171,7 @@ final class DuplicateContent implements PllFeatureInterface {
 		printf(
 			'<td class="pll-column-icon"><a href="%s" title="%s" class="pll_icon_copy"></a></td>',
 			esc_url( $url ),
-			esc_attr__( 'Duplicate content to this language', 'SPL' )
+			esc_attr__( 'Duplicate content to this language', 'spl' )
 		);
 	}
 

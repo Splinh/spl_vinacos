@@ -11,6 +11,8 @@
  * @package SPL\Modules\PLL\WC
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC;
 
 defined( 'ABSPATH' ) || exit;
@@ -74,11 +76,11 @@ final class WCPages {
 	 */
 	public static function displayPostStates( array $post_states, \WP_Post $post ): array {
 		$translated_labels = [
-			'myaccount' => \__( 'My Account Page', 'SPL' ),
-			'shop'      => \__( 'Shop Page', 'SPL' ),
-			'cart'      => \__( 'Cart Page', 'SPL' ),
-			'checkout'  => \__( 'Checkout Page', 'SPL' ),
-			'terms'     => \__( 'Terms and Conditions Page', 'SPL' ),
+			'myaccount' => \__( 'My Account Page', 'spl' ),
+			'shop'      => \__( 'Shop Page', 'spl' ),
+			'cart'      => \__( 'Cart Page', 'spl' ),
+			'checkout'  => \__( 'Checkout Page', 'spl' ),
+			'terms'     => \__( 'Terms and Conditions Page', 'spl' ),
 		];
 
 		foreach ( $translated_labels as $page => $label ) {

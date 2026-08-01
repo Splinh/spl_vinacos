@@ -10,6 +10,8 @@
  * @package SPL\Modules\PLL\ACF\Options
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF\Options;
 
 use PLL_Language;
@@ -62,18 +64,20 @@ final class OptionsAdmin {
 
 		$this->currentPage = $page;
 		$defaultSlug       = pll_default_language();
+		$currentSlug       = pll_current_language();
 		$postId            = $page['post_id'];
+		$basePostId        = $this->stripLocaleSuffix( $postId, $languages );
 		$statusMap         = $this->buildStatusMap( $postId, $languages );
 
 		// Context hint: show which language this native page applies to.
-		$currentLang = PLL()->model->get_language( pll_current_language() );
+		$currentLang = PLL()->model->get_language( $currentSlug );
 		if ( $currentLang instanceof PLL_Language ) {
 			printf(
 				'<p class="misc-pub-section" style="color:#646970;font-size:12px;">%s</p>',
 				esc_html(
 					sprintf(
 						/* translators: %s: current language name */
-						__( 'You are editing options for: %s', 'SPL' ),
+						__( 'You are editing options for: %s', 'spl' ),
 						$currentLang->name
 					)
 				)
@@ -136,17 +140,17 @@ final class OptionsAdmin {
 				'ajaxUrl' => admin_url( 'admin-ajax.php' ),
 				'nonce'   => wp_create_nonce( self::NONCE_ACTION ),
 				'i18n'    => [
-					'translateTo'    => __( 'Translate to %s', 'SPL' ),
-					'saving'         => __( 'Saving…', 'SPL' ),
-					'copying'        => __( 'Copying…', 'SPL' ),
-					'removing'       => __( 'Removing…', 'SPL' ),
-					'saved'          => __( 'Saved!', 'SPL' ),
-					'copied'         => __( 'Copied!', 'SPL' ),
-					'removed'        => __( 'Removed!', 'SPL' ),
-					'confirmRemove'  => __( 'Remove this translation? Fields will fall back to the default language.', 'SPL' ),
-					'hasTranslation' => __( 'Has translation', 'SPL' ),
-					'noTranslation'  => __( 'No translation', 'SPL' ),
-					'error'          => __( 'An error occurred. Please try again.', 'SPL' ),
+					'translateTo'    => __( 'Translate to %s', 'spl' ),
+					'saving'         => __( 'Saving…', 'spl' ),
+					'copying'        => __( 'Copying…', 'spl' ),
+					'removing'       => __( 'Removing…', 'spl' ),
+					'saved'          => __( 'Saved!', 'spl' ),
+					'copied'         => __( 'Copied!', 'spl' ),
+					'removed'        => __( 'Removed!', 'spl' ),
+					'confirmRemove'  => __( 'Remove this translation? Fields will fall back to the default language.', 'spl' ),
+					'hasTranslation' => __( 'Has translation', 'spl' ),
+					'noTranslation'  => __( 'No translation', 'spl' ),
+					'error'          => __( 'An error occurred. Please try again.', 'spl' ),
 				],
 			]
 		);
@@ -159,17 +163,25 @@ final class OptionsAdmin {
 	 */
 	public function ajaxRenderForm(): void {
 		$this->verifyAjaxNonce();
-
 		[ $postId, $lang, $menuSlug ] = $this->getAjaxParams();
+		$this->checkCapability( $menuSlug );
 
-		// Build language-specific post_id.
+		// Set language context for the AJAX request
+		$pllLang = PLL()->model->get_language( $lang );
+		if ( $pllLang instanceof PLL_Language ) {
+			PLL()->curlang = $pllLang;
+		}
+		acf_update_setting( 'current_language', $lang );
+
+		$languages   = $this->getLanguages();
+		$basePostId  = $this->stripLocaleSuffix( $postId, $languages );
 		$defaultLang = pll_default_language();
-		$langPostId  = ( $lang === $defaultLang ) ? $postId : "{$postId}_{$lang}";
+		$langPostId  = ( $lang === $defaultLang ) ? $basePostId : "{$basePostId}_{$lang}";
 
 		// Get field groups assigned to this options page.
 		$fieldGroups = acf_get_field_groups( [ 'options_page' => $menuSlug ] );
 		if ( empty( $fieldGroups ) ) {
-			wp_send_json_error( [ 'message' => __( 'No field groups found.', 'SPL' ) ] );
+			wp_send_json_error( [ 'message' => __( 'No field groups found.', 'spl' ) ] );
 		}
 
 		// Render fields to buffer.
@@ -208,11 +220,20 @@ final class OptionsAdmin {
 	 */
 	public function ajaxSave(): void {
 		$this->verifyAjaxNonce();
-
 		[ $postId, $lang, $menuSlug ] = $this->getAjaxParams();
+		$this->checkCapability( $menuSlug );
 
+		// Set language context for the AJAX request
+		$pllLang = PLL()->model->get_language( $lang );
+		if ( $pllLang instanceof PLL_Language ) {
+			PLL()->curlang = $pllLang;
+		}
+		acf_update_setting( 'current_language', $lang );
+
+		$languages   = $this->getLanguages();
+		$basePostId  = $this->stripLocaleSuffix( $postId, $languages );
 		$defaultLang = pll_default_language();
-		$langPostId  = ( $lang === $defaultLang ) ? $postId : "{$postId}_{$lang}";
+		$langPostId  = ( $lang === $defaultLang ) ? $basePostId : "{$basePostId}_{$lang}";
 
 		// Get the options page config for autoload setting.
 		$page = function_exists( 'acf_get_options_page' ) ? acf_get_options_page( $menuSlug ) : null;
@@ -221,16 +242,22 @@ final class OptionsAdmin {
 		}
 
 		// Validate and save.
-		if ( acf_validate_save_post( true ) ) {
+		if ( acf_validate_save_post() ) {
 			// Disable Polylang "Copy" sync — our popup handles translation independently.
 			add_filter( 'acf/load_field', [ $this, 'neutralizePolylangSync' ] );
 			acf_save_post( $langPostId );
 			remove_filter( 'acf/load_field', [ $this, 'neutralizePolylangSync' ] );
 
-			wp_send_json_success( [ 'message' => __( 'Translation saved.', 'SPL' ) ] );
+			wp_send_json_success( [ 'message' => __( 'Translation saved.', 'spl' ) ] );
 		}
 
-		wp_send_json_error( [ 'message' => __( 'Validation failed.', 'SPL' ) ] );
+		$errors = acf_get_validation_errors();
+		wp_send_json_error(
+			[
+				'message' => __( 'Validation failed.', 'spl' ),
+				'errors'  => is_array( $errors ) ? $errors : [],
+			]
+		);
 	}
 
 	/**
@@ -238,21 +265,37 @@ final class OptionsAdmin {
 	 */
 	public function ajaxCopy(): void {
 		$this->verifyAjaxNonce();
-
 		[ $postId, $lang, $menuSlug ] = $this->getAjaxParams();
+		$this->checkCapability( $menuSlug );
 
+		$defaultLang = pll_default_language();
 		// Prevent copying default to default.
-		if ( $lang === pll_default_language() ) {
-			wp_send_json_error( [ 'message' => __( 'Cannot copy to the default language.', 'SPL' ) ] );
+		if ( $lang === $defaultLang ) {
+			wp_send_json_error( [ 'message' => __( 'Cannot copy to the default language.', 'spl' ) ] );
 		}
 
-		$langPostId = "{$postId}_{$lang}";
+		$languages  = $this->getLanguages();
+		$basePostId = $this->stripLocaleSuffix( $postId, $languages );
+		$langPostId = "{$basePostId}_{$lang}";
 
-		// Get all fields from default post_id.
-		$fields = get_fields( $postId );
+		// 1. Temporarily switch context to default language to fetch original values
+		$pllDefault = PLL()->model->get_language( $defaultLang );
+		if ( $pllDefault instanceof PLL_Language ) {
+			PLL()->curlang = $pllDefault;
+		}
+		acf_update_setting( 'current_language', $defaultLang );
+
+		$fields = get_fields( $basePostId, false );
 		if ( empty( $fields ) ) {
-			wp_send_json_error( [ 'message' => __( 'No fields to copy.', 'SPL' ) ] );
+			wp_send_json_error( [ 'message' => __( 'No fields to copy.', 'spl' ) ] );
 		}
+
+		// 2. Switch back context to target language to save copy
+		$pllTarget = PLL()->model->get_language( $lang );
+		if ( $pllTarget instanceof PLL_Language ) {
+			PLL()->curlang = $pllTarget;
+		}
+		acf_update_setting( 'current_language', $lang );
 
 		// Disable Polylang "Copy" sync — our popup handles translation independently.
 		add_filter( 'acf/load_field', [ $this, 'neutralizePolylangSync' ] );
@@ -264,7 +307,7 @@ final class OptionsAdmin {
 
 		remove_filter( 'acf/load_field', [ $this, 'neutralizePolylangSync' ] );
 
-		wp_send_json_success( [ 'message' => __( 'Fields copied.', 'SPL' ) ] );
+		wp_send_json_success( [ 'message' => __( 'Fields copied.', 'spl' ) ] );
 	}
 
 	/**
@@ -272,23 +315,33 @@ final class OptionsAdmin {
 	 */
 	public function ajaxRemove(): void {
 		$this->verifyAjaxNonce();
-
 		[ $postId, $lang, $menuSlug ] = $this->getAjaxParams();
+		$this->checkCapability( $menuSlug );
 
-		if ( $lang === pll_default_language() ) {
-			wp_send_json_error( [ 'message' => __( 'Cannot remove the default language.', 'SPL' ) ] );
+		// Validate language before setting context.
+		$defaultLang = pll_default_language();
+		if ( $lang === $defaultLang ) {
+			wp_send_json_error( [ 'message' => __( 'Cannot remove the default language.', 'spl' ) ] );
 		}
 
-		if ( ! PLL()->model->get_language( $lang ) ) {
-			wp_send_json_error( [ 'message' => __( 'Invalid language.', 'SPL' ) ] );
+		$pllLang = PLL()->model->get_language( $lang );
+		if ( ! $pllLang instanceof PLL_Language ) {
+			wp_send_json_error( [ 'message' => __( 'Invalid language.', 'spl' ) ] );
 		}
+
+		// Set language context for the AJAX request.
+		PLL()->curlang = $pllLang;
+		acf_update_setting( 'current_language', $lang );
+
+		$languages  = $this->getLanguages();
+		$basePostId = $this->stripLocaleSuffix( $postId, $languages );
 
 		$page = function_exists( 'acf_get_options_page' ) ? acf_get_options_page( $menuSlug ) : null;
-		if ( empty( $page ) || ( $page['post_id'] ?? '' ) !== $postId ) {
-			wp_send_json_error( [ 'message' => __( 'Invalid options page.', 'SPL' ) ] );
+		if ( empty( $page ) || ( $page['post_id'] ?? '' ) !== $basePostId ) {
+			wp_send_json_error( [ 'message' => __( 'Invalid options page.', 'spl' ) ] );
 		}
 
-		$langPostId = "{$postId}_{$lang}";
+		$langPostId = "{$basePostId}_{$lang}";
 		$meta       = (array) acf_get_meta( $langPostId );
 
 		foreach ( array_keys( $meta ) as $key ) {
@@ -300,7 +353,7 @@ final class OptionsAdmin {
 			acf_delete_metadata( $langPostId, $key, false );
 		}
 
-		wp_send_json_success( [ 'message' => __( 'Translation removed.', 'SPL' ) ] );
+		wp_send_json_success( [ 'message' => __( 'Translation removed.', 'spl' ) ] );
 	}
 
 	/* ---------- Polylang Sync Guard --------------------------------- */
@@ -327,15 +380,30 @@ final class OptionsAdmin {
 	/* ---------- Helpers ---------------------------------------------- */
 
 	/**
-	 * Verify AJAX nonce and capability.
+	 * Verify AJAX nonce.
 	 */
 	private function verifyAjaxNonce(): void {
 		if ( ! check_ajax_referer( self::NONCE_ACTION, 'nonce', false ) ) {
-			wp_send_json_error( [ 'message' => __( 'Security check failed.', 'SPL' ) ], 403 );
+			wp_send_json_error( [ 'message' => __( 'Security check failed.', 'spl' ) ], 403 );
+		}
+	}
+
+	/**
+	 * Verify options page capability.
+	 *
+	 * @param string $menuSlug Options page menu slug.
+	 */
+	private function checkCapability( string $menuSlug ): void {
+		$capability = 'manage_options';
+		if ( function_exists( 'acf_get_options_page' ) ) {
+			$page = acf_get_options_page( $menuSlug );
+			if ( ! empty( $page['capability'] ) ) {
+				$capability = $page['capability'];
+			}
 		}
 
-		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( [ 'message' => __( 'Permission denied.', 'SPL' ) ], 403 );
+		if ( ! current_user_can( $capability ) ) {
+			wp_send_json_error( [ 'message' => __( 'Permission denied.', 'spl' ) ], 403 );
 		}
 	}
 
@@ -353,7 +421,7 @@ final class OptionsAdmin {
 		$menuSlug = sanitize_key( wp_unslash( $_POST['menu_slug'] ?? '' ) );
 
 		if ( empty( $postId ) || empty( $lang ) || empty( $menuSlug ) ) {
-			wp_send_json_error( [ 'message' => __( 'Missing required parameters.', 'SPL' ) ] );
+			wp_send_json_error( [ 'message' => __( 'Missing required parameters.', 'spl' ) ] );
 		}
 
 		return [ $postId, $lang, $menuSlug ];
@@ -385,14 +453,78 @@ final class OptionsAdmin {
 	 */
 	private function buildStatusMap( string $postId, array $languages ): array {
 		$defaultSlug = pll_default_language();
+		$basePostId  = $this->stripLocaleSuffix( $postId, $languages );
 		$map         = [];
 
 		foreach ( $languages as $lang ) {
-			$checkId            = ( $lang->slug === $defaultSlug ) ? $postId : "{$postId}_{$lang->slug}";
-			$map[ $lang->slug ] = ! empty( acf_get_meta( $checkId ) );
+			$checkId            = ( $lang->slug === $defaultSlug ) ? $basePostId : "{$basePostId}_{$lang->slug}";
+			$map[ $lang->slug ] = $this->hasLanguageData( $checkId, $lang->slug, $languages, $defaultSlug );
 		}
 
 		return $map;
+	}
+
+	/**
+	 * Strip language suffix from a post ID.
+	 *
+	 * @param string         $postId    Suffixed or unsuffixed post ID.
+	 * @param PLL_Language[] $languages Registered languages.
+	 *
+	 * @return string
+	 */
+	private function stripLocaleSuffix( string $postId, array $languages ): string {
+		$slugs = array_map( static fn( $l ) => $l->slug, $languages );
+		if ( empty( $slugs ) ) {
+			return $postId;
+		}
+		$pattern = implode( '|', array_map( 'preg_quote', $slugs, array_fill( 0, count( $slugs ), '/' ) ) );
+		return preg_replace( '/_(?:' . $pattern . ')$/', '', $postId ) ?? $postId;
+	}
+
+	/**
+	 * Determine if a language has data for the options page.
+	 *
+	 * @param string         $checkId     Option post ID to query.
+	 * @param string         $langSlug    The language code of the option page.
+	 * @param PLL_Language[] $languages   List of all languages.
+	 * @param string         $defaultSlug Default language slug.
+	 *
+	 * @return bool
+	 */
+	private function hasLanguageData( string $checkId, string $langSlug, array $languages, string $defaultSlug ): bool {
+		$meta = acf_get_meta( $checkId );
+		if ( empty( $meta ) ) {
+			return false;
+		}
+
+		if ( $langSlug !== $defaultSlug ) {
+			return true;
+		}
+
+		// Default language checks: filter out other language prefix options from generic 'options'.
+		foreach ( array_keys( (array) $meta ) as $key ) {
+			if ( str_starts_with( $key, '_' ) ) {
+				continue;
+			}
+
+			$isOtherLang = false;
+			foreach ( $languages as $otherLang ) {
+				if ( $otherLang->slug === $defaultSlug ) {
+					continue;
+				}
+
+				if ( str_starts_with( $key, $otherLang->slug . '_' ) ) {
+					$isOtherLang = true;
+					break;
+				}
+			}
+
+			if ( ! $isOtherLang ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**

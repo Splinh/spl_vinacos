@@ -9,13 +9,37 @@ defined( 'ABSPATH' ) || exit;
 
 $section = $args ?? array();
 ?>
+<?php
+$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+
+$home_lbl   = $is_en ? 'Home' : 'Trang chủ';
+$crumb_lbl  = $is_en ? 'VINACOS – Contact Us' : 'VINACOS Việt Nam – Liên hệ';
+$title_lbl  = $is_en ? 'Contact Us' : 'Liên hệ';
+$sub_lbl    = $is_en ? 'Please submit your details to receive FREE PRODUCT INSIGHT CONSULTATION.' : 'Vui lòng để lại thông tin để nhận TƯ VẤN GIẢI PHÁP PRODUCT INSIGHT MIỄN PHÍ.';
+$ph_name    = $is_en ? 'Full Name *' : 'Họ và tên *';
+$ph_phone   = $is_en ? 'Phone Number *' : 'Số điện thoại *';
+$ph_email   = $is_en ? 'Email Address *' : 'Email *';
+$ph_need    = $is_en ? 'Cosmetics Needs (e.g. Sunscreen, Serum...)' : 'Nhu cầu gia công (vd: Kem chống nắng, Serum...)';
+$ph_msg     = $is_en ? 'Your Message...' : 'Nội dung lời nhắn...';
+$btn_submit = $is_en ? 'Submit Consultation Request' : 'Gửi yêu cầu tư vấn';
+
+$lbl_company = $is_en ? 'B&B VINACOS CO., LTD' : 'CÔNG TY TNHH B&B VINACOS';
+$lbl_branch  = $is_en ? 'TP.HCM Branch' : 'Chi nhánh TP.HCM';
+$lbl_hq      = $is_en ? 'Headquarters' : 'Trụ sở chính';
+$lbl_factory = $is_en ? 'cGMP Factory' : 'Nhà máy sản xuất';
+$lbl_tax     = $is_en ? 'Tax ID' : 'Mã số thuế';
+
+$addr_branch = $is_en ? 'No. 44 Thanh Xuan 31 St., Thoi An Ward, Dist. 12, HCMC' : 'Số 44 Đường Thạnh Xuân 31, Phường Thới An, Quận 12, TP. Hồ Chí Minh';
+$addr_hq     = $is_en ? 'Land Plot 55, Map 22, Dao Xa Ward, Thanh Thuy Dist., Phu Tho Prov.' : 'Thửa đất số 55, tờ bản đồ số 22, Xã Đào Xá, Huyện Thanh Thủy, Tỉnh Phú Thọ';
+$val_tax     = $is_en ? '2601138503 (HCMC Branch: 2601138503-001)' : '2601138503 (CN TP.HCM: 2601138503-001)';
+?>
 <section class="global-breadcrumb">
 	<div class="container">
 		<nav aria-label="breadcrumbs" class="rank-math-breadcrumb">
 			<p>
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?= esc_html( $home_lbl ) ?></a>
 				<span class="separator"> - </span>
-				<span class="last">VINACOS Việt Nam – Liên hệ</span>
+				<span class="last"><?= esc_html( $crumb_lbl ) ?></span>
 			</p>
 		</nav>
 	</div>
@@ -26,14 +50,16 @@ $section = $args ?? array();
 		<div class="row -mt-10">
 			<div class="col w-full mt-10 lg:w-1/3">
 				<div class="box-contact">
-					<h1 class="site-title">Liên hệ</h1>
+					<h1 class="site-title"><?= esc_html( $title_lbl ) ?></h1>
 					<div class="footer-address mt-8">
-						<h2>CÔNG TY TNHH VINACOS</h2>
+						<h2><?= esc_html( $lbl_company ) ?></h2>
 						<ul class="mt-5">
-							<li><strong>Trụ sở: </strong>4E đường Cư Xá Đồng Tiến, Phường Diên Hồng, TP. Hồ Chí Minh, Việt Nam</li>
-							<li><strong>Nhà máy:</strong> 160 A12, Khu phố 2, Phường Phú Tân, Tỉnh Vĩnh Long, Việt Nam</li>
-							<li><strong>Hotline: </strong><a href="tel:0933505222">0933.505.222</a> – <a href="tel:0946544904">0946.544.904</a></li>
-							<li><strong>Email: </strong><a href="mailto:giacongvinacos@gmail.com">giacongvinacos@gmail.com</a></li>
+							<li><strong><?= esc_html( $lbl_branch ) ?>: </strong><?= esc_html( $addr_branch ) ?></li>
+							<li><strong><?= esc_html( $lbl_hq ) ?>: </strong><?= esc_html( $addr_hq ) ?></li>
+							<li><strong><?= esc_html( $lbl_factory ) ?>: </strong><?= $is_en ? 'cGMP / FDA certified cosmetics & packaging manufacturing facility' : 'Nhà máy gia công mỹ phẩm & bao bì chai lọ chuẩn cGMP / FDA' ?></li>
+							<li><strong>Hotline / Zalo: </strong><a href="tel:0967198483">0967.198.483</a> – <a href="tel:0906941088">0906.941.088</a></li>
+							<li><strong>Email: </strong><a href="mailto:bbvinacos@gmail.com">bbvinacos@gmail.com</a></li>
+							<li><strong><?= esc_html( $lbl_tax ) ?>: </strong><?= esc_html( $val_tax ) ?></li>
 						</ul>
 					</div>
 				</div>
@@ -41,26 +67,26 @@ $section = $args ?? array();
 			<div class="col w-full mt-10 lg:w-2/3">
 				<div class="contact-form">
 					<form action="#" method="post" class="wpcf7-form">
-						<h3>Vui lòng để lại thông tin để nhận TƯ VẤN GIẢI PHÁP PRODUCT INSIGHT MIỄN PHÍ.</h3>
+						<h3><?= esc_html( $sub_lbl ) ?></h3>
 						<div class="row">
 							<div class="form-group col mt-8 w-full sm:w-1/2">
-								<input class="wpcf7-form-control wpcf7-text" placeholder="Họ và tên *" required type="text" name="FullName" />
+								<input class="wpcf7-form-control wpcf7-text" placeholder="<?= esc_attr( $ph_name ) ?>" required type="text" name="FullName" />
 							</div>
 							<div class="form-group col mt-8 w-full sm:w-1/2">
-								<input class="wpcf7-form-control wpcf7-tel" placeholder="Số điện thoại *" required type="tel" name="Phone" />
+								<input class="wpcf7-form-control wpcf7-tel" placeholder="<?= esc_attr( $ph_phone ) ?>" required type="tel" name="Phone" />
 							</div>
 							<div class="form-group col mt-8 w-full sm:w-1/2">
-								<input class="wpcf7-form-control wpcf7-email" placeholder="Email *" required type="email" name="Email" />
+								<input class="wpcf7-form-control wpcf7-email" placeholder="<?= esc_attr( $ph_email ) ?>" required type="email" name="Email" />
 							</div>
 							<div class="form-group col mt-8 w-full sm:w-1/2">
-								<input class="wpcf7-form-control wpcf7-text" placeholder="Nhu cầu gia công (vd: Kem chống nắng, Serum...)" type="text" name="Need" />
+								<input class="wpcf7-form-control wpcf7-text" placeholder="<?= esc_attr( $ph_need ) ?>" type="text" name="Need" />
 							</div>
 							<div class="form-group col mt-8 w-full">
-								<textarea class="wpcf7-form-control wpcf7-textarea" placeholder="Nội dung lời nhắn..." rows="4" name="Message"></textarea>
+								<textarea class="wpcf7-form-control wpcf7-textarea" placeholder="<?= esc_attr( $ph_msg ) ?>" rows="4" name="Message"></textarea>
 							</div>
 							<div class="form-group col mt-8 w-full">
 								<button type="submit" class="btn-lined">
-									<span>Gửi yêu cầu tư vấn</span>
+									<span><?= esc_html( $btn_submit ) ?></span>
 									<?= spl_icon( 'plus', '', 16 ) ?>
 								</button>
 							</div>

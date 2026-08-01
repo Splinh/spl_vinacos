@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\AI\Translator
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI\Translator;
 
 use SPL\Modules\PLL\AI\TranslationUnit;
@@ -28,12 +30,12 @@ final class TaxonomyTranslator {
 	public function translate( int $termId, string $targetLang, array $options = [] ): array|\WP_Error {
 		$term = get_term( $termId );
 		if ( ! $term instanceof \WP_Term ) {
-			return new \WP_Error( 'hd_pll_ai_term_not_found', __( 'Source term not found.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_term_not_found', __( 'Source term not found.', 'spl' ) );
 		}
 
 		$sourceLang = \pll_get_term_language( $termId );
 		if ( ! $sourceLang || ! \PLL()->model->get_language( $targetLang ) ) {
-			return new \WP_Error( 'hd_pll_ai_invalid_language', __( 'Invalid source or target language.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_invalid_language', __( 'Invalid source or target language.', 'spl' ) );
 		}
 
 		$units = [

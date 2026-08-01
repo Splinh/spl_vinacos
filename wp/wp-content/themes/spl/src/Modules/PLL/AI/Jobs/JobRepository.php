@@ -5,16 +5,16 @@
  * @package SPL\Modules\PLL\AI\Jobs
  */
 
-namespace SPL\Modules\PLL\AI\Jobs;
+declare(strict_types=1);
 
-use SPL\Modules\PLL\AI\Enum\JobStatus;
+namespace SPL\Modules\PLL\AI\Jobs;
 
 defined( 'ABSPATH' ) || exit;
 
 final class JobRepository {
 
-	public const POST_TYPE    = 'hd_pll_ai_job';
-	private const STATUS_META = '_hd_pll_ai_status';
+	public const POST_TYPE              = 'hd_pll_ai_job';
+	private const STATUS_META           = '_hd_pll_ai_status';
 	private const MAX_RESULT_LIST_ITEMS = 100;
 	private const MAX_RESULT_DEPTH      = 8;
 	private const MAX_RESULT_STRING_LEN = 131072;
@@ -23,7 +23,7 @@ final class JobRepository {
 		register_post_type(
 			self::POST_TYPE,
 			[
-				'label'        => __( 'PLL AI Jobs', 'SPL' ),
+				'label'        => __( 'PLL AI Jobs', 'spl' ),
 				'public'       => false,
 				'show_ui'      => false,
 				'show_in_rest' => false,
@@ -124,7 +124,7 @@ final class JobRepository {
 	public function update( int $id, array $changes ): bool|\WP_Error {
 		$job = $this->get( $id );
 		if ( ! $job ) {
-			return new \WP_Error( 'hd_pll_ai_job_not_found', __( 'Translation job not found.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_job_not_found', __( 'Translation job not found.', 'spl' ) );
 		}
 
 		if ( array_key_exists( 'status', $changes ) ) {
@@ -171,7 +171,7 @@ final class JobRepository {
 			'hd_pll_ai_invalid_job_status',
 			sprintf(
 				/* translators: %s: invalid job status. */
-				__( 'Invalid translation job status: %s', 'SPL' ),
+				__( 'Invalid translation job status: %s', 'spl' ),
 				esc_html( (string) $status )
 			)
 		);

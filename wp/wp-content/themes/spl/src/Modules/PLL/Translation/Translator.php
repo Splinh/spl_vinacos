@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\Translation
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Translation;
 
 defined( 'ABSPATH' ) || exit;
@@ -52,11 +54,11 @@ final class Translator {
 	 */
 	public function ngettext( string $translation, string $single, string $plural, int $number, string $domain ): string {
 		if ( $this->shouldTranslate( $domain ) ) {
-			$tr_single = $this->mo->translate( $single );
-			$tr_plural = $this->mo->translate( $plural );
+			$result = $this->mo->translate_plural( $single, $plural, $number );
 
-			if ( $tr_single !== $single || $tr_plural !== $plural ) {
-				return $this->mo->translate_plural( $tr_single, $tr_plural, $number );
+			// translate_plural returns the original singular/plural on miss.
+			if ( $result !== $single && $result !== $plural ) {
+				return $result;
 			}
 		}
 
@@ -98,13 +100,13 @@ final class Translator {
 			return $cache[ $domain ];
 		}
 
-		$settings = Settings::get();
+		$settings = Scanner::getSettings();
 
 		$cache[ $domain ] = in_array( $domain, $settings['themes'], true )
 			|| in_array( $domain, $settings['plugins'], true )
 			|| in_array( $domain, $settings['domains'], true )
 			|| in_array( $domain, $settings['additional_domains'], true )
-			|| in_array( $domain, [ 'pll_string', 'SPL' ], true );
+			|| in_array( $domain, [ 'pll_string', 'spl' ], true );
 
 		return $cache[ $domain ];
 	}

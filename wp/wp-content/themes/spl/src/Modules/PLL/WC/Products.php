@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\WC
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC;
 
 use SPL\Core\DB;
@@ -52,13 +54,21 @@ final class Products {
 			return $sql;
 		}
 
-		$db = DB::db();
+		$db          = DB::db();
+		$placeholder = $db->prepare( 'post_id = %d', $product_id );
+		$in_clause   = sprintf( 'post_id IN ( %s )', implode( ',', array_map( 'absint', $tr_ids ) ) );
 
-		return str_replace(
-			$db->prepare( 'post_id = %d', $product_id ),
-			sprintf( 'post_id IN ( %s )', implode( ',', array_map( 'absint', $tr_ids ) ) ),
-			$sql
-		);
+		// Try both quoted and unquoted variants WC might use.
+		$replaced = str_replace( $placeholder, $in_clause, $sql );
+
+		if ( $replaced === $sql ) {
+			// Fallback: try backtick-quoted column name.
+			$placeholder_bt = $db->prepare( '`post_id` = %d', $product_id );
+			$in_clause_bt   = sprintf( '`post_id` IN ( %s )', implode( ',', array_map( 'absint', $tr_ids ) ) );
+			$replaced       = str_replace( $placeholder_bt, $in_clause_bt, $sql );
+		}
+
+		return $replaced;
 	}
 
 	/**

@@ -7,27 +7,27 @@
 
 use SPL\Core\Helper;
 
-$form_title       = $args['form_title'] ?? 'Đăng ký đại lý';
-$form_subtitle    = $args['form_subtitle'] ?? 'Chúng tôi sẽ liên hệ bạn trong vòng 24h làm việc.';
+$form_title       = $args['form_title'] ?? 'Đăng Ký Tư Vấn & Nhận Mẫu Thử Miễn Phí';
+$form_subtitle    = $args['form_subtitle'] ?? 'Chuyên gia Vinacos sẽ phản hồi và gửi báo giá trong vòng 30 phút.';
 $cf7_shortcode    = $args['cf7_shortcode'] ?? '';
-$contact_title    = $args['contact_title'] ?? 'Liên hệ trực tiếp';
-$contact_subtitle = $args['contact_subtitle'] ?? 'Đội ngũ phát triển đại lý luôn sẵn sàng tư vấn chi tiết về chính sách hợp tác.';
+$contact_title    = $args['contact_title'] ?? 'Liên hệ trực tiếp Vinacos';
+$contact_subtitle = $args['contact_subtitle'] ?? 'Đội ngũ tư vấn R&D luôn sẵn sàng hỗ trợ giải đáp mọi thắc mắc của bạn.';
 
 $contacts = $args['contacts'] ?? [
 	[
 		'icon'  => '<svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
-		'label' => 'Hotline 1',
-		'value' => '0933 505 222 (Mr. Tuấn)',
-	],
-	[
-		'icon'  => '<svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
-		'label' => 'Hotline 2',
-		'value' => '0901 234 567 (Ms. Trang)',
+		'label' => 'Hotline / Zalo',
+		'value' => '0902 666 746',
 	],
 	[
 		'icon'  => '<svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>',
-		'label' => 'Email',
-		'value' => 'daily@dailyxedien.vn',
+		'label' => 'Email tư vấn',
+		'value' => 'contact@vinacos.vn',
+	],
+	[
+		'icon'  => '<svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+		'label' => 'Văn phòng',
+		'value' => 'TP. Hồ Chí Minh',
 	],
 	[
 		'icon'  => '<svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
@@ -36,23 +36,23 @@ $contacts = $args['contacts'] ?? [
 	]
 ];
 
-$faq_title = $args['faq_title'] ?? 'Câu hỏi thường gặp';
+$faq_title = $args['faq_title'] ?? 'Câu hỏi thường gặp về gia công mỹ phẩm';
 $faqs      = $args['faqs'] ?? [
 	[
-		'question' => 'Vốn đầu tư ban đầu bao nhiêu?',
-		'answer'   => 'Tùy gói hợp tác, vốn từ 50 triệu (Cấp 3) đến 200 triệu (Cấp 1). Bao gồm tiền hàng đợt đầu, không yêu cầu phí nhượng quyền.',
+		'question' => 'Chi phí gia công mỹ phẩm tối thiểu tại Vinacos là bao nhiêu?',
+		'answer'   => 'Với gói Khởi nghiệp (MOQ từ 1.000 sản phẩm), chi phí đầu tư ban đầu từ ~30 - 50 triệu tùy theo loại sản phẩm và chai lọ bao bì. Vinacos sẽ gửi báo giá bóc tách chi tiết trong vòng 30 phút.',
 	],
 	[
-		'question' => 'Có cần kinh nghiệm bán xe không?',
-		'answer'   => 'Không bắt buộc. Chúng tôi có chương trình đào tạo toàn diện từ kỹ thuật, tư vấn bán hàng đến xử lý bảo hành.',
+		'question' => 'Tôi có được thử mẫu (sample) trước khi ký hợp đồng không?',
+		'answer'   => 'Hoàn toàn được. Vinacos hỗ trợ gửi mẫu thử miễn phí và điều chỉnh theo phản hồi của bạn cho đến khi đạt độ hài lòng 100% trước khi ký hợp đồng sản xuất.',
 	],
 	[
-		'question' => 'Hàng tồn kho xử lý thế nào?',
-		'answer'   => 'Hỗ trợ đổi mẫu xe chậm bán, điều chuyển hàng giữa các đại lý trong cùng khu vực. Không để đại lý chịu rủi ro tồn kho.',
+		'question' => 'Công thức mỹ phẩm của tôi có được bảo mật độc quyền không?',
+		'answer'   => 'Vinacos cam kết bảo mật 100%. Mọi đơn hàng đều đi kèm thỏa thuận NDA (Bảo mật thông tin). Công thức của bạn sẽ không bao giờ được sử dụng cho bên thứ 3.',
 	],
 	[
-		'question' => 'Thời gian hoàn vốn dự kiến?',
-		'answer'   => 'Trung bình 3-6 tháng với Cấp 3, 6-12 tháng với Cấp 1 (tuỳ vùng và mức độ đầu tư). Đội ngũ hỗ trợ đánh giá chi tiết khi tư vấn.',
+		'question' => 'Thời gian hoàn thiện một đơn hàng gia công là bao lâu?',
+		'answer'   => 'Trung bình từ 15 - 20 ngày làm việc. Với công thức có sẵn và bao bì tiêu chuẩn, thời gian có thể rút ngắn còn 10 - 12 ngày.',
 	]
 ];
 ?>

@@ -8,10 +8,12 @@
  * @package SPL\Modules\PLL\AI\Translator
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI\Translator;
 
-use SPL\Modules\PLL\AI\Content\ContentExtractor;
-use SPL\Modules\PLL\AI\Content\ContentRehydrator;
+use SPL\Modules\PLL\AI\ContentExtractor;
+use SPL\Modules\PLL\AI\ContentRehydrator;
 use SPL\Modules\PLL\AI\LinkRewriter;
 use SPL\Modules\PLL\AI\TranslationEngine;
 use SPL\Modules\PLL\AI\TranslationValidator;
@@ -22,14 +24,19 @@ defined( 'ABSPATH' ) || exit;
 
 final class PostTranslator {
 
+	private ?MetaTranslator $metaTranslator = null;
+
 	public function __construct(
 		protected readonly TranslationEngine $engine = new TranslationEngine(),
 		protected readonly ContentExtractor $extractor = new ContentExtractor(),
 		protected readonly ContentRehydrator $rehydrator = new ContentRehydrator(),
-		protected readonly MetaTranslator $metaTranslator = new MetaTranslator(),
 		protected readonly LinkRewriter $linkRewriter = new LinkRewriter(),
 		protected readonly TranslationValidator $validator = new TranslationValidator()
 	) {}
+
+	private function metaTranslator(): MetaTranslator {
+		return $this->metaTranslator ??= new MetaTranslator( $this->engine );
+	}
 
 	/**
 	 * @param array<string, mixed> $options Translation options.
@@ -39,12 +46,12 @@ final class PostTranslator {
 	public function translate( int $sourceId, string $targetLang, array $options = [] ): array|\WP_Error {
 		$source = get_post( $sourceId );
 		if ( ! $source instanceof \WP_Post ) {
-			return new \WP_Error( 'hd_pll_ai_post_not_found', __( 'Source post not found.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_post_not_found', __( 'Source post not found.', 'spl' ) );
 		}
 
 		$sourceLang = \pll_get_post_language( $sourceId );
 		if ( ! $sourceLang || ! \PLL()->model->get_language( $targetLang ) ) {
-			return new \WP_Error( 'hd_pll_ai_invalid_language', __( 'Invalid source or target language.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_invalid_language', __( 'Invalid source or target language.', 'spl' ) );
 		}
 
 		$results = $this->engine->translateUnits( $this->extractor->extractPost( $source, $options ), $sourceLang, $targetLang );
@@ -55,20 +62,20 @@ final class PostTranslator {
 		$fields          = $this->rehydrator->postFields( $results, $source );
 		$structureErrors = $this->validator->validatePostFields( $source, $fields );
 		if ( ! empty( $structureErrors ) ) {
-			return new \WP_Error( 'hd_pll_ai_structure_validation_failed', __( 'Translated content structure validation failed.', 'SPL' ), [ 'errors' => $structureErrors ] );
+			return new \WP_Error( 'hd_pll_ai_structure_validation_failed', __( 'Translated content structure validation failed.', 'spl' ), [ 'errors' => $structureErrors ] );
 		}
 
 		if ( ! empty( $options['rewrite_links'] ) && ! empty( $fields['post_content'] ) ) {
 			$fields['post_content'] = $this->linkRewriter->rewrite( $fields['post_content'], $targetLang );
 			$structureErrors        = $this->validator->validatePostFields( $source, $fields, true );
 			if ( ! empty( $structureErrors ) ) {
-				return new \WP_Error( 'hd_pll_ai_structure_validation_failed', __( 'Translated content structure validation failed.', 'SPL' ), [ 'errors' => $structureErrors ] );
+				return new \WP_Error( 'hd_pll_ai_structure_validation_failed', __( 'Translated content structure validation failed.', 'spl' ), [ 'errors' => $structureErrors ] );
 			}
 		}
 
 		$meta = [];
 		if ( ! empty( $options['translate_meta'] ) ) {
-			$meta = $this->metaTranslator->previewPostMeta( $sourceId, $sourceLang, $targetLang, $this->metaKeys( $options ) );
+			$meta = $this->metaTranslator()->previewPostMeta( $sourceId, $sourceLang, $targetLang, $this->metaKeys( $options ) );
 			if ( is_wp_error( $meta ) ) {
 				return $meta;
 			}

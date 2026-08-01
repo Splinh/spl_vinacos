@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\Admin
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Admin;
 
 defined( 'ABSPATH' ) || exit;

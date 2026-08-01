@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\ACF\Labels
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF\Labels;
 
 use ACF_Internal_Post_Type;

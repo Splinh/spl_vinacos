@@ -189,3 +189,32 @@ function spl_register_bottom_nav_acf_fields(): void {
 		],
 	] );
 }
+
+// --------------------------------------------------
+// Register Polylang Theme Strings
+// --------------------------------------------------
+
+add_action( 'init', 'spl_register_polylang_theme_strings' );
+function spl_register_polylang_theme_strings(): void {
+	if ( ! function_exists( 'pll_register_string' ) ) {
+		return;
+	}
+
+	$strings = [
+		'TÂM THẾ CỘNG SỰ'   => 'Header Nav Item 1',
+		'Sản phẩm'          => 'Header Nav Item 2',
+		'HỆ THỐNG R&D'      => 'Header Nav Item 3',
+		'Tin tức'           => 'Header Nav Item 4',
+		'Liên hệ'           => 'Header Nav Item 5',
+		'Trang chủ'         => 'Breadcrumb Home',
+		'Gửi yêu cầu'       => 'Button Submit',
+		'Liên kết nhanh'    => 'Footer Title 1',
+		'Danh mục sản phẩm' => 'Footer Title 2',
+		'Mạng xã hội'       => 'Footer Title 3',
+		'Chính sách bảo mật' => 'Footer Title 4',
+	];
+
+	foreach ( $strings as $str => $label ) {
+		pll_register_string( $label, $str, 'VINACOS Theme' );
+	}
+}

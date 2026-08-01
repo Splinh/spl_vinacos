@@ -11,6 +11,8 @@
  * @package SPL\Modules\PLL\WC\Admin
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC\Admin;
 
 defined( 'ABSPATH' ) || exit;
@@ -43,8 +45,8 @@ final class ProductImport {
 	 * @return string[]
 	 */
 	public function defaultColumns( array $mappings ): array {
-		$mappings[ __( 'Language', 'SPL' ) ]          = 'language';
-		$mappings[ __( 'Translation group', 'SPL' ) ] = 'translations';
+		$mappings[ __( 'Language', 'spl' ) ]          = 'language';
+		$mappings[ __( 'Translation group', 'spl' ) ] = 'translations';
 
 		return $mappings;
 	}
@@ -62,8 +64,8 @@ final class ProductImport {
 		$pos = array_search( 'price', array_keys( $options ), true );
 
 		$new = [
-			'language'     => __( 'Language', 'SPL' ),
-			'translations' => __( 'Translation group', 'SPL' ),
+			'language'     => __( 'Language', 'spl' ),
+			'translations' => __( 'Translation group', 'spl' ),
 		];
 
 		if ( false !== $pos ) {

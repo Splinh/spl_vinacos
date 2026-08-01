@@ -10,13 +10,15 @@
  * @package SPL\Modules\PLL\Models
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Models;
 
 use SPL\Core\DB;
 use SPL\Modules\PLL\ACF\Entity\PostEntity;
 use SPL\Modules\PLL\AI\Translator\MetaTranslator;
 use SPL\Modules\PLL\PLLModule;
-use SPL\Modules\PLL\Pro\SyncContent;
+use SPL\Modules\PLL\Models\SyncContent;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -58,29 +60,29 @@ final class TranslationPostModel {
 	public function duplicate( int $sourceId, string $targetLang, array $translatedFields = [], array $options = [] ): int|\WP_Error {
 		$source = get_post( $sourceId );
 		if ( ! $source instanceof \WP_Post ) {
-			return new \WP_Error( 'hd_pll_source_not_found', __( 'Source post not found.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_source_not_found', __( 'Source post not found.', 'spl' ) );
 		}
 
 		$sourceLang = \pll_get_post_language( $sourceId );
 		if ( ! $sourceLang || ! \PLL()->model->get_language( $targetLang ) ) {
-			return new \WP_Error( 'hd_pll_invalid_language', __( 'Invalid source or target language.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_invalid_language', __( 'Invalid source or target language.', 'spl' ) );
 		}
 
 		$targetId = absint( $options['target_id'] ?? 0 );
 		if ( $targetId > 0 ) {
 			$target = get_post( $targetId );
 			if ( ! $target instanceof \WP_Post || $target->post_type !== $source->post_type ) {
-				return new \WP_Error( 'hd_pll_invalid_target', __( 'Invalid target post.', 'SPL' ) );
+				return new \WP_Error( 'hd_pll_invalid_target', __( 'Invalid target post.', 'spl' ) );
 			}
 
 			$targetLangCurrent = \pll_get_post_language( $targetId );
 			if ( $targetLangCurrent && $targetLangCurrent !== $targetLang ) {
-				return new \WP_Error( 'hd_pll_target_language_mismatch', __( 'Target post language does not match requested language.', 'SPL' ) );
+				return new \WP_Error( 'hd_pll_target_language_mismatch', __( 'Target post language does not match requested language.', 'spl' ) );
 			}
 
 			$linkedTarget = \pll_get_post( $sourceId, $targetLang );
 			if ( $linkedTarget && (int) $linkedTarget !== $targetId ) {
-				return new \WP_Error( 'hd_pll_target_conflict', __( 'A different translation already exists for this language.', 'SPL' ) );
+				return new \WP_Error( 'hd_pll_target_conflict', __( 'A different translation already exists for this language.', 'spl' ) );
 			}
 		} else {
 			$targetId = \pll_get_post( $sourceId, $targetLang ) ?: 0;
@@ -90,7 +92,7 @@ final class TranslationPostModel {
 
 		// For new post: standard flow. For existing: require overwrite flag.
 		if ( $targetId > 0 && ! $overwrite ) {
-			return new \WP_Error( 'hd_pll_target_exists', __( 'Translation already exists. Use overwrite option.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_target_exists', __( 'Translation already exists. Use overwrite option.', 'spl' ) );
 		}
 
 		$status = self::sanitizePostStatus( $options['status'] ?? 'draft' );
@@ -112,13 +114,17 @@ final class TranslationPostModel {
 			$db->update(
 				$db->posts,
 				[
-					'post_title'   => $title,
-					'post_content' => $content,
-					'post_excerpt' => $excerpt,
-					'post_status'  => $status,
+					'post_title'        => $title,
+					'post_content'      => $content,
+					'post_excerpt'      => $excerpt,
+					'post_status'       => $status,
+					'post_modified'     => current_time( 'mysql' ),
+					'post_modified_gmt' => current_time( 'mysql', true ),
 				],
 				[ 'ID' => $targetId ]
 			);
+
+			clean_post_cache( $targetId );
 
 			\pll_set_post_language( $targetId, $targetLang );
 			$translations                = \pll_get_post_translations( $sourceId );
@@ -131,7 +137,7 @@ final class TranslationPostModel {
 				'post_type'    => $source->post_type,
 				'post_status'  => $status,
 				'post_author'  => ! empty( $options['preserve_author'] ) ? (int) $source->post_author : get_current_user_id(),
-				'post_parent'  => (int) $source->post_parent,
+				'post_parent'  => $this->translateParent( (int) $source->post_parent, $targetLang ),
 				'post_title'   => $title,
 				'post_content' => $content,
 				'post_excerpt' => $excerpt,
@@ -321,6 +327,18 @@ final class TranslationPostModel {
 	}
 
 	/**
+	 * Translate post parent ID for hierarchical post types.
+	 * Falls back to source parent if no translation exists.
+	 */
+	private function translateParent( int $parentId, string $targetLang ): int {
+		if ( $parentId <= 0 ) {
+			return 0;
+		}
+
+		return (int) ( \pll_get_post( $parentId, $targetLang ) ?: $parentId );
+	}
+
+	/**
 	 * Normalize translated field input without producing array/object casts.
 	 */
 	private static function normalizeTranslatedString( mixed $value ): string {
@@ -494,13 +512,8 @@ final class TranslationPostModel {
 		$target_meta = get_post_meta( $targetId );
 		$keys        = array_unique( array_merge( array_keys( $source_meta ), array_keys( $target_meta ) ) );
 		$keys        = $this->filterMetaKeys( $keys, false, $sourceId, $targetId, $targetLang );
-		$acf_meta    = $this->getAcfMetaKeys( $sourceId, $targetId );
 
 		foreach ( $keys as $key ) {
-			if ( in_array( $key, $acf_meta, true ) || $this->matchesSkippedMetaKey( $key, self::SKIP_META_KEYS ) ) {
-				continue;
-			}
-
 			if ( empty( $source_meta[ $key ] ) ) {
 				if ( ! empty( $target_meta[ $key ] ) ) {
 					delete_post_meta( $targetId, $key );

@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\WC\Admin
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC\Admin;
 
 defined( 'ABSPATH' ) || exit;
@@ -27,8 +29,8 @@ final class ProductExport {
 	 * @return string[]
 	 */
 	public function defaultColumns( array $columns ): array {
-		$columns['language']          = __( 'Language', 'SPL' );
-		$columns['translation_group'] = __( 'Translation group', 'SPL' );
+		$columns['language']          = __( 'Language', 'spl' );
+		$columns['translation_group'] = __( 'Translation group', 'spl' );
 
 		return $columns;
 	}

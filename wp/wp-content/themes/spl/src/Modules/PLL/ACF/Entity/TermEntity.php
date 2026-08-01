@@ -7,6 +7,8 @@
  * @package SPL\Modules\PLL\ACF\Entity
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF\Entity;
 
 defined( 'ABSPATH' ) || exit;

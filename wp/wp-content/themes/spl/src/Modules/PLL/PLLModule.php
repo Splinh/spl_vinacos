@@ -5,17 +5,19 @@
  * Replaces polylang-pro + polylang-wc + theme-translation-for-polylang plugins.
  *
  * Architecture mirrors WooCommerceModule:
- * - FEATURES const → declarative, zero-footprint conditional loading.
- * - PllFeatureInterface → slug() static check + register().
- * - HasAPI → auto-register REST routes.
+ * - FEATURES const -> declarative, zero-footprint conditional loading.
+ * - PllFeatureInterface -> slug() static check + register().
+ * - HasAPI -> auto-register REST routes.
  *
  * Coexistence rules:
- * - polylang-pro active  → skip Pro features (translate-slugs, duplicate, fallback).
- * - polylang-wc active   → skip WC features entirely.
+ * - polylang-pro active -> skip Pro features (translate-slugs, duplicate, fallback).
+ * - polylang-wc active -> skip WC features entirely.
  * - Translation always available (replaces a free plugin).
  *
  * @package SPL\Modules\PLL
  */
+
+declare(strict_types=1);
 
 namespace SPL\Modules\PLL;
 
@@ -34,10 +36,12 @@ final class PLLModule extends AbstractModule {
 	}
 
 	/**
-	 * Active when Polylang (free or pro) is loaded.
+	 * Active when Polylang (free or pro) is loaded, and the standalone plugin is not active.
 	 */
 	public static function isActive(): bool {
-		return defined( 'POLYLANG_VERSION' );
+		return defined( 'POLYLANG_VERSION' )
+			&& ! class_exists( 'HDPLL\Plugin' )
+			&& ! class_exists( 'HDE\Modules\PLL\PLLModule', false );
 	}
 
 	/* ---------- Coexistence Guards ------------------------------- */
@@ -189,6 +193,9 @@ final class PLLModule extends AbstractModule {
 		// ── Translation features: always-on when TTfP plugin is not active ──
 		// Not gated by feature toggle — scanner runs based on selected themes/plugins.
 		if ( ! self::isTTfPActive() ) {
+			// Import REST endpoint — bypasses hosting WAF that blocks multipart POST to admin.php.
+			self::collectApiClass( ImportExport\ImportExportAPI::class );
+
 			$this->hookPllInit(
 				static function () {
 					( new Translation\Scanner() )->register();

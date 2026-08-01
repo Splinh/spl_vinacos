@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI;
 
 use SPL\Modules\PLL\AI\Translator\PostTranslator;

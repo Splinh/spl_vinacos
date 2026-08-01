@@ -7,11 +7,11 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$data      = $args ?? [];
-$title     = $data['title'] ?? 'Thông điệp từ trái tim';
-$subtitle  = $data['subtitle'] ?? 'Thông điệp từ Ban Giám Đốc';
-$ceo_name  = $data['ceo_name'] ?? 'BÀ NGUYỄN HỒNG TRÚC';
-$ceo_title = $data['ceo_title'] ?? 'GIÁM ĐỐC / CEO FOUNDER';
+$is_en     = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+$title     = $is_en ? 'Message from the Heart' : 'Thông điệp từ trái tim';
+$subtitle  = $is_en ? 'Executive Board Statement' : 'Thông điệp từ Ban Giám Đốc';
+$ceo_name  = 'MRS. NGUYEN HONG TRUC';
+$ceo_title = $is_en ? 'MANAGING DIRECTOR / FOUNDER CEO' : 'GIÁM ĐỐC / CEO FOUNDER';
 $image_url = 'https://unila.com.vn/wp-content/uploads/2026/04/CEO-FOUNDER-UNILA.jpg';
 ?>
 
@@ -26,13 +26,19 @@ $image_url = 'https://unila.com.vn/wp-content/uploads/2026/04/CEO-FOUNDER-UNILA.
 					<?php echo esc_html( $subtitle ); ?>
 				</h3>
 				<div class="site-desc mt-10" data-aos="fade-up" data-aos-duration="700" data-aos-delay="1800">
-					<p><i><span style="font-weight: 400;">Tôi bắt đầu hành trình này không từ những điều to lớn, mà từ những điều giản dị nhất, chính là đam mê dành cho vẻ đẹp Việt.</span></i></p>
-					<p><i><span style="font-weight: 400;">Từ lúc bắt đầu chặng đường khởi nghiệp đầy thử thách, tôi luôn kiên định đi theo con đường của riêng mình. Đó là xây dựng một doanh nghiệp không chỉ lớn lên bằng con số, mà còn tạo ra giá trị thực. Những giá trị này được hình thành từ sự trân trọng con người trong tổ chức, và cao hơn nữa là từ tình yêu quê hương đất nước Việt Nam.</span></i></p>
-					<p><i><span style="font-weight: 400;">Theo đuổi hạnh phúc vật chất lẫn tinh thần của tất cả cán bộ công nhân viên, đó chính là triết lý, là động lực và niềm tin của chúng tôi.</span></i></p>
-					<p><i><span style="font-weight: 400;">Cùng với nỗi trăn trở mỗi khi nhìn thấy bà con lao động vất vả nhưng nông sản chưa được định giá xứng đáng, chúng tôi mang trong mình khát vọng đưa doanh nghiệp phát triển song hành cùng đời sống bà con nông dân.</span></i></p>
-					<p><i><span style="font-weight: 400;">Để hiện thực hóa khát vọng ấy, bằng tình yêu quê hương và con người, chúng tôi đưa nguyên liệu từ nông sản Việt vào mỹ phẩm sạch, để những nông sản tưởng chừng bỏ đi có thể mang lại giá trị cao cùng niềm tự hào nông sản Việt.</span></i></p>
-					<p><i><span style="font-weight: 400;">Tôi biết chặng đường phía trước còn nhiều thử thách. Nhưng tôi tin rằng với sự đồng lòng của tổ chức và niềm tin vào con người, chúng tôi sẽ kiên định theo đuổi mục tiêu: tạo ra những sản phẩm chất lượng nhất cho người tiêu dùng, đồng thời góp phần đưa ngành mỹ phẩm Việt Nam có vị thế xứng tầm trên bản đồ thế giới.</span></i></p>
-					<p><i><span style="font-weight: 400;">Chúng tôi không chỉ làm ra mỹ phẩm chúng tôi đang kiến tạo một tương lai, nơi vẻ đẹp gắn liền với trách nhiệm, niềm tự hào dân tộc và những giá trị bền vững trường tồn.</span></i></p>
+					<?php if ( $is_en ) : ?>
+						<p><i><span style="font-weight: 400;">I started this journey not from grand statements, but from the simplest element: a deep passion for natural beauty and authentic quality.</span></i></p>
+						<p><i><span style="font-weight: 400;">From the early days of entrepreneurship, I remained steadfast in building a company measured not only by numerical growth, but by genuine value delivered to people, partners, and community.</span></i></p>
+						<p><i><span style="font-weight: 400;">Pursuing both material and spiritual well-being for our team members is our philosophy, driving force, and core belief.</span></i></p>
+						<p><i><span style="font-weight: 400;">By infusing high-purity natural botanical extracts into clean cosmetic formulations, we transform raw agricultural ingredients into high-value beauty products with international standards.</span></i></p>
+						<p><i><span style="font-weight: 400;">We believe that with organizational unity and relentless innovation, VINACOS will establish Vietnam as a trusted hub for premium cosmetics OEM/ODM manufacturing on the global map.</span></i></p>
+					<?php else : ?>
+						<p><i><span style="font-weight: 400;">Tôi bắt đầu hành trình này không từ những điều to lớn, mà từ những điều giản dị nhất, chính là đam mê dành cho vẻ đẹp Việt.</span></i></p>
+						<p><i><span style="font-weight: 400;">Từ lúc bắt đầu chặng đường khởi nghiệp đầy thử thách, tôi luôn kiên định đi theo con đường của riêng mình. Đó là xây dựng một doanh nghiệp không chỉ lớn lên bằng con số, mà còn tạo ra giá trị thực.</span></i></p>
+						<p><i><span style="font-weight: 400;">Theo đuổi hạnh phúc vật chất lẫn tinh thần của tất cả cán bộ công nhân viên, đó chính là triết lý, là động lực và niềm tin của chúng tôi.</span></i></p>
+						<p><i><span style="font-weight: 400;">Bằng tình yêu quê hương và con người, chúng tôi đưa nguyên liệu từ nông sản Việt vào mỹ phẩm sạch, để những nông sản mang lại giá trị cao cùng niềm tự hào nông sản Việt.</span></i></p>
+						<p><i><span style="font-weight: 400;">Chúng tôi tin rằng với sự đồng lòng của tổ chức và niềm tin vào con người, chúng tôi sẽ kiên định theo đuổi mục tiêu: tạo ra những sản phẩm chất lượng nhất cho người tiêu dùng.</span></i></p>
+					<?php endif; ?>
 					<p><strong><span style="font-family: helvetica, arial, sans-serif;"><?php echo esc_html( $ceo_name ); ?></span></strong></p>
 					<p><span style="font-weight: 400; font-family: helvetica, arial, sans-serif;"><?php echo esc_html( $ceo_title ); ?></span></p>
 				</div>

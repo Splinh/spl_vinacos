@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\WC
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC;
 
 use SPL\Core\Helper;

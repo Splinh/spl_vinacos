@@ -7,13 +7,16 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$section = $args ?? array();
-$title   = $section['title'] ?? 'Tin tức';
+$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 
-// Fetch recent posts or mock fallback
+$section = $args ?? array();
+$title   = $section['title'] ?? ( $is_en ? 'News & Beauty Insights' : 'Tin tức' );
+
+// Fetch recent posts for current language
 $recent_posts = get_posts( array(
 	'numberposts' => 4,
 	'post_status' => 'publish',
+	'lang'        => $is_en ? 'en' : 'vi',
 ) );
 
 $articles = array();
@@ -75,13 +78,13 @@ if ( empty( $articles ) ) {
 			</h2>
 			<ul class="site-nav" data-aos="fade-left" data-aos-duration="700" data-aos-delay="600">
 				<li class="active">
-					<a class="btn-lined" href="javascript:;">Tất cả</a>
+					<a class="btn-lined" href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc/' ) ); ?>"><?= $is_en ? 'All' : 'Tất cả' ?></a>
 				</li>
 				<li>
-					<a class="btn-lined" href="#news-cosmetics">Tin mỹ phẩm</a>
+					<a class="btn-lined" href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc/' ) ); ?>"><?= $is_en ? 'Cosmetic News' : 'Tin mỹ phẩm' ?></a>
 				</li>
 				<li>
-					<a class="btn-lined" href="#news-trends">Xu hướng mỹ phẩm</a>
+					<a class="btn-lined" href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc/' ) ); ?>"><?= $is_en ? 'Beauty Trends' : 'Xu hướng mỹ phẩm' ?></a>
 				</li>
 			</ul>
 		</div>
@@ -103,11 +106,11 @@ if ( empty( $articles ) ) {
 							</a>
 						</h3>
 						<div class="desc mt-5">
-							<?php echo esc_html( $article['excerpt'] ); ?>
+							<?php echo esc_html( wp_strip_all_tags( $article['excerpt'] ) ); ?>
 						</div>
 						<div class="button mt-5">
-							<a class="btn-lined" href="<?php echo esc_url( $article['url'] ); ?>" title="Xem chi tiết">
-								<span>Xem chi tiết</span>
+							<a class="btn-lined" href="<?php echo esc_url( $article['url'] ); ?>" title="<?php echo esc_attr( $is_en ? 'Read More' : 'Xem chi tiết' ); ?>">
+								<span><?= $is_en ? 'Read More' : 'Xem chi tiết' ?></span>
 								<?= spl_icon( 'plus', '', 16 ) ?>
 							</a>
 						</div>

@@ -8,9 +8,11 @@
  * @package SPL\Modules\PLL\ImportExport
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ImportExport\Format;
 
-use SPL\Modules\PLL\ImportExport\Contracts\ImporterInterface;
+use SPL\Modules\PLL\ImportExport\ImporterInterface;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -26,7 +28,7 @@ final class XliffImporter implements ImporterInterface {
 
 	public function importFromFile( string $filepath ): bool|\WP_Error {
 		if ( ! extension_loaded( 'libxml' ) ) {
-			return new \WP_Error( 'pll_xliff_no_libxml', __( 'Error: PHP libxml extension is required.', 'SPL' ) );
+			return new \WP_Error( 'pll_xliff_no_libxml', __( 'Error: PHP libxml extension is required.', 'spl' ) );
 		}
 
 		$prev = libxml_use_internal_errors( true );
@@ -35,14 +37,14 @@ final class XliffImporter implements ImporterInterface {
 		if ( false === $content || '' === $content ) {
 			libxml_use_internal_errors( $prev );
 
-			return new \WP_Error( 'pll_xliff_read_error', __( 'Error: Could not read XLIFF file.', 'SPL' ) );
+			return new \WP_Error( 'pll_xliff_read_error', __( 'Error: Could not read XLIFF file.', 'spl' ) );
 		}
 
 		$dom = new \DOMDocument();
 		if ( ! $dom->loadXML( $content, LIBXML_NONET ) ) {
 			libxml_use_internal_errors( $prev );
 
-			return new \WP_Error( 'pll_xliff_parse_error', __( 'Error: Invalid XML in XLIFF file.', 'SPL' ) );
+			return new \WP_Error( 'pll_xliff_parse_error', __( 'Error: Invalid XML in XLIFF file.', 'spl' ) );
 		}
 
 		libxml_use_internal_errors( $prev );
@@ -84,7 +86,7 @@ final class XliffImporter implements ImporterInterface {
 		$xliff = $dom->documentElement;
 
 		if ( null === $xliff || 'xliff' !== $xliff->localName ) {
-			return new \WP_Error( 'pll_xliff_invalid', __( 'Error: Not a valid XLIFF document.', 'SPL' ) );
+			return new \WP_Error( 'pll_xliff_invalid', __( 'Error: Not a valid XLIFF document.', 'spl' ) );
 		}
 
 		$this->targetLang = $xliff->getAttribute( 'trgLang' ) ?: '';
@@ -104,7 +106,7 @@ final class XliffImporter implements ImporterInterface {
 		}
 
 		if ( empty( $this->entries ) ) {
-			return new \WP_Error( 'pll_xliff_empty', __( 'Error: No translation units found in XLIFF file.', 'SPL' ) );
+			return new \WP_Error( 'pll_xliff_empty', __( 'Error: No translation units found in XLIFF file.', 'spl' ) );
 		}
 
 		return true;

@@ -9,11 +9,21 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
+$is_en       = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $news_banner = get_template_directory_uri() . '/static/img/banner/news-banner.jpg';
 $queried_obj = get_queried_object();
 $is_cat      = is_category();
 
-$page_title = 'Tin tức - VINACOS Việt Nam';
+$home_label   = $is_en ? 'Home' : 'Trang chủ';
+$news_label   = $is_en ? 'News' : 'Tin tức';
+$site_title   = $is_en ? 'News & Market Insights' : 'Tin tức - VINACOS Việt Nam';
+$cat_title    = $is_en ? 'Categories' : 'Danh mục';
+$all_label    = $is_en ? 'All' : 'Tất cả';
+$latest_label = $is_en ? 'Latest Articles' : 'Bài viết mới nhất';
+$view_detail  = $is_en ? 'View Details' : 'Xem chi tiết';
+$no_posts     = $is_en ? 'No articles found in this category.' : 'Chưa có bài viết nào trong chuyên mục này.';
+
+$page_title = $site_title;
 if ( $is_cat && ! empty( $queried_obj->name ) ) {
 	$page_title = $queried_obj->name;
 }
@@ -24,7 +34,7 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
 				<div class="image img-cover">
-					<img src="<?php echo esc_url( $news_banner ); ?>" alt="Tin tức - VINACOS Việt Nam">
+					<img src="<?php echo esc_url( $news_banner ); ?>" alt="<?php echo esc_attr( $page_title ); ?>">
 				</div>
 			</div>
 		</div>
@@ -35,14 +45,14 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 	<div class="container">
 		<nav aria-label="breadcrumbs" class="rank-math-breadcrumb">
 			<p>
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( $home_label ); ?></a>
 				<span class="separator"> - </span>
 				<?php if ( $is_cat && ! empty( $queried_obj->name ) ) : ?>
-					<a href="<?php echo esc_url( home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>">Tin tức</a>
+					<a href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>"><?php echo esc_html( $news_label ); ?></a>
 					<span class="separator"> - </span>
 					<span class="last"><?php echo esc_html( $queried_obj->name ); ?></span>
 				<?php else : ?>
-					<span class="last">Tin tức - VINACOS Việt Nam</span>
+					<span class="last"><?php echo esc_html( $page_title ); ?></span>
 				<?php endif; ?>
 			</p>
 		</nav>
@@ -98,8 +108,8 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 										<?php echo esc_html( wp_strip_all_tags( $p_desc ) ); ?>
 									</div>
 									<div class="button mt-5">
-										<a class="btn-lined" href="<?php the_permalink(); ?>" title="Xem chi tiết">
-											<span>Xem chi tiết</span>
+										<a class="btn-lined" href="<?php the_permalink(); ?>" title="<?php echo esc_attr( $view_detail ); ?>">
+											<span><?php echo esc_html( $view_detail ); ?></span>
 											<?= spl_icon( 'plus', '', 16 ) ?>
 										</a>
 									</div>
@@ -109,22 +119,45 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 						endwhile;
 						wp_reset_postdata();
 					else :
-						echo '<p class="text-slate-500">Chưa có bài viết nào trong chuyên mục này.</p>';
+						echo '<p class="text-slate-500">' . esc_html( $no_posts ) . '</p>';
 					endif;
 					?>
 				</div>
 
 				<?php if ( $news_query->max_num_pages > 1 ) : ?>
-					<div class="post-nav mt-10">
+					<div class="post-nav">
 						<?php
-						echo paginate_links( array(
+						$current_p = max( 1, (int) get_query_var( 'paged' ) );
+						$total_p   = (int) $news_query->max_num_pages;
+						$links     = paginate_links( array(
 							'base'      => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
 							'format'    => '?paged=%#%',
-							'current'   => max( 1, get_query_var( 'paged' ) ),
-							'total'     => $news_query->max_num_pages,
-							'prev_text' => spl_icon( 'chevron-left', '', 16 ),
-							'next_text' => spl_icon( 'chevron-right', '', 16 ),
+							'current'   => $current_p,
+							'total'     => $total_p,
+							'type'      => 'array',
+							'prev_text' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>',
+							'next_text' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>',
 						) );
+
+						if ( ! empty( $links ) ) {
+							foreach ( $links as $l ) {
+								// Convert single digit page numbers to 2-digit (01, 02, 03...)
+								$l = preg_replace_callback( '/>(\d+)<\/a>|">(\d+)<\/span>/', function( $m ) {
+									$num = ! empty( $m[1] ) ? $m[1] : $m[2];
+									$padded = sprintf( '%02d', (int) $num );
+									return ! empty( $m[1] ) ? '>' . $padded . '</a>' : '">' . $padded . '</span>';
+								}, $l );
+								echo $l;
+							}
+
+							// Render last page button (>>) if not on last page
+							if ( $current_p < $total_p && $total_p > 3 ) {
+								$last_url = get_pagenum_link( $total_p );
+								echo '<a class="page-numbers last-page" href="' . esc_url( $last_url ) . '" title="Trang cuối">'
+									. '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m13 17 5-5-5-5"/><path d="m6 17 5-5-5-5"/></svg>'
+									. '</a>';
+							}
+						}
 						?>
 					</div>
 				<?php endif; ?>
@@ -135,12 +168,12 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 				<div class="box-sticky">
 					<!-- Categories Box -->
 					<div class="box-news box-news-category">
-						<h3 class="box-title">Danh mục</h3>
+						<h3 class="box-title"><?php echo esc_html( $cat_title ); ?></h3>
 						<div class="box-body">
 							<ul class="news-category-list">
 								<li class="<?php echo ( ! $is_cat ) ? 'active' : ''; ?>">
-									<a href="<?php echo esc_url( home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>" title="Tất cả">
-										Tất cả
+									<a href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>" title="<?php echo esc_attr( $all_label ); ?>">
+										<?php echo esc_html( $all_label ); ?>
 									</a>
 								</li>
 								<?php
@@ -163,7 +196,7 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 
 					<!-- Latest Posts Box -->
 					<div class="box-news box-news-latest mt-8">
-						<h3 class="box-title">Bài viết mới nhất</h3>
+						<h3 class="box-title"><?php echo esc_html( $latest_label ); ?></h3>
 						<div class="box-body">
 							<ul class="news-latest-list">
 								<?php

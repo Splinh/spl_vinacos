@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\Pro
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Pro;
 
 defined( 'ABSPATH' ) || exit;
@@ -338,7 +340,7 @@ final class TranslateSlugsModel {
 	public function registerSlugs(): void {
 		foreach ( $this->getTranslatableSlugs() as $key => $type ) {
 			if ( empty( $type['hide'] ) ) {
-				\pll_register_string( 'slug_' . $key, $type['slug'], __( 'URL slugs', 'SPL' ) );
+				\pll_register_string( 'slug_' . $key, $type['slug'], __( 'URL slugs', 'spl' ) );
 			}
 		}
 	}

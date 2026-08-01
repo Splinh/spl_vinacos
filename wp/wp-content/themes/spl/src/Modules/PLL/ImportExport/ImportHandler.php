@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\ImportExport
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ImportExport;
 
 use SPL\Modules\PLL\ImportExport\Format\CsvImporter;
@@ -20,14 +22,20 @@ final class ImportHandler {
 	private const STRING_IMPORT_CHUNK_SIZE = 200;
 
 	/**
-	 * Process an uploaded translation file.
+	 * Process an uploaded translation file via $_FILES (legacy form POST).
 	 *
-	 * @param array  $file       $_FILES entry (tmp_name, type, size, etc.).
+	 * @param array $file $_FILES entry (tmp_name, type, size, etc.).
+	 *
 	 * @return array{imported: int, type: string, warnings: string[]}|\WP_Error
 	 */
 	public static function handle( array $file ): array|\WP_Error {
 		if ( ! function_exists( 'PLL' ) ) {
-			return new \WP_Error( 'pll_import_unavailable', __( 'Polylang is not available.', 'SPL' ) );
+			return new \WP_Error( 'pll_import_unavailable', __( 'Polylang is not available.', 'spl' ) );
+		}
+
+		// Ensure admin file functions are available (not loaded in REST context).
+		if ( ! function_exists( 'wp_handle_sideload' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 
 		// ── Upload ──
@@ -37,7 +45,7 @@ final class ImportHandler {
 		$allowMimes = static fn( array $mimes ): array => array_merge( $mimes, $factory->getAllowedMimeTypes() );
 		add_filter( 'upload_mimes', $allowMimes ); // phpcs:ignore WordPressVIPMinimum.Hooks.RestrictedHooks.upload_mimes
 
-		$upload = wp_handle_upload( $file, [ 'test_form' => false ] );
+		$upload = wp_handle_sideload( $file, [ 'test_form' => false ] );
 
 		remove_filter( 'upload_mimes', $allowMimes );
 
@@ -46,15 +54,65 @@ final class ImportHandler {
 		}
 
 		if ( empty( $upload['type'] ) || empty( $upload['file'] ) ) {
-			return new \WP_Error( 'pll_import_upload_failed', __( 'Upload failed.', 'SPL' ) );
+			return new \WP_Error( 'pll_import_upload_failed', __( 'Upload failed.', 'spl' ) );
 		}
 
-		// ── Detect format & parse ──
-		$importer = $factory->createImporterFromMime( $upload['type'] );
+		return self::processFile( $upload['file'], $upload['type'] );
+	}
+
+	/**
+	 * Process a translation file directly from a file path (REST API path).
+	 *
+	 * Skips wp_handle_sideload — the file is already written to disk by the
+	 * REST controller. Format is detected from file extension.
+	 *
+	 * @param string $filePath Absolute path to the temp file.
+	 * @param string $filename Original filename (for extension detection).
+	 *
+	 * @return array{imported: int, type: string, warnings: string[]}|\WP_Error
+	 */
+	public static function handleFromPath( string $filePath, string $filename ): array|\WP_Error {
+		if ( ! function_exists( 'PLL' ) ) {
+			return new \WP_Error( 'pll_import_unavailable', __( 'Polylang is not available.', 'spl' ) );
+		}
+
+		if ( ! file_exists( $filePath ) || ! is_readable( $filePath ) ) {
+			return new \WP_Error( 'pll_import_file_missing', __( 'Import file not found or not readable.', 'spl' ) );
+		}
+
+		$ext  = strtolower( pathinfo( $filename, PATHINFO_EXTENSION ) );
+		$mime = match ( $ext ) {
+			'po'           => 'text/x-po',
+			'csv'          => 'text/csv',
+			'xliff', 'xlf' => 'text/xml',
+			default        => '',
+		};
+
+		if ( '' === $mime ) {
+			return new \WP_Error(
+				'pll_import_wrong_format',
+				__( 'Error: Unsupported file format. Supported: CSV, PO, XLIFF.', 'spl' )
+			);
+		}
+
+		return self::processFile( $filePath, $mime );
+	}
+
+	/**
+	 * Common processing: detect format, validate, import.
+	 *
+	 * @param string $filePath Absolute path to file.
+	 * @param string $mimeType Detected MIME type.
+	 *
+	 * @return array{imported: int, type: string, warnings: string[]}|\WP_Error
+	 */
+	private static function processFile( string $filePath, string $mimeType ): array|\WP_Error {
+		$factory  = new FileFormatFactory();
+		$importer = $factory->createImporterFromMime( $mimeType );
 
 		// Fallback: try extension-based detection for CSV (MIME might be text/plain).
 		if ( \is_wp_error( $importer ) ) {
-			$ext      = pathinfo( $upload['file'], PATHINFO_EXTENSION );
+			$ext      = pathinfo( $filePath, PATHINFO_EXTENSION );
 			$importer = match ( strtolower( $ext ) ) {
 				'csv'           => new CsvImporter(),
 				'po'            => new PoImporter(),
@@ -64,13 +122,13 @@ final class ImportHandler {
 		}
 
 		if ( \is_wp_error( $importer ) ) {
-			wp_delete_file( $upload['file'] );
+			wp_delete_file( $filePath );
 
 			return $importer;
 		}
 
-		$parseResult = $importer->importFromFile( $upload['file'] );
-		wp_delete_file( $upload['file'] );
+		$parseResult = $importer->importFromFile( $filePath );
+		wp_delete_file( $filePath );
 
 		if ( \is_wp_error( $parseResult ) ) {
 			return $parseResult;
@@ -85,14 +143,14 @@ final class ImportHandler {
 		// ── Resolve target language ──
 		$targetLocale = $importer->getTargetLanguage();
 		if ( false === $targetLocale ) {
-			return new \WP_Error( 'pll_import_no_target', __( 'Error: No target language found in the file.', 'SPL' ) );
+			return new \WP_Error( 'pll_import_no_target', __( 'Error: No target language found in the file.', 'spl' ) );
 		}
 
 		$targetLang = \PLL()->model->get_language( $targetLocale );
 		if ( ! $targetLang ) {
 			return new \WP_Error(
 				'pll_import_invalid_target',
-				__( "Error: The target language in the file doesn't exist on this site.", 'SPL' )
+				__( "Error: The target language in the file doesn't exist on this site.", 'spl' )
 			);
 		}
 
@@ -103,11 +161,11 @@ final class ImportHandler {
 	/**
 	 * Validate importer metadata (site reference, generator).
 	 *
-	 * @param Contracts\ImporterInterface $importer The importer instance.
+	 * @param ImporterInterface $importer The importer instance.
 	 *
 	 * @return bool|\WP_Error
 	 */
-	private static function validate( Contracts\ImporterInterface $importer ): bool|\WP_Error {
+	private static function validate( ImporterInterface $importer ): bool|\WP_Error {
 		// Validate site reference.
 		$siteRef = $importer->getSiteReference();
 		if ( false !== $siteRef && $siteRef !== get_site_url() ) {
@@ -115,7 +173,7 @@ final class ImportHandler {
 				'pll_import_site_mismatch',
 				sprintf(
 					/* translators: %1$s: file site URL, %2$s: current site URL */
-					__( 'Error: Site mismatch. File: %1$s, Current: %2$s.', 'SPL' ),
+					__( 'Error: Site mismatch. File: %1$s, Current: %2$s.', 'spl' ),
 					$siteRef,
 					get_site_url()
 				)
@@ -129,7 +187,7 @@ final class ImportHandler {
 				'pll_import_wrong_generator',
 				sprintf(
 					/* translators: %s: generator name */
-					__( 'Error: This file was not generated by %s.', 'SPL' ),
+					__( 'Error: This file was not generated by %s.', 'spl' ),
 					FileFormatFactory::APP_NAME
 				)
 			);
@@ -141,12 +199,12 @@ final class ImportHandler {
 	/**
 	 * Process translation entries from the importer.
 	 *
-	 * @param Contracts\ImporterInterface $importer   The importer instance.
-	 * @param \PLL_Language               $targetLang Target language object.
+	 * @param ImporterInterface $importer   The importer instance.
+	 * @param \PLL_Language    $targetLang Target language object.
 	 *
 	 * @return array{imported: int, type: string, warnings: string[]}
 	 */
-	private static function processEntries( Contracts\ImporterInterface $importer, \PLL_Language $targetLang ): array {
+	private static function processEntries( ImporterInterface $importer, \PLL_Language $targetLang ): array {
 		$warnings    = [];
 		$stringBatch = [];
 		$imported    = 0;

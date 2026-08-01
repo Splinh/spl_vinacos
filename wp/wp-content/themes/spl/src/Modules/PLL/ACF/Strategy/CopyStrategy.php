@@ -10,6 +10,8 @@
  * @package SPL\Modules\PLL\ACF\Strategy
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF\Strategy;
 
 use PLL_Language;
@@ -234,7 +236,7 @@ class CopyStrategy extends AbstractStrategy {
 
 		$key = spl_object_id( $slugsModel );
 		if ( ! array_key_exists( $key, $this->translatableSlugsCache ) ) {
-			$slugs = $slugsModel->get_translatable_slugs();
+			$slugs                                = $slugsModel->get_translatable_slugs();
 			$this->translatableSlugsCache[ $key ] = is_array( $slugs ) ? $slugs : [];
 		}
 

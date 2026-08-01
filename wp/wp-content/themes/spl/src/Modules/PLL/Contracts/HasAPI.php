@@ -7,6 +7,8 @@
  * @package SPL\Modules\PLL\Contracts
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Contracts;
 
 defined( 'ABSPATH' ) || exit;

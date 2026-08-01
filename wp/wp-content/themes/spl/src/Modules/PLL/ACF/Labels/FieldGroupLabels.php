@@ -11,6 +11,8 @@
  * @package SPL\Modules\PLL\ACF\Labels
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF\Labels;
 
 use PLL_Format_Util;
@@ -28,10 +30,16 @@ final class FieldGroupLabels {
 	private ?array $labels = null;
 
 	/**
+	 * Shared matcher instance.
+	 */
+	private PLL_Format_Util $matcher;
+
+	/**
 	 * Register field groups and hook translation filters.
 	 * Called from ACFIntegration::onAcfInit().
 	 */
 	public function onAcfInit(): void {
+		$this->matcher = new PLL_Format_Util();
 		$this->registerFieldGroups();
 
 		if ( ! $this->canTranslateLabels() ) {
@@ -68,7 +76,7 @@ final class FieldGroupLabels {
 			return $field;
 		}
 
-		$matcher = new PLL_Format_Util();
+		$matcher = $this->matcher;
 
 		foreach ( $this->getFieldLabelsToTranslate() as $fieldType => $fieldLabels ) {
 			if ( ! $matcher->matches( $field['type'], $fieldType ) ) {
@@ -129,7 +137,7 @@ final class FieldGroupLabels {
 	 * @param array $fields Array of ACF field definitions.
 	 */
 	private function registerFields( array $fields ): void {
-		$matcher = new PLL_Format_Util();
+		$matcher = $this->matcher;
 
 		foreach ( $fields as $field ) {
 			// Recurse into nested structures.
@@ -160,7 +168,7 @@ final class FieldGroupLabels {
 	 * @param array $field  ACF field definition.
 	 */
 	private function registerField( array $labels, array $field ): void {
-		$matcher = new PLL_Format_Util();
+		$matcher = $this->matcher;
 
 		foreach ( $labels as $fieldKey => $label ) {
 			$filtered = $matcher->filter_list( $field, $fieldKey );
@@ -186,7 +194,7 @@ final class FieldGroupLabels {
 	 * @return array Translated field.
 	 */
 	private function translateLabelsRecursive( array $labels, array $field ): array {
-		$matcher = new PLL_Format_Util();
+		$matcher = $this->matcher;
 
 		if ( isset( $field['default_value'] ) ) {
 			$field['pll_default_value'] = $field['default_value'];
@@ -221,21 +229,21 @@ final class FieldGroupLabels {
 		}
 
 		$labels = [
-			'default_value' => _x( 'Default value', 'ACF field setting label', 'SPL' ),
-			'placeholder'   => _x( 'Placeholder', 'ACF field setting label', 'SPL' ),
-			'prepend'       => _x( 'Prefix', 'ACF field setting label', 'SPL' ),
-			'append'        => _x( 'Suffix', 'ACF field setting label', 'SPL' ),
-			'message'       => _x( 'Message', 'ACF field setting label', 'SPL' ),
-			'ui_on_text'    => _x( 'ON text', 'ACF field setting label', 'SPL' ),
-			'ui_off_text'   => _x( 'OFF text', 'ACF field setting label', 'SPL' ),
-			'choice'        => _x( 'Choice', 'ACF field setting label', 'SPL' ),
-			'label'         => _x( 'Label', 'ACF field setting label', 'SPL' ),
+			'default_value' => _x( 'Default value', 'ACF field setting label', 'spl' ),
+			'placeholder'   => _x( 'Placeholder', 'ACF field setting label', 'spl' ),
+			'prepend'       => _x( 'Prefix', 'ACF field setting label', 'spl' ),
+			'append'        => _x( 'Suffix', 'ACF field setting label', 'spl' ),
+			'message'       => _x( 'Message', 'ACF field setting label', 'spl' ),
+			'ui_on_text'    => _x( 'ON text', 'ACF field setting label', 'spl' ),
+			'ui_off_text'   => _x( 'OFF text', 'ACF field setting label', 'spl' ),
+			'choice'        => _x( 'Choice', 'ACF field setting label', 'spl' ),
+			'label'         => _x( 'Label', 'ACF field setting label', 'spl' ),
 		];
 
 		$this->labels = [
 			'*'                => [
 				'label'        => $labels['label'],
-				'instructions' => _x( 'Instructions', 'ACF field setting label', 'SPL' ),
+				'instructions' => _x( 'Instructions', 'ACF field setting label', 'spl' ),
 			],
 			'button_group'     => [ 'choices' => [ '*' => $labels['choice'] ] ],
 			'checkbox'         => [ 'choices' => [ '*' => $labels['choice'] ] ],

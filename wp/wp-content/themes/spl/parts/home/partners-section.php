@@ -7,11 +7,12 @@
 
 defined( 'ABSPATH' ) || exit;
 
+$is_en          = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $section        = $args ?? array();
 $watermark      = $section['watermark'] ?? 'VINACOS';
 $watermark_img  = is_array( $section['watermark_image'] ?? null ) ? ( $section['watermark_image']['url'] ?? '' ) : ( is_numeric( $section['watermark_image'] ?? null ) ? wp_get_attachment_url( $section['watermark_image'] ) : ( $section['watermark_image'] ?? '' ) );
-$left_title     = $section['left_title'] ?? 'ĐỐI TÁC <br/> NGUYÊN LIỆU';
-$right_title    = $section['right_title'] ?? 'ĐỐI TÁC <br/> NGHIÊN CỨU';
+$left_title     = $section['left_title'] ?? ( $is_en ? 'RAW MATERIAL <br/> PARTNERS' : 'ĐỐI TÁC <br/> NGUYÊN LIỆU' );
+$right_title    = $section['right_title'] ?? ( $is_en ? 'RESEARCH & <br/> ACADEMIC PARTNERS' : 'ĐỐI TÁC <br/> NGHIÊN CỨU' );
 $left_partners  = $section['left_partners'] ?? array();
 $right_partners = $section['right_partners'] ?? array();
 
@@ -34,7 +35,7 @@ if ( empty( $left_partners ) ) {
 
 if ( empty( $right_partners ) ) {
 	$right_partners = array(
-		array( 'name' => 'Đại Học Công Thương', 'logo' => 'https://unila.com.vn/wp-content/uploads/2026/03/Cong-thuong.jpeg' ),
+		array( 'name' => $is_en ? 'University of Industry and Trade (HUIT)' : 'Đại Học Công Thương', 'logo' => 'https://unila.com.vn/wp-content/uploads/2026/03/Cong-thuong.jpeg' ),
 	);
 }
 ?>

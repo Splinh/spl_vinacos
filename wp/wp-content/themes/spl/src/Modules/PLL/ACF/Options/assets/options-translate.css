@@ -17,7 +17,7 @@
 .pll-slideover__backdrop {
 	position: absolute;
 	inset: 0;
-	background: rgba(0, 0, 0, 0.5);
+	background: rgb(0 0 0 / 50%);
 	transition: opacity 0.3s ease;
 }
 
@@ -27,10 +27,11 @@
 	right: 0;
 	bottom: 0;
 	width: 65%;
-	max-width: 900px;
+
+	/* max-width: 900px; */
 	min-width: 400px;
 	background: #fff;
-	box-shadow: -4px 0 20px rgba(0, 0, 0, 0.15);
+	box-shadow: -4px 0 20px rgb(0 0 0 / 15%);
 	display: flex;
 	flex-direction: column;
 	transform: translateX(100%);
@@ -85,9 +86,9 @@
 	background: #f6f7f7;
 }
 
-.pll-copy-default-btn .dashicons,
-.pll-remove-translation-btn .dashicons {
-	vertical-align: middle;
+.pll-slideover__toolbar .pll-copy-default-btn .dashicons,
+.pll-slideover__toolbar .pll-remove-translation-btn .dashicons {
+	vertical-align: middle !important;
 	margin-top: -3px;
 	margin-right: 4px;
 }

@@ -19,6 +19,8 @@
  * @package SPL\Modules\PLL\ACF\Options
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF\Options;
 
 defined( 'ABSPATH' ) || exit;
@@ -131,7 +133,7 @@ final class OptionsPostId {
 			return $reference;
 		}
 
-		$strippedPostId = preg_replace( '/_(' . $regex . ')$/', '', $postId );
+		$strippedPostId = preg_replace( '/_(?:' . $regex . ')$/', '', $postId ) ?? $postId;
 		if ( $strippedPostId === $postId ) {
 			// Not localized — nothing to fall back to.
 			return $reference;
@@ -330,7 +332,7 @@ final class OptionsPostId {
 			return false;
 		}
 
-		return (bool) preg_match( '/_(' . $regex . ')$/', $postId );
+		return 1 === preg_match( '/_(?:' . $regex . ')$/', $postId );
 	}
 
 	/**
@@ -346,7 +348,7 @@ final class OptionsPostId {
 			return $postId;
 		}
 
-		return preg_replace( '/_(' . $regex . ')$/', '', $postId );
+		return preg_replace( '/_(?:' . $regex . ')$/', '', $postId ) ?? $postId;
 	}
 
 	/**
@@ -375,7 +377,7 @@ final class OptionsPostId {
 			return self::$langRegex;
 		}
 
-		self::$langRegex = '(' . implode( '|', array_map( 'preg_quote', $slugs, array_fill( 0, count( $slugs ), '/' ) ) ) . ')';
+		self::$langRegex = implode( '|', array_map( 'preg_quote', $slugs, array_fill( 0, count( $slugs ), '/' ) ) );
 
 		return self::$langRegex;
 	}

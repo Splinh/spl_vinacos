@@ -7,37 +7,37 @@
 
 use SPL\Core\Helper;
 
-$title    = $args['title'] ?? 'Gói hợp tác đại lý';
-$subtitle = $args['subtitle'] ?? 'Chọn gói phù hợp với quy mô kinh doanh của bạn';
+$title    = $args['title'] ?? 'Gói Gia Công Phù Hợp Với Mọi Quy Mô';
+$subtitle = $args['subtitle'] ?? 'Dù bạn là startup mới khởi nghiệp hay doanh nghiệp cần mở rộng — Vinacos đều có giải pháp tối ưu cho ngân sách và mục tiêu';
 
 $packages = $args['packages'] ?? [
 	[
-		'badge'       => 'Cơ bản',
-		'title'       => 'Đại lý Cấp 3',
-		'subtitle'    => 'Phù hợp cửa hàng nhỏ, mới khởi nghiệp',
-		'discount'    => '20%',
-		'details'     => "Đặt hàng tối thiểu 10 xe/tháng\nHỗ trợ ảnh/video sản phẩm\nĐào tạo bán hàng cơ bản\nBảo hành chính hãng 3 năm\nx Bảo vệ vùng bán\nx Hỗ trợ chạy ads",
-		'btn_text'    => 'Đăng ký tư vấn',
+		'badge'       => 'Khởi nghiệp',
+		'title'       => 'Khởi Nghiệp Brand Mỹ Phẩm',
+		'subtitle'    => 'Phù hợp startup, Spa, KOLs mới khởi nghiệp',
+		'discount'    => '1.000 SP',
+		'details'     => "Lựa chọn từ 300+ công thức đã test — không chờ R&D\nSản xuất số lượng nhỏ để test phản hồi thị trường\nNhận mẫu thử (sample) miễn phí trước khi quyết định\nTư vấn chọn sản phẩm dễ bán, phù hợp xu hướng\nx Hồ sơ thiết kế bao bì riêng biệt",
+		'btn_text'    => 'Nhận báo giá miễn phí',
 		'btn_link'    => '#register-form',
 		'is_featured' => 0,
 	],
 	[
 		'badge'       => 'Phổ biến nhất',
-		'title'       => 'Đại lý Cấp 2',
-		'subtitle'    => 'Phù hợp cửa hàng trung bình, muốn mở rộng',
-		'discount'    => '28%',
-		'details'     => "Đặt hàng tối thiểu 30 xe/tháng\nHỗ trợ ảnh/video + banner quảng cáo\nĐào tạo bán hàng + kỹ thuật chuyên sâu\nBảo hành chính hãng 3 năm\nBảo vệ vùng bán theo quận/huyện\nx Hỗ trợ chạy ads",
-		'btn_text'    => 'Đăng ký ngay',
+		'title'       => 'Xây Dựng Thương Hiệu Riêng',
+		'subtitle'    => 'Gia công trọn gói A – Z theo concept độc quyền',
+		'discount'    => 'OEM / ODM',
+		'details'     => "Phát triển công thức độc quyền theo concept riêng\nThiết kế bao bì chai lọ & in ấn tem nhãn chuyên nghiệp\nVinacos hoàn thiện 100% hồ sơ pháp lý & công bố mỹ phẩm\nTư vấn định vị thương hiệu, chọn sản phẩm Hero\nHỗ trợ kho tư liệu Marketing (hình ảnh/video nhà máy)",
+		'btn_text'    => 'Bắt đầu ngay — Nhận sample free',
 		'btn_link'    => '#register-form',
 		'is_featured' => 1,
 	],
 	[
-		'badge'       => 'Premium',
-		'title'       => 'Đại lý Cấp 1',
-		'subtitle'    => 'Showroom lớn, đối tác chiến lược',
-		'discount'    => '35%',
-		'details'     => "Đặt hàng tối thiểu 80 xe/tháng\nFull bộ marketing: ảnh, video, landing page\nĐào tạo VIP + tham quan nhà máy\nBảo hành chính hãng 3 năm\nBảo vệ vùng bán theo tỉnh/thành\nHỗ trợ chạy ads lên đến 5tr/tháng",
-		'btn_text'    => 'Liên hệ hợp tác',
+		'badge'       => 'Tối ưu lợi nhuận',
+		'title'       => 'Sản Xuất Quy Mô Lớn',
+		'subtitle'    => 'Đơn hàng lớn — Giá tốt nhất thị trường',
+		'discount'    => 'VIP Deal',
+		'details'     => "Mức giá gia công tốt nhất — Đặt càng nhiều chi phí càng giảm\nƯu tiên dây chuyền khép kín, đảm bảo tiến độ\nBảo mật tuyệt đối — Ký hợp đồng NDA bảo vệ công thức\nHỗ trợ nâng cấp công thức & kết nối KOLs",
+		'btn_text'    => 'Nhận báo giá VIP',
 		'btn_link'    => '#register-form',
 		'is_featured' => 0,
 	]

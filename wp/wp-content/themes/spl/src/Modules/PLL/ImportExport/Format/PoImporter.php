@@ -8,9 +8,11 @@
  * @package SPL\Modules\PLL\ImportExport
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ImportExport\Format;
 
-use SPL\Modules\PLL\ImportExport\Contracts\ImporterInterface;
+use SPL\Modules\PLL\ImportExport\ImporterInterface;
 use SPL\Modules\PLL\ImportExport\FileFormatFactory;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,7 +21,6 @@ final class PoImporter implements ImporterInterface {
 
 	private \PO $po;
 	private bool $yielded = false;
-	private int $cursor   = 0;
 
 	public function __construct() {
 		require_once ABSPATH . '/wp-includes/pomo/po.php';
@@ -28,7 +29,7 @@ final class PoImporter implements ImporterInterface {
 
 	public function importFromFile( string $filepath ): bool|\WP_Error {
 		if ( ! $this->po->import_from_file( $filepath ) ) {
-			return new \WP_Error( 'pll_po_invalid', __( 'Error: Invalid PO file.', 'SPL' ) );
+			return new \WP_Error( 'pll_po_invalid', __( 'Error: Invalid PO file.', 'spl' ) );
 		}
 
 		return true;

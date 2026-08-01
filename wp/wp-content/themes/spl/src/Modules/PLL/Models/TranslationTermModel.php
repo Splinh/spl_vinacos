@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\Models
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Models;
 
 defined( 'ABSPATH' ) || exit;
@@ -31,19 +33,19 @@ final class TranslationTermModel {
 	public function duplicate( int $sourceTermId, string $targetLang, array $translatedFields = [], array $options = [] ): int|\WP_Error {
 		$term = get_term( $sourceTermId );
 		if ( ! $term instanceof \WP_Term ) {
-			return new \WP_Error( 'hd_pll_source_term_not_found', __( 'Source term not found.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_source_term_not_found', __( 'Source term not found.', 'spl' ) );
 		}
 
 		$sourceLang = \pll_get_term_language( $sourceTermId );
 		if ( ! $sourceLang || ! \PLL()->model->get_language( $targetLang ) ) {
-			return new \WP_Error( 'hd_pll_invalid_language', __( 'Invalid source or target language.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_invalid_language', __( 'Invalid source or target language.', 'spl' ) );
 		}
 
 		$targetId  = \pll_get_term( $sourceTermId, $targetLang ) ?: 0;
 		$overwrite = ! empty( $options['overwrite'] );
 
 		if ( $targetId > 0 && ! $overwrite ) {
-			return new \WP_Error( 'hd_pll_target_term_exists', __( 'Term translation already exists. Use overwrite option.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_target_term_exists', __( 'Term translation already exists. Use overwrite option.', 'spl' ) );
 		}
 
 		// Determine content: use translated fields if provided, otherwise copy source.
@@ -62,7 +64,7 @@ final class TranslationTermModel {
 		if ( $term->parent ) {
 			$parent = \pll_get_term( (int) $term->parent, $targetLang );
 			if ( ! $parent ) {
-				return new \WP_Error( 'hd_pll_missing_parent_term', __( 'Translated parent term is missing.', 'SPL' ) );
+				return new \WP_Error( 'hd_pll_missing_parent_term', __( 'Translated parent term is missing.', 'spl' ) );
 			}
 			$args['parent'] = $parent;
 		}

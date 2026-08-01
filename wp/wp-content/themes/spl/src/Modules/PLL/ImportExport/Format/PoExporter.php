@@ -8,9 +8,11 @@
  * @package SPL\Modules\PLL\ImportExport
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ImportExport\Format;
 
-use SPL\Modules\PLL\ImportExport\Contracts\ExporterInterface;
+use SPL\Modules\PLL\ImportExport\ExporterInterface;
 use SPL\Modules\PLL\ImportExport\FileFormatFactory;
 
 defined( 'ABSPATH' ) || exit;

@@ -10,6 +10,8 @@
  * @package SPL\Modules\PLL\ACF
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF;
 
 defined( 'ABSPATH' ) || exit;

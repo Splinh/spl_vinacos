@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI;
 
 defined( 'ABSPATH' ) || exit;
@@ -35,7 +37,7 @@ final class RowActions {
 			return $actions;
 		}
 
-		foreach ( $this->missingPostLanguages( $post->ID ) as $lang ) {
+		foreach ( $this->missingLanguages( $post->ID, 'pll_get_post' ) as $lang ) {
 			$actions[ 'hd_pll_ai_' . $lang ] = sprintf(
 				'<a href="#" class="hd-pll-ai-action" data-type="%s" data-source-id="%d" data-target-lang="%s">%s</a>',
 				esc_attr( $post->post_type ),
@@ -58,7 +60,7 @@ final class RowActions {
 			return $actions;
 		}
 
-		foreach ( $this->missingTermLanguages( $term->term_id ) as $lang ) {
+		foreach ( $this->missingLanguages( $term->term_id, 'pll_get_term' ) as $lang ) {
 			$actions[ 'hd_pll_ai_' . $lang ] = sprintf(
 				'<a href="#" class="hd-pll-ai-action" data-type="term" data-source-id="%d" data-target-lang="%s">%s</a>',
 				$term->term_id,
@@ -71,29 +73,20 @@ final class RowActions {
 	}
 
 	/**
+	 * Get languages for which this object has no translation.
+	 *
+	 * @param int      $id     Object ID.
+	 * @param callable $lookup PLL lookup fn (pll_get_post or pll_get_term).
+	 *
 	 * @return string[]
 	 */
-	private function missingPostLanguages( int $postId ): array {
+	private function missingLanguages( int $id, callable $lookup ): array {
 		$languages = function_exists( 'pll_languages_list' ) ? pll_languages_list( [ 'fields' => 'slug' ] ) : [];
 
 		return array_values(
 			array_filter(
 				(array) $languages,
-				static fn( string $lang ): bool => ! \pll_get_post( $postId, $lang )
-			)
-		);
-	}
-
-	/**
-	 * @return string[]
-	 */
-	private function missingTermLanguages( int $termId ): array {
-		$languages = function_exists( 'pll_languages_list' ) ? pll_languages_list( [ 'fields' => 'slug' ] ) : [];
-
-		return array_values(
-			array_filter(
-				(array) $languages,
-				static fn( string $lang ): bool => ! \pll_get_term( $termId, $lang )
+				static fn( string $lang ): bool => ! $lookup( $id, $lang )
 			)
 		);
 	}

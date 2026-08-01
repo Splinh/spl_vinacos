@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\ACF
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF;
 
 use ACF_Location;
@@ -21,7 +23,7 @@ class LocationLanguage extends ACF_Location {
 	 */
 	public function initialize(): void {
 		$this->name     = 'language';
-		$this->label    = __( 'Language', 'SPL' );
+		$this->label    = __( 'Language', 'spl' );
 		$this->category = $this->label;
 	}
 
@@ -65,8 +67,11 @@ class LocationLanguage extends ACF_Location {
 		}
 
 		foreach ( $fieldGroup['location'] as $location ) {
+			if ( ! is_array( $location ) ) {
+				continue;
+			}
 			foreach ( $location as $rule ) {
-				if ( 'language' === $rule['param'] ) {
+				if ( is_array( $rule ) && isset( $rule['param'] ) && 'language' === $rule['param'] ) {
 					return true;
 				}
 			}

@@ -29,7 +29,7 @@ $faqs  = ! empty( $data['faqs'] ) ? $data['faqs'] : [
 	],
 	[
 		'question' => 'Tôi muốn trở thành đại lý/đối tác, liên hệ ở đâu?',
-		'answer'   => 'Vui lòng gửi yêu cầu qua form trên trang này hoặc liên hệ email info@dailyxedien.vn với chủ đề "Hợp tác đại lý". Bộ phận kinh doanh sẽ liên hệ lại trong 24 giờ làm việc.',
+		'answer'   => 'Vui lòng gửi yêu cầu qua form trên trang này hoặc liên hệ email info@vinacos.vn với chủ đề "Hợp tác đại lý". Bộ phận kinh doanh sẽ liên hệ lại trong 24 giờ làm việc.',
 	],
 ];
 ?>

@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI;
 
 defined( 'ABSPATH' ) || exit;
@@ -19,7 +21,7 @@ final class TermDependencyResolver {
 	public function missingForPost( int $sourceId, string $targetLang ): array|\WP_Error {
 		$source = get_post( $sourceId );
 		if ( ! $source instanceof \WP_Post ) {
-			return new \WP_Error( 'hd_pll_ai_dependency_post_not_found', __( 'Source post not found.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_dependency_post_not_found', __( 'Source post not found.', 'spl' ) );
 		}
 
 		if ( ! function_exists( 'pll_is_translated_taxonomy' ) || ! function_exists( 'pll_get_term' ) ) {

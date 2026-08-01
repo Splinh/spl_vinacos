@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\WC
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC;
 
 defined( 'ABSPATH' ) || exit;
@@ -34,7 +36,11 @@ final class Cart {
 			return;
 		}
 
-		$lang    = \pll_current_language();
+		$lang = \pll_current_language();
+		if ( ! $lang || ! is_string( $lang ) ) {
+			return;
+		}
+
 		$changed = false;
 
 		foreach ( array_keys( \WC()->cart->cart_contents ) as $key ) {

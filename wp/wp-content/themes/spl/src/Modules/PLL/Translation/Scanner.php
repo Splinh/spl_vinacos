@@ -11,6 +11,8 @@
  * @package SPL\Modules\PLL\Translation
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Translation;
 
 use SPL\Core\Helper;
@@ -74,7 +76,7 @@ final class Scanner {
 			return;
 		}
 
-		$settings = Settings::get();
+		$settings = self::getSettings();
 
 		$this->scanThemes( $settings['themes'] );
 		$this->scanPlugins( $settings['plugins'] );
@@ -176,7 +178,7 @@ final class Scanner {
 	 * or after code deployment to force a re-scan.
 	 */
 	public static function clearCache(): void {
-		$settings = Settings::get();
+		$settings = self::getSettings();
 
 		// Collect all known cache keys and delete via transient API
 		// (works correctly with both DB and persistent object cache).
@@ -318,5 +320,67 @@ final class Scanner {
 		);
 
 		return array_unique( $strings );
+	}
+
+	/* ---------- Scan Settings ---------- */
+
+	private const SETTINGS_KEY = 'hd_pll_translation_settings';
+
+	/** @var array|null In-memory cache. */
+	private static ?array $settingsCache = null;
+
+	/**
+	 * Get scan settings with defaults.
+	 *
+	 * @return array{themes: string[], plugins: string[], domains: string[], additional_domains: string[]}
+	 */
+	public static function getSettings(): array {
+		if ( null !== self::$settingsCache ) {
+			return self::$settingsCache;
+		}
+
+		$settings = Helper::getOption( self::SETTINGS_KEY, [] );
+		if ( ! is_array( $settings ) ) {
+			$settings = [];
+		}
+
+		self::$settingsCache = wp_parse_args(
+			$settings,
+			[
+				'themes'             => [],
+				'plugins'            => [],
+				'domains'            => [ 'default' ],
+				'additional_domains' => [],
+			]
+		);
+
+		return self::$settingsCache;
+	}
+
+	/**
+	 * Save scan settings.
+	 *
+	 * @param array $data Raw settings data.
+	 */
+	public static function saveSettings( array $data ): void {
+		$settings = [
+			'themes'             => array_map( 'sanitize_text_field', $data['themes'] ?? [] ),
+			'plugins'            => array_map( 'sanitize_text_field', $data['plugins'] ?? [] ),
+			'domains'            => array_map( 'sanitize_text_field', $data['domains'] ?? [ 'default' ] ),
+			'additional_domains' => array_map( 'sanitize_text_field', $data['additional_domains'] ?? [] ),
+		];
+
+		Helper::updateOption( self::SETTINGS_KEY, $settings );
+		self::$settingsCache = null;
+
+		// Bust scanner transient cache so next admin load re-scans with new selections.
+		self::clearCache();
+	}
+
+	/**
+	 * Get settings option key.
+	 */
+	public static function settingsKey(): string {
+		return self::SETTINGS_KEY;
 	}
 }

@@ -13,6 +13,8 @@
  * @package SPL\Modules\PLL\API
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\API;
 
 defined( 'ABSPATH' ) || exit;
@@ -68,7 +70,7 @@ final class RestLanguageResolver {
 			return new \WP_Error(
 				'pll_rest_invalid_lang',
 				/* translators: %s: language slug */
-				sprintf( __( 'Invalid Polylang language slug: %s', 'SPL' ), $lang ),
+				sprintf( __( 'Invalid Polylang language slug: %s', 'spl' ), $lang ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -159,7 +161,7 @@ final class RestLanguageResolver {
 		if ( ! self::isValidLanguage( $lang ) ) {
 			return new \WP_Error(
 				'pll_rest_invalid_lang',
-				sprintf( __( 'Invalid Polylang language slug: %s', 'SPL' ), $lang ),
+				sprintf( __( 'Invalid Polylang language slug: %s', 'spl' ), $lang ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -167,7 +169,7 @@ final class RestLanguageResolver {
 		if ( ! function_exists( 'pll_is_translated_post_type' ) || ! \pll_is_translated_post_type( $object_type ) ) {
 			return new \WP_Error(
 				'pll_rest_not_translatable',
-				sprintf( __( 'Post type "%s" is not translatable.', 'SPL' ), $object_type ),
+				sprintf( __( 'Post type "%s" is not translatable.', 'spl' ), $object_type ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -188,7 +190,7 @@ final class RestLanguageResolver {
 		if ( ! self::isValidLanguage( $lang ) ) {
 			return new \WP_Error(
 				'pll_rest_invalid_lang',
-				sprintf( __( 'Invalid Polylang language slug: %s', 'SPL' ), $lang ),
+				sprintf( __( 'Invalid Polylang language slug: %s', 'spl' ), $lang ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -196,7 +198,7 @@ final class RestLanguageResolver {
 		if ( ! function_exists( 'pll_is_translated_taxonomy' ) || ! \pll_is_translated_taxonomy( $taxonomy ) ) {
 			return new \WP_Error(
 				'pll_rest_not_translatable',
-				sprintf( __( 'Taxonomy "%s" is not translatable.', 'SPL' ), $taxonomy ),
+				sprintf( __( 'Taxonomy "%s" is not translatable.', 'spl' ), $taxonomy ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -218,7 +220,7 @@ final class RestLanguageResolver {
 			if ( ! self::isValidLanguage( $lang_slug ) ) {
 				return new \WP_Error(
 					'pll_rest_invalid_lang',
-					sprintf( __( 'Invalid language key in translations map: %s', 'SPL' ), $lang_slug ),
+					sprintf( __( 'Invalid language key in translations map: %s', 'spl' ), $lang_slug ),
 					[ 'status' => 400 ]
 				);
 			}
@@ -228,7 +230,7 @@ final class RestLanguageResolver {
 			if ( ! $target instanceof \WP_Post ) {
 				return new \WP_Error(
 					'pll_rest_invalid_target',
-					sprintf( __( 'Translation target post %d does not exist.', 'SPL' ), $target_id ),
+					sprintf( __( 'Translation target post %d does not exist.', 'spl' ), $target_id ),
 					[ 'status' => 400 ]
 				);
 			}
@@ -237,7 +239,7 @@ final class RestLanguageResolver {
 				return new \WP_Error(
 					'pll_rest_type_mismatch',
 					sprintf(
-						__( 'Post %1$d has post type "%2$s", not "%3$s".', 'SPL' ),
+						__( 'Post %1$d has post type "%2$s", not "%3$s".', 'spl' ),
 						$target_id,
 						$target->post_type,
 						$post_type
@@ -251,7 +253,7 @@ final class RestLanguageResolver {
 				return new \WP_Error(
 					'pll_rest_lang_mismatch',
 					sprintf(
-						__( 'Post %1$d is assigned language "%2$s", not "%3$s".', 'SPL' ),
+						__( 'Post %1$d is assigned language "%2$s", not "%3$s".', 'spl' ),
 						$target_id,
 						$target_lang,
 						$lang_slug
@@ -278,7 +280,7 @@ final class RestLanguageResolver {
 			if ( ! self::isValidLanguage( $lang_slug ) ) {
 				return new \WP_Error(
 					'pll_rest_invalid_lang',
-					sprintf( __( 'Invalid language key in translations map: %s', 'SPL' ), $lang_slug ),
+					sprintf( __( 'Invalid language key in translations map: %s', 'spl' ), $lang_slug ),
 					[ 'status' => 400 ]
 				);
 			}
@@ -287,7 +289,7 @@ final class RestLanguageResolver {
 			if ( ! $target_id || ! get_term( $target_id, $taxonomy ) ) {
 				return new \WP_Error(
 					'pll_rest_invalid_target',
-					sprintf( __( 'Translation target term %1$d does not exist in taxonomy "%2$s".', 'SPL' ), $target_id, $taxonomy ),
+					sprintf( __( 'Translation target term %1$d does not exist in taxonomy "%2$s".', 'spl' ), $target_id, $taxonomy ),
 					[ 'status' => 400 ]
 				);
 			}
@@ -297,7 +299,7 @@ final class RestLanguageResolver {
 				return new \WP_Error(
 					'pll_rest_lang_mismatch',
 					sprintf(
-						__( 'Term %1$d is assigned language "%2$s", not "%3$s".', 'SPL' ),
+						__( 'Term %1$d is assigned language "%2$s", not "%3$s".', 'spl' ),
 						$target_id,
 						$target_lang,
 						$lang_slug

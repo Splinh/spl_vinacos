@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI\Translator
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI\Translator;
 
 use SPL\Modules\PLL\AI\TranslationUnit;
@@ -23,7 +25,7 @@ final class MetaTranslator {
 		'_yoast_wpseo_focuskw',
 	];
 
-	public function __construct( private readonly TranslationEngine $engine = new TranslationEngine() ) {}
+	public function __construct( private readonly TranslationEngine $engine ) {}
 
 	/**
 	 * @return array<string, string>|\WP_Error

@@ -3,16 +3,17 @@
  * ACF — Translation Instructions.
  *
  * Adds a "Translations Settings" tab to field group editor
- * with a toggle to display translation hints (copied/synced/translated/ignored)
+ * with a toggle to display translation hints (translated/ignored)
  * below each field's label in the post editor.
  *
  * @package SPL\Modules\PLL\ACF
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF;
 
 use SPL\Modules\PLL\ACF\Strategy\CopyStrategy;
-use SPL\Modules\PLL\ACF\Strategy\SyncStrategy;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -38,7 +39,7 @@ final class TranslationInstructions {
 	 * @return array Modified tabs.
 	 */
 	public function addSettingTab( array $tabs ): array {
-		$tabs[ self::TAB_NAME ] = __( 'Translations Settings', 'SPL' );
+		$tabs[ self::TAB_NAME ] = __( 'Translations Settings', 'spl' );
 
 		return $tabs;
 	}
@@ -56,8 +57,8 @@ final class TranslationInstructions {
 				[
 					'id'           => 'no_translations_settings',
 					'required'     => 0,
-					'label'        => esc_html__( 'No translations settings', 'SPL' ),
-					'instructions' => esc_html__( 'No translations settings are available for field group with language location rules.', 'SPL' ),
+					'label'        => esc_html__( 'No translations settings', 'spl' ),
+					'instructions' => esc_html__( 'No translations settings are available for field group with language location rules.', 'spl' ),
 				]
 			);
 
@@ -66,8 +67,8 @@ final class TranslationInstructions {
 
 		acf_render_field_wrap(
 			[
-				'label'        => esc_html__( 'Display translation field instructions', 'SPL' ),
-				'instructions' => esc_html__( 'When enabled, the translation field instructions will be displayed below the field label.', 'SPL' ),
+				'label'        => esc_html__( 'Display translation field instructions', 'spl' ),
+				'instructions' => esc_html__( 'When enabled, the translation field instructions will be displayed below the field label.', 'spl' ),
 				'type'         => 'true_false',
 				'name'         => self::SETTING_KEY,
 				'prefix'       => 'acf_field_group',
@@ -129,28 +130,22 @@ final class TranslationInstructions {
 		}
 
 		if ( empty( $field['translations'] ) ) {
-			// Layout fields (group, repeater, etc.) — check strategies.
+			// Layout fields (group, repeater, etc.) have no direct setting —
+			// infer from their child fields.
 			if ( in_array( $field['type'], [ 'group', 'repeater', 'clone', 'flexible_content' ], true ) ) {
-				$copy = new CopyStrategy();
-				if ( $copy->canExecute( $field ) ) {
-					return __( 'This field is copied.', 'SPL' );
-				}
+				static $strategy;
+				$strategy ??= new CopyStrategy();
 
-				$sync = new SyncStrategy( $copy );
-				if ( $sync->canExecute( $field ) ) {
-					return __( 'This field is synchronized.', 'SPL' );
+				if ( $strategy->canExecute( $field ) ) {
+					return __( 'This field is translated.', 'spl' );
 				}
 			}
-		} else {
-			return match ( $field['translations'] ) {
-				'copy_once'      => __( 'This field is copied once.', 'SPL' ),
-				'sync'           => __( 'This field is synchronized.', 'SPL' ),
-				'translate'      => __( 'This field is translated.', 'SPL' ),
-				'translate_once' => __( 'This field is translated once.', 'SPL' ),
-				default          => __( 'This field is ignored.', 'SPL' ),
-			};
+
+			return __( 'This field is ignored.', 'spl' );
 		}
 
-		return __( 'This field is ignored.', 'SPL' );
+		return 'translate' === $field['translations']
+			? __( 'This field is translated.', 'spl' )
+			: __( 'This field is ignored.', 'spl' );
 	}
 }

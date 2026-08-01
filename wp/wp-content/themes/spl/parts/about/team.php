@@ -10,7 +10,7 @@ use SPL\Core\Helper;
 defined( 'ABSPATH' ) || exit;
 
 $title      = $data['title'] ?? 'Sức mạnh tập thể';
-$banner_img = 'https://unila.com.vn/wp-content/uploads/2026/03/SUC-MANH-TAP-THE.jpg';
+$banner_img = get_template_directory_uri() . '/static/img/suc-manh-tap-the-vinacos.jpg';
 $depts      = [
 	[
 		'title' => 'BAN GIÁM ĐỐC',

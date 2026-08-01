@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI;
 
 use SPL\Modules\PLL\AI\Jobs\BatchManager;
@@ -36,11 +38,30 @@ final class AutoTranslateManager {
 	}
 
 	public function enqueueAssets(): void {
-		$settings = PLLModule::getCachedOptions();
-		$assetUrl = THEME_URL . 'src/Modules/PLL/Admin/assets/ai/';
+		global $pagenow;
+		if ( ! in_array( $pagenow, [ 'post.php', 'post-new.php', 'edit.php' ], true ) ) {
+			return;
+		}
 
-		wp_enqueue_style( 'hd-pll-ai-auto-translate', $assetUrl . 'auto-translate.css', [], THEME_VERSION );
-		wp_register_script( 'hd-pll-ai-auto-translate', $assetUrl . 'auto-translate.js', [ 'wp-api-fetch' ], THEME_VERSION, true );
+		$settings = PLLModule::getCachedOptions();
+		$assetDir = dirname( __DIR__ ) . '/Admin/assets/ai';
+
+		// Inline CSS — read from file, print directly (avoids exposing path structure).
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local file read.
+		$css = file_get_contents( $assetDir . '/auto-translate.css' );
+		if ( $css ) {
+			// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Trusted local file.
+			printf( '<style id="hd-pll-ai-auto-translate-css">%s</style>', $css );
+		}
+
+		// Inline JS — register empty handle for localization, inject file content.
+		wp_register_script( 'hd-pll-ai-auto-translate', '', [ 'wp-api-fetch' ], THEME_VERSION, true );
+		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local file read.
+		$js = file_get_contents( $assetDir . '/auto-translate.js' );
+		if ( $js ) {
+			wp_add_inline_script( 'hd-pll-ai-auto-translate', $js );
+		}
+
 		wp_localize_script(
 			'hd-pll-ai-auto-translate',
 			'hdPllAi',

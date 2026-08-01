@@ -7,7 +7,7 @@
  * Dependencies: jQuery, acf-input
  * Localized data: pllAcfOptions (via wp_localize_script)
  */
-(function($) {
+(function ($) {
 	'use strict';
 
 	if (typeof pllAcfOptions === 'undefined') return;
@@ -19,28 +19,28 @@
 
 	function initDom() {
 		if ($slideover) return;
-		$slideover  = $('#pll-options-slideover');
-		$content    = $slideover.find('.pll-slideover__content');
-		$title      = $slideover.find('.pll-slideover__title');
-		$spinner    = $slideover.find('.pll-slideover__spinner');
-		$removeBtn  = $slideover.find('.pll-remove-translation-btn');
+		$slideover = $('#pll-options-slideover');
+		$content = $slideover.find('.pll-slideover__content');
+		$title = $slideover.find('.pll-slideover__title');
+		$spinner = $slideover.find('.pll-slideover__spinner');
+		$removeBtn = $slideover.find('.pll-remove-translation-btn');
 		tmplLoading = wp.template('pll-options-loading');
-		tmplError   = wp.template('pll-options-error');
+		tmplError = wp.template('pll-options-error');
 	}
 
-	var currentLang     = '';
-	var currentPostId   = '';
+	var currentLang = '';
+	var currentPostId = '';
 	var currentMenuSlug = '';
 
 	// Detect menu_slug from URL.
-	var menuSlugMatch = window.location.href.match(/[?&]page=([^&]+)/);
-	currentMenuSlug   = menuSlugMatch ? menuSlugMatch[1] : '';
+	var menuSlugMatch = window.location.href.match(/[?&]page=([^&#]+)/);
+	currentMenuSlug = menuSlugMatch ? menuSlugMatch[1] : '';
 
 	// ── Panel controls ──
 
 	function openPanel(lang, langName, postId) {
 		initDom();
-		currentLang   = lang;
+		currentLang = lang;
 		currentPostId = postId;
 
 		$title.text(pllAcfOptions.i18n.translateTo.replace('%s', langName));
@@ -64,18 +64,13 @@
 		var $dot = $row.find('.pll-status-dot');
 
 		$row.attr('data-has-data', hasData ? '1' : '0');
-		$dot
-			.css('background', hasData ? '#00a32a' : '#dcdcde')
-			.attr('title', hasData
-				? (pllAcfOptions.i18n.hasTranslation || 'Has translation')
-				: (pllAcfOptions.i18n.noTranslation || 'No translation')
-			);
+		$dot.css('background', hasData ? '#00a32a' : '#dcdcde').attr('title', hasData ? pllAcfOptions.i18n.hasTranslation || 'Has translation' : pllAcfOptions.i18n.noTranslation || 'No translation');
 	}
 
 	function closePanel() {
 		initDom();
 		$slideover.removeClass('is-open');
-		setTimeout(function() {
+		setTimeout(function () {
 			$content.empty();
 		}, 300);
 		$('body').css('overflow', '');
@@ -88,23 +83,25 @@
 		$content.html(tmplLoading({}));
 
 		$.post(pllAcfOptions.ajaxUrl, {
-			action:    'hd_pll_acf_options_form',
-			nonce:     pllAcfOptions.nonce,
-			post_id:   currentPostId,
-			lang:      currentLang,
-			menu_slug: currentMenuSlug
-		}).done(function(res) {
-			if (res.success && res.data.html) {
-				$content.html(res.data.html);
-				if (typeof acf !== 'undefined') {
-					acf.doAction('ready', $content);
+			action: 'hd_pll_acf_options_form',
+			nonce: pllAcfOptions.nonce,
+			post_id: currentPostId,
+			lang: currentLang,
+			menu_slug: currentMenuSlug,
+		})
+			.done(function (res) {
+				if (res.success && res.data.html) {
+					$content.html(res.data.html);
+					if (typeof acf !== 'undefined') {
+						acf.doAction('ready', $content);
+					}
+				} else {
+					$content.html(tmplError({ message: res.data?.message || pllAcfOptions.i18n.error }));
 				}
-			} else {
-				$content.html(tmplError({ message: res.data?.message || pllAcfOptions.i18n.error }));
-			}
-		}).fail(function() {
-			$content.html(tmplError({ message: pllAcfOptions.i18n.error }));
-		});
+			})
+			.fail(function () {
+				$content.html(tmplError({ message: pllAcfOptions.i18n.error }));
+			});
 	}
 
 	// ── AJAX: Save form ──
@@ -121,19 +118,22 @@
 		formData.push({ name: 'lang', value: currentLang });
 		formData.push({ name: 'menu_slug', value: currentMenuSlug });
 
-		$.post(pllAcfOptions.ajaxUrl, formData).done(function(res) {
-			if (res.success) {
-				$saveBtn.text(pllAcfOptions.i18n.saved);
-				updateTranslationStatus(true);
-				setTimeout(closePanel, 800);
-			} else {
-				alert(res.data?.message || pllAcfOptions.i18n.error);
-			}
-		}).fail(function() {
-			alert(pllAcfOptions.i18n.error);
-		}).always(function() {
-			$saveBtn.prop('disabled', false).text(origText);
-		});
+		$.post(pllAcfOptions.ajaxUrl, formData)
+			.done(function (res) {
+				if (res.success) {
+					$saveBtn.text(pllAcfOptions.i18n.saved);
+					updateTranslationStatus(true);
+					setTimeout(closePanel, 800);
+				} else {
+					alert(res.data?.message || pllAcfOptions.i18n.error);
+				}
+			})
+			.fail(function () {
+				alert(pllAcfOptions.i18n.error);
+			})
+			.always(function () {
+				$saveBtn.prop('disabled', false).text(origText);
+			});
 	}
 
 	// ── AJAX: Copy from default ──
@@ -145,31 +145,34 @@
 		$copyBtn.prop('disabled', true).text(pllAcfOptions.i18n.copying);
 
 		$.post(pllAcfOptions.ajaxUrl, {
-			action:    'hd_pll_acf_options_copy',
-			nonce:     pllAcfOptions.nonce,
-			post_id:   currentPostId,
-			lang:      currentLang,
-			menu_slug: currentMenuSlug
-		}).done(function(res) {
-			if (res.success) {
-				$copyBtn.text(pllAcfOptions.i18n.copied);
-				updateTranslationStatus(true);
-				$removeBtn.show();
-				setTimeout(function() {
-					loadForm();
+			action: 'hd_pll_acf_options_copy',
+			nonce: pllAcfOptions.nonce,
+			post_id: currentPostId,
+			lang: currentLang,
+			menu_slug: currentMenuSlug,
+		})
+			.done(function (res) {
+				if (res.success) {
+					$copyBtn.text(pllAcfOptions.i18n.copied);
+					updateTranslationStatus(true);
+					$removeBtn.show();
+					setTimeout(function () {
+						loadForm();
+						$copyBtn.html(origHtml);
+					}, 500);
+				} else {
+					alert(res.data?.message || pllAcfOptions.i18n.error);
 					$copyBtn.html(origHtml);
-				}, 500);
-			} else {
-				alert(res.data?.message || pllAcfOptions.i18n.error);
+				}
+			})
+			.fail(function () {
+				alert(pllAcfOptions.i18n.error);
 				$copyBtn.html(origHtml);
-			}
-		}).fail(function() {
-			alert(pllAcfOptions.i18n.error);
-			$copyBtn.html(origHtml);
-		}).always(function() {
-			$spinner.removeClass('is-active');
-			$copyBtn.prop('disabled', false);
-		});
+			})
+			.always(function () {
+				$spinner.removeClass('is-active');
+				$copyBtn.prop('disabled', false);
+			});
 	}
 
 	// AJAX: Remove translation.
@@ -184,35 +187,38 @@
 		$removeBtn.prop('disabled', true).text(pllAcfOptions.i18n.removing || 'Removing...');
 
 		$.post(pllAcfOptions.ajaxUrl, {
-			action:    'hd_pll_acf_options_remove',
-			nonce:     pllAcfOptions.nonce,
-			post_id:   currentPostId,
-			lang:      currentLang,
-			menu_slug: currentMenuSlug
-		}).done(function(res) {
-			if (res.success) {
-				$removeBtn.text(pllAcfOptions.i18n.removed || 'Removed!');
-				updateTranslationStatus(false);
-				setTimeout(function() {
-					closePanel();
-					$removeBtn.html(origHtml).hide();
-				}, 500);
-			} else {
-				alert(res.data?.message || pllAcfOptions.i18n.error);
+			action: 'hd_pll_acf_options_remove',
+			nonce: pllAcfOptions.nonce,
+			post_id: currentPostId,
+			lang: currentLang,
+			menu_slug: currentMenuSlug,
+		})
+			.done(function (res) {
+				if (res.success) {
+					$removeBtn.text(pllAcfOptions.i18n.removed || 'Removed!');
+					updateTranslationStatus(false);
+					setTimeout(function () {
+						closePanel();
+						$removeBtn.html(origHtml).hide();
+					}, 500);
+				} else {
+					alert(res.data?.message || pllAcfOptions.i18n.error);
+					$removeBtn.html(origHtml);
+				}
+			})
+			.fail(function () {
+				alert(pllAcfOptions.i18n.error);
 				$removeBtn.html(origHtml);
-			}
-		}).fail(function() {
-			alert(pllAcfOptions.i18n.error);
-			$removeBtn.html(origHtml);
-		}).always(function() {
-			$spinner.removeClass('is-active');
-			$removeBtn.prop('disabled', false);
-		});
+			})
+			.always(function () {
+				$spinner.removeClass('is-active');
+				$removeBtn.prop('disabled', false);
+			});
 	}
 
 	// ── Event bindings (all delegated — DOM may not exist yet) ──
 
-	$(document).on('click', '.pll-translate-btn', function(e) {
+	$(document).on('click', '.pll-translate-btn', function (e) {
 		e.preventDefault();
 		e.stopPropagation();
 		var $btn = $(this);
@@ -226,10 +232,9 @@
 	$(document).on('click', '#pll-options-slideover .pll-copy-default-btn', copyFromDefault);
 	$(document).on('click', '#pll-options-slideover .pll-remove-translation-btn', removeTranslation);
 
-	$(document).on('keydown', function(e) {
+	$(document).on('keydown', function (e) {
 		if (e.key === 'Escape' && $slideover && $slideover.hasClass('is-open')) {
 			closePanel();
 		}
 	});
-
 })(jQuery);

@@ -13,6 +13,8 @@
  * @package SPL\Modules\PLL\API
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\API;
 
 defined( 'ABSPATH' ) || exit;
@@ -39,7 +41,7 @@ final class LanguageField {
 					'get_callback'    => [ $this, 'getPostLang' ],
 					'update_callback' => [ $this, 'updatePostLang' ],
 					'schema'          => [
-						'description' => __( 'Polylang language slug.', 'SPL' ),
+						'description' => __( 'Polylang language slug.', 'spl' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 					],
@@ -53,7 +55,7 @@ final class LanguageField {
 					'get_callback'    => [ $this, 'getPostTranslations' ],
 					'update_callback' => [ $this, 'updatePostTranslations' ],
 					'schema'          => [
-						'description'          => __( 'Map of Polylang language slug to translated post ID.', 'SPL' ),
+						'description'          => __( 'Map of Polylang language slug to translated post ID.', 'spl' ),
 						'type'                 => 'object',
 						'additionalProperties' => [ 'type' => 'integer' ],
 						'context'              => [ 'view', 'edit' ],
@@ -76,7 +78,7 @@ final class LanguageField {
 					'get_callback'    => [ $this, 'getTermLang' ],
 					'update_callback' => [ $this, 'updateTermLang' ],
 					'schema'          => [
-						'description' => __( 'Polylang language slug.', 'SPL' ),
+						'description' => __( 'Polylang language slug.', 'spl' ),
 						'type'        => 'string',
 						'context'     => [ 'view', 'edit' ],
 					],
@@ -90,7 +92,7 @@ final class LanguageField {
 					'get_callback'    => [ $this, 'getTermTranslations' ],
 					'update_callback' => [ $this, 'updateTermTranslations' ],
 					'schema'          => [
-						'description'          => __( 'Map of Polylang language slug to translated term ID.', 'SPL' ),
+						'description'          => __( 'Map of Polylang language slug to translated term ID.', 'spl' ),
 						'type'                 => 'object',
 						'additionalProperties' => [ 'type' => 'integer' ],
 						'context'              => [ 'view', 'edit' ],
@@ -175,7 +177,7 @@ final class LanguageField {
 		if ( ! is_array( $value ) ) {
 			return new \WP_Error(
 				'pll_rest_invalid_translations',
-				__( 'The translations field must be an object (lang_slug => post_id).', 'SPL' ),
+				__( 'The translations field must be an object (lang_slug => post_id).', 'spl' ),
 				[ 'status' => 400 ]
 			);
 		}
@@ -233,7 +235,7 @@ final class LanguageField {
 		if ( ! is_array( $value ) ) {
 			return new \WP_Error(
 				'pll_rest_invalid_translations',
-				__( 'The translations field must be an object (lang_slug => term_id).', 'SPL' ),
+				__( 'The translations field must be an object (lang_slug => term_id).', 'spl' ),
 				[ 'status' => 400 ]
 			);
 		}

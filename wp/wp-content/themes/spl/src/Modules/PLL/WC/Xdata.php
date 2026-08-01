@@ -11,6 +11,8 @@
  * @package SPL\Modules\PLL\WC
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC;
 
 use SPL\Core\DB;
@@ -137,7 +139,7 @@ final class Xdata {
 			DB::db()->prefix . 'woocommerce_sessions',
 			[
 				'session_key'    => $key,
-				'session_value'  => maybe_serialize( $data ),
+				'session_value'  => wp_json_encode( $data ),
 				'session_expiry' => time() + ( 2 * MINUTE_IN_SECONDS ),
 			],
 			[ '%s', '%s', '%d' ]
@@ -159,10 +161,16 @@ final class Xdata {
 
 		if ( ! empty( $value->session_value ) && time() < (int) $value->session_expiry ) {
 			DB::db()->delete( $table, [ 'session_key' => $key ] );
-			return maybe_unserialize( $value->session_value );
+			$data = json_decode( $value->session_value, true );
+
+			return is_array( $data ) ? $data : [];
 		}
 
-		wp_safe_redirect( home_url() );
-		exit;
+		// Expired or missing — clean up stale row if present.
+		if ( ! empty( $value ) ) {
+			DB::db()->delete( $table, [ 'session_key' => $key ] );
+		}
+
+		return [];
 	}
 }

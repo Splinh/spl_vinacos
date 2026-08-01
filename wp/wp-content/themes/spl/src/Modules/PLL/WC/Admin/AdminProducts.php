@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\WC\Admin
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC\Admin;
 
 defined( 'ABSPATH' ) || exit;

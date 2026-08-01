@@ -2,11 +2,14 @@
 /**
  * ACF — Per-Field Translation Settings.
  *
- * Adds a "Translations" dropdown to each non-layout ACF field,
- * letting users control copy/sync/translate behavior per field.
+ * Adds a "Translations" dropdown to each non-layout ACF field with two
+ * strategies: Translate (default — seed + keep references linked) and
+ * Ignore (independent per language).
  *
  * @package SPL\Modules\PLL\ACF
  */
+
+declare(strict_types=1);
 
 namespace SPL\Modules\PLL\ACF;
 
@@ -38,60 +41,27 @@ final class FieldSettings {
 			return;
 		}
 
-		$choices = [
-			'ignore'    => __( 'Ignore', 'SPL' ),
-			'copy_once' => __( 'Copy once', 'SPL' ),
-			'sync'      => __( 'Synchronize', 'SPL' ),
-		];
-
-		$default = null;
-
-		switch ( $field['type'] ) {
-			case 'text':
-			case 'textarea':
-			case 'wysiwyg':
-				// Intentional fall-through.
-
-			case 'email':
-			case 'oembed':
-			case 'url':
-				$choices = array_merge(
-					array_slice( $choices, 0, 2 ),
-					[
-						'translate'      => __( 'Translate', 'SPL' ),
-						'translate_once' => __( 'Translate once', 'SPL' ),
-					],
-					array_slice( $choices, -1 )
-				);
-
-				$default = 'translate';
-				break;
-		}
-
-		// Non-text fields: default to first available choice.
-		$default ??= array_key_first( $choices );
-
 		$instructions =
 			'<details>' .
-				'<summary style="cursor: pointer; outline: none; margin-bottom: 5px;">' . esc_html__( 'View translation rules', 'SPL' ) . '</summary>' .
+				'<summary style="cursor: pointer; outline: none; margin-bottom: 5px;">' . esc_html__( 'View translation rules', 'spl' ) . '</summary>' .
 				'<div style="line-height: 1.6;">' .
-				'<strong>' . esc_html__( 'Ignore:', 'SPL' ) . '</strong> ' . esc_html__( 'Fields are completely independent. No data is copied or synced.', 'SPL' ) . '<br>' .
-				'<strong>' . esc_html__( 'Copy once:', 'SPL' ) . '</strong> ' . esc_html__( 'Value is copied only once when creating a new translation.', 'SPL' ) . '<br>' .
-				'<strong>' . esc_html__( 'Synchronize:', 'SPL' ) . '</strong> ' . esc_html__( 'Value is continuously kept identical across all translations.', 'SPL' ) . '<br>' .
-				'<strong>' . esc_html__( 'Translate:', 'SPL' ) . '</strong> ' . esc_html__( 'Value can be translated. Structural fields (e.g., Repeater rows) are synchronized.', 'SPL' ) . '<br>' .
-				'<strong>' . esc_html__( 'Translate once:', 'SPL' ) . '</strong> ' . esc_html__( 'Value is copied initially as a template, then translated independently.', 'SPL' ) .
+				'<strong>' . esc_html__( 'Translate:', 'spl' ) . '</strong> ' . esc_html__( 'Default. The value is seeded into new translations as a starting point — reference IDs and Repeater rows stay linked — then translated independently.', 'spl' ) . '<br>' .
+				'<strong>' . esc_html__( 'Ignore:', 'spl' ) . '</strong> ' . esc_html__( 'For fields that should not be translated (e.g. slug, ID). The field stays fully independent per language with no copy, sync, or linking — you can still enter a value manually in each language.', 'spl' ) .
 				'</div>' .
 			'</details>';
 
 		acf_render_field_setting(
 			$field,
 			[
-				'label'         => __( 'Translations', 'SPL' ),
+				'label'         => __( 'Translations', 'spl' ),
 				'instructions'  => $instructions,
 				'name'          => 'translations',
 				'type'          => 'select',
-				'choices'       => $choices,
-				'default_value' => $default,
+				'choices'       => [
+					'translate' => __( 'Translate', 'spl' ),
+					'ignore'    => __( 'Ignore', 'spl' ),
+				],
+				'default_value' => 'translate',
 			],
 			false
 		);

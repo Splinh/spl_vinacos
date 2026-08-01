@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $title = $data['title'] ?? 'Những con số biết nói';
-$center_image = get_template_directory_uri() . '/static/img/stats-vinacos.png';
+$center_image = get_template_directory_uri() . '/static/img/stats-about-vinacos.png';
 
 $stats = [
 	[

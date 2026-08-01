@@ -10,6 +10,8 @@
  * @package SPL\Modules\PLL\ACF\Strategy
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF\Strategy;
 
 use SPL\Modules\PLL\ACF\Entity\AbstractEntity;

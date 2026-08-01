@@ -13,6 +13,8 @@
  * @package SPL\Modules\PLL\API
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\API;
 
 defined( 'ABSPATH' ) || exit;
@@ -97,7 +99,7 @@ final class QueryFilter {
 	 */
 	public function registerCollectionParam( array $params ): array {
 		$params['lang'] = [
-			'description'       => __( 'Filter by Polylang language slug. Use "all" or omit to return all languages.', 'SPL' ),
+			'description'       => __( 'Filter by Polylang language slug. Use "all" or omit to return all languages.', 'spl' ),
 			'type'              => 'string',
 			'default'           => '',
 			'sanitize_callback' => 'sanitize_key',
@@ -165,7 +167,7 @@ final class QueryFilter {
 		if ( ! RestLanguageResolver::isValidLanguage( $value ) ) {
 			return new \WP_Error(
 				'pll_rest_invalid_lang',
-				sprintf( __( 'Invalid Polylang language slug: %s', 'SPL' ), $value ),
+				sprintf( __( 'Invalid Polylang language slug: %s', 'spl' ), $value ),
 				[ 'status' => 400 ]
 			);
 		}

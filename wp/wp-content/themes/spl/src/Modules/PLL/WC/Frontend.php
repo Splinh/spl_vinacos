@@ -10,6 +10,8 @@
  * @package SPL\Modules\PLL\WC
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC;
 
 use SPL\Core\Helper;
@@ -30,6 +32,14 @@ final class Frontend {
 	 * Setup frontend hooks after language is defined.
 	 */
 	public function init(): void {
+		static $done = false;
+
+		if ( $done ) {
+			return;
+		}
+
+		$done = true;
+
 		// W-B3: Reset WC country/state name cache so they display in the current locale.
 		if ( ! \PLL()->options['force_lang'] ) {
 			$this->resetCountriesCache();

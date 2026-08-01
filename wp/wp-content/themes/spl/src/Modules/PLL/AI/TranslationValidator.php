@@ -5,9 +5,9 @@
  * @package SPL\Modules\PLL\AI
  */
 
-namespace SPL\Modules\PLL\AI;
+declare(strict_types=1);
 
-use SPL\Modules\PLL\AI\Content\HtmlStructure;
+namespace SPL\Modules\PLL\AI;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -46,10 +46,9 @@ final class TranslationValidator {
 				}
 			}
 
-			$this->comparePattern( $unit->source, $translated, '/%(?:\d+\$)?[bcdeEfFgGosuxX]/', 'placeholder_mismatch', $errors[ $unit->id ] );
-			$this->comparePattern( $unit->source, $translated, '/\{[A-Za-z0-9_.-]+\}/', 'named_placeholder_mismatch', $errors[ $unit->id ] );
-			$this->comparePattern( $unit->source, $translated, '/\[[A-Za-z0-9_-]+(?:\s[^\]]*)?]/', 'shortcode_mismatch', $errors[ $unit->id ] );
-			$this->comparePattern( $unit->source, $translated, '~https?://[^\s<>"\']+~', 'url_mismatch', $errors[ $unit->id ] );
+			foreach ( TranslationUnit::PROTECTED_PATTERNS as $pattern => $code ) {
+				$this->comparePattern( $unit->source, $translated, $pattern, $code, $errors[ $unit->id ] );
+			}
 
 			if ( in_array( $unit->format, [ 'html', 'block_attribute' ], true ) && ! $this->hasBalancedHtml( $translated ) ) {
 				$errors[ $unit->id ][] = 'html_balance_failed';

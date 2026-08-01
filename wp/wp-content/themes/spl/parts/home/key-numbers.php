@@ -7,14 +7,36 @@
 
 defined( 'ABSPATH' ) || exit;
 
+$is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $section = $args ?? array();
-$title   = $section['title'] ?? 'Con số nổi bật';
+$title   = $section['title'] ?? ( $is_en ? 'Key Highlights & Milestones' : 'Con số nổi bật' );
 $items   = $section['items'] ?? array();
 $bg_img  = is_array( $section['bg_image'] ?? null ) ? ( $section['bg_image']['url'] ?? '' ) : ( is_numeric( $section['bg_image'] ?? null ) ? wp_get_attachment_url( $section['bg_image'] ) : ( $section['bg_image'] ?? '' ) );
 $fig_img = is_array( $section['figure_image'] ?? null ) ? ( $section['figure_image']['url'] ?? '' ) : ( is_numeric( $section['figure_image'] ?? null ) ? wp_get_attachment_url( $section['figure_image'] ) : ( $section['figure_image'] ?? '' ) );
 
 if ( empty( $items ) ) {
-	$items = array(
+	$items = $is_en ? array(
+		array(
+			'count'  => 100,
+			'suffix' => '%',
+			'title'  => 'Formulas Stability & Efficacy Tested',
+		),
+		array(
+			'count'  => 300,
+			'suffix' => '+',
+			'title'  => 'Proprietary R&D Formulas Developed',
+		),
+		array(
+			'count'  => 30,
+			'suffix' => '+',
+			'title'  => 'Published Scientific Papers & Patents',
+		),
+		array(
+			'count'  => 10,
+			'suffix' => '+',
+			'title'  => 'Years OEM/ODM Cosmetics Manufacturing',
+		),
+	) : array(
 		array(
 			'count'  => 100,
 			'suffix' => '%',
@@ -39,10 +61,10 @@ if ( empty( $items ) ) {
 }
 
 if ( empty( $bg_img ) ) {
-	$bg_img = 'https://unila.com.vn/wp-content/uploads/2026/04/CON-SO-NOI-BAT-2.jpg';
+	$bg_img = get_template_directory_uri() . '/static/img/bg-stats-vinacos.jpg';
 }
 if ( empty( $fig_img ) ) {
-	$fig_img = 'https://unila.com.vn/wp-content/uploads/2026/03/UNILA-VIET-NAM.png';
+	$fig_img = get_template_directory_uri() . '/static/img/stats-vinacos.png';
 }
 ?>
 

@@ -3,13 +3,16 @@
  * ACF Strategy — Synchronize.
  *
  * Real-time sync strategy. Extends CopyStrategy to handle
- * bidirectional synchronization on field updates.
+ * synchronization on field updates.
  *
- * Only processes fields with `translations = 'sync'`.
- * Also propagates synced changes for `translate`-marked child fields.
+ * Propagates structural changes (repeater rows, group/flexible layouts) to
+ * translations whose child fields are marked `translate`, while leaving each
+ * translated leaf value to be edited independently.
  *
  * @package SPL\Modules\PLL\ACF\Strategy
  */
+
+declare(strict_types=1);
 
 namespace SPL\Modules\PLL\ACF\Strategy;
 
@@ -80,14 +83,12 @@ final class SyncStrategy extends CopyStrategy {
 	}
 
 	/**
-	 * A field can be synced if its `translations` setting is 'sync',
-	 * or if a child field is translatable (requires parent sync).
+	 * Structural fields can be synced when a child field is translatable —
+	 * this keeps repeater rows and group/flexible layouts aligned across
+	 * translations while their `translate` leaves are edited independently.
+	 * Leaf fields never sync on their own (there is no `sync` setting).
 	 */
 	protected function canExecuteRecursive( array $field ): bool {
-		if ( isset( $field['translations'] ) && 'sync' === $field['translations'] ) {
-			return true;
-		}
-
 		return match ( $field['type'] ) {
 			'clone', 'group', 'repeater' => $this->canExecuteWithTranslatableChildren( $field['sub_fields'] ?? [] ),
 			'flexible_content'           => $this->canExecuteWithTranslatableLayouts( $field['layouts'] ?? [] ),

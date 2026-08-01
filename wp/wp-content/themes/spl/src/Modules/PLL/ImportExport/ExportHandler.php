@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\ImportExport
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ImportExport;
 
 defined( 'ABSPATH' ) || exit;
@@ -26,14 +28,14 @@ final class ExportHandler {
 	 */
 	public static function handle( string $formatKey, array $targetLangSlugs, string $group = '' ): \WP_Error {
 		if ( ! function_exists( 'PLL' ) || ! class_exists( 'PLL_Admin_Strings' ) ) {
-			return new \WP_Error( 'pll_export_unavailable', __( 'Polylang is not available.', 'SPL' ) );
+			return new \WP_Error( 'pll_export_unavailable', __( 'Polylang is not available.', 'spl' ) );
 		}
 
 		$model       = \PLL()->model;
 		$defaultLang = $model->get_default_language();
 
 		if ( empty( $defaultLang ) ) {
-			return new \WP_Error( 'pll_export_no_default', __( 'Error: Default language not defined.', 'SPL' ) );
+			return new \WP_Error( 'pll_export_no_default', __( 'Error: Default language not defined.', 'spl' ) );
 		}
 
 		// Get registered strings.
@@ -46,7 +48,7 @@ final class ExportHandler {
 		}
 
 		if ( empty( $sources ) ) {
-			return new \WP_Error( 'pll_export_no_strings', __( 'No strings found to export.', 'SPL' ) );
+			return new \WP_Error( 'pll_export_no_strings', __( 'No strings found to export.', 'spl' ) );
 		}
 
 		$factory   = new FileFormatFactory();
@@ -96,7 +98,7 @@ final class ExportHandler {
 		}
 
 		if ( empty( $downloads ) ) {
-			return new \WP_Error( 'pll_export_no_targets', __( 'No valid target languages selected.', 'SPL' ) );
+			return new \WP_Error( 'pll_export_no_targets', __( 'No valid target languages selected.', 'spl' ) );
 		}
 
 		// Send download.
@@ -135,7 +137,7 @@ final class ExportHandler {
 
 		// Multiple files → zip.
 		if ( ! class_exists( 'ZipArchive' ) ) {
-			wp_die( esc_html__( 'ZipArchive is required to download multiple files.', 'SPL' ) );
+			wp_die( esc_html__( 'ZipArchive is required to download multiple files.', 'spl' ) );
 		}
 
 		$uploadDir = wp_upload_dir()['path'];
@@ -144,7 +146,7 @@ final class ExportHandler {
 
 		$zip = new \ZipArchive();
 		if ( true !== $zip->open( $zipPath, \ZipArchive::CREATE ) ) {
-			wp_die( esc_html__( 'Error creating zip file.', 'SPL' ) );
+			wp_die( esc_html__( 'Error creating zip file.', 'spl' ) );
 		}
 
 		foreach ( $files as $file ) {

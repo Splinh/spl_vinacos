@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI\Translator
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI\Translator;
 
 use SPL\Modules\PLL\AI\TranslationUnit;
@@ -23,13 +25,13 @@ final class StringTranslator {
 	 */
 	public function translateBatch( string $targetLang, array $options = [] ): array|\WP_Error {
 		if ( ! class_exists( 'PLL_Admin_Strings' ) ) {
-			return new \WP_Error( 'hd_pll_ai_strings_unavailable', __( 'Polylang string admin API is unavailable.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_strings_unavailable', __( 'Polylang string admin API is unavailable.', 'spl' ) );
 		}
 
 		$language = \PLL()->model->get_language( $targetLang );
 		$default  = \PLL()->model->get_default_language();
 		if ( ! $language || ! $default ) {
-			return new \WP_Error( 'hd_pll_ai_invalid_language', __( 'Invalid target language.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_invalid_language', __( 'Invalid target language.', 'spl' ) );
 		}
 
 		$group     = sanitize_text_field( (string) ( $options['group'] ?? '' ) );

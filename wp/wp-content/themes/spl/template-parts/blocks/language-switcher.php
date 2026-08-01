@@ -29,30 +29,126 @@ if ( ! $current_lang ) {
 	$current_lang = reset( $langs );
 }
 
+$current_code = strtoupper( $current_lang['slug'] );
+if ( 'VI' === $current_code ) {
+	$current_code = 'VI';
+}
 ?>
-<!-- Language Switcher -->
-<div class="relative inline-block text-left">
-	<button type="button" data-fx-dropdown-toggle aria-label="<?php esc_attr_e( 'Chọn ngôn ngữ', 'spl' ); ?>" class="inline-flex items-center gap-1.5 p-1.5 rounded-lg text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/7 transition-colors cursor-pointer border-none bg-transparent" aria-expanded="false" aria-haspopup="true">
-		<?php if ( ! empty( $current_lang['flag'] ) ) : ?>
-		<span class="inline-block size-4 overflow-hidden rounded-sm shrink-0">
-			<img src="<?php echo esc_url( $current_lang['flag'] ); ?>" alt="<?php echo esc_attr( $current_lang['name'] ); ?>" class="object-cover size-full block" />
-		</span>
-		<?php endif; ?>
-		<span class="text-sm font-semibold uppercase"><?php echo esc_html( $current_lang['slug'] ); ?></span>
-		<svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" class="transition-transform duration-200">
-			<path d="M2.5 4.5L6 8L9.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-		</svg>
-	</button>
-	<div class="dropdown-pane absolute right-0 mt-1 sm:w-50! origin-top-right rounded-xl bg-white dark:bg-gray-800 border border-black/8 dark:border-white/8 shadow-xl dark:shadow-[0_8px_32px_rgba(0,0,0,.5)] focus:outline-none p-1 z-50" data-fx-dropdown data-hover="true" role="menu" aria-orientation="vertical">
-		<?php foreach ( $langs as $lang ) : ?>
-		<a href="<?php echo esc_url( $lang['url'] ); ?>" class="flex items-center gap-2 px-3 py-1.5 rounded-md text-sm text-gray-700 dark:text-gray-300 hover:bg-black/5 dark:hover:bg-white/7 hover:text-gray-900 dark:hover:text-white no-underline transition-colors <?php echo ! empty( $lang['current_lang'] ) ? 'font-semibold bg-black/3 dark:bg-white/4' : ''; ?>" role="menuitem">
-			<?php if ( ! empty( $lang['flag'] ) ) : ?>
-			<span class="inline-block size-4 overflow-hidden rounded-sm shrink-0">
-				<img src="<?php echo esc_url( $lang['flag'] ); ?>" alt="<?php echo esc_attr( $lang['name'] ); ?>" class="object-cover size-full block" />
-			</span>
-			<?php endif; ?>
-			<span><?php echo esc_html( $lang['name'] ); ?></span>
-		</a>
-		<?php endforeach; ?>
-	</div>
+<div class="wpml-ls-statics-shortcode_actions wpml-ls wpml-ls-legacy-dropdown-click js-wpml-ls-legacy-dropdown-click">
+	<ul>
+		<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-<?= esc_attr( strtolower( $current_code ) ) ?> wpml-ls-current-language wpml-ls-first-item wpml-ls-last-item wpml-ls-item-legacy-dropdown-click">
+			<a href="#" class="js-wpml-ls-item-toggle wpml-ls-item-toggle" onclick="return false;">
+				<span class="wpml-ls-native"><?= esc_html( $current_code ) ?></span>
+			</a>
+			<ul class="wpml-ls-sub-menu">
+				<?php foreach ( $langs as $lang ) :
+					if ( ! empty( $lang['current_lang'] ) ) {
+						continue; // Only list other available languages
+					}
+					$code = strtoupper( $lang['slug'] );
+				?>
+					<li class="wpml-ls-sub-item">
+						<a href="<?= esc_url( $lang['url'] ) ?>">
+							<span class="wpml-ls-native"><?= esc_html( $code ) ?></span>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+		</li>
+	</ul>
 </div>
+
+<style>
+/* Unila Language Switcher Dropdown Styling */
+header .button-language {
+	position: relative !important;
+	display: inline-flex !important;
+	align-items: center !important;
+}
+
+header .button-language .wpml-ls {
+	position: relative !important;
+}
+
+header .button-language .wpml-ls > ul {
+	margin: 0 !important;
+	padding: 0 !important;
+	list-style: none !important;
+}
+
+header .button-language .wpml-ls > ul > li {
+	position: relative !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Hidden by default */
+header .wpml-ls-sub-menu {
+	display: none !important;
+	position: absolute !important;
+	top: calc(100% + 6px) !important;
+	left: 50% !important;
+	transform: translateX(-50%) !important;
+	background: #ffffff !important;
+	border: 1px solid #e2e8f0 !important;
+	border-radius: 12px !important;
+	box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.15) !important;
+	padding: 6px 0 !important;
+	min-width: 56px !important;
+	text-align: center !important;
+	margin: 0 !important;
+	list-style: none !important;
+	z-index: 99999 !important;
+}
+
+/* Display ONLY when active class is toggled on click */
+header .wpml-ls-item.is-open .wpml-ls-sub-menu,
+header .wpml-ls-item.wpml-ls-show .wpml-ls-sub-menu {
+	display: block !important;
+}
+
+header .wpml-ls-sub-menu li {
+	margin: 0 !important;
+	padding: 0 !important;
+	list-style: none !important;
+}
+
+header .wpml-ls-sub-menu li a {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	padding: 8px 14px !important;
+	color: #1e293b !important;
+	font-weight: 700 !important;
+	font-size: 13px !important;
+	line-height: 1 !important;
+	text-decoration: none !important;
+	white-space: nowrap !important;
+	border-radius: 6px !important;
+	transition: background-color 0.2s ease, color 0.2s ease !important;
+}
+
+header .wpml-ls-sub-menu li a:hover {
+	background-color: #f1f5f9 !important;
+	color: #1e60a3 !important;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('click', function(e) {
+		const toggleBtn = e.target.closest('.js-wpml-ls-item-toggle');
+		const langItem  = e.target.closest('.wpml-ls-item');
+
+		if (toggleBtn && langItem) {
+			e.preventDefault();
+			e.stopPropagation();
+			langItem.classList.toggle('is-open');
+		} else {
+			document.querySelectorAll('.wpml-ls-item.is-open').forEach(function(item) {
+				item.classList.remove('is-open');
+			});
+		}
+	});
+});
+</script>

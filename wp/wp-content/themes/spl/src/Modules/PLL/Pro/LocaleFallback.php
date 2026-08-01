@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\Pro
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\Pro;
 
 use SPL\Modules\PLL\Contracts\PllFeatureInterface;

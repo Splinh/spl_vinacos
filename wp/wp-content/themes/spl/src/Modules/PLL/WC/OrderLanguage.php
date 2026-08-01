@@ -8,6 +8,8 @@
  * @package SPL\Modules\PLL\WC
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC;
 
 use SPL\Modules\PLL\PLLModule;
@@ -115,7 +117,7 @@ final class OrderLanguage {
 			$name     = $language ? $language->name : strtoupper( $lang );
 			printf(
 				'<p><strong>%s:</strong> %s</p>',
-				esc_html__( 'Language', 'SPL' ),
+				esc_html__( 'Language', 'spl' ),
 				esc_html( $name )
 			);
 		}

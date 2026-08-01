@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI;
 
 use SPL\Modules\PLL\AI\Jobs\JobRepository;
@@ -42,7 +44,7 @@ final class BulkActions {
 			return $actions;
 		}
 
-		$actions[ self::ACTION ] = __( 'AI translate', 'SPL' );
+		$actions[ self::ACTION ] = __( 'AI translate', 'spl' );
 
 		return $actions;
 	}
@@ -85,7 +87,7 @@ final class BulkActions {
 			esc_html(
 				sprintf(
 					/* translators: 1: queued jobs, 2: skipped items. */
-					__( 'AI translation draft jobs queued: %1$d. Skipped: %2$d.', 'SPL' ),
+					__( 'AI translation draft jobs queued: %1$d. Skipped: %2$d.', 'spl' ),
 					$jobs,
 					$skipped
 				)
@@ -99,14 +101,14 @@ final class BulkActions {
 	 * @return array{queued:int,skipped:int}
 	 */
 	public function enqueuePosts( array $postIds ): array {
-		$counts    = [
+		$counts               = [
 			'queued'  => 0,
 			'skipped' => 0,
 		];
-		$postTypes = $this->postTypes();
-		$postIds   = $this->normalizeIds( $postIds );
-		$posts     = $this->postsById( $postIds, $postTypes );
-		$langs     = $this->postLanguagesById( $postIds );
+		$postTypes            = $this->postTypes();
+		$postIds              = $this->normalizeIds( $postIds );
+		$posts                = $this->postsById( $postIds, $postTypes );
+		$langs                = $this->postLanguagesById( $postIds );
 		$hasBatchTranslations = function_exists( 'pll_get_post_translations' );
 		$translationsById     = $hasBatchTranslations ? $this->postTranslationsById( $postIds ) : [];
 
@@ -131,18 +133,7 @@ final class BulkActions {
 				}
 
 				$result = $this->repository->create(
-					[
-						'type'        => $post->post_type,
-						'source_id'   => $postId,
-						'source_lang' => $sourceLang,
-						'target_lang' => $targetLang,
-						'status'      => 'pending',
-						'options'     => $this->jobOptions(),
-						'attempts'    => 0,
-						'last_error'  => '',
-						'usage'       => [],
-						'results'     => [],
-					]
+					$this->buildJobPayload( $post->post_type, $postId, $sourceLang, $targetLang )
 				);
 
 				if ( is_wp_error( $result ) ) {
@@ -162,14 +153,14 @@ final class BulkActions {
 	 * @return array{queued:int,skipped:int}
 	 */
 	public function enqueueTerms( array $termIds ): array {
-		$counts     = [
+		$counts               = [
 			'queued'  => 0,
 			'skipped' => 0,
 		];
-		$taxonomies = $this->taxonomies();
-		$termIds    = $this->normalizeIds( $termIds );
-		$terms      = $this->termsById( $termIds, $taxonomies );
-		$langs      = $this->termLanguagesById( $termIds );
+		$taxonomies           = $this->taxonomies();
+		$termIds              = $this->normalizeIds( $termIds );
+		$terms                = $this->termsById( $termIds, $taxonomies );
+		$langs                = $this->termLanguagesById( $termIds );
 		$hasBatchTranslations = function_exists( 'pll_get_term_translations' );
 		$translationsById     = $hasBatchTranslations ? $this->termTranslationsById( $termIds ) : [];
 
@@ -194,18 +185,7 @@ final class BulkActions {
 				}
 
 				$result = $this->repository->create(
-					[
-						'type'        => 'term',
-						'source_id'   => $termId,
-						'source_lang' => $sourceLang,
-						'target_lang' => $targetLang,
-						'status'      => 'pending',
-						'options'     => $this->jobOptions(),
-						'attempts'    => 0,
-						'last_error'  => '',
-						'usage'       => [],
-						'results'     => [],
-					]
+					$this->buildJobPayload( 'term', $termId, $sourceLang, $targetLang )
 				);
 
 				if ( is_wp_error( $result ) ) {
@@ -370,7 +350,7 @@ final class BulkActions {
 	private function postTranslationsById( array $postIds ): array {
 		$translations = [];
 		foreach ( $postIds as $postId ) {
-			$map = \pll_get_post_translations( $postId );
+			$map                     = \pll_get_post_translations( $postId );
 			$translations[ $postId ] = is_array( $map ) ? array_map( 'absint', $map ) : [];
 		}
 
@@ -385,7 +365,7 @@ final class BulkActions {
 	private function termTranslationsById( array $termIds ): array {
 		$translations = [];
 		foreach ( $termIds as $termId ) {
-			$map = \pll_get_term_translations( $termId );
+			$map                     = \pll_get_term_translations( $termId );
 			$translations[ $termId ] = is_array( $map ) ? array_map( 'absint', $map ) : [];
 		}
 
@@ -408,6 +388,26 @@ final class BulkActions {
 		return $translationsComplete
 			? ! empty( $translations[ $targetLang ] )
 			: (bool) \pll_get_term( $termId, $targetLang );
+	}
+
+	/**
+	 * Build the standard job payload for the repository.
+	 *
+	 * @return array<string, mixed>
+	 */
+	private function buildJobPayload( string $type, int $sourceId, string $sourceLang, string $targetLang ): array {
+		return [
+			'type'        => $type,
+			'source_id'   => $sourceId,
+			'source_lang' => $sourceLang,
+			'target_lang' => $targetLang,
+			'status'      => 'pending',
+			'options'     => $this->jobOptions(),
+			'attempts'    => 0,
+			'last_error'  => '',
+			'usage'       => [],
+			'results'     => [],
+		];
 	}
 
 	/**

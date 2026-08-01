@@ -5,9 +5,9 @@
  * @package SPL\Modules\PLL\AI\Jobs
  */
 
-namespace SPL\Modules\PLL\AI\Jobs;
+declare(strict_types=1);
 
-use SPL\Modules\PLL\AI\Enum\JobStatus;
+namespace SPL\Modules\PLL\AI\Jobs;
 
 defined( 'ABSPATH' ) || exit;
 

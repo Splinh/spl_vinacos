@@ -7,6 +7,8 @@
  * @package SPL\Modules\PLL\WC\Admin
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC\Admin;
 
 use SPL\Core\DB;

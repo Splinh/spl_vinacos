@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\ACF
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF;
 
 use PLL_Language;
@@ -61,17 +63,17 @@ final class AjaxLangChoice {
 		check_ajax_referer( 'pll_language', '_pll_nonce' );
 
 		if ( ! isset( $_POST['fields'], $_POST['lang'], $_POST['post_id'] ) ) {
-			wp_die( 0 );
+			wp_die( '0' );
 		}
 
 		$postId = absint( $_POST['post_id'] );
 		if ( ! current_user_can( 'edit_post', $postId ) ) {
-			wp_die( -1 );
+			wp_die( '-1' );
 		}
 
 		$language = \PLL()->model->get_language( sanitize_key( $_POST['lang'] ) );
 		if ( ! $language instanceof PLL_Language ) {
-			wp_die( 0 );
+			wp_die( '0' );
 		}
 
 		$response     = [];
@@ -130,7 +132,7 @@ final class AjaxLangChoice {
 		}
 
 		$language = \PLL()->model->post->get_language( (int) $decoded['id'] );
-		if ( ! empty( $language ) ) {
+		if ( $language instanceof PLL_Language ) {
 			$args['lang'] = $language->slug;
 		}
 
@@ -164,7 +166,7 @@ document.addEventListener('onPostLangChoice', function(e) {
 
     var data = new FormData();
     data.set('action', 'acf_post_lang_choice');
-    data.set('lang', encodeURI(e.detail.lang.slug));
+    data.set('lang', e.detail.lang.slug);
     data.set('fields', fields.join(','));
     data.set('post_id', postId);
     data.set('_pll_nonce', nonce);
@@ -176,9 +178,11 @@ document.addEventListener('onPostLangChoice', function(e) {
                 var field = document.querySelector('.acf-' + res.field_key);
                 if (!field) return;
                 var type = field.getAttribute('data-type');
+                var parent = field.parentNode;
                 field.outerHTML = res.field_data;
-                if (typeof acf !== 'undefined') {
-                    acf.do_action('ready_field/type=' + type, field);
+                var newField = parent ? parent.querySelector('.acf-' + res.field_key) : null;
+                if (newField && typeof acf !== 'undefined') {
+                    acf.do_action('ready_field/type=' + type, newField);
                 }
             });
             if (typeof acf !== 'undefined') {

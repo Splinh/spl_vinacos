@@ -1,6 +1,6 @@
 {
     "key": "group_daily_options",
-    "title": "DailyXeDien - Tùy chọn Theme",
+    "title": "VINACOS - Tùy chọn Theme",
     "fields": [
         {
             "key": "field_opt_tab_header",
@@ -80,7 +80,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Hệ thống xe điện lớn nhất Việt Nam"
+            "default_value": "Nhà máy gia công mỹ phẩm & bao bì chuẩn cGMP / FDA"
         },
         {
             "key": "field_opt_hotline_label",
@@ -221,6 +221,63 @@
             "placeholder": "VD: CÔNG TY TNHH XE ĐIỆN..."
         },
         {
+            "key": "field_daily_opt_company_info_list",
+            "label": "Danh sách thông tin liên hệ Footer (Repeater)",
+            "name": "company_info_list",
+            "type": "repeater",
+            "instructions": "Thêm, bớt, sắp xếp các dòng thông tin ở footer (Chi nhánh, Trụ sở, Nhà máy, Hotline, Email, Mã số thuế, v.v.)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "100",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Thêm thông tin",
+            "sub_fields": [
+                {
+                    "key": "field_daily_opt_info_label",
+                    "label": "Nhãn tiêu đề (VD: Chi nhánh TP.HCM)",
+                    "name": "label",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "wrapper": {
+                        "width": "30",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_daily_opt_info_value",
+                    "label": "Nội dung hiển thị",
+                    "name": "value",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "wrapper": {
+                        "width": "45",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_daily_opt_info_link",
+                    "label": "Link liên kết (tel:, mailto: hoặc URL)",
+                    "name": "link",
+                    "type": "text",
+                    "instructions": "VD: tel:0967198483 hoặc mailto:bbvinacos@gmail.com (để trống nếu không gắn link)",
+                    "required": 0,
+                    "wrapper": {
+                        "width": "25",
+                        "class": "",
+                        "id": ""
+                    }
+                }
+            ]
+        },
+        {
             "key": "field_daily_opt_company_intl",
             "label": "Tên quốc tế",
             "name": "company_intl_name",
@@ -278,7 +335,7 @@
         },
         {
             "key": "field_daily_opt_addr_farm",
-            "label": "Vùng trồng nguyên liệu (DailyXeDien)",
+            "label": "Vùng trồng nguyên liệu (VINACOS)",
             "name": "addr_farm",
             "type": "text",
             "instructions": "",
@@ -916,5 +973,5 @@
     "instruction_placement": "label",
     "hide_on_screen": [],
     "active": true,
-    "description": "Tùy chọn theme chung cho dailyxedien.vn"
+    "description": "Tùy chọn theme chung cho VINACOS"
 }

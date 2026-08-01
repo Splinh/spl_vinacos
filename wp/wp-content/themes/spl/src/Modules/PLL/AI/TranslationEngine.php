@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI;
 
 use SPL\Modules\PLL\PLLModule;
@@ -16,7 +18,9 @@ final class TranslationEngine {
 	public function __construct(
 		private readonly AiClient $client = new AiClient(),
 		private readonly PromptBuilder $promptBuilder = new PromptBuilder(),
-		private readonly TranslationValidator $validator = new TranslationValidator()
+		private readonly TranslationValidator $validator = new TranslationValidator(),
+		private readonly UnitChunker $chunker = new UnitChunker(),
+		private readonly MediaProcessor $mediaProcessor = new MediaProcessor()
 	) {}
 
 	/**
@@ -37,7 +41,7 @@ final class TranslationEngine {
 		}
 
 		$results = [];
-		foreach ( $this->chunks( $units ) as $chunk ) {
+		foreach ( $this->chunker->chunk( $units ) as $chunk ) {
 			$chunkResults = $this->translateChunk( $chunk, $sourceLang, $targetLang );
 			if ( is_wp_error( $chunkResults ) ) {
 				return $chunkResults;
@@ -55,32 +59,108 @@ final class TranslationEngine {
 	 * @return TranslationResult[]|\WP_Error
 	 */
 	private function translateChunk( array $units, string $sourceLang, string $targetLang ): array|\WP_Error {
-		$response = $this->requestTranslations( $this->promptBuilder->messages( $units, $sourceLang, $targetLang ) );
-		if ( is_wp_error( $response ) ) {
-			return $response;
+		$settings = PLLModule::getCachedOptions();
+		$maxChars = max( 1000, absint( $settings['ai_max_chars_per_request'] ?? 12000 ) );
+
+		// Expand oversized units into sub-units.
+		$expandedUnits = [];
+		$splitMap      = []; // Maps original ID to sub-unit IDs.
+		foreach ( $units as $unit ) {
+			if ( strlen( $unit->source ) > $maxChars ) {
+				$subUnits = $this->chunker->splitLargeUnit( $unit, $maxChars );
+				if ( count( $subUnits ) > 1 ) {
+					$splitMap[ $unit->id ] = array_map( static fn( TranslationUnit $u ): string => $u->id, $subUnits );
+					array_push( $expandedUnits, ...$subUnits );
+					continue;
+				}
+			}
+
+			$expandedUnits[] = $unit;
 		}
 
-		$content      = AiClient::assistantContent( $response );
-		$translations = $this->parseTranslations( $content, $units );
-		if ( is_wp_error( $translations ) ) {
-			return $translations;
+		// Strip images from sources before sending to AI; restore after.
+		$mediaMap      = [];
+		$strippedUnits = $this->mediaProcessor->strip( $expandedUnits, $mediaMap );
+
+		$messages     = $this->promptBuilder->messages( $strippedUnits, $sourceLang, $targetLang );
+		$translations = null;
+		$lastError    = null;
+		$bestContent  = '';
+
+		// Retry on JSON parse / empty-content errors. The HDAT proxy may route
+		// to a different provider on each attempt, improving success odds.
+		// Partial results (some IDs missing) are accepted — missing IDs flow
+		// into the validator → repair path below.
+		for ( $attempt = 0; $attempt < 3; $attempt++ ) {
+			$response = $this->requestTranslations( $messages );
+			if ( is_wp_error( $response ) ) {
+				return $response;
+			}
+
+			$content = AiClient::assistantContent( $response );
+			if ( '' === $content ) {
+				$lastError = new \WP_Error(
+					'hd_pll_ai_empty_content',
+					__( 'AI returned an empty response. Retrying…', 'spl' )
+				);
+				continue;
+			}
+
+			$parsed = $this->parseTranslations( $content );
+			if ( is_wp_error( $parsed ) ) {
+				$lastError = $parsed;
+				continue;
+			}
+
+			// Keep the best partial result across retries.
+			if ( null === $translations || count( $parsed ) > count( $translations ) ) {
+				$translations = $parsed;
+				$bestContent  = $content;
+			}
+
+			// All unit IDs present — no need to retry.
+			if ( count( $translations ) >= count( $strippedUnits ) ) {
+				break;
+			}
 		}
 
-		$errors = $this->validator->validate( $units, $translations );
+		if ( null === $translations || empty( $translations ) ) {
+			return $lastError ?? new \WP_Error( 'hd_pll_ai_json_parse_failed', __( 'AI response is not valid JSON.', 'spl' ) );
+		}
+
+		// Restore original image markup in translated text.
+		$translations = $this->mediaProcessor->restore( $translations, $mediaMap );
+
+		$errors = $this->validator->validate( $expandedUnits, $translations );
 		if ( ! empty( $errors ) ) {
-			$repair = $this->requestTranslations( $this->promptBuilder->repairMessages( $errors, $content ) );
+			$repair = $this->requestTranslations( $this->promptBuilder->repairMessages( $errors, $bestContent ) );
 			if ( is_wp_error( $repair ) ) {
 				return $repair;
 			}
 
-			$translations = $this->parseTranslations( AiClient::assistantContent( $repair ), $units );
+			$translations = $this->parseTranslations( AiClient::assistantContent( $repair ) );
 			if ( is_wp_error( $translations ) ) {
 				return $translations;
 			}
 
-			$errors = $this->validator->validate( $units, $translations );
+			$translations = $this->mediaProcessor->restore( $translations, $mediaMap );
+
+			$errors = $this->validator->validate( $expandedUnits, $translations );
 			if ( ! empty( $errors ) ) {
-				return new \WP_Error( 'hd_pll_ai_validation_failed', __( 'Translation validation failed.', 'SPL' ), [ 'errors' => $errors ] );
+				return new \WP_Error( 'hd_pll_ai_validation_failed', __( 'Translation validation failed.', 'spl' ), [ 'errors' => $errors ] );
+			}
+		}
+
+		// Merge sub-unit translations back into original unit IDs.
+		if ( ! empty( $splitMap ) ) {
+			foreach ( $splitMap as $originalId => $subIds ) {
+				$merged = '';
+				foreach ( $subIds as $subId ) {
+					$merged .= $translations[ $subId ] ?? '';
+					unset( $translations[ $subId ] );
+				}
+
+				$translations[ $originalId ] = $merged;
 			}
 		}
 
@@ -93,103 +173,50 @@ final class TranslationEngine {
 	}
 
 	/**
-	 * @param TranslationUnit[] $units Translation units.
-	 *
-	 * @return array<int, TranslationUnit[]>
-	 */
-	private function chunks( array $units ): array {
-		$settings     = PLLModule::getCachedOptions();
-		$maxUnits     = max( 1, absint( $settings['ai_max_units_per_request'] ?? 25 ) );
-		$maxChars     = max( 1000, absint( $settings['ai_max_chars_per_request'] ?? 12000 ) );
-		$chunks       = [];
-		$current      = [];
-		$currentChars = 0;
-
-		foreach ( $units as $unit ) {
-			$unitChars   = $this->unitLength( $unit );
-			$limitByUnit = count( $current ) >= $maxUnits;
-			$limitByChar = ! empty( $current ) && ( $currentChars + $unitChars ) > $maxChars;
-
-			if ( $limitByUnit || $limitByChar ) {
-				$chunks[]     = $current;
-				$current      = [];
-				$currentChars = 0;
-			}
-
-			$current[]     = $unit;
-			$currentChars += $unitChars;
-		}
-
-		if ( ! empty( $current ) ) {
-			$chunks[] = $current;
-		}
-
-		return $chunks;
-	}
-
-	private function unitLength( TranslationUnit $unit ): int {
-		return strlen( $unit->source )
-			+ strlen( $unit->context )
-			+ strlen( $unit->format )
-			+ strlen( implode( '', $unit->protected_tokens ) );
-	}
-
-	/**
 	 * @param array<int, array<string, string>> $messages Chat messages.
 	 *
 	 * @return array<string, mixed>|\WP_Error
 	 */
 	private function requestTranslations( array $messages ): array|\WP_Error {
+		// Inject a per-call nonce into the user message content so that the HDAT
+		// response cache produces a unique hash for every request. Without this,
+		// a poisoned cache entry (malformed AI output) would be served on retries
+		// and repeated button clicks for the full TTL window (24 h).
+		// The nonce lives inside the message content string — it is never sent as
+		// a top-level API body key (which would cause 400 errors on strict
+		// providers like OpenAI and Anthropic).
+		$last = array_key_last( $messages );
+		if ( null !== $last && isset( $messages[ $last ]['content'] ) ) {
+			$messages[ $last ]['content'] .= "\n{\"_nonce\":\"" . uniqid( '', true ) . '"}';
+		}
+
 		$payload = [
-			'messages'        => $messages,
-			'temperature'     => 0.2,
-			'routing_policy'  => [
-				'allow_fallback'                   => true,
-				'allow_structured_output_fallback' => true,
-				'required_capabilities'            => [ 'chat_completions' ],
-			],
-			'response_format' => [
-				'type'        => 'json_schema',
-				'json_schema' => [
-					'name'   => 'translations',
-					'schema' => [
-						'type'       => 'object',
-						'required'   => [ 'translations' ],
-						'properties' => [
-							'translations' => [
-								'type'  => 'array',
-								'items' => [
-									'type'       => 'object',
-									'required'   => [ 'id', 'text' ],
-									'properties' => [
-										'id'   => [ 'type' => 'string' ],
-										'text' => [ 'type' => 'string' ],
-									],
-								],
-							],
-						],
-					],
-				],
-			],
+			'messages'    => $messages,
+			'temperature' => 0.2,
+			'max_tokens'  => $this->estimateMaxTokens( $messages ),
 		];
 
 		return $this->client->chat( $payload );
 	}
 
 	/**
-	 * @param TranslationUnit[] $units Source units.
+	 * Parse AI response JSON into a translations map.
 	 *
-	 * @return array<string, string>|\WP_Error
+	 * Returns whatever valid translations the AI provided, even if incomplete.
+	 * Missing unit IDs are handled downstream by the validator → repair path.
+	 *
+	 * @return array<string, string>|\WP_Error Translations map (id → text), or error if JSON is unparseable.
 	 */
-	private function parseTranslations( string $content, array $units ): array|\WP_Error {
+	private function parseTranslations( string $content ): array|\WP_Error {
+		$content = $this->stripCodeFences( $content );
 		$decoded = json_decode( trim( $content ), true );
 		if ( ! is_array( $decoded ) ) {
-			return new \WP_Error( 'hd_pll_ai_json_parse_failed', __( 'AI response is not valid JSON.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_json_parse_failed', __( 'AI response is not valid JSON.', 'spl' ) );
 		}
 
 		$items = $decoded['translations'] ?? $decoded;
 		if ( ! is_array( $items ) ) {
-			return new \WP_Error( 'hd_pll_ai_missing_translations', __( 'AI response is missing translations.', 'SPL' ) );
+			return new \WP_Error( 'hd_pll_ai_missing_translations', __( 'AI response is missing translations.', 'spl' ) );
 		}
 
 		$translations = [];
@@ -201,25 +228,43 @@ final class TranslationEngine {
 			$translations[ strtolower( trim( (string) $item['id'] ) ) ] = (string) $item['text'];
 		}
 
-		// Verify all requested unit IDs are present in the response.
-		$missingIds = [];
-		foreach ( $units as $unit ) {
-			if ( ! array_key_exists( $unit->id, $translations ) ) {
-				$missingIds[] = $unit->id;
-			}
-		}
-
-		if ( ! empty( $missingIds ) ) {
-			return new \WP_Error(
-				'hd_pll_ai_count_mismatch',
-				sprintf(
-					/* translators: %s: comma-separated list of missing unit IDs. */
-					__( 'AI response is missing translations for: %s', 'SPL' ),
-					implode( ', ', $missingIds )
-				)
-			);
-		}
-
 		return $translations;
+	}
+
+	/**
+	 * Estimate max_tokens for the completion based on message content length.
+	 *
+	 * Translation output is roughly the same length as input, plus JSON
+	 * structural overhead. The default HDAT limit (2048) is too low for
+	 * articles longer than ~600 words.
+	 *
+	 * @param array<int, array<string, string>> $messages Chat messages.
+	 */
+	private function estimateMaxTokens( array $messages ): int {
+		$chars = 0;
+		foreach ( $messages as $msg ) {
+			$chars += strlen( (string) ( $msg['content'] ?? '' ) );
+		}
+
+		// ~1 token per 3 chars; double for translated output + JSON wrapper.
+		$estimated = (int) ceil( $chars / 3 * 2 );
+
+		return max( 2048, min( 32768, $estimated ) );
+	}
+
+	/**
+	 * Strip markdown code fences that some models wrap around JSON output.
+	 *
+	 * Models without native json_object support often return:
+	 *   ```json\n{...}\n```
+	 */
+	private function stripCodeFences( string $content ): string {
+		$content = trim( $content );
+
+		if ( preg_match( '/^```(?:json)?\s*\n(.+?)\n\s*```$/s', $content, $matches ) ) {
+			return $matches[1];
+		}
+
+		return $content;
 	}
 }

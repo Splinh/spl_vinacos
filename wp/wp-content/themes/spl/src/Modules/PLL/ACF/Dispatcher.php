@@ -9,6 +9,8 @@
  * @package SPL\Modules\PLL\ACF
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ACF;
 
 use WP_Term;

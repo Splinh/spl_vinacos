@@ -23,26 +23,27 @@ defined( 'ABSPATH' ) || exit;
 		<!-- Header -->
 		<div class="pll-slideover__header">
 			<h2 class="pll-slideover__title"></h2>
-			<button type="button" class="pll-slideover__close" aria-label="<?php esc_attr_e( 'Close', 'SPL' ); ?>">
+			<button type="button" class="pll-slideover__close" aria-label="<?php esc_attr_e( 'Close', 'spl' ); ?>">
 				<span class="dashicons dashicons-no-alt"></span>
 			</button>
 		</div>
 
 		<!-- Toolbar -->
 		<div class="pll-slideover__toolbar">
-			<button type="button" class="button pll-copy-default-btn" title="<?php esc_attr_e( 'Copy content from the default language to save time.', 'SPL' ); ?>">
+			<button type="button" class="button pll-copy-default-btn" title="<?php esc_attr_e( 'Copy content from the default language to save time.', 'spl' ); ?>">
 				<span class="dashicons dashicons-admin-page"></span>
 				<?php
+
 				printf(
 					/* translators: %s: default language name */
-					wp_kses_post( __( 'Copy from <strong>%s</strong>', 'SPL' ) ),
+					wp_kses_post( __( 'Copy from <strong>%s</strong>', 'spl' ) ),
 					esc_html( $defaultLangName )
 				);
 				?>
 			</button>
 			<button type="button" class="button button-link-delete pll-remove-translation-btn" style="display: none;">
 				<span class="dashicons dashicons-trash"></span>
-				<?php esc_html_e( 'Remove Translation', 'SPL' ); ?>
+				<?php esc_html_e( 'Remove Translation', 'spl' ); ?>
 			</button>
 			<span class="spinner pll-slideover__spinner"></span>
 		</div>
@@ -57,11 +58,11 @@ defined( 'ABSPATH' ) || exit;
 		<!-- Footer -->
 		<div class="pll-slideover__footer">
 			<button type="button" class="button pll-slideover__cancel">
-				<?php esc_html_e( 'Cancel', 'SPL' ); ?>
+				<?php esc_html_e( 'Cancel', 'spl' ); ?>
 			</button>
 			<button type="button" class="button button-primary pll-slideover__save">
 				<span class="dashicons dashicons-saved" style="vertical-align: text-bottom; margin-right: 2px;"></span>
-				<?php esc_html_e( 'Save', 'SPL' ); ?>
+				<?php esc_html_e( 'Save', 'spl' ); ?>
 			</button>
 		</div>
 	</div>

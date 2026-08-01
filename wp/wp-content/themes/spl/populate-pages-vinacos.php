@@ -17,7 +17,7 @@ $target_pages = array(
 	),
 	array(
 		'title'    => 'Tin tức',
-		'slug'     => 'tin-tuc-unila-viet-nam',
+		'slug'     => 'tin-tuc',
 		'template' => 'home.php',
 	),
 	array(

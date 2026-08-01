@@ -9,9 +9,11 @@
  * @package SPL\Modules\PLL\ImportExport
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ImportExport\Format;
 
-use SPL\Modules\PLL\ImportExport\Contracts\ImporterInterface;
+use SPL\Modules\PLL\ImportExport\ImporterInterface;
 use SPL\Modules\PLL\ImportExport\FileFormatFactory;
 use OpenSpout\Reader\CSV\Reader;
 
@@ -72,23 +74,20 @@ final class CsvImporter implements ImporterInterface {
 		$reader->close();
 
 		if ( empty( $this->entries ) ) {
-			return new \WP_Error( 'pll_csv_empty', __( 'No translatable entries found in CSV file.', 'SPL' ) );
+			return new \WP_Error( 'pll_csv_empty', __( 'No translatable entries found in CSV file.', 'spl' ) );
 		}
 
 		return true;
 	}
 
 	public function getTargetLanguage(): string|false {
-		if ( empty( $this->langMap ) ) {
+		// Need at least source + target columns.
+		$values = array_values( $this->langMap );
+		if ( count( $values ) < 2 ) {
 			return false;
 		}
 
-		// CSV header: [String, Source, sourceLang, targetLang, ...].
-		// langMap maps col index → locale starting from col 2.
-		// First entry is source language — skip it to return first target.
-		$values = array_values( $this->langMap );
-
-		return $values[1] ?? $values[0] ?? false;
+		return $values[1];
 	}
 
 	public function getSiteReference(): string|false {

@@ -20,28 +20,69 @@ defined( 'ABSPATH' ) || exit;
 <body <?php body_class( 'home page-template page-template-pages page-template-page-home page-template-pagespage-home-php page wp-custom-logo' ); ?>>
 <?php wp_body_open(); ?>
 
+<?php
+use SPL\Core\Helper;
+
+$logo_field = Helper::getField( 'logo', 'option' );
+$logo_url   = '';
+if ( is_numeric( $logo_field ) && $logo_field > 0 ) {
+	$logo_url = wp_get_attachment_image_url( (int) $logo_field, 'full' );
+} elseif ( is_string( $logo_field ) && ! empty( $logo_field ) ) {
+	$logo_url = $logo_field;
+}
+if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || stripos( $logo_url, 'dailyxedien' ) !== false ) {
+	$logo_url = get_template_directory_uri() . '/static/img/logo.png';
+}
+?>
 <header>
 	<div class="header-wrap">
 		<div class="header-logo">
 			<p>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<img decoding="async" class="alignnone size-full wp-image-81" src="<?php echo esc_url( get_template_directory_uri() . '/static/img/logo.png' ); ?>" alt="VINACOS" style="height: 56px; width: auto; max-height: 64px; object-fit: contain;" />
+					<img decoding="async" class="alignnone size-full wp-image-81" src="<?php echo esc_url( $logo_url ); ?>" alt="VINACOS" style="height: 56px; width: auto; max-height: 64px; object-fit: contain;" />
 				</a>
 			</p>
 		</div>
 		<div class="header-center">
 			<nav class="navbar-nav" id="toggleMenu">
+				<?php
+				$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+				if ( has_nav_menu( 'main-nav' ) ) :
+					wp_nav_menu( array(
+						'theme_location' => 'main-nav',
+						'menu_class'     => 'main-menu',
+						'container'      => false,
+						'menu_id'        => 'primary-menu',
+					) );
+				else :
+					$about_url   = $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' );
+					$shop_url    = $is_en ? home_url( '/en/cosmetics-oem-products/' ) : home_url( '/shop/' );
+					$oem_url     = $is_en ? home_url( '/en/oem-odm-cosmetics-manufacturing/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' );
+					$news_url    = $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc/' );
+					$contact_url = $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' );
+
+					$about_label   = $is_en ? 'PARTNER MINDSET' : 'TÂM THẾ CỘNG SỰ';
+					$shop_label    = $is_en ? 'Products' : 'Sản phẩm';
+					$oem_label     = $is_en ? 'R&D & OEM/ODM' : 'HỆ THỐNG R&D';
+					$news_label    = $is_en ? 'News' : 'Tin tức';
+					$contact_label = $is_en ? 'Contact Us' : 'Liên hệ';
+				?>
 				<ul id="primary-menu" class="main-menu">
 					<li class="menu-item menu-item-type-post_type menu-item-object-page">
-						<a href="<?php echo esc_url( home_url( '/tam-the-cong-su-unila-viet-nam/' ) ); ?>">TÂM THẾ CỘNG SỰ</a>
+						<a href="<?php echo esc_url( $about_url ); ?>"><?php echo esc_html( $about_label ); ?></a>
 					</li>
 					<li class="menu-item menu-item-type-taxonomy menu-item-object-products menu-item-has-children">
-						<a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>">Sản phẩm</a>
+						<a href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( $shop_label ); ?></a>
 						<div class="mega-menu">
 							<div class="container">
 								<ul class="sub-menu">
 									<?php
-									$mega_cats = array(
+									$mega_cats = $is_en ? array(
+										array( 'slug' => 'cham-soc-da-mat', 'title' => 'Facial & Body Care' ),
+										array( 'slug' => 'tinh-dau', 'title' => 'Natural Essential Oils' ),
+										array( 'slug' => 'dau-nen', 'title' => 'Pure Carrier Oils' ),
+										array( 'slug' => 'bot-nguyen-lieu', 'title' => 'Raw Cosmetic Powders' ),
+									) : array(
 										array( 'slug' => 'cham-soc-da-mat', 'title' => 'Chăm sóc da mặt & Body' ),
 										array( 'slug' => 'tinh-dau', 'title' => 'Tinh dầu thiên nhiên' ),
 										array( 'slug' => 'dau-nen', 'title' => 'Dầu nền nguyên chất' ),
@@ -50,9 +91,8 @@ defined( 'ABSPATH' ) || exit;
 
 									foreach ( $mega_cats as $mc ) :
 										$term = get_term_by( 'slug', $mc['slug'], 'product_cat' );
-										$term_url = $term ? get_term_link( $term ) : home_url( '/shop/' );
+										$term_url = $term ? get_term_link( $term ) : $shop_url;
 										
-										// Get up to 5 products for sub-menu
 										$prods = get_posts( array(
 											'post_type'      => 'product',
 											'posts_per_page' => 5,
@@ -76,7 +116,7 @@ defined( 'ABSPATH' ) || exit;
 															<li><a href="<?php echo esc_url( get_permalink( $p ) ); ?>"><?php echo esc_html( get_the_title( $p ) ); ?></a></li>
 														<?php endforeach; ?>
 													<?php else : ?>
-														<li><a href="<?php echo esc_url( $term_url ); ?>">Xem tất cả</a></li>
+														<li><a href="<?php echo esc_url( $term_url ); ?>"><?= $is_en ? 'View All' : 'Xem tất cả' ?></a></li>
 													<?php endif; ?>
 												</ul>
 												<div class="walker-preview img-cover"><img src="<?php echo esc_url( $preview_img ); ?>" alt="<?php echo esc_attr( $mc['title'] ); ?>"></div>
@@ -88,15 +128,19 @@ defined( 'ABSPATH' ) || exit;
 						</div>
 					</li>
 					<li class="menu-item menu-item-type-post_type menu-item-object-page">
-						<a href="<?php echo esc_url( home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) ); ?>">HỆ THỐNG R&D</a>
+						<a href="<?php echo esc_url( $oem_url ); ?>"><?php echo esc_html( $oem_label ); ?></a>
 					</li>
 					<li class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-has-children">
-						<a href="<?php echo esc_url( home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>">Tin tức</a>
+						<a href="<?php echo esc_url( $news_url ); ?>"><?php echo esc_html( $news_label ); ?></a>
 						<div class="mega-menu">
 							<div class="container">
 								<ul class="sub-menu">
 									<?php
-									$news_cats = array(
+									$news_cats = $is_en ? array(
+										array( 'slug' => 'tin-tuc', 'title' => 'News & Market Trends' ),
+										array( 'slug' => 'blog', 'title' => 'Beauty Blog' ),
+										array( 'slug' => 'dich-vu-xe-dien', 'title' => 'OEM/ODM Insights' ),
+									) : array(
 										array( 'slug' => 'tin-tuc', 'title' => 'Tin Tức & Thị Trường' ),
 										array( 'slug' => 'blog', 'title' => 'Blog Làm Đẹp' ),
 										array( 'slug' => 'dich-vu-xe-dien', 'title' => 'Dịch Vụ Gia Công' ),
@@ -104,7 +148,7 @@ defined( 'ABSPATH' ) || exit;
 
 									foreach ( $news_cats as $nc ) :
 										$cat = get_category_by_slug( $nc['slug'] );
-										$cat_url = $cat ? get_category_link( $cat ) : home_url( '/tin-tuc-unila-viet-nam/' );
+										$cat_url = $cat ? get_category_link( $cat ) : $news_url;
 										
 										$posts = get_posts( array(
 											'post_type'      => 'post',
@@ -131,15 +175,21 @@ defined( 'ABSPATH' ) || exit;
 						</div>
 					</li>
 					<li class="menu-item menu-item-type-post_type menu-item-object-page">
-						<a href="<?php echo esc_url( home_url( '/lien-he/' ) ); ?>">Liên hệ</a>
+						<a href="<?php echo esc_url( $contact_url ); ?>"><?php echo esc_html( $contact_label ); ?></a>
 					</li>
 				</ul>
+				<?php endif; ?>
 			</nav>
 		</div>
 		<div class="header-right">
 			<div class="button-search"><?= spl_icon( 'search', '', 18 ) ?></div>
 			<div class="button-cart"><?= spl_icon( 'cart', '', 18 ) ?></div>
 			<div class="button-language">
+				<?php
+				if ( function_exists( 'pll_the_languages' ) ) {
+					get_template_part( 'template-parts/blocks/language-switcher' );
+				} else {
+				?>
 				<div class="wpml-ls-statics-shortcode_actions wpml-ls wpml-ls-legacy-dropdown-click js-wpml-ls-legacy-dropdown-click">
 					<ul>
 						<li class="wpml-ls-slot-shortcode_actions wpml-ls-item wpml-ls-item-vi wpml-ls-current-language wpml-ls-first-item wpml-ls-last-item wpml-ls-item-legacy-dropdown-click">
@@ -149,6 +199,7 @@ defined( 'ABSPATH' ) || exit;
 						</li>
 					</ul>
 				</div>
+				<?php } ?>
 			</div>
 			<button type="button" id="buttonMenu" aria-controls="toggleMenu" data-target="#toggleMenu">
 				<span class="line"></span>

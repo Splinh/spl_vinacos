@@ -90,7 +90,7 @@ $home_sections = array(
 <p>Chúng tôi hiểu rằng các thương hiệu mỹ phẩm cần một đối tác không chỉ biết sản xuất OEM/ODM, mà còn biết lắng nghe, tham vấn và cùng định hình sản phẩm từ gốc. VINACOS ở đây để cùng bạn đi từ ý tưởng đến thành công trên thị trường.</p>',
 		'btn_text'      => 'Về chúng tôi',
 		'btn_link'      => '#about-us',
-		'image'         => 'https://unila.com.vn/wp-content/uploads/2026/04/TAM-THE-CONG-SU-2.jpg',
+		'image'         => get_template_directory_uri() . '/static/img/tam-the-cong-su-vinacos.jpg',
 	),
 
 	// 3. R&D System Section
@@ -144,8 +144,8 @@ $home_sections = array(
 				'title'  => 'Năm kinh nghiệm sản xuất & gia công mỹ phẩm',
 			),
 		),
-		'bg_image'      => 'https://unila.com.vn/wp-content/uploads/2026/04/CON-SO-NOI-BAT-2.jpg',
-		'figure_image'  => 'https://unila.com.vn/wp-content/uploads/2026/03/UNILA-VIET-NAM.png',
+		'bg_image'      => get_template_directory_uri() . '/static/img/bg-stats-vinacos.jpg',
+		'figure_image'  => get_template_directory_uri() . '/static/img/stats-vinacos.png',
 	),
 
 	// 5. Product Showcase Section

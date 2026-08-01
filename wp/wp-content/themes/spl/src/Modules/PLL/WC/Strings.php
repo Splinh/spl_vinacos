@@ -10,6 +10,8 @@
  * @package SPL\Modules\PLL\WC
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC;
 
 use SPL\Core\DB;
@@ -118,8 +120,9 @@ final class Strings {
 		}
 
 		// Tax rate labels.
-		$db     = DB::db();
-		$labels = $db->get_col( "SELECT tax_rate_name FROM {$db->prefix}woocommerce_tax_rates" );
+		$db = DB::db();
+		// phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Table name from $wpdb->prefix, no user input.
+		$labels = $db->get_col( "SELECT tax_rate_name FROM {$db->prefix}woocommerce_tax_rates WHERE tax_rate_name != ''" );
 		foreach ( $labels as $label ) {
 			\pll_register_string( 'Tax name', $label, 'WooCommerce' );
 		}
@@ -340,11 +343,23 @@ final class Strings {
 	 * Translate gateway instructions on thankyou page and in emails.
 	 */
 	public function translateInstructions(): void {
+		if ( ! class_exists( 'PLL_Translate_Option' ) ) {
+			return;
+		}
+
 		$gateways = \WC_Payment_Gateways::instance()->get_available_payment_gateways();
-		foreach ( $gateways as $key => $gateway ) {
-			if ( isset( $gateway->instructions ) ) {
-				$gateways[ $key ]->instructions = \pll__( $gateway->instructions );
+		foreach ( $gateways as $gateway ) {
+			if ( ! isset( $gateway->form_fields['instructions'] ) ) {
+				continue;
 			}
+
+			$gateway->init_settings();
+
+			new \PLL_Translate_Option(
+				$gateway->get_option_key(),
+				[ 'instructions' => true ],
+				[ 'context' => 'WooCommerce' ]
+			);
 		}
 	}
 

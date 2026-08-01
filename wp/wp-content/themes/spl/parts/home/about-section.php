@@ -7,24 +7,35 @@
 
 defined( 'ABSPATH' ) || exit;
 
+$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+
 $section  = $args ?? array();
-$title    = $section['title'] ?? 'TÂM THẾ <br/> CỘNG SỰ';
+$title    = $section['title'] ?? ( $is_en ? 'PARTNER <br/> MINDSET' : 'TÂM THẾ <br/> CỘNG SỰ' );
 $content  = $section['content'] ?? '';
-$btn_text = $section['btn_text'] ?? 'Về chúng tôi';
-$btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? '#about' );
+$btn_text = $section['btn_text'] ?? ( $is_en ? 'About Us' : 'Về chúng tôi' );
+$btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' ) ) );
 $image    = is_array( $section['image'] ?? null ) ? ( $section['image']['url'] ?? '' ) : ( is_numeric( $section['image'] ?? null ) ? wp_get_attachment_url( $section['image'] ) : ( $section['image'] ?? '' ) );
 
 if ( empty( $content ) ) {
-	$content = '<h3><strong>Dẫn đầu (Tầm nhìn)</strong></h3>
+	if ( $is_en ) {
+		$content = '<h3><strong>Pioneering Vision</strong></h3>
+<p><em>B&B VINACOS is a science & technology pioneer in clean cosmetics formulation research and cGMP/FDA OEM manufacturing in Vietnam.</em></p>
+<p>We invest heavily in human capital, international-standard cleanrooms, and automated processing lines to ensure every formula delivered to client brands is thoroughly tested, stable, and compliant.</p>
+<h3><strong>Empathetic Mission</strong></h3>
+<p><em>VINACOS accompanies client brands through turnkey OEM/ODM solutions, turning formula concepts into market success.</em></p>
+<p>We listen, consult, and co-create from raw ingredient selection to legal MoH notification, guaranteeing maximum brand protection and competitive edge.</p>';
+	} else {
+		$content = '<h3><strong>Dẫn đầu (Tầm nhìn)</strong></h3>
 <p><em>VINACOS là doanh nghiệp khoa học & công nghệ tiên phong trong nghiên cứu và sản xuất gia công mỹ phẩm sạch tại Việt Nam.</em></p>
 <p>Chúng tôi đặt tâm huyết vào con người, thiết bị phòng Lab hiện đại đạt chuẩn FDA và quy trình chuẩn GMP để mỗi sản phẩm đến tay đối tác đều được kiểm chứng nghiêm túc, chất lượng rõ ràng, pháp lý minh bạch. Dẫn đầu với VINACOS là đặt ra tiêu chuẩn mới, góp phần chứng minh mỹ phẩm Việt hoàn toàn có thể sánh ngang thế giới.</p>
 <h3><strong>Thấu hiểu (Sứ mệnh)</strong></h3>
 <p><em>VINACOS đồng hành cùng các thương hiệu Việt, dùng nghiên cứu khoa học và công nghệ tạo ra những sản phẩm an toàn trọn gói xứng đáng với làn da Việt.</em></p>
 <p>Chúng tôi hiểu rằng các thương hiệu mỹ phẩm cần một đối tác không chỉ biết sản xuất OEM/ODM, mà còn biết lắng nghe, tham vấn và cùng định hình sản phẩm từ gốc. VINACOS ở đây để cùng bạn đi từ ý tưởng đến thành công trên thị trường.</p>';
+	}
 }
 
 if ( empty( $image ) ) {
-	$image = 'https://unila.com.vn/wp-content/uploads/2026/04/TAM-THE-CONG-SU-2.jpg';
+	$image = get_template_directory_uri() . '/static/img/tam-the-cong-su-vinacos.jpg';
 }
 ?>
 

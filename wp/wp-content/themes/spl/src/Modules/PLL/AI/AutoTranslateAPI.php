@@ -5,6 +5,8 @@
  * @package SPL\Modules\PLL\AI
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\AI;
 
 use SPL\API\AbstractAPI;
@@ -64,7 +66,7 @@ final class AutoTranslateAPI extends AbstractAPI {
 	public function permission(): bool|\WP_Error {
 		return current_user_can( 'manage_options' )
 			? true
-			: new \WP_Error( 'hd_pll_ai_forbidden', __( 'Insufficient permissions.', 'SPL' ), [ 'status' => 403 ] );
+			: new \WP_Error( 'hd_pll_ai_forbidden', __( 'Insufficient permissions.', 'spl' ), [ 'status' => 403 ] );
 	}
 
 	public function translatePost( \WP_REST_Request $request ): \WP_REST_Response {
@@ -125,11 +127,11 @@ final class AutoTranslateAPI extends AbstractAPI {
 		if ( ! in_array( $type, [ 'term', 'string' ], true ) ) {
 			$source = get_post( $sourceId );
 			if ( ! $source instanceof \WP_Post ) {
-				return $this->resultResponse( new \WP_Error( 'hd_pll_ai_post_not_found', __( 'Source post not found.', 'SPL' ), [ 'status' => 404 ] ) );
+				return $this->resultResponse( new \WP_Error( 'hd_pll_ai_post_not_found', __( 'Source post not found.', 'spl' ), [ 'status' => 404 ] ) );
 			}
 
 			if ( function_exists( 'pll_is_translated_post_type' ) && ! pll_is_translated_post_type( $source->post_type ) ) {
-				return $this->resultResponse( new \WP_Error( 'hd_pll_ai_not_translatable', sprintf( __( 'Post type "%s" is not registered for translation in Polylang.', 'SPL' ), esc_html( $source->post_type ) ), [ 'status' => 403 ] ) );
+				return $this->resultResponse( new \WP_Error( 'hd_pll_ai_not_translatable', sprintf( __( 'Post type "%s" is not registered for translation in Polylang.', 'spl' ), esc_html( $source->post_type ) ), [ 'status' => 403 ] ) );
 			}
 		}
 
@@ -166,7 +168,7 @@ final class AutoTranslateAPI extends AbstractAPI {
 		$repository = new JobRepository();
 		$job        = $repository->get( absint( $request['id'] ) );
 		if ( ! $job ) {
-			return $this->resultResponse( new \WP_Error( 'hd_pll_ai_job_not_found', __( 'Translation job not found.', 'SPL' ), [ 'status' => 404 ] ) );
+			return $this->resultResponse( new \WP_Error( 'hd_pll_ai_job_not_found', __( 'Translation job not found.', 'spl' ), [ 'status' => 404 ] ) );
 		}
 
 		$result = ( new BatchManager( $repository ) )->runJob( $job );
@@ -208,7 +210,7 @@ final class AutoTranslateAPI extends AbstractAPI {
 		$job = ( new JobRepository() )->get( absint( $request['id'] ) );
 
 		if ( ! $job ) {
-			return $this->resultResponse( new \WP_Error( 'hd_pll_ai_job_not_found', __( 'Translation job not found.', 'SPL' ), [ 'status' => 404 ] ) );
+			return $this->resultResponse( new \WP_Error( 'hd_pll_ai_job_not_found', __( 'Translation job not found.', 'spl' ), [ 'status' => 404 ] ) );
 		}
 
 		$payload = $this->jobResponsePayload( $job );
@@ -269,7 +271,7 @@ final class AutoTranslateAPI extends AbstractAPI {
 		$list = function_exists( 'pll_languages_list' ) ? pll_languages_list( [ 'fields' => 'slug' ] ) : [];
 
 		if ( ! in_array( $lang, (array) $list, true ) ) {
-			return new \WP_Error( 'hd_pll_ai_invalid_target_language', __( 'Invalid target language.', 'SPL' ), [ 'status' => 400 ] );
+			return new \WP_Error( 'hd_pll_ai_invalid_target_language', __( 'Invalid target language.', 'spl' ), [ 'status' => 400 ] );
 		}
 
 		return $lang;

@@ -8,10 +8,10 @@
  * @package SPL\Modules\PLL\ImportExport
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\ImportExport;
 
-use SPL\Modules\PLL\ImportExport\Contracts\ExporterInterface;
-use SPL\Modules\PLL\ImportExport\Contracts\ImporterInterface;
 use SPL\Modules\PLL\ImportExport\Format\CsvExporter;
 use SPL\Modules\PLL\ImportExport\Format\CsvImporter;
 use SPL\Modules\PLL\ImportExport\Format\PoExporter;
@@ -142,7 +142,7 @@ final class FileFormatFactory {
 
 		return new \WP_Error(
 			'pll_import_wrong_format',
-			__( 'Error: Unsupported file format. Supported: CSV, PO, XLIFF.', 'SPL' )
+			__( 'Error: Unsupported file format. Supported: CSV, PO, XLIFF.', 'spl' )
 		);
 	}
 
@@ -178,7 +178,7 @@ final class FileFormatFactory {
 				'pll_unknown_format',
 				sprintf(
 					/* translators: %s: format key */
-					__( 'Error: Unknown file format "%s".', 'SPL' ),
+					__( 'Error: Unknown file format "%s".', 'spl' ),
 					$key
 				)
 			);
@@ -191,7 +191,7 @@ final class FileFormatFactory {
 				'pll_format_unsupported',
 				sprintf(
 					/* translators: %s: PHP extension name */
-					__( 'Error: PHP extension "%s" is required but not loaded.', 'SPL' ),
+					__( 'Error: PHP extension "%s" is required but not loaded.', 'spl' ),
 					$format['requires']
 				)
 			);

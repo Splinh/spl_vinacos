@@ -12,6 +12,8 @@
  * @package SPL\Modules\PLL\WC\Admin
  */
 
+declare(strict_types=1);
+
 namespace SPL\Modules\PLL\WC\Admin;
 
 defined( 'ABSPATH' ) || exit;
@@ -171,7 +173,8 @@ final class AdminTaxonomies {
 			return;
 		}
 
-		if ( ! wp_verify_nonce( sanitize_key( $_REQUEST['security'] ), 'add-attribute' ) ) {
+		$nonce = sanitize_key( wp_unslash( $_REQUEST['security'] ) );
+		if ( ! wp_verify_nonce( $nonce, 'add-attribute' ) ) {
 			return;
 		}
 
