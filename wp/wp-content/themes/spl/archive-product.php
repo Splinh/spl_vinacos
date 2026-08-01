@@ -21,17 +21,6 @@ $no_products    = $is_en ? 'No products found in this category.' : 'Chưa có s�
 $shop_url       = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' );
 ?>
 
-<section class="banner-child">
-	<div class="swiper">
-		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<div class="image img-cover">
-					<img src="<?php echo esc_url( $banner_img ); ?>" alt="<?php echo esc_attr( $default_title ); ?>">
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
 
 <section class="global-breadcrumb">
 	<div class="container">
