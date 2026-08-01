@@ -1,6 +1,6 @@
 <?php
 /**
- * Product Archive Template — 100% Exact Unila HTML layout for /san-pham-gia-cong-unila-viet-nam/.
+ * Product Archive Template — 100% Exact Unila HTML layout for /san-pham-gia-cong-unila-viet-nam/ & /en/products/.
  *
  * @package SPL
  */
@@ -9,7 +9,16 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
+$is_en      = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
+
+$home_label     = $is_en ? 'Home' : 'Trang chủ';
+$products_label = $is_en ? 'Cosmetics Portfolio' : 'Sản phẩm';
+$all_label      = $is_en ? 'All Products' : 'Tất cả sản phẩm';
+$cat_title      = $is_en ? 'Product Categories' : 'Danh mục sản phẩm';
+$default_title  = $is_en ? 'VINACOS Cosmetic Products Portfolio' : 'Sản phẩm gia công VINACOS';
+$no_products    = $is_en ? 'No products found in this category.' : 'Chưa có sản phẩm nào trong danh mục này.';
+$shop_url       = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' );
 ?>
 
 <section class="banner-child">
@@ -17,7 +26,7 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
 				<div class="image img-cover">
-					<img src="<?php echo esc_url( $banner_img ); ?>" alt="Sản phẩm - VINACOS Việt Nam">
+					<img src="<?php echo esc_url( $banner_img ); ?>" alt="<?php echo esc_attr( $default_title ); ?>">
 				</div>
 			</div>
 		</div>
@@ -28,17 +37,17 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 	<div class="container">
 		<nav aria-label="breadcrumbs" class="rank-math-breadcrumb">
 			<p>
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( $home_label ); ?></a>
 				<span class="separator"> - </span>
 				<?php
 				$queried_obj = get_queried_object();
 				if ( is_tax( 'product_cat' ) && ! empty( $queried_obj->name ) ) :
 					?>
-					<a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>">Sản phẩm</a>
+					<a href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( $products_label ); ?></a>
 					<span class="separator"> - </span>
 					<span class="last"><?php echo esc_html( $queried_obj->name ); ?></span>
 				<?php else : ?>
-					<span class="last">Sản phẩm</span>
+					<span class="last"><?php echo esc_html( $products_label ); ?></span>
 				<?php endif; ?>
 			</p>
 		</nav>
@@ -52,8 +61,7 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 			<div class="col w-full mt-10 lg:w-2/3 xl:w-3/4">
 				<div class="product-wrap">
 					<?php
-					$queried_obj = get_queried_object();
-					$page_title = 'Sản phẩm gia công VINACOS';
+					$page_title = $default_title;
 					if ( is_tax( 'product_cat' ) && ! empty( $queried_obj->name ) ) {
 						$page_title = $queried_obj->name;
 					}
@@ -69,6 +77,7 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 							'post_status'    => 'publish',
 							'posts_per_page' => 12,
 							'paged'          => $paged,
+							'lang'           => $is_en ? 'en' : 'vi',
 						);
 						if ( is_tax( 'product_cat' ) && ! empty( $queried_obj->slug ) ) {
 							$args['tax_query'] = array(
@@ -85,11 +94,11 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 						if ( $product_query->have_posts() ) :
 							while ( $product_query->have_posts() ) :
 								$product_query->the_post();
-								$p_id       = get_the_ID();
-								$p_title    = get_the_title();
-								$p_url      = get_permalink();
-								$p_thumb    = get_the_post_thumbnail_url( $p_id, 'medium_large' ) ?: get_template_directory_uri() . '/static/img/logo.png';
-								$p_desc     = get_the_excerpt() ?: wp_trim_words( get_the_content(), 20 );
+								$p_id    = get_the_ID();
+								$p_title = get_the_title();
+								$p_url   = get_permalink();
+								$p_thumb = get_the_post_thumbnail_url( $p_id, 'medium_large' ) ?: get_template_directory_uri() . '/static/img/logo.png';
+								$p_desc  = get_the_excerpt() ?: wp_trim_words( get_the_content(), 20 );
 								?>
 								<article class="product-item">
 									<div class="image">
@@ -114,7 +123,7 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 							endwhile;
 							wp_reset_postdata();
 						else :
-							echo '<p class="col-span-full text-slate-500">Chưa có sản phẩm nào trong danh mục này.</p>';
+							echo '<p class="col-span-full text-slate-500">' . esc_html( $no_products ) . '</p>';
 						endif;
 						?>
 					</div>
@@ -127,8 +136,8 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 								'format'    => '?paged=%#%',
 								'current'   => max( 1, get_query_var( 'paged' ) ),
 								'total'     => $product_query->max_num_pages,
-								'prev_text' => '&laquo; Trước',
-								'next_text' => 'Sau &raquo;',
+								'prev_text' => $is_en ? '&laquo; Prev' : '&laquo; Trước',
+								'next_text' => $is_en ? 'Next &raquo;' : 'Sau &raquo;',
 							) );
 							?>
 						</div>
@@ -139,19 +148,21 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 			<!-- Sidebar Right Category List (1/3) -->
 			<div class="col w-full mt-10 lg:w-1/3 xl:w-1/4">
 				<div class="box-category">
-					<h2 class="box-title">Danh mục sản phẩm</h2>
+					<h2 class="box-title"><?php echo esc_html( $cat_title ); ?></h2>
 					<div class="box-close"><?= spl_icon( 'close', '', 16 ) ?></div>
 					<div class="box-body">
 						<ul class="mega-list">
 							<li class="<?php echo ( ! is_tax( 'product_cat' ) ) ? 'active' : ''; ?>">
-								<a href="<?php echo esc_url( home_url( '/shop/' ) ); ?>">Tất cả sản phẩm</a>
+								<a href="<?php echo esc_url( $shop_url ); ?>"><?php echo esc_html( $all_label ); ?></a>
 							</li>
 							<?php
 							$p_terms = get_terms( array(
 								'taxonomy'   => 'product_cat',
-								'slug'       => array( 'tinh-dau', 'dau-nen', 'bot-nguyen-lieu', 'san-pham-gia-dung', 'cham-soc-co-the', 'cham-soc-da-mat', 'cham-soc-me-bim', 'san-pham-cho-nam', 'best-seller' ),
 								'hide_empty' => false,
+								'lang'       => $is_en ? 'en' : 'vi',
+								'exclude'    => array( 15, 501 ), // Exclude Uncategorized
 							) );
+
 							if ( ! empty( $p_terms ) && ! is_wp_error( $p_terms ) ) :
 								foreach ( $p_terms as $term ) :
 									$is_active = ( is_tax( 'product_cat' ) && $queried_obj && $queried_obj->term_id === $term->term_id ) ? 'active' : '';
@@ -175,3 +186,4 @@ $banner_img = get_template_directory_uri() . '/static/img/banner/WEB-BIA.jpg';
 
 <?php
 get_footer();
+
