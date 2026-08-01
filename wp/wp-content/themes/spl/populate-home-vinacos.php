@@ -93,6 +93,12 @@ $home_sections = array(
 		'image'         => get_template_directory_uri() . '/static/img/tam-the-cong-su-vinacos.jpg',
 	),
 
+	// 2.5 Brand Banner Section
+	array(
+		'acf_fc_layout' => 'brand_banner',
+		'disable'       => 0,
+	),
+
 	// 3. R&D System Section
 	array(
 		'acf_fc_layout' => 'rd_system',
