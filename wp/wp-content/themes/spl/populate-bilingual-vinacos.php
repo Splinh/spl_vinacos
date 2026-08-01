@@ -111,7 +111,7 @@ $sample_posts = array(
 		'en_slug'    => 'importance-of-pilot-batch-in-cosmetics-manufacturing',
 		'content_vi' => 'Thử nghiệm Pilot Batch giúp đánh giá tính ổn định của công thức, kiểm tra khả năng nâng quy mô sản xuất và giảm thiểu 100% rủi ro khi sản xuất hàng loạt.',
 		'content_en' => 'Pilot Batch testing ensures formula stability, evaluates scalability from lab to factory floor, and eliminates 100% of risk before mass production.',
-		'image'      => get_template_directory_uri() . '/static/img/banner/slide1-desktop.jpg',
+		'image'      => get_template_directory_uri() . '/static/img/news/pilot-batch-cosmetics.jpg',
 	),
 	array(
 		'vi_title'   => 'Ứng Dụng Công Nghệ Nhũ Tương Nano Lipid Trong Chăm Sóc Da Việt',
@@ -120,7 +120,7 @@ $sample_posts = array(
 		'en_slug'    => 'nano-lipid-emulsion-technology-skincare',
 		'content_vi' => 'Nghiên cứu ứng dụng nhũ tương nano bọc hoạt chất giúp thẩm thấu sâu, bảo toàn hoạt tính và tối ưu hiệu quả trên làn da.',
 		'content_en' => 'Research on nano lipid encapsulation enables deep dermal penetration and active compound stability for high-performance skincare.',
-		'image'      => get_template_directory_uri() . '/static/img/banner/slide2-desktop.jpg',
+		'image'      => get_template_directory_uri() . '/static/img/news/nano-lipid-skincare.jpg',
 	),
 );
 

@@ -86,7 +86,7 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 						while ( $news_query->have_posts() ) :
 							$news_query->the_post();
 							$p_id    = get_the_ID();
-							$p_thumb = get_the_post_thumbnail_url( $p_id, 'medium_large' ) ?: get_template_directory_uri() . '/static/img/logo.png';
+							$p_thumb = get_the_post_thumbnail_url( $p_id, 'medium_large' ) ?: get_template_directory_uri() . '/static/img/news/pilot-batch-cosmetics.jpg';
 							$p_desc  = get_the_excerpt() ?: wp_trim_words( get_the_content(), 25 );
 							?>
 							<article class="news-item item-hover">
