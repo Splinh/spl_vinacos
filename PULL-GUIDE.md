@@ -7,9 +7,10 @@ Tài liệu này hướng dẫn các bước SSH vào VPS và pull code mới nh
 ## 1. Truy cập vào VPS qua SSH
 Mở terminal trên máy tính của bạn (PowerShell, Command Prompt hoặc Git Bash) và chạy lệnh:
 ```bash
-ssh root@<IP_CỦA_VPS>
+ssh ubuntu@15.235.185.60
 ```
-*(Nhập mật khẩu SSH của VPS nếu được yêu cầu).*
+*(IP VPS chính thức: **`15.235.185.60`**, user: **`ubuntu`**).*
+
 
 ---
 
