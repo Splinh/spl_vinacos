@@ -151,6 +151,8 @@ function initAboutTimelineSwiper(){
 		slidesPerView: 3,
 		freeMode: true,
 		watchSlidesProgress: true,
+		loop: true,
+		loopedSlides: 10,
 		breakpoints: {
 			576: { slidesPerView: 4 },
 			768: { slidesPerView: 6 },
@@ -160,6 +162,8 @@ function initAboutTimelineSwiper(){
 
 	var topSwiper = new Swiper(".about-2-section .swiper-top", {
 		spaceBetween: 30,
+		loop: true,
+		loopedSlides: 10,
 		navigation: {
 			nextEl: ".about-2-section .button-next",
 			prevEl: ".about-2-section .button-prev"

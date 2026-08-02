@@ -16,8 +16,8 @@ $img_url = get_template_directory_uri() . '/static/img/tam-nhin-su-menh-vinacos.
 		<h2 class="site-title text-center" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
 			<?= $is_en ? 'Vision & Mission' : 'Tầm nhìn & Sứ mệnh' ?>
 		</h2>
-		<div class="image img-cover mt-10" data-aos="fade-up" data-aos-duration="700" data-aos-delay="800">
-			<img class="lozad" src="<?= esc_url( $img_url ) ?>" data-src="<?= esc_url( $img_url ) ?>" loading="lazy" alt="VINACOS Vision & Mission">
+		<div class="image mt-10 w-full overflow-hidden rounded-2xl shadow-sm" data-aos="fade-up" data-aos-duration="700" data-aos-delay="800">
+			<img class="lozad w-full h-auto block" src="<?= esc_url( $img_url ) ?>" data-src="<?= esc_url( $img_url ) ?>" loading="lazy" alt="VINACOS Vision & Mission">
 		</div>
 	</div>
 </section>
