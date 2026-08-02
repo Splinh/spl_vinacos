@@ -11,6 +11,17 @@ defined( 'ABSPATH' ) || exit;
 
 echo "=== VINACOS FULL TAXONOMY & ITEMS BILINGUAL SEEDER ===\n";
 
+if ( ! did_action( 'init' ) ) {
+	do_action( 'init' );
+}
+
+if ( ! function_exists( 'pll_save_term_translations' ) ) {
+	$pll_api = WP_PLUGIN_DIR . '/polylang/include/api.php';
+	if ( file_exists( $pll_api ) ) {
+		require_once $pll_api;
+	}
+}
+
 if ( ! function_exists( 'pll_save_term_translations' ) ) {
 	echo "ERROR: Polylang API functions not available!\n";
 	return;
