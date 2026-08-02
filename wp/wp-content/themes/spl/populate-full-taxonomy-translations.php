@@ -15,15 +15,47 @@ if ( ! did_action( 'init' ) ) {
 	do_action( 'init' );
 }
 
+// Auto-discover and load Polylang API files if CLI execution hasn't loaded them yet
 if ( ! function_exists( 'pll_save_term_translations' ) ) {
-	$pll_api = WP_PLUGIN_DIR . '/polylang/include/api.php';
-	if ( file_exists( $pll_api ) ) {
-		require_once $pll_api;
+	$api_files = glob( WP_PLUGIN_DIR . '/polylang*/include/api*.php' );
+	if ( ! empty( $api_files ) ) {
+		foreach ( $api_files as $api_file ) {
+			if ( file_exists( $api_file ) ) {
+				require_once $api_file;
+			}
+		}
+	}
+}
+
+// Fallback: If Polylang global object exists, define pll_save_term_translations & pll_set_term_language wrapper
+if ( ! function_exists( 'pll_save_term_translations' ) && isset( $GLOBALS['polylang'] ) ) {
+	function pll_save_term_translations( $terms ) {
+		if ( isset( $GLOBALS['polylang']->model ) ) {
+			$GLOBALS['polylang']->model->term->save_translations( $terms );
+		}
+	}
+}
+if ( ! function_exists( 'pll_set_term_language' ) && isset( $GLOBALS['polylang'] ) ) {
+	function pll_set_term_language( $term_id, $lang ) {
+		if ( isset( $GLOBALS['polylang']->model ) ) {
+			$GLOBALS['polylang']->model->term->set_language( $term_id, $lang );
+		}
 	}
 }
 
 if ( ! function_exists( 'pll_save_term_translations' ) ) {
-	echo "ERROR: Polylang API functions not available!\n";
+	// Try loading Polylang main plugin file if available
+	$pll_main = glob( WP_PLUGIN_DIR . '/polylang*/polylang.php' );
+	if ( ! empty( $pll_main[0] ) && file_exists( $pll_main[0] ) ) {
+		require_once $pll_main[0];
+		if ( ! did_action( 'init' ) ) {
+			do_action( 'init' );
+		}
+	}
+}
+
+if ( ! function_exists( 'pll_save_term_translations' ) ) {
+	echo "ERROR: Polylang API functions not available! Please run: wp eval-file wp-content/themes/spl/populate-full-taxonomy-translations.php OR open site URL with ?sync_polylang=1\n";
 	return;
 }
 
