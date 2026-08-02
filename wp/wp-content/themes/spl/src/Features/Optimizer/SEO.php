@@ -20,6 +20,7 @@ final class SEO {
 		add_filter( 'robots_txt', [ self::class, 'customRobotsRules' ], 99, 2 );
 		add_filter( 'rank_math/json_ld', [ self::class, 'filterJsonLd' ], 99, 2 );
 		add_filter( 'rank_math/snippet/rich_snippet_product_entity', [ self::class, 'filterProductSchema' ], 99 );
+		add_filter( 'the_content', [ self::class, 'fixContentImages' ], 99 );
 	}
 
 	/**
@@ -266,4 +267,31 @@ final class SEO {
 
 		return $entity;
 	}
+
+	/**
+	 * Automatically normalize data-src lazyloaded images to standard src attribute.
+	 *
+	 * @param string $content Post content HTML.
+	 * @return string Filtered HTML.
+	 */
+	public static function fixContentImages( string $content ): string {
+		if ( empty( $content ) || strpos( $content, '<img' ) === false ) {
+			return $content;
+		}
+
+		return (string) preg_replace_callback( '/<img([^>]+)>/i', static function ( array $matches ): string {
+			$img = $matches[0];
+			if ( preg_match( '/data-src=["\']([^"\']+)["\']/i', $img, $m ) ) {
+				$real_src = $m[1];
+				$img      = preg_replace( '/\s*data-(lazyloaded|src|lazy-src|orig-src)=["\'][^"\']*["\']/i', '', $img );
+				if ( preg_match( '/src=["\']([^"\']+)["\']/i', $img ) ) {
+					$img = preg_replace( '/src=["\']([^"\']+)["\']/i', 'src="' . esc_url( $real_src ) . '"', $img );
+				} else {
+					$img = str_replace( '<img', '<img src="' . esc_url( $real_src ) . '"', $img );
+				}
+			}
+			return $img;
+		}, $content );
+	}
 }
+
