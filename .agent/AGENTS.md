@@ -4,4 +4,6 @@
 - **VPS IP**: `15.235.185.60`
 - **SSH User**: `ubuntu`
 - **SSH Command**: `ssh ubuntu@15.235.185.60`
+- **VPS Project Path**: `/var/www/vinacos/data/www/vinacos.splworks.com`
+- **Domain**: `vinacos.splworks.com`
 - **Deployment Guide**: Reference `PULL-GUIDE.md` for pull & build steps.

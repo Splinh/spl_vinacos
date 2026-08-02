@@ -17,9 +17,9 @@ ssh ubuntu@15.235.185.60
 ## 2. Di chuyển vào thư mục code dự án trên VPS
 Di chuyển đến thư mục chứa mã nguồn của website:
 ```bash
-cd /var/www/dailynew
+cd /var/www/vinacos/data/www/vinacos.splworks.com
 ```
-*(Thay thế `/var/www/dailynew` bằng đường dẫn chính xác thư mục dự án trên VPS của bạn, ví dụ: `/www/wwwroot/dailynew.vn` trên aaPanel).*
+*(Đường dẫn thư mục dự án chính thức trên VPS: `/var/www/vinacos/data/www/vinacos.splworks.com`).*
 
 ---
 
