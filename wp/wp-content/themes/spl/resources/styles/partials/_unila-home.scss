@@ -1299,3 +1299,42 @@ header {
 body {
 	padding-top: 70px;
 }
+
+// ============================================================================
+// CTA FIXED FLOATING WIDGET (MOBILE OPTIMIZATION)
+// ============================================================================
+
+.cta-fixed {
+	z-index: 90;
+	position: fixed;
+	bottom: 24px;
+	right: 16px;
+
+	@media (max-width: 640px) {
+		bottom: 16px;
+		right: 8px;
+
+		ul {
+			gap: 8px;
+
+			li {
+				width: 40px;
+				height: 40px;
+
+				a img {
+					width: 20px;
+					height: auto;
+				}
+			}
+		}
+	}
+}
+
+.contact-section {
+	.contact-form {
+		@media (max-width: 640px) {
+			padding-right: 42px;
+		}
+	}
+}
+

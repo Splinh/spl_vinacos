@@ -45,21 +45,43 @@ $val_tax     = $is_en ? '2601138503 (HCMC Branch: 2601138503-001)' : '2601138503
 	</div>
 </section>
 
-<section class="contact-section section-large">
+<section class="contact-section section-large pt-6 md:pt-10">
 	<div class="container">
 		<div class="row -mt-10">
 			<div class="col w-full mt-10 lg:w-1/3">
 				<div class="box-contact">
-					<h1 class="site-title"><?= esc_html( $title_lbl ) ?></h1>
-					<div class="footer-address mt-8">
-						<h2><?= esc_html( $lbl_company ) ?></h2>
-						<ul class="mt-5">
-							<li><strong><?= esc_html( $lbl_branch ) ?>: </strong><?= esc_html( $addr_branch ) ?></li>
-							<li><strong><?= esc_html( $lbl_hq ) ?>: </strong><?= esc_html( $addr_hq ) ?></li>
-							<li><strong><?= esc_html( $lbl_factory ) ?>: </strong><?= $is_en ? 'cGMP / FDA certified cosmetics & packaging manufacturing facility' : 'Nhà máy gia công mỹ phẩm & bao bì chai lọ chuẩn cGMP / FDA' ?></li>
-							<li><strong>Hotline / Zalo: </strong><a href="tel:0967198483">0967.198.483</a> – <a href="tel:0906941088">0906.941.088</a></li>
-							<li><strong>Email: </strong><a href="mailto:bbvinacos@gmail.com">bbvinacos@gmail.com</a></li>
-							<li><strong><?= esc_html( $lbl_tax ) ?>: </strong><?= esc_html( $val_tax ) ?></li>
+					<h1 class="site-title text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4"><?= esc_html( $title_lbl ) ?></h1>
+					<div class="footer-address mt-6 border-t border-slate-100 pt-6">
+						<h2 class="text-lg md:text-xl font-bold text-slate-900 leading-snug mb-4"><?= esc_html( $lbl_company ) ?></h2>
+						<ul class="space-y-4 text-sm text-slate-700">
+							<li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+								<strong class="text-slate-900 shrink-0 font-bold"><?= esc_html( $lbl_branch ) ?>:</strong>
+								<span class="leading-relaxed"><?= esc_html( $addr_branch ) ?></span>
+							</li>
+							<li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+								<strong class="text-slate-900 shrink-0 font-bold"><?= esc_html( $lbl_hq ) ?>:</strong>
+								<span class="leading-relaxed"><?= esc_html( $addr_hq ) ?></span>
+							</li>
+							<li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+								<strong class="text-slate-900 shrink-0 font-bold"><?= esc_html( $lbl_factory ) ?>:</strong>
+								<span class="leading-relaxed"><?= $is_en ? 'cGMP / FDA certified cosmetics & packaging manufacturing facility' : 'Nhà máy gia công mỹ phẩm & bao bì chai lọ chuẩn cGMP / FDA' ?></span>
+							</li>
+							<li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+								<strong class="text-slate-900 shrink-0 font-bold">Hotline / Zalo:</strong>
+								<span class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold text-primary">
+									<a href="tel:0967198483" class="hover:underline whitespace-nowrap">0967.198.483</a>
+									<span class="text-slate-400 font-normal">–</span>
+									<a href="tel:0906941088" class="hover:underline whitespace-nowrap">0906.941.088</a>
+								</span>
+							</li>
+							<li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+								<strong class="text-slate-900 shrink-0 font-bold">Email:</strong>
+								<span><a href="mailto:bbvinacos@gmail.com" class="text-primary hover:underline font-medium">bbvinacos@gmail.com</a></span>
+							</li>
+							<li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
+								<strong class="text-slate-900 shrink-0 font-bold"><?= esc_html( $lbl_tax ) ?>:</strong>
+								<span class="leading-relaxed"><?= esc_html( $val_tax ) ?></span>
+							</li>
 						</ul>
 					</div>
 				</div>

@@ -60,22 +60,43 @@ $shop_url       = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gi
 					</h1>
 					<div class="product-list mt-10">
 						<?php
-						$paged = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
-						$args  = array(
+						$paged        = get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1;
+						$current_lang = function_exists( 'pll_current_language' ) ? pll_current_language() : ( $is_en ? 'en' : 'vi' );
+						if ( empty( $current_lang ) ) {
+							$current_lang = $is_en ? 'en' : 'vi';
+						}
+
+						$args = array(
 							'post_type'      => 'product',
 							'post_status'    => 'publish',
 							'posts_per_page' => 12,
 							'paged'          => $paged,
-							'lang'           => $is_en ? 'en' : 'vi',
+							'lang'           => $current_lang,
 						);
+
+						$tax_query = array();
+
 						if ( is_tax( 'product_cat' ) && ! empty( $queried_obj->slug ) ) {
-							$args['tax_query'] = array(
-								array(
-									'taxonomy' => 'product_cat',
-									'field'    => 'slug',
-									'terms'    => $queried_obj->slug,
-								),
+							$tax_query[] = array(
+								'taxonomy' => 'product_cat',
+								'field'    => 'slug',
+								'terms'    => $queried_obj->slug,
 							);
+						}
+
+						if ( function_exists( 'pll_current_language' ) ) {
+							$tax_query[] = array(
+								'taxonomy' => 'language',
+								'field'    => 'slug',
+								'terms'    => $current_lang,
+							);
+						}
+
+						if ( ! empty( $tax_query ) ) {
+							if ( count( $tax_query ) > 1 ) {
+								$tax_query['relation'] = 'AND';
+							}
+							$args['tax_query'] = $tax_query;
 						}
 
 						$product_query = new WP_Query( $args );
