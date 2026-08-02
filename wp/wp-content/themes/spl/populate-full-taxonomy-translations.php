@@ -16,6 +16,23 @@ if ( ! function_exists( 'pll_save_term_translations' ) ) {
 	return;
 }
 
+// 0. Delete unwanted / deprecated categories (vehicles, old special offers, etc.)
+$slugs_to_delete = array(
+	'xe-50cc', 'xe-dien', 'xe-may-dien', 'xe-ba-gac-dien', 'xe-ba-gac-dien-bluera',
+	'xe-dap-dien', 'xe-dap-dien-ai-ebike', 'san-pham-moi', 'giam-gia-dac-biet',
+	'special-offers', 'new-arrivals', 'xe-3-banh', 'phu-kien',
+);
+foreach ( $slugs_to_delete as $del_slug ) {
+	$del_term = get_term_by( 'slug', $del_slug, 'product_cat' );
+	if ( $del_term && ! is_wp_error( $del_term ) ) {
+		wp_delete_term( $del_term->term_id, 'product_cat' );
+		echo "DELETED deprecated product_cat '{$del_slug}' (ID: {$del_term->term_id})\n";
+	}
+}
+delete_transient( 'spl_product_cats_top' );
+delete_option( 'spl_product_cats_top' );
+wp_cache_flush();
+
 // 1. Product Categories Mappings (VI Slug => EN Specs)
 $product_cat_mappings = array(
 	'cham-soc-da-mat'    => array(
