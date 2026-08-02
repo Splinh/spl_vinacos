@@ -118,16 +118,32 @@ $shop_url       = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gi
 					</div>
 
 					<?php if ( $product_query->max_num_pages > 1 ) : ?>
-						<div class="pagination-wrap mt-8">
+						<div class="post-nav mt-8">
 							<?php
-							echo paginate_links( array(
+							$current_p = max( 1, (int) get_query_var( 'paged' ) );
+							$total_p   = (int) $product_query->max_num_pages;
+							$links     = paginate_links( array(
 								'base'      => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
 								'format'    => '?paged=%#%',
-								'current'   => max( 1, get_query_var( 'paged' ) ),
-								'total'     => $product_query->max_num_pages,
-								'prev_text' => $is_en ? '&laquo; Prev' : '&laquo; Trước',
-								'next_text' => $is_en ? 'Next &raquo;' : 'Sau &raquo;',
+								'current'   => $current_p,
+								'total'     => $total_p,
+								'type'      => 'array',
+								'prev_text' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>',
+								'next_text' => '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>',
 							) );
+
+							if ( ! empty( $links ) ) {
+								foreach ( $links as $l ) {
+									echo $l;
+								}
+
+								if ( $current_p < $total_p && $total_p > 3 ) {
+									$last_url = get_pagenum_link( $total_p );
+									echo '<a class="page-numbers last-page" href="' . esc_url( $last_url ) . '" title="' . ( $is_en ? 'Last page' : 'Trang cuối' ) . '">'
+										. '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m13 17 5-5-5-5"/><path d="m6 17 5-5-5-5"/></svg>'
+										. '</a>';
+								}
+							}
 							?>
 						</div>
 					<?php endif; ?>

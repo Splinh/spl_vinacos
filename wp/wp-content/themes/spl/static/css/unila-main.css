@@ -7819,7 +7819,8 @@ header .wpml-ls.wpml-ls-legacy-dropdown-click > ul > li > a::after {
 }
 
 /* Custom Circular Red/Grey Pagination Style */
-.post-nav {
+.post-nav,
+.pagination-wrap {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -7828,12 +7829,14 @@ header .wpml-ls.wpml-ls-legacy-dropdown-click > ul > li > a::after {
   margin-bottom: 1.5rem;
 }
 
-.post-nav .page-numbers {
+.post-nav .page-numbers,
+.pagination-wrap .page-numbers {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
+  min-width: 38px;
   height: 38px;
+  padding: 0 12px;
   border-radius: 9999px;
   font-size: 0.8125rem;
   font-weight: 700;
@@ -7844,25 +7847,30 @@ header .wpml-ls.wpml-ls-legacy-dropdown-click > ul > li > a::after {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
 }
 
-.post-nav a.page-numbers:hover {
+.post-nav a.page-numbers:hover,
+.pagination-wrap a.page-numbers:hover {
   background-color: #e2e8f0;
   color: #0f172a;
   transform: translateY(-1px);
 }
 
-.post-nav .page-numbers.current {
+.post-nav .page-numbers.current,
+.pagination-wrap .page-numbers.current {
   background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
 }
 
-.post-nav .page-numbers.dots {
+.post-nav .page-numbers.dots,
+.pagination-wrap .page-numbers.dots {
   background-color: transparent;
   box-shadow: none;
   color: #94a3b8;
   width: auto;
+  min-width: auto;
   padding: 0 4px;
 }
+
 
 /*# sourceMappingURL=main.min.css.map */
 

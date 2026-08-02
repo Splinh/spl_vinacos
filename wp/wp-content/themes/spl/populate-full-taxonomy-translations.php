@@ -54,14 +54,6 @@ $product_cat_mappings = array(
 		'en_name' => 'Best Sellers',
 		'en_slug' => 'best-sellers',
 	),
-	'san-pham-moi'       => array(
-		'en_name' => 'New Arrivals',
-		'en_slug' => 'new-arrivals',
-	),
-	'giam-gia-dac-biet'  => array(
-		'en_name' => 'Special Offers',
-		'en_slug' => 'special-offers',
-	),
 	'uncategorised'      => array(
 		'en_name' => 'Uncategorized Products',
 		'en_slug' => 'uncategorized-products',

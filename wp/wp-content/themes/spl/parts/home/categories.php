@@ -97,12 +97,12 @@ $cols_class = $cols_class_map[ $columns ] ?? 'lg:grid-cols-6';
 		if ( ! $rendered ) :
 			// Static fallback.
 			$fallback = [
-				[ 'name' => 'Xe Điện', 'slug' => 'xe-dien', 'icon' => 'bicycle' ],
-				[ 'name' => 'Xe 50cc', 'slug' => 'xe-50cc', 'icon' => 'motorcycle' ],
-				[ 'name' => 'Xe Máy Điện', 'slug' => 'xe-may-dien', 'icon' => 'bolt' ],
-				[ 'name' => 'Xe 3 Bánh', 'slug' => 'xe-3-banh', 'icon' => 'bolt' ],
-				[ 'name' => 'Xe Đạp Điện', 'slug' => 'xe-dap-dien', 'icon' => 'bicycle' ],
-				[ 'name' => 'Phụ Kiện', 'slug' => 'phu-kien', 'icon' => 'bolt' ],
+				[ 'name' => 'Chăm Sóc Da Mặt', 'slug' => 'cham-soc-da-mat', 'icon' => 'sparkles' ],
+				[ 'name' => 'Chăm Sóc Cơ Thể', 'slug' => 'cham-soc-co-the', 'icon' => 'heart' ],
+				[ 'name' => 'Tinh Dầu', 'slug' => 'tinh-dau', 'icon' => 'droplet' ],
+				[ 'name' => 'Dầu Nền', 'slug' => 'dau-nen', 'icon' => 'droplet' ],
+				[ 'name' => 'Bột Nguyên Liệu', 'slug' => 'bot-nguyen-lieu', 'icon' => 'box' ],
+				[ 'name' => 'Sản Phẩm Gia Dụng', 'slug' => 'san-pham-gia-dung', 'icon' => 'home' ],
 			];
 			foreach ( $fallback as $item ) :
 				?>
