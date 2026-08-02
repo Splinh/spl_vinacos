@@ -169,6 +169,13 @@ $shop_url       = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gi
 							) );
 
 							if ( ! empty( $p_terms ) && ! is_wp_error( $p_terms ) ) :
+								if ( function_exists( 'pll_get_term_language' ) ) {
+									$target_lang = $is_en ? 'en' : 'vi';
+									$p_terms     = array_filter( $p_terms, function( $t ) use ( $target_lang ) {
+										$t_lang = pll_get_term_language( $t->term_id );
+										return $t_lang === $target_lang;
+									} );
+								}
 								foreach ( $p_terms as $term ) :
 									$is_active = ( is_tax( 'product_cat' ) && $queried_obj && $queried_obj->term_id === $term->term_id ) ? 'active' : '';
 									?>
