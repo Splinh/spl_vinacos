@@ -10,7 +10,35 @@
  * @package SPL
  */
 
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	$wp_load_paths = array(
+		__DIR__ . '/../../../wp-load.php',
+		__DIR__ . '/../../../../wp-load.php',
+		dirname( __DIR__, 3 ) . '/wp-load.php',
+		dirname( __DIR__, 2 ) . '/wp-load.php',
+	);
+	foreach ( $wp_load_paths as $path ) {
+		if ( file_exists( $path ) ) {
+			require_once $path;
+			break;
+		}
+	}
+}
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die( "ERROR: Could not locate wp-load.php!\n" );
+}
+
+if ( ! function_exists( 'pll_save_post_translations' ) && defined( 'WP_PLUGIN_DIR' ) ) {
+	$api_files = glob( WP_PLUGIN_DIR . '/polylang*/include/api*.php' );
+	if ( ! empty( $api_files ) ) {
+		foreach ( $api_files as $api_file ) {
+			if ( file_exists( $api_file ) ) {
+				require_once $api_file;
+			}
+		}
+	}
+}
 
 echo "=== VINACOS PRODUCT BILINGUAL TRANSLATION SEEDER ===\n";
 
