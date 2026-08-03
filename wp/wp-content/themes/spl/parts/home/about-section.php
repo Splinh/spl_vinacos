@@ -34,8 +34,8 @@ if ( empty( $content ) ) {
 	}
 }
 
-if ( empty( $image ) ) {
-	$image = get_template_directory_uri() . '/static/img/tam-the-cong-su-vinacos.jpg';
+if ( empty( $image ) || false !== strpos( $image, 'unila.com.vn' ) ) {
+	$image = get_template_directory_uri() . '/assets/img/vinacos/rd-lab-main.jpg';
 }
 ?>
 
