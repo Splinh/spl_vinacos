@@ -77,10 +77,31 @@ foreach ( $all_products as $p ) {
 
 echo "Permanently deleted {$deleted_count} non-cosmetics products.\n\n";
 
-// 2. ENSURE TAXONOMY TRANSLATIONS SEEDER IS RUN
-require_once __DIR__ . '/populate-full-taxonomy-translations.php';
+require_once ABSPATH . 'wp-admin/includes/file.php';
+require_once ABSPATH . 'wp-admin/includes/media.php';
+require_once ABSPATH . 'wp-admin/includes/image.php';
 
-// 3. DEFINE VINACOS COSMETICS PRODUCTS CATALOGUE
+function vinacos_sideload_product_image( $url, $post_id ) {
+	if ( empty( $url ) || ! $post_id ) {
+		return 0;
+	}
+	$tmp = download_url( $url );
+	if ( is_wp_error( $tmp ) ) {
+		return 0;
+	}
+	$file = array(
+		'name'     => 'vinacos-prod-' . $post_id . '-' . substr( md5( $url ), 0, 6 ) . '.jpg',
+		'tmp_name' => $tmp,
+	);
+	$id = media_handle_sideload( $file, $post_id );
+	if ( is_wp_error( $id ) ) {
+		@unlink( $tmp );
+		return 0;
+	}
+	return (int) $id;
+}
+
+// 3. DEFINE VINACOS COSMETICS PRODUCTS CATALOGUE WITH HIGH-QUALITY IMAGES
 $vinacos_catalogue = array(
 	array(
 		'cat_slug_vi' => 'cham-soc-da-mat',
@@ -91,6 +112,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Serum Niacinamide 10% B3 VINACOS là dòng sản phẩm gia công chủ lực được nghiên cứu bởi hệ thống R&D chuẩn cGMP. Sản phẩm giúp phục hồi hàng rào bảo vệ da, làm đều màu da và hỗ trợ kiểm soát bã nhờn tối ưu.</p><h4>Ưu Điểm Công Thức OEM/ODM</h4><ul><li>0% Hoạt chất cấm - 100% Kiểm nghiệm lâm sàng</li><li>Thẩm thấu nhanh, không bết dính, phù hợp khí hậu Việt Nam</li><li>Đầy đủ hồ sơ công bố pháp lý A-Z</li></ul>',
 		'en_content'  => '<p>VINACOS 10% Niacinamide B3 Serum is a flagship OEM/ODM formulation developed in cGMP certified laboratories. It rebuilds the skin moisture barrier, evens out discoloration, and balances sebum production.</p><h4>OEM/ODM Key Advantages</h4><ul><li>0% Illegal Active Ingredients — 100% Dermatologically Tested</li><li>Fast-absorbing non-sticky texture tailored for global skin types</li><li>Complete Regulatory Dossiers & Legal Filings Support (A-Z)</li></ul>',
 		'price'       => '350000',
+		'image_url'   => 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?auto=format&fit=crop&w=800&q=80',
 	),
 	array(
 		'cat_slug_vi' => 'cham-soc-da-mat',
@@ -101,6 +123,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Kem phục hồi màng Lipids VINACOS giúp tái tạo tế bào da bị tổn thương, củng cố hàng rào bảo vệ tự nhiên và ngăn ngừa mất nước xuyến biểu bì (TEWL).</p>',
 		'en_content'  => '<p>VINACOS Barrier Repair Cream reinforces the skin moisture barrier, accelerates cellular recovery, and prevents Transepidermal Water Loss (TEWL).</p>',
 		'price'       => '420000',
+		'image_url'   => 'https://images.unsplash.com/photo-1608248597262-838d5170d10b?auto=format&fit=crop&w=800&q=80',
 	),
 	array(
 		'cat_slug_vi' => 'cham-soc-da-mat',
@@ -111,6 +134,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Nước tẩy trang Micellar VINACOS dịu nhẹ, cân bằng độ pH 5.5, an toàn tuyệt đối cho mọi làn da nhạy cảm nhất.</p>',
 		'en_content'  => '<p>VINACOS Micellar Water provides ultra-gentle cleansing with pH 5.5 balance, suitable for highly sensitive skin types.</p>',
 		'price'       => '180000',
+		'image_url'   => 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=800&q=80',
 	),
 	array(
 		'cat_slug_vi' => 'cham-soc-da-mat',
@@ -121,6 +145,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Kem chống nắng phổ rộng VINACOS ứng dụng màng lọc chống nắng thế hệ mới từ Châu Âu, bảo vệ toàn diện làn da trước tác hại môi trường.</p>',
 		'en_content'  => '<p>VINACOS Broad Spectrum Sunscreen utilizes advanced European UV filters to ensure comprehensive daily skin protection.</p>',
 		'price'       => '380000',
+		'image_url'   => 'https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?auto=format&fit=crop&w=800&q=80',
 	),
 	array(
 		'cat_slug_vi' => 'cham-soc-co-the',
@@ -131,6 +156,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Sữa tắm thảo dược VINACOS dưỡng ẩm sâu, lưu hương thiên nhiên thư giãn và hỗ trợ giảm viêm nang lông.</p>',
 		'en_content'  => '<p>VINACOS Herbal Body Wash deeply hydrates skin while soothing irritation and nourishing body contours.</p>',
 		'price'       => '250000',
+		'image_url'   => 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=800&q=80',
 	),
 	array(
 		'cat_slug_vi' => 'cham-soc-co-the',
@@ -141,6 +167,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Kem dưỡng thể VINACOS kết hợp Niacinamide & Vitamin C giúp cải thiện da xỉn màu, cấp ẩm cho làn da mịn màng.</p>',
 		'en_content'  => '<p>VINACOS Body Lotion merges Niacinamide and Vitamin C to enhance radiance and refine skin feel.</p>',
 		'price'       => '290000',
+		'image_url'   => 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80',
 	),
 	array(
 		'cat_slug_vi' => 'tinh-dau',
@@ -151,6 +178,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Tinh dầu bưởi VINACOS được chiết xuất từ vỏ bưởi tươi ép lạnh, nuôi dưỡng mái tóc chắc khỏe từ gốc đến ngọn.</p>',
 		'en_content'  => '<p>VINACOS Pure Grapefruit Oil nourishes scalp health and promotes fuller, stronger hair development.</p>',
 		'price'       => '220000',
+		'image_url'   => 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80',
 	),
 	array(
 		'cat_slug_vi' => 'cham-soc-me-bim',
@@ -161,6 +189,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Sữa tắm gội em bé VINACOS không chứa paraben, xà phòng hay hương liệu nhân tạo, nâng niu làn da bé yêu.</p>',
 		'en_content'  => '<p>VINACOS Baby Wash is completely free from parabens, sulfates, and synthetic dyes, protecting tender baby skin.</p>',
 		'price'       => '195000',
+		'image_url'   => 'https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80',
 	),
 	array(
 		'cat_slug_vi' => 'san-pham-cho-nam',
@@ -171,6 +200,7 @@ $vinacos_catalogue = array(
 		'vi_content'  => '<p>Sữa rửa mặt nam VINACOS làm sạch sâu, cuốn trôi bã nhờn dư thừa và mang lại cảm giác sảng khoái suốt cả ngày.</p>',
 		'en_content'  => '<p>VINACOS Men\'s Face Wash provides deep pore cleansing and long-lasting oil control for active men.</p>',
 		'price'       => '170000',
+		'image_url'   => 'https://images.unsplash.com/photo-1556228724-044062468021?auto=format&fit=crop&w=800&q=80',
 	),
 );
 
@@ -200,6 +230,15 @@ foreach ( $vinacos_catalogue as $item ) {
 	update_post_meta( $vi_id, '_regular_price', $item['price'] );
 	update_post_meta( $vi_id, '_price', $item['price'] );
 	update_post_meta( $vi_id, '_stock_status', 'instock' );
+
+	// Attach featured image
+	$thumb_id = get_post_thumbnail_id( $vi_id );
+	if ( ! $thumb_id && ! empty( $item['image_url'] ) ) {
+		$thumb_id = vinacos_sideload_product_image( $item['image_url'], $vi_id );
+		if ( $thumb_id ) {
+			echo "ATTACHED Featured Image (ID {$thumb_id}) to VI Product ID {$vi_id}\n";
+		}
+	}
 
 	// Assign VI category
 	$vi_cat = get_term_by( 'slug', $item['cat_slug_vi'], 'product_cat' );
@@ -231,6 +270,11 @@ foreach ( $vinacos_catalogue as $item ) {
 	update_post_meta( $en_id, '_regular_price', $item['price'] );
 	update_post_meta( $en_id, '_price', $item['price'] );
 	update_post_meta( $en_id, '_stock_status', 'instock' );
+
+	// Attach same featured image to EN product
+	if ( $thumb_id ) {
+		set_post_thumbnail( $en_id, $thumb_id );
+	}
 
 	// Assign EN category
 	if ( $vi_cat ) {
