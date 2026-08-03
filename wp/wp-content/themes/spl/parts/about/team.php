@@ -10,7 +10,7 @@ use SPL\Core\Helper;
 defined( 'ABSPATH' ) || exit;
 
 $title      = $data['title'] ?? 'Sức mạnh tập thể';
-$img_dir    = get_template_directory_uri() . '/assets/img/vinacos/';
+$img_dir    = get_template_directory_uri() . '/static/img/vinacos/';
 $banner_img = get_template_directory_uri() . '/static/img/suc-manh-tap-the-vinacos.jpg';
 $depts      = [
 	[

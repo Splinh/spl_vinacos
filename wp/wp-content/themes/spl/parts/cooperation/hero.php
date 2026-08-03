@@ -55,7 +55,7 @@ $crumb_text = ( function_exists( 'pll_current_language' ) && 'en' === pll_curren
 			</div>
 			<div class="col w-full mt-8 lg:mt-0 lg:w-1/2">
 				<div class="image img-cover rounded-2xl overflow-hidden shadow-xl" data-aos="fade-left" data-aos-duration="700">
-<?php $img_rd = get_template_directory_uri() . '/assets/img/vinacos/rd-lab-main.jpg'; ?>
+<?php $img_rd = get_template_directory_uri() . '/static/img/vinacos/rd-lab-main.jpg'; ?>
 					<img class="lozad" src="<?php echo esc_url( $img_rd ); ?>" data-src="<?php echo esc_url( $img_rd ); ?>" alt="R&D VINACOS">
 				</div>
 			</div>

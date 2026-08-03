@@ -11,7 +11,7 @@ $is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_lan
 $section = $args ?? array();
 $items   = $section['items'] ?? array();
 
-$img_dir = get_template_directory_uri() . '/assets/img/vinacos/';
+$img_dir = get_template_directory_uri() . '/static/img/vinacos/';
 if ( empty( $items ) ) {
 	$items = $is_en ? array(
 		array(

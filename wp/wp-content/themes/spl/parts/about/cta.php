@@ -22,7 +22,7 @@ $title   = $is_en ? 'International cGMP/FDA Cleanroom Facilities' : 'Nhà máy &
 					<div class="swiper about-6-image" data-aos="fade-up" data-aos-duration="700" data-aos-delay="800">
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
-<?php $img_dir = get_template_directory_uri() . '/assets/img/vinacos/'; ?>
+<?php $img_dir = get_template_directory_uri() . '/static/img/vinacos/'; ?>
 								<div class="image img-cover">
 									<img class="lozad" src="<?php echo esc_url( $img_dir . 'factory-overview.jpg' ); ?>" data-src="<?php echo esc_url( $img_dir . 'factory-overview.jpg' ); ?>" loading="lazy" alt="VINACOS Factory">
 								</div>

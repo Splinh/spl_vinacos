@@ -21,7 +21,7 @@ $ph_msg   = $is_en ? 'Detailed Consultation Questions...' : 'Vấn đề cần t
 $btn_send = $is_en ? 'SUBMIT CONSULTATION REQUEST' : 'GỬI YÊU CẦU TƯ VẤN';
 
 if ( empty( $image ) || false !== strpos( $image, 'unila.com.vn' ) ) {
-	$image = get_template_directory_uri() . '/assets/img/vinacos/popup-banner.jpg';
+	$image = get_template_directory_uri() . '/static/img/vinacos/popup-banner.jpg';
 }
 ?>
 

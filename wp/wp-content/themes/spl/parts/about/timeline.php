@@ -9,7 +9,7 @@ use SPL\Core\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
-$img_dir = get_template_directory_uri() . '/assets/img/vinacos/';
+$img_dir = get_template_directory_uri() . '/static/img/vinacos/';
 $title   = $data['title'] ?? 'Từng mốc dấu ấn';
 $items   = [
 	[ 'year' => '2015', 'desc' => 'Khởi đầu. Thành lập công ty tại TP. Hồ Chí Minh', 'image' => $img_dir . 'factory-overview.jpg' ],
