@@ -20,9 +20,7 @@ $ph_prod  = $is_en ? 'Target Cosmetics Product Line' : 'Dòng sản phẩm gia c
 $ph_msg   = $is_en ? 'Detailed Consultation Questions...' : 'Vấn đề cần tư vấn chi tiết...';
 $btn_send = $is_en ? 'SUBMIT CONSULTATION REQUEST' : 'GỬI YÊU CẦU TƯ VẤN';
 
-if ( empty( $image ) || false !== strpos( $image, 'unila.com.vn' ) ) {
-	$image = get_template_directory_uri() . '/static/img/vinacos/popup-banner.jpg';
-}
+$image = spl_get_valid_image_url( $section['image'] ?? null, 'static/img/vinacos/popup-banner.jpg' );
 ?>
 
 <div class="modal modal-product" id="modal-popup-contact" data-fx-modal>

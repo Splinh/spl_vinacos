@@ -252,6 +252,47 @@ function spl_fix_dynamic_url( mixed $url ): mixed {
 	return $url;
 }
 
+/**
+ * Resolves valid local image URL with static fallback for missing/unila upload links.
+ *
+ * @param mixed  $url               Original image value.
+ * @param string $default_fallback Default fallback static image relative to theme root.
+ * @return string Valid image URL.
+ */
+function spl_get_valid_image_url( mixed $url, string $default_fallback = '' ): string {
+	$fallback = $default_fallback ? get_template_directory_uri() . '/' . ltrim( $default_fallback, '/' ) : get_template_directory_uri() . '/static/img/vinacos/rd-lab-main.jpg';
+
+	if ( empty( $url ) ) {
+		return $fallback;
+	}
+
+	if ( is_array( $url ) ) {
+		$url = $url['url'] ?? '';
+	} elseif ( is_numeric( $url ) ) {
+		$url = wp_get_attachment_url( (int) $url );
+	}
+
+	if ( empty( $url ) || ! is_string( $url ) ) {
+		return $fallback;
+	}
+
+	if ( false !== strpos( $url, 'unila.com.vn' ) ) {
+		return $fallback;
+	}
+
+	if ( false !== strpos( $url, 'uploads/' ) ) {
+		$parsed_path = parse_url( $url, PHP_URL_PATH );
+		if ( $parsed_path ) {
+			$abs_path = ABSPATH . ltrim( $parsed_path, '/' );
+			if ( ! file_exists( $abs_path ) ) {
+				return $fallback;
+			}
+		}
+	}
+
+	return $url;
+}
+
 add_filter( 'home_url', 'spl_fix_dynamic_url', 9999 );
 add_filter( 'site_url', 'spl_fix_dynamic_url', 9999 );
 add_filter( 'pll_home_url', 'spl_fix_dynamic_url', 9999 );

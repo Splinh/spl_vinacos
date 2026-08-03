@@ -14,7 +14,8 @@ $title    = $section['title'] ?? ( $is_en ? 'PARTNER <br/> MINDSET' : 'TÂM TH�
 $content  = $section['content'] ?? '';
 $btn_text = $section['btn_text'] ?? ( $is_en ? 'About Us' : 'Về chúng tôi' );
 $btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' ) ) );
-$image    = is_array( $section['image'] ?? null ) ? ( $section['image']['url'] ?? '' ) : ( is_numeric( $section['image'] ?? null ) ? wp_get_attachment_url( $section['image'] ) : ( $section['image'] ?? '' ) );
+$raw_image = $section['image'] ?? null;
+$image     = spl_get_valid_image_url( $raw_image, 'static/img/vinacos/rd-lab-main.jpg' );
 
 if ( empty( $content ) ) {
 	if ( $is_en ) {
@@ -32,10 +33,6 @@ if ( empty( $content ) ) {
 <p><em>VINACOS đồng hành cùng các thương hiệu Việt, dùng nghiên cứu khoa học và công nghệ tạo ra những sản phẩm an toàn trọn gói xứng đáng với làn da Việt.</em></p>
 <p>Chúng tôi hiểu rằng các thương hiệu mỹ phẩm cần một đối tác không chỉ biết sản xuất OEM/ODM, mà còn biết lắng nghe, tham vấn và cùng định hình sản phẩm từ gốc. VINACOS ở đây để cùng bạn đi từ ý tưởng đến thành công trên thị trường.</p>';
 	}
-}
-
-if ( empty( $image ) || false !== strpos( $image, 'unila.com.vn' ) ) {
-	$image = get_template_directory_uri() . '/static/img/vinacos/rd-lab-main.jpg';
 }
 ?>
 
