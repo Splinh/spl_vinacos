@@ -21,7 +21,7 @@ $ph_msg   = $is_en ? 'Detailed Consultation Questions...' : 'Vấn đề cần t
 $btn_send = $is_en ? 'SUBMIT CONSULTATION REQUEST' : 'GỬI YÊU CẦU TƯ VẤN';
 
 if ( empty( $image ) ) {
-	$image = 'https://unila.com.vn/wp-content/uploads/2024/10/GIA-CONG-MY-PHAM-UNILA-PRODUCT-INSIGHT-POP-UP-01.jpg';
+	$image = get_template_directory_uri() . '/assets/img/vinacos/popup-banner.jpg';
 }
 ?>
 

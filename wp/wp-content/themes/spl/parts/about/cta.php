@@ -22,18 +22,19 @@ $title   = $is_en ? 'International cGMP/FDA Cleanroom Facilities' : 'Nhà máy &
 					<div class="swiper about-6-image" data-aos="fade-up" data-aos-duration="700" data-aos-delay="800">
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
+<?php $img_dir = get_template_directory_uri() . '/assets/img/vinacos/'; ?>
 								<div class="image img-cover">
-									<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/04/NHA-MAY.jpg" data-src="https://unila.com.vn/wp-content/uploads/2026/04/NHA-MAY.jpg" loading="lazy" alt="VINACOS Factory">
+									<img class="lozad" src="<?php echo esc_url( $img_dir . 'factory-overview.jpg' ); ?>" data-src="<?php echo esc_url( $img_dir . 'factory-overview.jpg' ); ?>" loading="lazy" alt="VINACOS Factory">
 								</div>
 							</div>
 							<div class="swiper-slide">
 								<div class="image img-cover">
-									<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/04/LAB.jpg" data-src="https://unila.com.vn/wp-content/uploads/2026/04/LAB.jpg" loading="lazy" alt="VINACOS R&D Lab">
+									<img class="lozad" src="<?php echo esc_url( $img_dir . 'rd-lab-main.jpg' ); ?>" data-src="<?php echo esc_url( $img_dir . 'rd-lab-main.jpg' ); ?>" loading="lazy" alt="VINACOS R&D Lab">
 								</div>
 							</div>
 							<div class="swiper-slide">
 								<div class="image img-cover">
-									<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/04/XUONG.jpg" data-src="https://unila.com.vn/wp-content/uploads/2026/04/XUONG.jpg" loading="lazy" alt="GMP Cleanroom">
+									<img class="lozad" src="<?php echo esc_url( $img_dir . 'cleanroom-factory.jpg' ); ?>" data-src="<?php echo esc_url( $img_dir . 'cleanroom-factory.jpg' ); ?>" loading="lazy" alt="GMP Cleanroom">
 								</div>
 							</div>
 						</div>

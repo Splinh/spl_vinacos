@@ -11,6 +11,7 @@ $is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_lan
 $section = $args ?? array();
 $items   = $section['items'] ?? array();
 
+$img_dir = get_template_directory_uri() . '/assets/img/vinacos/';
 if ( empty( $items ) ) {
 	$items = $is_en ? array(
 		array(
@@ -19,7 +20,7 @@ if ( empty( $items ) ) {
 			'desc'     => 'VINACOS R&D Center focuses on active raw material extraction and turn-key OEM/ODM cosmetic formulation engineering, ensuring stability, efficacy, and automated scale-up production.',
 			'btn_text' => 'Learn More',
 			'btn_link' => home_url( '/en/oem-odm-cosmetics-manufacturing/' ),
-			'image'    => 'https://unila.com.vn/wp-content/uploads/2026/04/HE-THONG-RD-2.1.jpg',
+			'image'    => $img_dir . 'rd-lab-main.jpg',
 		),
 		array(
 			'label'    => 'R&D System',
@@ -27,7 +28,7 @@ if ( empty( $items ) ) {
 			'desc'     => 'Applying lipid nano-emulsion and bio-encapsulation in active skincare: Scientific breakthroughs delivering targeted transdermal absorption and active preservation.',
 			'btn_text' => 'Learn More',
 			'btn_link' => home_url( '/en/oem-odm-cosmetics-manufacturing/' ),
-			'image'    => 'https://unila.com.vn/wp-content/uploads/2026/03/HE-THONG-RD-2.jpg',
+			'image'    => $img_dir . 'research-process.jpg',
 		),
 	) : array(
 		array(
@@ -36,7 +37,7 @@ if ( empty( $items ) ) {
 			'desc'     => 'VINACOS tập trung vào hai hướng nghiên cứu cốt lõi. Về nguyên liệu, chúng tôi khai thác và đánh giá các nguồn nguyên liệu tiềm năng, từ tách chiết, phân tích hoạt chất đến thử nghiệm độ ổn định. Về sản phẩm, chúng tôi phát triển công thức mỹ phẩm hoàn chỉnh OEM/ODM, đảm bảo hiệu quả, cảm quan cao cấp, sẵn sàng sản xuất hàng loạt.',
 			'btn_text' => 'Tìm hiểu thêm',
 			'btn_link' => home_url( '/oem-odm-gia-cong-unila-viet-nam/' ),
-			'image'    => 'https://unila.com.vn/wp-content/uploads/2026/04/HE-THONG-RD-2.1.jpg',
+			'image'    => $img_dir . 'rd-lab-main.jpg',
 		),
 		array(
 			'label'    => 'Hệ thống R&D',
@@ -44,7 +45,7 @@ if ( empty( $items ) ) {
 			'desc'     => 'Ứng dụng hệ thống nhũ tương nano lipid và màng bao sinh học bọc hoạt chất trong mỹ phẩm chăm sóc da: Công trình nghiên cứu ứng dụng công nghệ hiện đại giúp hoạt chất thẩm thấu sâu và bảo toàn hiệu quả trên làn da người Việt.',
 			'btn_text' => 'Tìm hiểu thêm',
 			'btn_link' => home_url( '/oem-odm-gia-cong-unila-viet-nam/' ),
-			'image'    => 'https://unila.com.vn/wp-content/uploads/2026/03/HE-THONG-RD-2.jpg',
+			'image'    => $img_dir . 'research-process.jpg',
 		),
 	);
 }

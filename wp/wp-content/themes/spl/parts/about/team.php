@@ -10,47 +10,48 @@ use SPL\Core\Helper;
 defined( 'ABSPATH' ) || exit;
 
 $title      = $data['title'] ?? 'Sức mạnh tập thể';
+$img_dir    = get_template_directory_uri() . '/assets/img/vinacos/';
 $banner_img = get_template_directory_uri() . '/static/img/suc-manh-tap-the-vinacos.jpg';
 $depts      = [
 	[
 		'title' => 'BAN GIÁM ĐỐC',
 		'desc'  => 'Định hướng tầm nhìn, dẫn dắt tương lai. Dẫn dắt chiến lược phát triển và đảm bảo VINACOS luôn đi đúng hướng, truyền cảm hứng và xây dựng văn hóa tận tâm cho toàn bộ đội ngũ.',
-		'image' => 'https://unila.com.vn/wp-content/uploads/2025/09/gioi-thieu-phong-CEOFouder-scaled.jpg',
+		'image' => $img_dir . 'ceo-founder.jpg',
 	],
 	[
 		'title' => 'R&D PHÒNG NGHIÊN CỨU & PHÁT TRIỂN',
 		'desc'  => 'Những kiến trúc sư công thức, mã hóa vẻ đẹp Việt bằng nghiên cứu và khoa học. Đội ngũ chuyên gia tâm huyết thử nghiệm, chuẩn hóa và tạo nên các công thức mỹ phẩm độc quyền.',
-		'image' => 'https://unila.com.vn/wp-content/uploads/2025/09/gioi-thieu-phong-RD-scaled.jpg',
+		'image' => $img_dir . 'team-rd.jpg',
 	],
 	[
 		'title' => 'BỘ PHẬN SẢN XUẤT',
 		'desc'  => 'Kỷ luật thép trong từng thao tác, đảm bảo sự đồng nhất 100%. Với quy trình nghiêm ngặt chuẩn GMP và thiết bị hiện đại, đội ngũ sản xuất biến công thức thành hiện thực.',
-		'image' => 'https://unila.com.vn/wp-content/uploads/2025/09/gioi-thieu-nhan-vien-san-xuat-scaled.jpg',
+		'image' => $img_dir . 'team-production.jpg',
 	],
 	[
 		'title' => 'QUẢN LÝ CHẤT LƯỢNG (QA/QC)',
 		'desc'  => 'Người gác cổng cuối cùng, đảm bảo chất lượng đạt chuẩn tuyệt đối. Từ nguyên liệu đầu vào đến thành phẩm, kiểm soát nghiêm ngặt để mọi tiêu chuẩn được tuân thủ.',
-		'image' => 'https://unila.com.vn/wp-content/uploads/2025/09/gioi-thieu-phong-DBCL-scaled.jpg',
+		'image' => $img_dir . 'team-qa.jpg',
 	],
 	[
 		'title' => 'KINH DOANH & TƯ VẤN OEM/ODM',
 		'desc'  => 'Những người đồng hành đầu tiên, lắng nghe và biến ý tưởng thành dự án cụ thể. Là cầu nối tin cậy giữa VINACOS và các thương hiệu đối tác.',
-		'image' => 'https://unila.com.vn/wp-content/uploads/2025/09/gioi-thieu-phong-kinh-doanh-1-scaled.jpg',
+		'image' => $img_dir . 'team-office.jpg',
 	],
 	[
 		'title' => 'MARKETING & TRUYỀN THÔNG',
 		'desc'  => 'Người kể chuyện chính trực, đưa giá trị thực đến tay người dùng. Biến giá trị khoa học thành thông điệp cảm xúc, kết nối thương hiệu với khách hàng.',
-		'image' => 'https://unila.com.vn/wp-content/uploads/2025/09/gioi-thieu-phong-marketing-2-scaled.jpg',
+		'image' => $img_dir . 'team-office.jpg',
 	],
 	[
 		'title' => 'NHÂN SỰ & QUẢN TRỊ',
 		'desc'  => 'Người xây dựng đội ngũ, tạo môi trường để mỗi thành viên phát huy tối đa năng lực. Thu hút và phát triển nguồn nhân lực trình độ cao cho VINACOS.',
-		'image' => 'https://unila.com.vn/wp-content/uploads/2025/09/gioi-thieu-phong-nhan-su-scaled.jpg',
+		'image' => $img_dir . 'team-office.jpg',
 	],
 	[
 		'title' => 'MUA HÀNG & CHUỖI CUNG ỨNG',
 		'desc'  => 'Người quản trị nguồn lực, chọn lọc nguyên liệu nhập khẩu chính ngạch chuẩn COA, tạo nền tảng vững chắc cho sứ mệnh mỹ phẩm sạch.',
-		'image' => 'https://unila.com.vn/wp-content/uploads/2025/09/gioi-thieu-phong-hanh-chinh-1-scaled.jpg',
+		'image' => $img_dir . 'research-process.jpg',
 	],
 ];
 ?>

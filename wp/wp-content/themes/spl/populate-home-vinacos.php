@@ -110,7 +110,7 @@ $home_sections = array(
 				'desc'     => 'VINACOS tập trung vào hai hướng nghiên cứu cốt lõi. Về nguyên liệu, chúng tôi khai thác và đánh giá các nguồn nguyên liệu tiềm năng, từ tách chiết, phân tích hoạt chất đến thử nghiệm độ ổn định. Về sản phẩm, chúng tôi phát triển công thức mỹ phẩm hoàn chỉnh OEM/ODM, đảm bảo hiệu quả, cảm quan cao cấp, sẵn sàng sản xuất hàng loạt.',
 				'btn_text' => 'Tìm hiểu thêm',
 				'btn_link' => '#rd-details',
-				'image'    => 'https://unila.com.vn/wp-content/uploads/2026/04/HE-THONG-RD-2.1.jpg',
+				'image'    => get_template_directory_uri() . '/assets/img/vinacos/rd-lab-main.jpg',
 			),
 			array(
 				'label'    => 'Hệ thống R&D',
@@ -118,7 +118,7 @@ $home_sections = array(
 				'desc'     => 'Ứng dụng hệ thống nhũ tương nano lipid và màng bao sinh học bọc hoạt chất trong mỹ phẩm chăm sóc da: Công trình nghiên cứu ứng dụng công nghệ hiện đại giúp hoạt chất thẩm thấu sâu và bảo toàn hiệu quả trên làn da người Việt.',
 				'btn_text' => 'Tìm hiểu thêm',
 				'btn_link' => '#research-papers',
-				'image'    => 'https://unila.com.vn/wp-content/uploads/2026/03/HE-THONG-RD-2.jpg',
+				'image'    => get_template_directory_uri() . '/assets/img/vinacos/research-process.jpg',
 			),
 		),
 	),
@@ -226,7 +226,7 @@ $home_sections = array(
 		'acf_fc_layout' => 'consult_modal',
 		'disable'       => 0,
 		'title'         => 'Vui lòng để lại thông tin để nhận TƯ VẤN GIẢI PHÁP PRODUCT INSIGHT MIỄN PHÍ.',
-		'image'         => 'https://unila.com.vn/wp-content/uploads/2024/10/GIA-CONG-MY-PHAM-UNILA-PRODUCT-INSIGHT-POP-UP-01.jpg',
+		'image'         => get_template_directory_uri() . '/assets/img/vinacos/popup-banner.jpg',
 	),
 );
 

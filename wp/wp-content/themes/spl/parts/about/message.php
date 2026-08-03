@@ -12,7 +12,7 @@ $title     = $is_en ? 'Message from the Heart' : 'Thông điệp từ trái tim'
 $subtitle  = $is_en ? 'Executive Board Statement' : 'Thông điệp từ Ban Giám Đốc';
 $ceo_name  = 'MRS. NGUYEN HONG TRUC';
 $ceo_title = $is_en ? 'MANAGING DIRECTOR / FOUNDER CEO' : 'GIÁM ĐỐC / CEO FOUNDER';
-$image_url = 'https://unila.com.vn/wp-content/uploads/2026/04/CEO-FOUNDER-UNILA.jpg';
+$image_url = get_template_directory_uri() . '/assets/img/vinacos/ceo-founder.jpg';
 ?>
 
 <div class="about-brand mt-10 xl:pt-25 container">

@@ -9,20 +9,21 @@ use SPL\Core\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
-$title = $data['title'] ?? 'Từng mốc dấu ấn';
-$items = [
-	[ 'year' => '2015', 'desc' => 'Khởi đầu. Thành lập công ty tại TP. Hồ Chí Minh', 'image' => 'https://unila.com.vn/wp-content/uploads/2024/10/gia-cong-my-pham-sach-unila-tl2.jpg' ],
-	[ 'year' => '2016', 'desc' => 'Bước tiến đầu. Nhà máy đầu tiên tại Bến Tre khởi công và đi vào hoạt động.', 'image' => 'https://unila.com.vn/wp-content/uploads/2025/08/nha-may-gia-cong-my-pham-nam-2018.jpg' ],
-	[ 'year' => '2018', 'desc' => 'Mở rộng. Nhà máy thứ hai chính thức hoạt động, nâng tầm quy mô sản xuất.', 'image' => 'https://unila.com.vn/wp-content/uploads/2024/10/gia-cong-my-pham-sach-unila-nha-may.jpg' ],
-	[ 'year' => '2022', 'desc' => 'Tái cấu trúc. Tái cơ cấu bộ máy tổ chức và tối ưu hóa quy trình.', 'image' => 'https://unila.com.vn/wp-content/uploads/2026/04/XUONG.jpg' ],
-	[ 'year' => '2023', 'desc' => 'Chuyển mình. Tập trung nghiên cứu và phát triển sản phẩm mới, đầu tư mạnh vào R&D chuyên sâu, nâng cao trải nghiệm dịch vụ khách hàng toàn diện.', 'image' => 'https://unila.com.vn/wp-content/uploads/2025/07/nha-may-gia-cong-my-pham-1.jpg' ],
-	[ 'year' => '2024', 'desc' => 'Kỷ nguyên mới. Tái định vị thương hiệu sau 9 năm hình thành và phát triển. VINACOS chuyển mình từ nhà sản xuất thành đối tác R&D.', 'image' => 'https://unila.com.vn/wp-content/uploads/2026/04/LAB.jpg' ],
-	[ 'year' => '2025', 'desc' => 'Đồng hành. Với nền tảng vững chắc và năng lực R&D chuyên sâu, VINACOS đồng hành cùng nhiều thương hiệu Việt chinh phục thị trường mỹ phẩm.', 'image' => 'https://unila.com.vn/wp-content/uploads/2024/10/gia-cong-my-pham-sach-unila-xu-the-moi.jpg' ],
-	[ 'year' => '2026', 'desc' => 'Tiến xa. Một cột mốc quan trọng: VINACOS chính thức trở thành Doanh nghiệp Khoa học – Công nghệ, khẳng định cam kết đầu tư mạnh mẽ vào đội ngũ R&D trình độ cao và hệ thống Lab tiêu chuẩn.', 'image' => 'https://unila.com.vn/wp-content/uploads/2025/07/nha-may-gia-cong-my-pham-4.jpg' ],
-	[ 'year' => 'Đến 2030', 'desc' => 'Khẳng định. VINACOS với vị thế đối tác R&D uy tín hàng đầu, góp phần đưa mỹ phẩm Việt Nam tỏa sáng trên bản đồ thế giới.', 'image' => 'https://unila.com.vn/wp-content/uploads/2025/07/nha-may-gia-cong-my-pham-1.jpg' ],
+$img_dir = get_template_directory_uri() . '/assets/img/vinacos/';
+$title   = $data['title'] ?? 'Từng mốc dấu ấn';
+$items   = [
+	[ 'year' => '2015', 'desc' => 'Khởi đầu. Thành lập công ty tại TP. Hồ Chí Minh', 'image' => $img_dir . 'factory-overview.jpg' ],
+	[ 'year' => '2016', 'desc' => 'Bước tiến đầu. Nhà máy đầu tiên tại Bến Tre khởi công và đi vào hoạt động.', 'image' => $img_dir . 'cleanroom-factory.jpg' ],
+	[ 'year' => '2018', 'desc' => 'Mở rộng. Nhà máy thứ hai chính thức hoạt động, nâng tầm quy mô sản xuất.', 'image' => $img_dir . 'factory-overview.jpg' ],
+	[ 'year' => '2022', 'desc' => 'Tái cấu trúc. Tái cơ cấu bộ máy tổ chức và tối ưu hóa quy trình.', 'image' => $img_dir . 'team-office.jpg' ],
+	[ 'year' => '2023', 'desc' => 'Chuyển mình. Tập trung nghiên cứu và phát triển sản phẩm mới, đầu tư mạnh vào R&D chuyên sâu, nâng cao trải nghiệm dịch vụ khách hàng toàn diện.', 'image' => $img_dir . 'rd-lab-main.jpg' ],
+	[ 'year' => '2024', 'desc' => 'Kỷ nguyên mới. Tái định vị thương hiệu sau 9 năm hình thành và phát triển. VINACOS chuyển mình từ nhà sản xuất thành đối tác R&D.', 'image' => $img_dir . 'team-rd.jpg' ],
+	[ 'year' => '2025', 'desc' => 'Đồng hành. Với nền tảng vững chắc và năng lực R&D chuyên sâu, VINACOS đồng hành cùng nhiều thương hiệu Việt chinh phục thị trường mỹ phẩm.', 'image' => $img_dir . 'research-process.jpg' ],
+	[ 'year' => '2026', 'desc' => 'Tiến xa. Một cột mốc quan trọng: VINACOS chính thức trở thành Doanh nghiệp Khoa học – Công nghệ, khẳng định cam kết đầu tư mạnh mẽ vào đội ngũ R&D trình độ cao và hệ thống Lab tiêu chuẩn.', 'image' => $img_dir . 'rd-lab-main.jpg' ],
+	[ 'year' => 'Đến 2030', 'desc' => 'Khẳng định. VINACOS với vị thế đối tác R&D uy tín hàng đầu, góp phần đưa mỹ phẩm Việt Nam tỏa sáng trên bản đồ thế giới.', 'image' => $img_dir . 'factory-overview.jpg' ],
 ];
 ?>
-<section class="about-2-section section-large lozad-bg" style="background-image: url('https://unila.com.vn/wp-content/themes/Unila-theme/HongTruc/dist/img/about-2-bg.jpg'); background-size: cover; background-position: center;">
+<section class="about-2-section section-large bg-slate-50">
 	<div class="container">
 		<h2 class="site-title text-center" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
 			<?php echo esc_html( $title ); ?>
