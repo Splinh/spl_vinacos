@@ -42,7 +42,17 @@ foreach ( $gallery_arr as $g_id ) {
 	}
 }
 
-$contact_url  = function_exists( 'pll_home_url' ) ? pll_home_url( $current_lang ) . 'lien-he/' : home_url( '/lien-he/' );
+$contact_url = '';
+$contact_page = get_page_by_path( 'lien-he' );
+if ( $contact_page ) {
+	$trans_id = function_exists( 'pll_get_post' ) ? pll_get_post( $contact_page->ID, $current_lang ) : 0;
+	if ( $trans_id ) {
+		$contact_url = get_permalink( $trans_id );
+	}
+}
+if ( empty( $contact_url ) ) {
+	$contact_url = function_exists( 'pll_home_url' ) ? pll_home_url( $current_lang ) . 'lien-he/' : home_url( '/lien-he/' );
+}
 $products_url = function_exists( 'pll_home_url' ) ? pll_home_url( $current_lang ) . 'san-pham/' : home_url( '/san-pham/' );
 ?>
 
