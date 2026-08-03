@@ -218,3 +218,58 @@ function spl_register_polylang_theme_strings(): void {
 		pll_register_string( $label, $str, 'VINACOS Theme' );
 	}
 }
+
+// --------------------------------------------------
+// Dynamic Domain Replacer (replaces vinacos.test with current HTTP host)
+// --------------------------------------------------
+
+/**
+ * Dynamically replace dev domain (vinacos.test) with current request domain.
+ *
+ * @param mixed $url
+ * @return mixed
+ */
+function spl_fix_dynamic_url( mixed $url ): mixed {
+	if ( empty( $url ) || ! is_string( $url ) ) {
+		return $url;
+	}
+
+	$host = $_SERVER['HTTP_HOST'] ?? '';
+	if ( ! $host ) {
+		return $url;
+	}
+
+	$is_https = is_ssl() || ( isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && 'https' === $_SERVER['HTTP_X_FORWARDED_PROTO'] );
+	$scheme   = $is_https ? 'https://' : 'http://';
+	$target   = rtrim( $scheme . $host, '/' );
+
+	// Replace http(s)://vinacos.test with current host.
+	return preg_replace( '#https?://vinacos\.test#i', $target, $url );
+}
+
+add_filter( 'home_url', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'site_url', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'pll_translation_url', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'wp_nav_menu_items', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'option_siteurl', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'option_home', 'spl_fix_dynamic_url', 9999 );
+
+add_filter( 'pll_the_languages', function( $langs ) {
+	if ( is_array( $langs ) ) {
+		foreach ( $langs as $k => $lang ) {
+			if ( is_array( $lang ) && isset( $lang['url'] ) ) {
+				$langs[ $k ]['url'] = spl_fix_dynamic_url( $lang['url'] );
+			}
+		}
+	}
+	return $langs;
+}, 9999 );
+
+add_filter( 'acf/format_value/type=url', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'acf/format_value/type=link', function( $value ) {
+	if ( is_array( $value ) && ! empty( $value['url'] ) ) {
+		$value['url'] = spl_fix_dynamic_url( $value['url'] );
+	}
+	return $value;
+}, 9999 );
+

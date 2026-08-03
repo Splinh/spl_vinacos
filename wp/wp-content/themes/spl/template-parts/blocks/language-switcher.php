@@ -48,7 +48,7 @@ if ( 'VI' === $current_code ) {
 					$code = strtoupper( $lang['slug'] );
 				?>
 					<li class="wpml-ls-sub-item">
-						<a href="<?= esc_url( $lang['url'] ) ?>">
+						<a href="<?= esc_url( function_exists( 'spl_fix_dynamic_url' ) ? spl_fix_dynamic_url( $lang['url'] ) : $lang['url'] ) ?>">
 							<span class="wpml-ls-native"><?= esc_html( $code ) ?></span>
 						</a>
 					</li>

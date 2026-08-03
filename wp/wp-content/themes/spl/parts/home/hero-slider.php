@@ -86,8 +86,9 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 					}
 
 					$desc     = ! empty( $s['description'] ) ? $s['description'] : $v['desc'];
-					$btn_text = $v['btn_text'];
-					$btn_url  = $v['btn_link'];
+					$btn_text = ! empty( $s['button_text'] ) ? $s['button_text'] : $v['btn_text'];
+					$raw_url  = ! empty( $s['button_url'] ) ? $s['button_url'] : ( ! empty( $s['btn_link'] ) ? $s['btn_link'] : $v['btn_link'] );
+					$btn_url  = function_exists( 'spl_fix_dynamic_url' ) ? spl_fix_dynamic_url( $raw_url ) : $raw_url;
 				?>
 				<div class="swiper-slide key-visual-slide" data-swiper-autoplay="2999">
 					<div class="image key-img-box">
