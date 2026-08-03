@@ -243,16 +243,47 @@ function spl_fix_dynamic_url( mixed $url ): mixed {
 	$scheme   = $is_https ? 'https://' : 'http://';
 	$target   = rtrim( $scheme . $host, '/' );
 
-	// Replace http(s)://vinacos.test with current host.
-	return preg_replace( '#https?://vinacos\.test#i', $target, $url );
+	// Replace http(s)://vinacos.test:port with current scheme + host.
+	$url = preg_replace( '#https?://vinacos\.test(?::\d+)?#i', $target, $url );
+
+	// Replace standalone vinacos.test host.
+	$url = str_ireplace( 'vinacos.test', $host, $url );
+
+	return $url;
 }
 
 add_filter( 'home_url', 'spl_fix_dynamic_url', 9999 );
 add_filter( 'site_url', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'pll_home_url', 'spl_fix_dynamic_url', 9999 );
 add_filter( 'pll_translation_url', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'pll_check_canonical_url', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'wp_redirect', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'redirect_canonical', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'post_link', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'page_link', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'post_type_link', 'spl_fix_dynamic_url', 9999 );
+add_filter( 'term_link', 'spl_fix_dynamic_url', 9999 );
 add_filter( 'wp_nav_menu_items', 'spl_fix_dynamic_url', 9999 );
 add_filter( 'option_siteurl', 'spl_fix_dynamic_url', 9999 );
 add_filter( 'option_home', 'spl_fix_dynamic_url', 9999 );
+
+add_filter( 'allowed_redirect_hosts', function( $hosts ) {
+	if ( ! empty( $_SERVER['HTTP_HOST'] ) ) {
+		$hosts[] = $_SERVER['HTTP_HOST'];
+	}
+	return $hosts;
+}, 9999 );
+
+add_filter( 'option_polylang', function( $opt ) {
+	if ( is_array( $opt ) ) {
+		array_walk_recursive( $opt, function( &$val ) {
+			if ( is_string( $val ) && false !== stripos( $val, 'vinacos.test' ) ) {
+				$val = spl_fix_dynamic_url( $val );
+			}
+		} );
+	}
+	return $opt;
+}, 9999 );
 
 add_filter( 'pll_the_languages', function( $langs ) {
 	if ( is_array( $langs ) ) {
@@ -272,4 +303,5 @@ add_filter( 'acf/format_value/type=link', function( $value ) {
 	}
 	return $value;
 }, 9999 );
+
 
