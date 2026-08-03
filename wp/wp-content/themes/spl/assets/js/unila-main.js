@@ -92,6 +92,19 @@ function initHome5Swiper(){
 		allowTouchMove: false
 	});
 
+	var imageSwiper = new Swiper(".home-5-image", {
+		slidesPerView: "auto",
+		spaceBetween: 16,
+		speed: 600,
+		slideToClickedSlide: true,
+		grabCursor: true,
+		breakpoints: {
+			768: {
+				spaceBetween: 20
+			}
+		}
+	});
+
 	var captionSwiper = new Swiper(".home-5-caption", {
 		effect: "fade",
 		fadeEffect: { crossFade: true },
@@ -108,17 +121,29 @@ function initHome5Swiper(){
 			slideChange: function () {
 				var activeIndex = this.realIndex;
 				if (previewSwiper && previewSwiper.slideTo) { previewSwiper.slideTo(activeIndex); }
+				if (imageSwiper && imageSwiper.slideTo) { imageSwiper.slideTo(activeIndex); }
 				$(".home-5-image .swiper-slide").removeClass("swiper-slide-thumb-active swiper-slide-active").eq(activeIndex).addClass("swiper-slide-thumb-active swiper-slide-active");
 			}
 		}
 	});
 
-	$(".home-5-image .swiper-slide").on("click", function () {
-		var idx = $(this).index();
-		if (captionSwiper && captionSwiper.slideTo) { captionSwiper.slideTo(idx); }
-		if (previewSwiper && previewSwiper.slideTo) { previewSwiper.slideTo(idx); }
-		$(".home-5-image .swiper-slide").removeClass("swiper-slide-thumb-active swiper-slide-active").eq(idx).addClass("swiper-slide-thumb-active swiper-slide-active");
-	});
+	if (imageSwiper) {
+		imageSwiper.on("slideChange", function () {
+			var activeIndex = this.realIndex;
+			if (captionSwiper && captionSwiper.slideTo) { captionSwiper.slideTo(activeIndex); }
+			if (previewSwiper && previewSwiper.slideTo) { previewSwiper.slideTo(activeIndex); }
+			$(".home-5-image .swiper-slide").removeClass("swiper-slide-thumb-active swiper-slide-active").eq(activeIndex).addClass("swiper-slide-thumb-active swiper-slide-active");
+		});
+
+		imageSwiper.on("click", function () {
+			var idx = typeof this.clickedIndex !== "undefined" ? this.clickedIndex : $(this.clickedSlide).index();
+			if (typeof idx !== "undefined" && idx !== null && idx >= 0) {
+				if (captionSwiper && captionSwiper.slideTo) { captionSwiper.slideTo(idx); }
+				if (previewSwiper && previewSwiper.slideTo) { previewSwiper.slideTo(idx); }
+				$(".home-5-image .swiper-slide").removeClass("swiper-slide-thumb-active swiper-slide-active").eq(idx).addClass("swiper-slide-thumb-active swiper-slide-active");
+			}
+		});
+	}
 }
 
 function initProductDetailSwiper(){
