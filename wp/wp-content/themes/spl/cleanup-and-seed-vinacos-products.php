@@ -204,6 +204,32 @@ $vinacos_catalogue = array(
 	),
 );
 
+// Collect all allowed official titles
+$allowed_titles = array();
+foreach ( $vinacos_catalogue as $item ) {
+	$allowed_titles[] = mb_strtolower( trim( $item['vi_title'] ) );
+	$allowed_titles[] = mb_strtolower( trim( $item['en_title'] ) );
+}
+
+// Delete any products not in official catalogue list
+$existing_all = get_posts( array(
+	'post_type'   => 'product',
+	'numberposts' => -1,
+	'lang'        => '',
+	'post_status' => 'any',
+) );
+
+$purged = 0;
+foreach ( $existing_all as $ep ) {
+	if ( ! in_array( mb_strtolower( trim( $ep->post_title ) ), $allowed_titles, true ) ) {
+		wp_delete_post( $ep->ID, true );
+		$purged++;
+	}
+}
+if ( $purged > 0 ) {
+	echo "Purged {$purged} leftover non-official products.\n\n";
+}
+
 // 4. SEED CLEAN COSMETICS PRODUCTS (VI & EN)
 foreach ( $vinacos_catalogue as $item ) {
 	// Find or create VI product
@@ -233,13 +259,21 @@ foreach ( $vinacos_catalogue as $item ) {
 
 	// Force attach featured image from Labcos URL
 	$thumb_id = get_post_thumbnail_id( $vi_id );
-	if ( ! empty( $item['image_url'] ) ) {
-		$new_thumb_id = vinacos_sideload_product_image( $item['image_url'], $vi_id );
-		if ( $new_thumb_id ) {
-			$thumb_id = $new_thumb_id;
-			set_post_thumbnail( $vi_id, $thumb_id );
+	if ( $thumb_id ) {
+		$img_url = wp_get_attachment_url( $thumb_id );
+		if ( false !== stripos( (string) $img_url, 'logo' ) ) {
+			wp_delete_attachment( $thumb_id, true );
+			$thumb_id = 0;
+		}
+	}
+	if ( ! $thumb_id && ! empty( $item['image_url'] ) ) {
+		$thumb_id = vinacos_sideload_product_image( $item['image_url'], $vi_id );
+		if ( $thumb_id ) {
 			echo "ATTACHED Featured Image (ID {$thumb_id}) to VI Product ID {$vi_id}\n";
 		}
+	}
+	if ( $thumb_id ) {
+		set_post_thumbnail( $vi_id, $thumb_id );
 	}
 
 	// Assign VI category
@@ -293,6 +327,9 @@ foreach ( $vinacos_catalogue as $item ) {
 	) );
 	echo "LINKED: VI (ID {$vi_id}) <-> EN (ID {$en_id})\n\n";
 }
+
+flush_rewrite_rules();
+echo "=== VINACOS PRODUCT SEEDER COMPLETED SUCCESSFULLY ===\n";
 
 flush_rewrite_rules();
 echo "=== VINACOS PRODUCT SEEDER COMPLETED SUCCESSFULLY ===\n";
