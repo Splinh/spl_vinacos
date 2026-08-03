@@ -165,7 +165,8 @@ if ( ! $is_oem_unila_page && have_rows( 'cooperation_sections' ) ) {
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
 								<div class="image img-cover">
-									<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/03/NGHIEN-CUU-NEN-CHAT-scaled.jpg" data-src="https://unila.com.vn/wp-content/uploads/2026/03/NGHIEN-CUU-NEN-CHAT-scaled.jpg" loading="lazy" alt="VINACOS R&D">
+									<?php $rd_img = get_template_directory_uri() . '/assets/img/nghien-cuu-nen-chat-vinacos.png'; ?>
+									<img class="lozad" src="<?php echo esc_url( $rd_img ); ?>" data-src="<?php echo esc_url( $rd_img ); ?>" loading="lazy" alt="VINACOS R&D Formulation Base">
 								</div>
 							</div>
 						</div>
