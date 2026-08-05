@@ -15,7 +15,7 @@ $content  = $section['content'] ?? '';
 $btn_text = $section['btn_text'] ?? ( $is_en ? 'About Us' : 'Về chúng tôi' );
 $btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' ) ) );
 $raw_image = $section['image'] ?? null;
-$image     = spl_get_valid_image_url( $raw_image, 'static/img/vinacos/rd-lab-main.jpg' );
+$image     = spl_get_valid_image_url( $raw_image, 'static/img/vinacos/partner-mindset.jpg' );
 
 if ( empty( $content ) ) {
 	if ( $is_en ) {

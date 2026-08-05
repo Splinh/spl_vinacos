@@ -74,8 +74,8 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 					$s = $slides[ $i ] ?? array();
 					$v = $default_vinacos_slides[ $i ];
 
-					$desktop_img = $img_base . '/slide' . ( $i + 1 ) . '-desktop.jpg';
-					$mobile_img  = $img_base . '/slide' . ( $i + 1 ) . '-mobile.jpg';
+					$desktop_img = ! empty( $s['desktop_image'] ) ? ( is_array( $s['desktop_image'] ) ? $s['desktop_image']['url'] : $s['desktop_image'] ) : ( ! empty( $s['image'] ) ? ( is_array( $s['image'] ) ? $s['image']['url'] : $s['image'] ) : $img_base . '/slide' . ( $i + 1 ) . '-desktop.jpg' );
+					$mobile_img  = ! empty( $s['mobile_image'] ) ? ( is_array( $s['mobile_image'] ) ? $s['mobile_image']['url'] : $s['mobile_image'] ) : $img_base . '/slide' . ( $i + 1 ) . '-mobile.jpg';
 
 					$title_lines = array();
 					if ( ! empty( $s['title_line_1'] ) ) { $title_lines[] = $s['title_line_1']; }

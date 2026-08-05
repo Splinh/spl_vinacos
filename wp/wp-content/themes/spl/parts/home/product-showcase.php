@@ -12,6 +12,7 @@ $section = $args ?? array();
 $title   = $section['title'] ?? ( $is_en ? 'VINACOS OEM/ODM Product Portfolio' : 'Danh mục sản phẩm VINACOS' );
 $items   = $section['items'] ?? array();
 
+$img_base = get_template_directory_uri() . '/static/img/products/';
 if ( empty( $items ) ) {
 	$items = $is_en ? array(
 		array(
@@ -19,28 +20,28 @@ if ( empty( $items ) ) {
 			'description' => 'Cooling water-burst texture engineered without silicone, 100% lipid-friendly & safe for delicate sensitive skin.',
 			'btn_text'    => 'Learn More',
 			'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
-			'image'       => 'https://unila.com.vn/wp-content/uploads/2026/04/CHAT-1.jpg',
+			'image'       => $img_base . 'product1.jpg',
 		),
 		array(
 			'title'       => 'Detoxifying Green Tea Mineral Clay Mask',
 			'description' => 'Absorbs excess sebum & impurities with natural mineral clay complex while preserving skin moisture barrier.',
 			'btn_text'    => 'Learn More',
 			'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
-			'image'       => 'https://unila.com.vn/wp-content/uploads/2026/04/CHAT-SON-2.jpg',
+			'image'       => $img_base . 'product2.jpg',
 		),
 		array(
 			'title'       => 'Natural Rice Husk Silica Exfoliator',
 			'description' => 'Bio-sustainable scrubbing system using upcycled rice husk silica, replacing microplastics with spherical bio-particles.',
 			'btn_text'    => 'Learn More',
 			'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
-			'image'       => 'https://unila.com.vn/wp-content/uploads/2026/04/CHAT-3.jpg',
+			'image'       => $img_base . 'product3.jpg',
 		),
 		array(
 			'title'       => 'Chamomile Soothing & Recovery Mud Mask',
 			'description' => 'Combines natural mineral mud with standardized Chamomile extract for instant redness relief & skin barrier repair.',
 			'btn_text'    => 'Learn More',
 			'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
-			'image'       => 'https://unila.com.vn/wp-content/uploads/2026/04/CHAT-SON-4.jpg',
+			'image'       => $img_base . 'product4.jpg',
 		),
 	) : array(
 		array(
@@ -48,28 +49,28 @@ if ( empty( $items ) ) {
 			'description' => 'Hiệu ứng “vỡ nước” tươi mát khi thoa vốn thường chỉ đạt được nhờ hệ nhũ water-in-silicone. VINACOS nghiên cứu thành công nền công thức tương đương hoàn toàn không chứa silicone, an toàn tuyệt đối cho làn da nhạy cảm.',
 			'btn_text'    => 'Xem thêm',
 			'btn_link'    => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-			'image'       => 'https://unila.com.vn/wp-content/uploads/2026/04/CHAT-1.jpg',
+			'image'       => $img_base . 'product1.jpg',
 		),
 		array(
 			'title'       => 'Mặt nạ đất sét trà xanh Detox',
 			'description' => 'Ứng dụng hệ đất sét khoáng tự nhiên hấp thụ bã nhờn và độc tố hiệu quả, làm sạch sâu lỗ chân lông mà vẫn duy trì độ ẩm tự nhiên cho da.',
 			'btn_text'    => 'Xem thêm',
 			'btn_link'    => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-			'image'       => 'https://unila.com.vn/wp-content/uploads/2026/04/CHAT-SON-2.jpg',
+			'image'       => $img_base . 'product2.jpg',
 		),
 		array(
 			'title'       => 'Tẩy tế bào chết Silica từ vỏ trấu Việt Nam',
 			'description' => 'Giải pháp thay thế vi nhựa và silica công nghiệp bằng silica sinh học chiết xuất từ vỏ trấu Việt Nam. Tẩy da chết nhẹ nhàng, tự phân hủy sinh học, bảo vệ môi trường.',
 			'btn_text'    => 'Xem thêm',
 			'btn_link'    => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-			'image'       => 'https://unila.com.vn/wp-content/uploads/2026/04/CHAT-3.jpg',
+			'image'       => $img_base . 'product3.jpg',
 		),
 		array(
 			'title'       => 'Mặt nạ bùn Cúc La Mã làm dịu & phục hồi',
 			'description' => 'Kết hợp bùn khoáng thiên nhiên với chiết xuất Cúc La Mã chuẩn hóa, giúp làm dịu tức thì làn da kích ứng và củng cố hàng rào bảo vệ da.',
 			'btn_text'    => 'Xem thêm',
 			'btn_link'    => home_url( '/san-pham-gia-cong-unila-viet-nam/' ),
-			'image'       => 'https://unila.com.vn/wp-content/uploads/2026/04/CHAT-SON-4.jpg',
+			'image'       => $img_base . 'product4.jpg',
 		),
 	);
 }
