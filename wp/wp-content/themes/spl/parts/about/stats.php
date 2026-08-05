@@ -100,17 +100,4 @@ $promises = [
 			</div>
 		</div>
 	</div>
-</section>spl_icon( 'arrow-up-right', '', 20 ) ?></div>
-						<div class="icon flex items-center justify-center w-20 h-20 mb-4">
-							<?php echo $item['svg']; ?>
-						</div>
-						<div class="caption">
-							<h3 class="title"><?php echo esc_html( $item['title'] ); ?></h3>
-							<div class="desc"><?php echo esc_html( $item['desc'] ); ?></div>
-						</div>
-					</div>
-				<?php endforeach; ?>
-			</div>
-		</div>
-	</div>
 </section>
