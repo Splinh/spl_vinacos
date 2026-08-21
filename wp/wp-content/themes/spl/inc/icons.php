@@ -95,6 +95,10 @@ function spl_get_icons(): array {
 		'tiktok' => '<path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" ' . $s . '/>',
 
 		'linkedin' => '<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" fill="currentColor"/><rect x="2" y="9" width="4" height="12" fill="currentColor"/><circle cx="4" cy="4" r="2" fill="currentColor"/>',
+
+		'messenger' => '<path d="M12 2C6.477 2 2 6.145 2 11.259c0 2.913 1.454 5.512 3.727 7.184V22l3.418-1.875c.918.254 1.891.391 2.855.391 5.523 0 10-4.145 10-9.257C22 6.145 17.523 2 12 2zm1.004 12.443l-2.55-2.721-4.977 2.721 5.474-5.814 2.613 2.721 4.914-2.721-5.474 5.814z" fill="currentColor"/>',
+
+		'zalo' => '<path d="M12 3C6.48 3 2 7.03 2 12c0 2.85 1.47 5.39 3.76 7.02V22l3.37-1.85c.92.25 1.89.39 2.87.39 5.52 0 10-4.03 10-9s-4.48-9-10-9zm-3.5 12.5V14h3.2l-3.2-4.2V8.5h4.5V10h-3.2l3.2 4.2v1.3H8.5zm7 0h-1.5V8.5H15.5v7z" fill="currentColor"/>',
 	];
 
 	return $icons;
