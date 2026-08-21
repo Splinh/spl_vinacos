@@ -142,12 +142,12 @@ function spl_register_acf_options_page(): void {
 }
 
 // Always grant upload_files capability for any logged in user in admin to prevent wp_enqueue_media bail.
-add_filter( 'user_has_cap', function ( $allcaps ) {
-	if ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+add_filter( 'user_has_cap', function ( $allcaps, $caps = [], $args = [], $user = null ) {
+	if ( is_array( $allcaps ) && ( is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) ) {
 		$allcaps['upload_files'] = true;
 	}
 	return $allcaps;
-}, 1 );
+}, 1, 4 );
 
 add_action( 'admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 0 );
 add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 0 );
