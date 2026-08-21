@@ -15,7 +15,7 @@ $content  = $section['content'] ?? '';
 $btn_text = $section['btn_text'] ?? ( $is_en ? 'About Us' : 'Về chúng tôi' );
 $btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' ) ) );
 $raw_image = $section['image'] ?? null;
-$image     = spl_get_valid_image_url( $raw_image, 'static/img/vinacos/partner-mindset.jpg' );
+$image     = spl_get_valid_image_url( $raw_image, 'static/img/vinacos/partner-mindset-collage.jpg' );
 
 if ( empty( $content ) ) {
 	if ( $is_en ) {
@@ -36,11 +36,18 @@ if ( empty( $content ) ) {
 }
 ?>
 
-<section class="about-1-section one-scroll section-t-large section-b-small" id="about-us">
+<section class="about-1-section section-t-large section-b-small" id="about-us">
 	<div class="container">
 		<div class="row -mt-10 items-center">
-			<div class="col w-full mt-10 lg:w-5/12">
-				<div class="block-content block-content-1">
+			<!-- LEFT: Collage Multi-Photo Image -->
+			<div class="col w-full mt-10 lg:w-7/12 order-2 lg:order-1">
+				<div class="image image-1 img-cover" data-aos="fade-right" data-aos-duration="700">
+					<img class="lozad" src="<?php echo esc_url( $image ); ?>" data-src="<?php echo esc_url( $image ); ?>" loading="lazy" alt="VINACOS - TÂM THẾ CỘNG SỰ" width="1200" height="900">
+				</div>
+			</div>
+			<!-- RIGHT: Content Block -->
+			<div class="col w-full mt-10 lg:w-5/12 order-1 lg:order-2">
+				<div class="block-content block-content-1 lg:pl-8">
 					<h2 class="site-title" data-aos="fade-up" data-aos-duration="700">
 						<?php echo wp_kses_post( $title ); ?>
 					</h2>
@@ -53,11 +60,6 @@ if ( empty( $content ) ) {
 							<?= spl_icon( 'plus', '', 16 ) ?>
 						</a>
 					</div>
-				</div>
-			</div>
-			<div class="col w-full mt-10 lg:w-7/12">
-				<div class="image image-1 img-contain" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
-					<img class="lozad" src="<?php echo esc_url( $image ); ?>" data-src="<?php echo esc_url( $image ); ?>" loading="lazy" alt="VINACOS - TÂM THẾ CỘNG SỰ" width="700" height="466">
 				</div>
 			</div>
 		</div>
