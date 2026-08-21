@@ -124,8 +124,13 @@ final class OptionsAdmin {
 			printf( '<style id="pll-acf-options-translate-css">%s</style>', $css );
 		}
 
+		// Ensure WordPress Media Modal is enqueued for image fields.
+		if ( function_exists( 'wp_enqueue_media' ) ) {
+			wp_enqueue_media();
+		}
+
 		// Inline JS — register empty handle for localization, inject file content.
-		wp_register_script( 'pll-acf-options-translate', '', [ 'acf-input', 'jquery', 'wp-util' ], THEME_VERSION, true );
+		wp_register_script( 'pll-acf-options-translate', false, [ 'acf-input', 'jquery', 'wp-util' ], THEME_VERSION, true );
 		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Local file read.
 		$js = file_get_contents( $assetDir . '/options-translate.js' );
 		if ( $js ) {

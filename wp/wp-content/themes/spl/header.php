@@ -23,13 +23,25 @@ defined( 'ABSPATH' ) || exit;
 <?php
 use SPL\Core\Helper;
 
-$logo_field = Helper::getField( 'logo', 'option' );
 $logo_url   = '';
-if ( is_numeric( $logo_field ) && $logo_field > 0 ) {
+$logo_field = Helper::getField( 'logo', 'option' );
+if ( is_array( $logo_field ) && ! empty( $logo_field['url'] ) ) {
+	$logo_url = $logo_field['url'];
+} elseif ( is_array( $logo_field ) && ! empty( $logo_field['id'] ) ) {
+	$logo_url = wp_get_attachment_image_url( (int) $logo_field['id'], 'full' );
+} elseif ( is_numeric( $logo_field ) && (int) $logo_field > 0 ) {
 	$logo_url = wp_get_attachment_image_url( (int) $logo_field, 'full' );
-} elseif ( is_string( $logo_field ) && ! empty( $logo_field ) ) {
+} elseif ( is_string( $logo_field ) && ! empty( $logo_field ) && ! is_numeric( $logo_field ) ) {
 	$logo_url = $logo_field;
 }
+
+if ( empty( $logo_url ) ) {
+	$custom_logo_id = get_theme_mod( 'custom_logo' );
+	if ( $custom_logo_id ) {
+		$logo_url = wp_get_attachment_image_url( (int) $custom_logo_id, 'full' );
+	}
+}
+
 if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || stripos( $logo_url, 'dailyxedien' ) !== false ) {
 	$logo_url = get_template_directory_uri() . '/static/img/logo.png';
 }

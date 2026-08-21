@@ -8376,6 +8376,13 @@ footer .footer-bot .footer-copyright p a:hover {
     margin: 0 !important;
   }
 
+  body.home main {
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+
   body.home header {
     position: fixed !important;
     top: 0 !important;
