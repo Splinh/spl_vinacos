@@ -7691,39 +7691,7 @@ header .wpml-ls.wpml-ls-legacy-dropdown-click > ul > li > a::after {
   z-index: 2;
 }
 
-/* Home-5 Product Showcase thumbnail controller: small padding & active red border with gap */
-.home-5-image .swiper-slide {
-  padding: 4px !important;
-  box-sizing: border-box !important;
-  transition: all 0.25s ease !important;
-}
-
-.home-5-image .image {
-  position: relative !important;
-  border-radius: 6px !important;
-  overflow: hidden !important;
-  transition: all 0.25s ease !important;
-}
-
-.home-5-image .swiper-slide.swiper-slide-thumb-active .image,
-.home-5-image .swiper-slide.swiper-slide-active .image {
-  outline: 2px solid #1e60a3 !important;
-  outline-offset: 3px !important;
-  border-radius: 6px !important;
-  box-shadow: 0 4px 14px rgba(30, 96, 163, 0.25) !important;
-}
-
-.home-5-image .swiper-slide.swiper-slide-thumb-active .image::before,
-.home-5-image .swiper-slide.swiper-slide-active .image::before {
-  opacity: 1 !important;
-  border: 2px solid #1e60a3 !important;
-  inset: -4px !important;
-  border-radius: 8px !important;
-  pointer-events: none !important;
-  content: '' !important;
-  position: absolute !important;
-  z-index: 10 !important;
-}
+/* Cleaned legacy home-5 rules */
 
 #buttonMenu {
   --tw-rotate: 0deg;
@@ -8289,4 +8257,46 @@ footer .footer-bot .footer-copyright p a:hover {
   border-radius: 12px !important;
   box-shadow: 0 8px 24px rgba(30, 96, 163, 0.35) !important;
   transform: translateY(-2px) !important;
+}
+
+/* Home-5 Large Showcase Left Image - Pure and clean */
+.home-5-image {
+  outline: none !important;
+  border: none !important;
+}
+.home-5-image .swiper-slide {
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+}
+.home-5-image .image,
+.home-5-image .image img {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.home-5-image .image::before {
+  display: none !important;
+}
+
+/* Home-5 Thumbnail Selector on Bottom Right - 7.5px Active Border */
+.home-5-controller .home-5-preview .swiper-slide {
+  cursor: pointer !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+.home-5-controller .home-5-preview .swiper-slide .image {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 3px solid transparent !important;
+  transition: all 0.25s ease !important;
+  box-sizing: border-box !important;
+}
+.home-5-controller .home-5-preview .swiper-slide.swiper-slide-thumb-active .image,
+.home-5-controller .home-5-preview .swiper-slide.swiper-slide-active .image,
+.home-5-controller .home-5-preview .swiper-slide:hover .image {
+  border: 7.5px solid #1e60a3 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(30, 96, 163, 0.35) !important;
 }
