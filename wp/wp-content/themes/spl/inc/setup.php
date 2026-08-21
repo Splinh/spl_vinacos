@@ -139,11 +139,19 @@ function spl_register_acf_options_page(): void {
 	] );
 }
 
-add_action( 'admin_enqueue_scripts', 'spl_enqueue_acf_options_media', 5 );
-add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_acf_options_media', 5 );
+add_action( 'admin_enqueue_scripts', 'spl_enqueue_acf_options_media', 0 );
+add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_acf_options_media', 0 );
+add_action( 'load-toplevel_page_acf-options', 'spl_enqueue_acf_options_media', 0 );
 function spl_enqueue_acf_options_media(): void {
 	if ( function_exists( 'wp_enqueue_media' ) ) {
 		wp_enqueue_media();
+	}
+	add_action( 'admin_footer', 'spl_print_media_templates_fallback', 1 );
+}
+
+function spl_print_media_templates_fallback(): void {
+	if ( function_exists( 'wp_print_media_templates' ) ) {
+		wp_print_media_templates();
 	}
 }
 
