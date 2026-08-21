@@ -288,9 +288,8 @@ function initFullPageScroll() {
 		isScrolling = true;
 		currentIndex = index;
 		var $target = $sections.eq(index);
-		var headerHeight = $("header").outerHeight() || 80;
-		var targetTop = $target.offset().top - (index === 0 ? 0 : headerHeight);
-		if (targetTop < 0) targetTop = 0;
+		var headerHeight = $("header").outerHeight() || 84;
+		var targetTop = Math.max(0, Math.round($target.offset().top - headerHeight));
 
 		$("html, body").stop().animate({
 			scrollTop: targetTop

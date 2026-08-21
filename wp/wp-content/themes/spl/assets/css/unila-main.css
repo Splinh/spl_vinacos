@@ -8353,6 +8353,11 @@ footer .footer-bot .footer-copyright p a:hover {
    Fullpage Scroll (1-Lướt-1-Section & 100vh Sizing on Desktop)
    ========================================================================== */
 @media (min-width: 1025px) {
+  body.home {
+    padding-top: 84px !important;
+    margin: 0 !important;
+  }
+
   body.home header {
     position: fixed !important;
     top: 0 !important;
@@ -8367,9 +8372,58 @@ footer .footer-bot .footer-copyright p a:hover {
     height: calc(100vh - 84px) !important;
     min-height: calc(100vh - 84px) !important;
     max-height: calc(100vh - 84px) !important;
-    margin-top: 84px !important;
+    margin: 0 !important;
     padding: 0 !important;
     overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+  body.home .home-banner .banner-slider,
+  body.home .home-banner .key-visual-swiper,
+  body.home .home-banner .key-visual-wrapper {
+    height: 100% !important;
+    width: 100% !important;
+  }
+  body.home .home-banner .key-visual-slide {
+    height: 100% !important;
+    width: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+  body.home .home-banner .key-visual-slide .key-img-box {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+  }
+  body.home .home-banner .key-visual-slide .key-img-box img {
+    height: 100% !important;
+    max-height: calc(100vh - 100px) !important;
+    width: auto !important;
+    object-fit: contain !important;
+    object-position: right center !important;
+    margin-right: clamp(20px, 4vw, 80px) !important;
+  }
+  body.home .home-banner .key-visual-slide .caption {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 1540px !important;
+    margin: 0 auto !important;
+    padding-left: clamp(30px, 5vw, 100px) !important;
+    z-index: 10 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
   }
 
   /* SECTION 2: ABOUT 1 (TÂM THẾ CỘNG SỰ) */
@@ -8380,6 +8434,7 @@ footer .footer-bot .footer-copyright p a:hover {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
@@ -8435,6 +8490,7 @@ footer .footer-bot .footer-copyright p a:hover {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
@@ -8489,6 +8545,7 @@ footer .footer-bot .footer-copyright p a:hover {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
@@ -8539,6 +8596,7 @@ footer .footer-bot .footer-copyright p a:hover {
     display: flex !important;
     flex-direction: row-reverse !important;
     align-items: stretch !important;
+    margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
@@ -8610,6 +8668,7 @@ footer .footer-bot .footer-copyright p a:hover {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
@@ -8664,8 +8723,9 @@ footer .footer-bot .footer-copyright p a:hover {
     min-height: calc(100vh - 84px) !important;
     max-height: calc(100vh - 84px) !important;
     display: flex !important;
-    flex-direction: column !important;
+    flex-direction: column;
     justify-content: center !important;
+    margin: 0 !important;
     padding: 20px 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
