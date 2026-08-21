@@ -651,6 +651,7 @@ header {
 		.header-logo {
 			display: flex;
 			align-items: center;
+			padding: 4px 0;
 
 			p { margin: 0; }
 
@@ -660,6 +661,7 @@ header {
 				max-height: 88px !important;
 				object-fit: contain;
 				display: block;
+				padding: 4px 0;
 
 				@media (min-width: 1200px) {
 					height: 84px !important;
@@ -1166,6 +1168,7 @@ header {
 
 .header-logo {
 	flex-shrink: 0;
+	padding: 4px 0;
 
 	p { margin: 0; }
 
@@ -1175,6 +1178,7 @@ header {
 		width: auto !important;
 		max-height: 88px !important;
 		object-fit: contain;
+		padding: 4px 0;
 
 		@media (min-width: 1200px) {
 			height: 84px !important;

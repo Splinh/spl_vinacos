@@ -39,7 +39,7 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 		<div class="header-logo">
 			<p>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
-					<img decoding="async" class="alignnone size-full wp-image-81 site-logo-img" src="<?php echo esc_url( $logo_url ); ?>" alt="VINACOS" style="height: 84px; width: auto; max-height: 96px; object-fit: contain;" />
+					<img decoding="async" class="alignnone size-full wp-image-81 site-logo-img" src="<?php echo esc_url( $logo_url ); ?>" alt="VINACOS" style="height: 84px; width: auto; max-height: 96px; object-fit: contain; padding: 4px 0;" />
 				</a>
 			</p>
 		</div>

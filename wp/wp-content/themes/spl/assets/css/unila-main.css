@@ -4380,11 +4380,14 @@ header .header-logo{
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 header .header-logo img{
   width: auto;
   height: 76px !important;
   max-height: 88px !important;
+  padding: 4px 0;
   object-fit: contain;
 }
 @media (min-width: 1200px){
