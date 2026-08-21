@@ -8825,11 +8825,11 @@ footer .footer-bot .footer-copyright p a:hover {
     margin-bottom: clamp(6px, 1vh, 14px) !important;
   }
   body.home .home-9-section .news-list .news-item:nth-child(1) .image {
-    width: 48% !important;
-    max-width: 580px !important;
-    aspect-ratio: 760 / 340 !important;
+    width: 55% !important;
+    max-width: 800px !important;
+    aspect-ratio: 760 / 350 !important;
     height: auto !important;
-    max-height: calc(42vh - 50px) !important;
+    max-height: calc(44vh - 40px) !important;
     border-radius: 0 !important;
     overflow: hidden !important;
     align-self: stretch !important;
@@ -8848,7 +8848,7 @@ footer .footer-bot .footer-copyright p a:hover {
   }
   body.home .home-9-section .news-list .news-item:nth-child(1) .caption {
     flex: 1 1 0% !important;
-    padding: clamp(14px, 2vh, 28px) 0 clamp(14px, 2vh, 28px) clamp(20px, 3vw, 45px) !important;
+    padding: clamp(12px, 1.8vh, 24px) 0 clamp(12px, 1.8vh, 24px) clamp(20px, 2.5vw, 40px) !important;
     border: none !important;
     display: flex !important;
     flex-direction: column !important;
