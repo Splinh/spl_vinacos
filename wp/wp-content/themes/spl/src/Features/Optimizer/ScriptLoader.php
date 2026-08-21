@@ -91,8 +91,8 @@ final class ScriptLoader {
 			}
 		}
 
-		// Skip lazy/defer logic for admin pages and login page
-		if ( $pagenow === 'wp-login.php' || is_admin() ) {
+		// Skip lazy/defer logic for admin pages, login page and customizer preview
+		if ( $pagenow === 'wp-login.php' || is_admin() || is_customize_preview() ) {
 			return $tag;
 		}
 

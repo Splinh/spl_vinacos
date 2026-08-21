@@ -55,8 +55,10 @@ function spl_enqueue_unila_assets(): void {
 add_action( 'wp_enqueue_scripts', 'spl_dequeue_conflicting_assets', 999 );
 add_action( 'wp_print_styles', 'spl_dequeue_conflicting_assets', 999 );
 function spl_dequeue_conflicting_assets(): void {
-	// Always isolate assets across all Unila pages, posts, products & archives.
-
+	// Never dequeue inside the Customizer preview iframe so WP Customizer can handshake.
+	if ( is_customize_preview() ) {
+		return;
+	}
 
 	// Theme compiled CSS conflicts with Unila grid/layout/typography.
 	foreach ( [ 'index-css', 'share-css', 'page-css', 'woocommerce-css' ] as $h ) {
