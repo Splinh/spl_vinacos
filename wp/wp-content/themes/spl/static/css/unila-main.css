@@ -8385,7 +8385,7 @@ footer .footer-bot .footer-copyright p a:hover {
     height: 84px !important;
   }
 
-  /* SECTION 1: HERO SLIDER (Căn giữa tuyệt đối & đối xứng trên dưới) */
+  /* SECTION 1: HERO SLIDER (To lớn như cũ & Padding trên dưới đều đặn) */
   body.home .home-banner {
     height: calc(100vh - 84px) !important;
     min-height: calc(100vh - 84px) !important;
@@ -8413,27 +8413,21 @@ footer .footer-bot .footer-copyright p a:hover {
   }
   body.home .home-banner .key-visual-slide .key-img-box {
     position: absolute !important;
-    top: 50% !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: auto !important;
-    transform: translateY(-50%) !important;
-    transform-origin: center center !important;
+    inset: 0 !important;
     width: 100% !important;
-    height: min(calc(100vh - 140px), 660px) !important;
-    max-height: calc(100vh - 140px) !important;
+    height: 100% !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    overflow: visible !important;
+    overflow: hidden !important;
     pointer-events: none !important;
   }
   body.home .home-banner .key-visual-slide .key-img-box img {
     position: relative !important;
-    height: 100% !important;
-    max-height: min(calc(100vh - 140px), 660px) !important;
+    height: calc(100vh - 104px) !important;
+    max-height: calc(100vh - 104px) !important;
     width: auto !important;
-    max-width: 55% !important;
+    max-width: none !important;
     object-fit: contain !important;
     object-position: right center !important;
     margin-right: clamp(20px, 4vw, 80px) !important;
@@ -8460,13 +8454,13 @@ footer .footer-bot .footer-copyright p a:hover {
     justify-content: center !important;
   }
   body.home .home-banner .key-visual-slide .caption .content {
-    max-width: 540px !important;
+    max-width: 580px !important;
   }
   body.home .home-banner .key-visual-slide .caption .banner-title {
-    margin-bottom: clamp(12px, 1.8vh, 22px) !important;
+    margin-bottom: clamp(14px, 2vh, 26px) !important;
   }
   body.home .home-banner .key-visual-slide .caption .banner-title .split-parent {
-    font-size: clamp(28px, 2.8vw, 46px) !important;
+    font-size: clamp(32px, 3.2vw, 54px) !important;
     line-height: 1.15 !important;
     max-width: none !important;
     margin: 0 !important;
@@ -8476,9 +8470,9 @@ footer .footer-bot .footer-copyright p a:hover {
     transform: none !important;
   }
   body.home .home-banner .key-visual-slide .caption .desc {
-    max-width: 480px !important;
-    font-size: clamp(13.5px, 1.05vw, 15px) !important;
-    line-height: 1.6 !important;
+    max-width: 500px !important;
+    font-size: clamp(14px, 1.1vw, 16px) !important;
+    line-height: 1.65 !important;
     margin-bottom: 0 !important;
   }
   body.home .home-banner .key-visual-slide .caption .desc p {
@@ -8486,7 +8480,7 @@ footer .footer-bot .footer-copyright p a:hover {
     transform: none !important;
   }
   body.home .home-banner .key-visual-slide .caption .button {
-    margin-top: clamp(14px, 2vh, 24px) !important;
+    margin-top: clamp(16px, 2.2vh, 28px) !important;
   }
 
   /* SECTION 2: ABOUT 1 (TÂM THẾ CỘNG SỰ) */
