@@ -8311,15 +8311,20 @@ footer .footer-bot .footer-copyright p a:hover {
   overflow: visible !important;
 }
 .home-5-image .swiper-slide {
-  width: 160px !important;
-  height: 110px !important;
+  width: 15.9375rem !important;
   cursor: pointer !important;
   padding: 4px !important;
   box-sizing: border-box !important;
 }
+@media (max-width: 768px) {
+  .home-5-image .swiper-slide {
+    width: 13rem !important;
+  }
+}
 .home-5-image .swiper-slide .image {
   width: 100% !important;
   height: 100% !important;
+  aspect-ratio: 306/260 !important;
   border-radius: 12px !important;
   overflow: hidden !important;
   border: 3px solid transparent !important;
