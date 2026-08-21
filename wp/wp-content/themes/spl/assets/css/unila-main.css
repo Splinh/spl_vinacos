@@ -8253,7 +8253,7 @@ footer .footer-bot .footer-copyright p a:hover {
 .home-5-controller .home-5-preview .swiper-slide.swiper-slide-thumb-active,
 .home-5-controller .home-5-preview .swiper-slide.swiper-slide-active {
   opacity: 1 !important;
-  border: 7.5px solid #1e60a3 !important;
+  border: 6px solid #1e60a3 !important;
   border-radius: 12px !important;
   box-shadow: 0 8px 24px rgba(30, 96, 163, 0.35) !important;
   transform: translateY(-2px) !important;
@@ -8344,9 +8344,27 @@ footer .footer-bot .footer-copyright p a:hover {
 .home-5-image .swiper-slide.swiper-slide-thumb-active .image,
 .home-5-image .swiper-slide.swiper-slide-active .image,
 .home-5-image .swiper-slide:hover .image {
-  border: 7.5px solid #1e60a3 !important;
+  border: 6px solid #1e60a3 !important;
   border-radius: 12px !important;
   box-shadow: 0 8px 24px rgba(30, 96, 163, 0.35) !important;
+}
+
+.home-5-image .swiper-slide .image {
+  width: 100% !important;
+  height: 100% !important;
+  aspect-ratio: 306/260 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  border: 6px solid transparent !important;
+  transition: all 0.25s ease !important;
+  box-sizing: border-box !important;
+}
+.home-5-image .swiper-slide.swiper-slide-thumb-active .image,
+.home-5-image .swiper-slide.swiper-slide-active .image,
+.home-5-image .swiper-slide:hover .image {
+  border: 6px solid #1e60a3 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 6px 20px rgba(30, 96, 163, 0.3) !important;
 }
 
 /* ==========================================================================
@@ -8704,34 +8722,35 @@ footer .footer-bot .footer-copyright p a:hover {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
-    padding: clamp(20px, 3vw, 50px) !important;
+    padding: clamp(20px, 3.5vw, 60px) clamp(20px, 4vw, 70px) !important;
     box-sizing: border-box !important;
   }
   body.home .home-5-section .block-content .site-title {
-    font-size: clamp(22px, 2.2vw, 34px) !important;
-    margin-bottom: 6px !important;
+    font-size: clamp(24px, 2.4vw, 36px) !important;
+    margin-bottom: 8px !important;
   }
   body.home .home-5-section .block-content .swiper-relative {
-    margin-top: 10px !important;
+    margin-top: 12px !important;
   }
   body.home .home-5-section .block-content .home-5-item .title {
-    font-size: clamp(16px, 1.6vw, 22px) !important;
+    font-size: clamp(18px, 1.8vw, 24px) !important;
+    font-weight: 700 !important;
   }
   body.home .home-5-section .block-content .home-5-item .desc {
-    font-size: 13.5px !important;
-    line-height: 1.55 !important;
-    margin-top: 8px !important;
-    max-height: 70px !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    margin-top: 10px !important;
+    max-height: 80px !important;
     overflow: hidden !important;
   }
   body.home .home-5-section .block-content .home-5-item .button {
-    margin-top: 10px !important;
-  }
-  body.home .home-5-section .block-content .home-5-image {
     margin-top: 16px !important;
   }
+  body.home .home-5-section .block-content .home-5-image {
+    margin-top: clamp(32px, 4.5vh, 58px) !important;
+  }
   body.home .home-5-section .block-content .home-5-image .swiper-slide {
-    width: 14rem !important;
+    width: 15.5rem !important;
   }
   body.home .home-5-section .block-content .home-5-image .swiper-slide .image {
     aspect-ratio: 306/250 !important;
