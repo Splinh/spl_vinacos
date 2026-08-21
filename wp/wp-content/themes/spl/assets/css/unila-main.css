@@ -4369,25 +4369,25 @@ header .header-wrap{
   max-width: 100% !important;
   margin: 0 !important;
   padding: 0 24px !important;
-  height: 90px;
+  height: 76px;
   box-sizing: border-box;
 }
 @media (min-width: 1200px){
   header .header-wrap{
     padding: 0 32px !important;
-    height: 105px;
+    height: 84px;
   }
 }
 @media (min-width: 1400px){
   header .header-wrap{
     padding: 0 40px !important;
-    height: 115px;
+    height: 88px;
   }
 }
 @media (max-width: 768px){
   header .header-wrap{
     padding: 0 12px !important;
-    height: 68px;
+    height: 62px;
   }
 }
 header .header-logo{
@@ -4396,35 +4396,71 @@ header .header-logo{
   flex-shrink: 0;
   padding: 0;
 }
+header .header-logo p{
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+header .header-logo a,
+header .header-logo .custom-logo-link{
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
 header .header-logo img{
   width: auto !important;
-  height: 76px !important;
-  max-height: 85px !important;
-  max-width: 320px !important;
+  height: 48px !important;
+  max-height: 54px !important;
+  max-width: 64px !important;
   object-fit: contain;
   display: block;
   padding: 0 !important;
 }
-@media (min-width: 1200px){
-  header .header-logo img{
-    height: 90px !important;
-    max-height: 100px !important;
-    max-width: 380px !important;
-  }
-}
 @media (min-width: 1400px){
   header .header-logo img{
-    height: 100px !important;
-    max-height: 115px !important;
-    max-width: 440px !important;
+    height: 54px !important;
+    max-height: 60px !important;
+    max-width: 72px !important;
   }
 }
 @media (max-width: 768px){
   header .header-logo img{
-    height: 54px !important;
-    max-height: 62px !important;
-    max-width: 220px !important;
+    height: 38px !important;
+    max-height: 42px !important;
+    max-width: 50px !important;
   }
+}
+header .header-logo .logo-text{
+  font-family: 'Be Vietnam Pro', sans-serif;
+  font-size: 20px;
+  font-weight: 800;
+  color: #1e60a3;
+  letter-spacing: 0.8px;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+@media (min-width: 1400px){
+  header .header-logo .logo-text{
+    font-size: 22px;
+    letter-spacing: 1px;
+  }
+}
+@media (max-width: 1024px){
+  header .header-logo .logo-text{
+    font-size: 17px;
+  }
+}
+@media (max-width: 768px){
+  header .header-logo .logo-text{
+    font-size: 15px;
+    letter-spacing: 0.4px;
+  }
+}
+header .header-logo:hover .logo-text{
+  color: #154577;
 }
 header .header-center{
   flex: 1 1 auto;
