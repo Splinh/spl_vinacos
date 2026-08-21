@@ -8259,43 +8259,86 @@ footer .footer-bot .footer-copyright p a:hover {
   transform: translateY(-2px) !important;
 }
 
-/* Home-5 Large Showcase Left Image - Pure and clean */
-.home-5-image {
-  outline: none !important;
-  border: none !important;
+/* 4. Product Showcase (Danh Mục Sản Phẩm) */
+.home-5-section {
+  padding: 80px 0;
+  background: #f8f9fa;
 }
-.home-5-image .swiper-slide {
-  padding: 0 !important;
-  border: none !important;
-  outline: none !important;
+.home-5-section .home-5-item {
+  max-width: 550px;
 }
-.home-5-image .image,
-.home-5-image .image img {
+.home-5-section .home-5-item .title {
+  font-size: 26px;
+  font-weight: 800;
+}
+.home-5-section .home-5-item .desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #555;
+}
+
+/* 1. LEFT BIG SHOWCASE IMAGE (.home-5-controller .home-5-preview) */
+.home-5-controller {
+  width: 100%;
+}
+.home-5-controller .home-5-preview {
+  width: 100%;
+  height: 100%;
+}
+.home-5-controller .home-5-preview .swiper-slide {
+  width: 100% !important;
+  height: 100% !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
 }
-.home-5-image .image::before {
-  display: none !important;
+.home-5-controller .home-5-preview .swiper-slide .image,
+.home-5-controller .home-5-preview .swiper-slide img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border-radius: 20px !important;
 }
 
-/* Home-5 Thumbnail Selector on Bottom Right - 7.5px Active Border */
-.home-5-controller .home-5-preview .swiper-slide {
+/* 2. RIGHT THUMBNAILS CAROUSEL (.home-5-image) */
+.home-5-image {
+  overflow: visible !important;
+}
+.home-5-image .swiper-slide {
+  width: 160px !important;
+  height: 110px !important;
   cursor: pointer !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
+  padding: 4px !important;
   box-sizing: border-box !important;
 }
-.home-5-controller .home-5-preview .swiper-slide .image {
+.home-5-image .swiper-slide .image {
+  width: 100% !important;
+  height: 100% !important;
   border-radius: 12px !important;
   overflow: hidden !important;
   border: 3px solid transparent !important;
   transition: all 0.25s ease !important;
   box-sizing: border-box !important;
 }
-.home-5-controller .home-5-preview .swiper-slide.swiper-slide-thumb-active .image,
-.home-5-controller .home-5-preview .swiper-slide.swiper-slide-active .image,
-.home-5-controller .home-5-preview .swiper-slide:hover .image {
+.home-5-image .swiper-slide .image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block !important;
+  border-radius: 8px !important;
+}
+.home-5-image .swiper-slide .image::before {
+  display: none !important;
+}
+.home-5-image .swiper-slide.swiper-slide-thumb-active .image,
+.home-5-image .swiper-slide.swiper-slide-active .image,
+.home-5-image .swiper-slide:hover .image {
   border: 7.5px solid #1e60a3 !important;
   border-radius: 12px !important;
   box-shadow: 0 8px 24px rgba(30, 96, 163, 0.35) !important;
