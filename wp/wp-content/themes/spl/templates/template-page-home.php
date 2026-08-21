@@ -48,11 +48,6 @@ if ( $sections ) :
 				get_template_part( 'parts/home/product-showcase', null, $section );
 				break;
 
-			case 'partners_section':
-			case 'brands':
-				get_template_part( 'parts/home/partners-section', null, $section );
-				break;
-
 			case 'brand_banner':
 				get_template_part( 'parts/home/brand-banner', null, $section );
 				break;
@@ -77,7 +72,6 @@ else :
 	get_template_part( 'parts/home/rd-system' );
 	get_template_part( 'parts/home/key-numbers' );
 	get_template_part( 'parts/home/product-showcase' );
-	get_template_part( 'parts/home/partners-section' );
 	get_template_part( 'parts/home/news-section' );
 	get_template_part( 'parts/home/consult-modal' );
 endif;

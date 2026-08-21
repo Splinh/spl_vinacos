@@ -7,7 +7,8 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$is_en          = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+// Section disabled per user request
+return;
 $section        = $args ?? array();
 $watermark      = $section['watermark'] ?? 'VINACOS';
 $watermark_img  = is_array( $section['watermark_image'] ?? null ) ? ( $section['watermark_image']['url'] ?? '' ) : ( is_numeric( $section['watermark_image'] ?? null ) ? wp_get_attachment_url( $section['watermark_image'] ) : ( $section['watermark_image'] ?? '' ) );
