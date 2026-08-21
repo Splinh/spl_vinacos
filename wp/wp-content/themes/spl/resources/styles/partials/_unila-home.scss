@@ -1722,25 +1722,22 @@ main {
 			.key-visual-slide {
 				.key-img-box {
 					position: absolute !important;
-					top: 50% !important;
-					bottom: auto !important;
+					top: 0 !important;
+					bottom: 0 !important;
 					left: 0 !important;
 					right: 0 !important;
-					transform: translateY(-50%) !important;
-					transform-origin: center center !important;
 					width: 100% !important;
-					height: min(calc(100vh - 130px), 640px) !important;
-					max-height: calc(100vh - 130px) !important;
+					height: 100% !important;
 					display: flex !important;
 					align-items: center !important;
 					justify-content: flex-end !important;
-					overflow: visible !important;
+					overflow: hidden !important;
 					pointer-events: none !important;
 
 					img {
 						position: static !important;
-						height: 100% !important;
-						max-height: min(calc(100vh - 130px), 640px) !important;
+						height: calc(100vh - 84px) !important;
+						max-height: calc(100vh - 84px) !important;
 						width: auto !important;
 						max-width: none !important;
 						object-fit: contain !important;
@@ -1750,7 +1747,8 @@ main {
 						bottom: auto !important;
 						left: auto !important;
 						right: auto !important;
-						transform: none !important;
+						transform: scale(1.06) !important;
+						transform-origin: right center !important;
 					}
 				}
 
