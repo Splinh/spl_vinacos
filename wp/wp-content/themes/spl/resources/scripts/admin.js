@@ -67,6 +67,99 @@ const run = () => {
 			//
 		});
 	}
+
+	// ── ACF Image Modal Fallback ──
+	document.addEventListener(
+		'click',
+		(e) => {
+			const addBtn = e.target.closest(
+				'.acf-field-image [data-name="add"], .acf-field-image .acf-image-uploader a.button, .acf-image-uploader [data-name="add"]'
+			);
+			if (addBtn && typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+
+				const $btn = window.jQuery ? window.jQuery(addBtn) : null;
+				const uploader = addBtn.closest('.acf-image-uploader');
+				const input = uploader ? uploader.querySelector('input[type="hidden"]') : null;
+				const img = uploader ? uploader.querySelector('img[data-name="image"]') : null;
+
+				const frame = window.wp.media({
+					title: 'Chọn hoặc tải ảnh lên',
+					button: { text: 'Sử dụng ảnh này' },
+					multiple: false,
+					library: { type: 'image' },
+				});
+
+				frame.on('select', () => {
+					const attachment = frame.state().get('selection').first().toJSON();
+					if (input) {
+						input.value = attachment.id;
+						if (window.jQuery) {
+							window.jQuery(input).trigger('change');
+						}
+					}
+
+					if (img) {
+						img.src = attachment.url;
+						img.style.display = '';
+					} else if (uploader) {
+						const view = uploader.querySelector('.view');
+						if (view) {
+							view.innerHTML = `<img data-name="image" src="${attachment.url}" alt="" style="max-width:100%;height:auto;" />`;
+						}
+					}
+					if (uploader) {
+						uploader.classList.add('has-value');
+					}
+
+					if (typeof window.acf !== 'undefined' && uploader) {
+						const field = window.acf.getField(uploader.closest('.acf-field'));
+						if (field) {
+							field.val(attachment.id);
+						}
+					}
+				});
+
+				frame.open();
+			}
+
+			// Remove handler
+			const removeBtn = e.target.closest(
+				'.acf-field-image [data-name="remove"], .acf-image-uploader [data-name="remove"]'
+			);
+			if (removeBtn) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+
+				const uploader = removeBtn.closest('.acf-image-uploader');
+				const input = uploader ? uploader.querySelector('input[type="hidden"]') : null;
+				const img = uploader ? uploader.querySelector('img[data-name="image"]') : null;
+
+				if (input) {
+					input.value = '';
+					if (window.jQuery) {
+						window.jQuery(input).trigger('change');
+					}
+				}
+				if (img) {
+					img.src = '';
+					img.style.display = 'none';
+				}
+				if (uploader) {
+					uploader.classList.remove('has-value');
+				}
+
+				if (typeof window.acf !== 'undefined' && uploader) {
+					const field = window.acf.getField(uploader.closest('.acf-field'));
+					if (field) {
+						field.val('');
+					}
+				}
+			}
+		},
+		true
+	);
 };
 
 document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', run, { once: true }) : run();

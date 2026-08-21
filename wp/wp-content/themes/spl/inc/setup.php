@@ -139,12 +139,32 @@ function spl_register_acf_options_page(): void {
 	] );
 }
 
+add_action( 'admin_init', function (): void {
+	add_filter( 'user_has_cap', function ( $allcaps ) {
+		if ( is_admin() && ( ! isset( $allcaps['upload_files'] ) || ! $allcaps['upload_files'] ) ) {
+			$allcaps['upload_files'] = true;
+		}
+		return $allcaps;
+	}, 999 );
+} );
+
+add_action( 'current_screen', function (): void {
+	if ( function_exists( 'wp_enqueue_media' ) ) {
+		wp_enqueue_media();
+	}
+}, 0 );
+
 add_action( 'admin_enqueue_scripts', 'spl_enqueue_acf_options_media', 0 );
 add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_acf_options_media', 0 );
 add_action( 'load-toplevel_page_acf-options', 'spl_enqueue_acf_options_media', 0 );
 function spl_enqueue_acf_options_media(): void {
 	if ( function_exists( 'wp_enqueue_media' ) ) {
 		wp_enqueue_media();
+	}
+	if ( function_exists( 'wp_enqueue_script' ) ) {
+		wp_enqueue_script( 'media-editor' );
+		wp_enqueue_script( 'media-models' );
+		wp_enqueue_script( 'media-views' );
 	}
 	add_action( 'admin_footer', 'spl_print_media_templates_fallback', 1 );
 }
@@ -154,6 +174,94 @@ function spl_print_media_templates_fallback(): void {
 		wp_print_media_templates();
 	}
 }
+
+add_action( 'admin_head', function (): void {
+	?>
+	<script>
+	(function() {
+		// 1. Polyfill wp.media.query immediately
+		if (typeof window.wp !== 'undefined') {
+			window.wp.media = window.wp.media || {};
+			if (typeof window.wp.media.query !== 'function') {
+				window.wp.media.query = function(props) {
+					if (window.wp.media.model && window.wp.media.model.Attachments) {
+						return new window.wp.media.model.Attachments(null, {
+							props: jQuery.extend({ orderby: 'date' }, props || {}, { query: true })
+						});
+					}
+					return null;
+				};
+			}
+		}
+
+		// 2. Intercept ACF Image Field clicks in capture phase for 100% reliable WP Media Modal
+		document.addEventListener('click', function(e) {
+			var addBtn = e.target.closest('.acf-field-image [data-name="add"], .acf-field-image .acf-image-uploader a.button, .acf-image-uploader [data-name="add"]');
+			if (addBtn && typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+
+				var $btn = jQuery(addBtn);
+				var $uploader = $btn.closest('.acf-image-uploader');
+				var $input = $uploader.find('input[type="hidden"]');
+				var $img = $uploader.find('img[data-name="image"]');
+
+				var frame = window.wp.media({
+					title: 'Chọn hoặc tải ảnh lên',
+					button: { text: 'Sử dụng ảnh này' },
+					multiple: false,
+					library: { type: 'image' }
+				});
+
+				frame.on('select', function() {
+					var attachment = frame.state().get('selection').first().toJSON();
+					$input.val(attachment.id).trigger('change');
+
+					if ($img.length) {
+						$img.attr('src', attachment.url).show();
+					} else {
+						$uploader.find('.view').html('<img data-name="image" src="' + attachment.url + '" alt="" style="max-width:100%;height:auto;" />');
+					}
+					$uploader.addClass('has-value');
+
+					if (typeof acf !== 'undefined') {
+						var field = acf.getField($uploader.closest('.acf-field'));
+						if (field) {
+							field.val(attachment.id);
+						}
+					}
+				});
+
+				frame.open();
+			}
+
+			// Remove / Edit handlers
+			var removeBtn = e.target.closest('.acf-field-image [data-name="remove"], .acf-image-uploader [data-name="remove"]');
+			if (removeBtn) {
+				e.preventDefault();
+				e.stopImmediatePropagation();
+
+				var $remBtn = jQuery(removeBtn);
+				var $wrap = $remBtn.closest('.acf-image-uploader');
+				var $valInput = $wrap.find('input[type="hidden"]');
+				var $valImg = $wrap.find('img[data-name="image"]');
+
+				$valInput.val('').trigger('change');
+				$valImg.attr('src', '').hide();
+				$wrap.removeClass('has-value');
+
+				if (typeof acf !== 'undefined') {
+					var acfFld = acf.getField($wrap.closest('.acf-field'));
+					if (acfFld) {
+						acfFld.val('');
+					}
+				}
+			}
+		}, true);
+	})();
+	</script>
+	<?php
+}, 1 );
 
 add_action( 'acf/init', 'spl_register_bottom_nav_acf_fields' );
 function spl_register_bottom_nav_acf_fields(): void {
