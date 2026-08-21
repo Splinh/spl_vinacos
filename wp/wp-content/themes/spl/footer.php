@@ -39,13 +39,13 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 	</div>
 </main>
 
-<footer class="bg-neutral-50">
+<footer class="footer-vinacos bg-[#1e60a3] text-white">
 	<div class="container">
 		<div class="footer-top section">
 			<div class="row -mt-10">
 				<div class="col w-full mt-10 lg:w-1/2">
 					<div class="footer-address">
-						<h3><span style="font-size: 24pt;"><?php echo esc_html( pll__( 'CÔNG TY TNHH VINACOS VIỆT NAM' ) ); ?></span></h3>
+						<h3><span style="font-size: 24pt; color: #ffffff;"><?php echo esc_html( pll__( 'CÔNG TY TNHH VINACOS VIỆT NAM' ) ); ?></span></h3>
 						<ul>
 							<li><strong><?php echo esc_html( pll__( 'Văn phòng:' ) ); ?></strong> <?php echo esc_html( pll__( 'KCN Thái Hòa, Xã Đức Lập, Tỉnh Tây Ninh / VP TP.HCM' ) ); ?></li>
 							<li><strong><?php echo esc_html( pll__( 'Nhà máy:' ) ); ?></strong> <?php echo esc_html( pll__( 'Nhà máy mỹ phẩm đạt chuẩn FDA / GMP' ) ); ?></li>
@@ -116,18 +116,18 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 						<li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer"><?php echo esc_html( pll__( 'Linkedin' ) ); ?></a></li>
 					</ul>
 					<div class="social-list flex items-center gap-4 mt-4">
-						<a href="https://www.facebook.com/" target="_blank" title="Facebook" class="text-neutral-800 hover:text-primary-600 transition-colors"><?= spl_icon( 'facebook', '', 22 ) ?></a>
-						<a href="https://www.youtube.com/" target="_blank" title="Youtube" class="text-neutral-800 hover:text-primary-600 transition-colors"><?= spl_icon( 'youtube', '', 22 ) ?></a>
-						<a href="https://www.instagram.com/" target="_blank" title="Instagram" class="text-neutral-800 hover:text-primary-600 transition-colors"><?= spl_icon( 'instagram', '', 22 ) ?></a>
-						<a href="https://www.tiktok.com/" target="_blank" title="Tiktok" class="text-neutral-800 hover:text-primary-600 transition-colors"><?= spl_icon( 'tiktok', '', 22 ) ?></a>
-						<a href="https://www.linkedin.com/" target="_blank" title="Linkedin" class="text-neutral-800 hover:text-primary-600 transition-colors"><?= spl_icon( 'linkedin', '', 22 ) ?></a>
+						<a href="https://www.facebook.com/" target="_blank" title="Facebook" class="text-white hover:text-blue-200 transition-colors"><?= spl_icon( 'facebook', '', 22 ) ?></a>
+						<a href="https://www.youtube.com/" target="_blank" title="Youtube" class="text-white hover:text-blue-200 transition-colors"><?= spl_icon( 'youtube', '', 22 ) ?></a>
+						<a href="https://www.instagram.com/" target="_blank" title="Instagram" class="text-white hover:text-blue-200 transition-colors"><?= spl_icon( 'instagram', '', 22 ) ?></a>
+						<a href="https://www.tiktok.com/" target="_blank" title="Tiktok" class="text-white hover:text-blue-200 transition-colors"><?= spl_icon( 'tiktok', '', 22 ) ?></a>
+						<a href="https://www.linkedin.com/" target="_blank" title="Linkedin" class="text-white hover:text-blue-200 transition-colors"><?= spl_icon( 'linkedin', '', 22 ) ?></a>
 					</div>
 				</div>
 				<div class="col w-full mt-10 md:w-1/2 lg:w-1/4">
 					<div class="footer-copyright space-y-2">
-						<p class="text-sm text-slate-500 leading-snug">Copyright <?php echo date( 'Y' ); ?> VINACOS. <?php echo esc_html( pll__( 'All Rights Reserved.' ) ); ?><br><?php echo esc_html( $is_en ? 'Design by VINACOS' : 'Design by VINACOS' ); ?></p>
-						<p><a href="<?php echo esc_url( $is_en ? home_url( '/en/privacy-policy/' ) : home_url( '/chinh-sach-bao-mat/' ) ); ?>"><?php echo esc_html( pll__( 'Chính sách bảo mật' ) ); ?></a></p>
-						<p><a href="<?php echo esc_url( $is_en ? home_url( '/en/oem-odm-cosmetics-manufacturing/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'Gia công mỹ phẩm là gì ?' ) ); ?></a></p>
+						<p class="text-sm text-blue-100 leading-snug">Copyright <?php echo date( 'Y' ); ?> VINACOS. <?php echo esc_html( pll__( 'All Rights Reserved.' ) ); ?><br><?php echo esc_html( $is_en ? 'Design by VINACOS' : 'Design by VINACOS' ); ?></p>
+						<p><a href="<?php echo esc_url( $is_en ? home_url( '/en/privacy-policy/' ) : home_url( '/chinh-sach-bao-mat/' ) ); ?>" class="text-blue-100 hover:text-white underline"><?php echo esc_html( pll__( 'Chính sách bảo mật' ) ); ?></a></p>
+						<p><a href="<?php echo esc_url( $is_en ? home_url( '/en/oem-odm-cosmetics-manufacturing/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) ); ?>" class="text-blue-100 hover:text-white underline"><?php echo esc_html( pll__( 'Gia công mỹ phẩm là gì ?' ) ); ?></a></p>
 						<div class="mt-3">
 							<a href="https://www.dmca.com/Protection/Status.aspx" target="_blank" rel="nofollow" title="DMCA Protection Status" class="inline-block">
 								<img src="https://images.dmca.com/Badges/dmca_protected_sml_120m.png" alt="DMCA Protected" width="120" height="28" style="height: 28px; width: auto;" />

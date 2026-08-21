@@ -1594,4 +1594,205 @@ main {
 	}
 }
 
+// ============================================================================
+// FOOTER VINACOS (Brand Blue #1e60a3 with Pure White Text & High Contrast)
+// ============================================================================
+
+footer.footer-vinacos,
+footer {
+	background-color: #1e60a3 !important;
+	color: #ffffff !important;
+	position: relative;
+	padding-top: 60px;
+	padding-bottom: 30px;
+
+	.footer-top {
+		border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+		padding-bottom: 50px;
+	}
+
+	.footer-address {
+		h3 {
+			margin-bottom: 18px;
+			span {
+				color: #ffffff !important;
+				font-size: 22px !important;
+				font-weight: 800 !important;
+				letter-spacing: 0.5px;
+				display: block;
+			}
+		}
+
+		ul {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+
+			li {
+				color: #e0ecf8 !important;
+				font-size: 14px;
+				line-height: 1.8;
+				margin-bottom: 6px;
+
+				strong {
+					color: #ffffff !important;
+					font-weight: 700;
+				}
+
+				a {
+					color: #ffffff !important;
+					text-decoration: none;
+					transition: color 0.3s;
+
+					&:hover {
+						color: #bde0fe !important;
+						text-decoration: underline;
+					}
+				}
+			}
+		}
+	}
+
+	.footer-form {
+		p {
+			color: #e0ecf8 !important;
+			font-size: 14px;
+			margin-bottom: 16px;
+			line-height: 1.6;
+		}
+
+		.form-group {
+			margin-bottom: 14px;
+
+			input.wpcf7-text,
+			input.wpcf7-tel,
+			input.wpcf7-email {
+				width: 100%;
+				background: rgba(255, 255, 255, 0.12) !important;
+				border: 1px solid rgba(255, 255, 255, 0.28) !important;
+				color: #ffffff !important;
+				padding: 12px 18px;
+				border-radius: 8px;
+				font-size: 14px;
+				transition: all 0.3s ease;
+
+				&::placeholder {
+					color: rgba(255, 255, 255, 0.72) !important;
+				}
+
+				&:focus {
+					background: rgba(255, 255, 255, 0.22) !important;
+					border-color: #ffffff !important;
+					outline: none;
+					box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
+				}
+			}
+
+			&.form-submit {
+				button,
+				.btn-lined {
+					background: #ffffff !important;
+					color: #1e60a3 !important;
+					border: none !important;
+					font-weight: 800 !important;
+					padding: 12px 32px;
+					border-radius: 999px;
+					cursor: pointer;
+					display: inline-flex;
+					align-items: center;
+					gap: 8px;
+					transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+					span {
+						color: #1e60a3 !important;
+					}
+
+					svg {
+						fill: #1e60a3 !important;
+						stroke: #1e60a3 !important;
+					}
+
+					&:hover {
+						background: #f0f7ff !important;
+						transform: translateY(-2px);
+						box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+					}
+				}
+			}
+		}
+	}
+
+	.footer-bot {
+		padding-top: 50px;
+		padding-bottom: 20px;
+
+		.footer-title {
+			font-size: 16px;
+			font-weight: 800;
+			text-transform: uppercase;
+			color: #ffffff !important;
+			letter-spacing: 0.5px;
+			margin-bottom: 20px;
+		}
+
+		.footer-menu {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+
+			li {
+				margin-bottom: 8px;
+
+				a {
+					color: #e0ecf8 !important;
+					font-size: 14px;
+					text-decoration: none;
+					transition: color 0.3s;
+
+					&:hover {
+						color: #ffffff !important;
+						padding-left: 4px;
+					}
+				}
+			}
+		}
+
+		.social-list {
+			a {
+				color: #ffffff !important;
+				opacity: 0.9;
+				transition: all 0.3s;
+
+				svg {
+					fill: #ffffff !important;
+				}
+
+				&:hover {
+					opacity: 1;
+					transform: translateY(-2px);
+					color: #bde0fe !important;
+				}
+			}
+		}
+
+		.footer-copyright {
+			p {
+				color: #d0e4ff !important;
+				font-size: 13px;
+				line-height: 1.6;
+
+				a {
+					color: #d0e4ff !important;
+					text-decoration: underline;
+
+					&:hover {
+						color: #ffffff !important;
+					}
+				}
+			}
+		}
+	}
+}
+
+
 
