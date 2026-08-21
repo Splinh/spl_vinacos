@@ -8134,3 +8134,62 @@ footer .footer-bot .footer-copyright p a {
 footer .footer-bot .footer-copyright p a:hover {
   color: #ffffff !important;
 }
+
+
+/* 1. About 1 Section (TÂM THẾ CỘNG SỰ) */
+.about-1-section {
+  padding: 80px 0;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+.about-1-section .about-full-container {
+  width: 100%;
+  padding-left: clamp(20px, 4vw, 60px);
+  padding-right: clamp(20px, 4vw, 60px);
+  margin: 0 auto;
+}
+@media (min-width: 1600px) {
+  .about-1-section .about-full-container {
+    max-width: 1600px;
+  }
+}
+.about-1-section .image-1 {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
+}
+.about-1-section .image-1 img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 20px;
+}
+.about-1-section .about-right-content {
+  padding-left: clamp(32px, 5vw, 90px);
+  padding-right: 0;
+}
+@media (max-width: 1024px) {
+  .about-1-section .about-right-content {
+    padding-left: 0;
+    margin-top: 30px;
+  }
+}
+.about-1-section .about-right-content .site-title {
+  font-size: clamp(28px, 3.5vw, 44px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+.about-1-section .about-right-content .site-desc h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 20px;
+  margin-bottom: 6px;
+  color: #1a1a1a;
+}
+.about-1-section .about-right-content .site-desc p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #4a4a4a;
+  margin-bottom: 12px;
+}
