@@ -2189,22 +2189,29 @@ main {
 				// ITEM 1: TOP FEATURED ARTICLE
 				.news-item:nth-child(1) {
 					grid-column: 1 / -1 !important;
-					display: grid !important;
-					grid-template-columns: 1.2fr 1fr !important;
-					gap: clamp(20px, 3vw, 45px) !important;
-					align-items: center !important;
-					border-bottom: 1px solid #e0e0e0 !important;
-					padding-bottom: clamp(10px, 1.5vh, 20px) !important;
-					margin-bottom: 0 !important;
+					display: flex !important;
+					align-items: stretch !important;
+					border-top: 1px solid #231f20 !important;
+					border-bottom: 1px solid #231f20 !important;
+					padding: 0 !important;
+					margin-bottom: clamp(6px, 1vh, 14px) !important;
 
 					.image {
-						width: 100% !important;
-						max-width: none !important;
-						aspect-ratio: 760 / 360 !important;
+						width: 48% !important;
+						max-width: 580px !important;
+						aspect-ratio: 760 / 340 !important;
 						height: auto !important;
-						max-height: calc(42vh - 60px) !important;
+						max-height: calc(42vh - 50px) !important;
 						border-radius: 0 !important;
 						overflow: hidden !important;
+						align-self: stretch !important;
+						display: flex !important;
+
+						a {
+							width: 100% !important;
+							height: 100% !important;
+							display: block !important;
+						}
 
 						img {
 							width: 100% !important;
@@ -2215,7 +2222,9 @@ main {
 					}
 
 					.caption {
-						padding: 0 !important;
+						flex: 1 1 0% !important;
+						padding: clamp(14px, 2vh, 28px) 0 clamp(14px, 2vh, 28px) clamp(20px, 3vw, 45px) !important;
+						border: none !important;
 						display: flex !important;
 						flex-direction: column !important;
 						justify-content: center !important;
