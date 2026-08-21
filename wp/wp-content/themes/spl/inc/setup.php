@@ -139,6 +139,14 @@ function spl_register_acf_options_page(): void {
 	] );
 }
 
+add_action( 'admin_enqueue_scripts', 'spl_enqueue_acf_options_media', 5 );
+add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_acf_options_media', 5 );
+function spl_enqueue_acf_options_media(): void {
+	if ( function_exists( 'wp_enqueue_media' ) ) {
+		wp_enqueue_media();
+	}
+}
+
 add_action( 'acf/init', 'spl_register_bottom_nav_acf_fields' );
 function spl_register_bottom_nav_acf_fields(): void {
 	if ( ! function_exists( 'acf_add_local_field_group' ) ) {

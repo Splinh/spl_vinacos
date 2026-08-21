@@ -8611,7 +8611,7 @@ footer .footer-bot .footer-copyright p a:hover {
     align-items: center !important;
     justify-content: center !important;
     margin: 0 !important;
-    padding: clamp(10px, 1.5vh, 20px) 0 !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
   }
@@ -8696,22 +8696,22 @@ footer .footer-bot .footer-copyright p a:hover {
   body.home .home-4-section .home-4-list .home-4-item:nth-child(1) {
     top: 10% !important;
     left: 0 !important;
-    text-align: left !important;
+    text-align: right !important;
   }
   body.home .home-4-section .home-4-list .home-4-item:nth-child(2) {
     top: 10% !important;
     right: 0 !important;
-    text-align: right !important;
+    text-align: left !important;
   }
   body.home .home-4-section .home-4-list .home-4-item:nth-child(3) {
     bottom: 10% !important;
     left: 0 !important;
-    text-align: left !important;
+    text-align: right !important;
   }
   body.home .home-4-section .home-4-list .home-4-item:nth-child(4) {
     bottom: 10% !important;
     right: 0 !important;
-    text-align: right !important;
+    text-align: left !important;
   }
   body.home .home-4-section .home-4-list .home-4-item .number {
     font-size: clamp(38px, 4.2vw, 60px) !important;
