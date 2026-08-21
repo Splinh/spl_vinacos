@@ -186,18 +186,31 @@ body {
 	background-color: #ffffff;
 	overflow: hidden;
 
-	.about-full-container {
+	.about-container {
 		width: 100%;
-		padding-left: clamp(20px, 4vw, 60px);
-		padding-right: clamp(20px, 4vw, 60px);
+		max-width: 1540px;
 		margin: 0 auto;
+		padding: 0 40px;
 
-		@media (min-width: 1600px) {
-			max-width: 1600px;
+		@media (max-width: 768px) {
+			padding: 0 20px;
 		}
 	}
 
-	.image-1 {
+	.about-grid {
+		display: grid;
+		grid-template-columns: 1.15fr 1fr;
+		gap: 60px;
+		align-items: center;
+
+		@media (max-width: 1024px) {
+			grid-template-columns: 1fr;
+			gap: 36px;
+		}
+	}
+
+	.about-image {
+		width: 100%;
 		border-radius: 20px;
 		overflow: hidden;
 		box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
@@ -206,18 +219,13 @@ body {
 			width: 100%;
 			height: auto;
 			display: block;
-			border-radius: 20px;
+			object-fit: cover;
 		}
 	}
 
-	.about-right-content {
-		padding-left: clamp(32px, 5vw, 90px);
+	.about-content {
+		width: 100%;
 		padding-right: 0;
-
-		@media (max-width: 1024px) {
-			padding-left: 0;
-			margin-top: 30px;
-		}
 
 		.site-title {
 			font-size: clamp(28px, 3.5vw, 44px);

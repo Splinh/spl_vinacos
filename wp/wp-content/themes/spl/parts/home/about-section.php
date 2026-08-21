@@ -36,25 +36,25 @@ if ( empty( $content ) ) {
 }
 ?>
 
-<section class="about-1-section section-t-large section-b-small" id="about-us">
-	<div class="about-full-container">
-		<div class="row items-center">
+<section class="about-1-section" id="about-us">
+	<div class="about-container">
+		<div class="about-grid">
 			<!-- LEFT: Collage Multi-Photo Image -->
-			<div class="col w-full lg:w-6/12">
-				<div class="image image-1 img-cover" data-aos="fade-right" data-aos-duration="700">
+			<div class="about-col-image" data-aos="fade-right" data-aos-duration="700">
+				<div class="about-image">
 					<img class="lozad" src="<?php echo esc_url( $image ); ?>" data-src="<?php echo esc_url( $image ); ?>" loading="lazy" alt="VINACOS - TÂM THẾ CỘNG SỰ" width="1200" height="900">
 				</div>
 			</div>
-			<!-- RIGHT: Content Block with generous left padding and no right limit -->
-			<div class="col w-full lg:w-6/12">
-				<div class="block-content block-content-1 about-right-content">
-					<h2 class="site-title" data-aos="fade-up" data-aos-duration="700">
+			<!-- RIGHT: Content Block -->
+			<div class="about-col-content" data-aos="fade-left" data-aos-duration="700" data-aos-delay="200">
+				<div class="about-content">
+					<h2 class="site-title">
 						<?php echo wp_kses_post( $title ); ?>
 					</h2>
-					<div class="site-desc mt-6" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+					<div class="site-desc mt-6">
 						<?php echo wp_kses_post( $content ); ?>
 					</div>
-					<div class="button mt-8" data-aos="fade-up" data-aos-duration="700" data-aos-delay="600">
+					<div class="button mt-8">
 						<a class="btn-lined" href="<?php echo esc_url( $btn_url ); ?>" title="<?php echo esc_attr( $btn_text ); ?>">
 							<span><?php echo esc_html( $btn_text ); ?></span>
 							<?= spl_icon( 'plus', '', 16 ) ?>
