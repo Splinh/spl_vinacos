@@ -1692,7 +1692,7 @@ main {
 			height: 84px !important;
 		}
 
-		// SECTION 1: HERO SLIDER
+		// SECTION 1: HERO SLIDER (Căn giữa tuyệt đối & đối xứng trên dưới)
 		.home-banner {
 			height: calc(100vh - 84px) !important;
 			min-height: calc(100vh - 84px) !important;
@@ -1707,11 +1707,7 @@ main {
 
 			.banner-slider,
 			.key-visual-swiper,
-			.key-visual-wrapper {
-				height: 100% !important;
-				width: 100% !important;
-			}
-
+			.key-visual-wrapper,
 			.key-visual-slide {
 				height: 100% !important;
 				width: 100% !important;
@@ -1719,23 +1715,42 @@ main {
 				align-items: center !important;
 				justify-content: center !important;
 				position: relative !important;
+				margin: 0 !important;
+				padding: 0 !important;
+			}
 
+			.key-visual-slide {
 				.key-img-box {
 					position: absolute !important;
-					inset: 0 !important;
+					top: 50% !important;
+					left: 0 !important;
+					right: 0 !important;
+					bottom: auto !important;
+					transform: translateY(-50%) !important;
+					transform-origin: center center !important;
 					width: 100% !important;
-					height: 100% !important;
+					height: min(calc(100vh - 140px), 660px) !important;
+					max-height: calc(100vh - 140px) !important;
 					display: flex !important;
 					align-items: center !important;
 					justify-content: flex-end !important;
+					overflow: visible !important;
+					pointer-events: none !important;
 
 					img {
+						position: relative !important;
 						height: 100% !important;
-						max-height: calc(100vh - 100px) !important;
+						max-height: min(calc(100vh - 140px), 660px) !important;
 						width: auto !important;
+						max-width: 55% !important;
 						object-fit: contain !important;
 						object-position: right center !important;
 						margin-right: clamp(20px, 4vw, 80px) !important;
+						top: auto !important;
+						bottom: auto !important;
+						left: auto !important;
+						right: auto !important;
+						transform: none !important;
 					}
 				}
 
@@ -1743,15 +1758,53 @@ main {
 					position: relative !important;
 					top: auto !important;
 					left: auto !important;
+					bottom: auto !important;
+					right: auto !important;
 					transform: none !important;
 					width: 100% !important;
 					max-width: 1540px !important;
 					margin: 0 auto !important;
-					padding-left: clamp(30px, 5vw, 100px) !important;
+					padding: 0 0 0 clamp(30px, 5vw, 100px) !important;
 					z-index: 10 !important;
 					display: flex !important;
 					flex-direction: column !important;
 					justify-content: center !important;
+
+					.content {
+						max-width: 540px !important;
+					}
+
+					.banner-title {
+						margin-bottom: clamp(12px, 1.8vh, 22px) !important;
+
+						.split-parent {
+							font-size: clamp(28px, 2.8vw, 46px) !important;
+							line-height: 1.15 !important;
+							max-width: none !important;
+							margin: 0 !important;
+
+							strong {
+								opacity: 1 !important;
+								transform: none !important;
+							}
+						}
+					}
+
+					.desc {
+						max-width: 480px !important;
+						font-size: clamp(13.5px, 1.05vw, 15px) !important;
+						line-height: 1.6 !important;
+						margin-bottom: 0 !important;
+
+						p {
+							opacity: 1 !important;
+							transform: none !important;
+						}
+					}
+
+					.button {
+						margin-top: clamp(14px, 2vh, 24px) !important;
+					}
 				}
 			}
 		}
