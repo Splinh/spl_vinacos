@@ -273,10 +273,12 @@ function initFullPageScroll() {
 
 	function updateCurrentIndex() {
 		var scrollTop = $(window).scrollTop();
-		var headerHeight = $("header").outerHeight() || 80;
+		var headerHeight = $("header").outerHeight() || 84;
+		var viewMid = scrollTop + headerHeight + ($(window).height() - headerHeight) / 2;
 		$sections.each(function (idx) {
-			var top = $(this).offset().top - headerHeight - 40;
-			if (scrollTop >= top) {
+			var top = $(this).offset().top;
+			var bottom = top + $(this).outerHeight();
+			if (viewMid >= top && viewMid < bottom) {
 				currentIndex = idx;
 			}
 		});
@@ -289,14 +291,14 @@ function initFullPageScroll() {
 		currentIndex = index;
 		var $target = $sections.eq(index);
 		var headerHeight = $("header").outerHeight() || 84;
-		var targetTop = Math.max(0, Math.round($target.offset().top - headerHeight));
+		var targetTop = index === 0 ? 0 : Math.max(0, Math.round($target[0].getBoundingClientRect().top + window.pageYOffset - headerHeight));
 
 		$("html, body").stop().animate({
 			scrollTop: targetTop
-		}, 700, "swing", function () {
+		}, 650, "swing", function () {
 			setTimeout(function () {
 				isScrolling = false;
-			}, 250);
+			}, 200);
 		});
 	}
 

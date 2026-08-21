@@ -8552,29 +8552,39 @@ footer .footer-bot .footer-copyright p a:hover {
   }
   body.home .home-4-section .container {
     width: 100% !important;
-    max-width: 1400px !important;
+    max-width: 1540px !important;
     margin: 0 auto !important;
-    padding: 0 clamp(20px, 3vw, 40px) !important;
+    padding: 0 clamp(20px, 4vw, 60px) !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
   body.home .home-4-section .site-title {
     font-size: clamp(24px, 2.6vw, 36px) !important;
-    margin-bottom: 20px !important;
+    margin-top: 0 !important;
+    margin-bottom: clamp(6px, 1.2vh, 16px) !important;
+    line-height: 1.2 !important;
   }
   body.home .home-4-section .home-4-wrap {
     position: relative !important;
     padding: 0 !important;
+    margin: 0 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     background: transparent !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    width: 100% !important;
+    max-width: 1300px !important;
   }
   body.home .home-4-section .home-4-image {
     position: relative !important;
     margin: 0 auto !important;
-    height: min(calc(100vh - 200px), 520px) !important;
-    width: min(calc(100vh - 200px), 520px) !important;
+    height: min(calc(100vh - 170px), 580px) !important;
+    width: min(calc(100vh - 170px), 580px) !important;
     aspect-ratio: 1 / 1 !important;
     max-width: none !important;
   }
@@ -8599,8 +8609,8 @@ footer .footer-bot .footer-copyright p a:hover {
     transform: none !important;
   }
   body.home .home-4-section .home-4-image figure img {
-    width: 82% !important;
-    height: 82% !important;
+    width: 90% !important;
+    height: 90% !important;
     max-height: none !important;
     object-fit: contain !important;
     display: block !important;
@@ -8618,27 +8628,27 @@ footer .footer-bot .footer-copyright p a:hover {
     pointer-events: auto !important;
   }
   body.home .home-4-section .home-4-list .home-4-item:nth-child(1) {
-    top: 12% !important;
+    top: 15% !important;
     left: 0 !important;
     text-align: left !important;
   }
   body.home .home-4-section .home-4-list .home-4-item:nth-child(2) {
-    top: 12% !important;
+    top: 15% !important;
     right: 0 !important;
     text-align: right !important;
   }
   body.home .home-4-section .home-4-list .home-4-item:nth-child(3) {
-    bottom: 12% !important;
+    bottom: 15% !important;
     left: 0 !important;
     text-align: left !important;
   }
   body.home .home-4-section .home-4-list .home-4-item:nth-child(4) {
-    bottom: 12% !important;
+    bottom: 15% !important;
     right: 0 !important;
     text-align: right !important;
   }
   body.home .home-4-section .home-4-list .home-4-item .number {
-    font-size: clamp(34px, 3.8vw, 52px) !important;
+    font-size: clamp(36px, 4vw, 56px) !important;
     font-weight: 800 !important;
     color: #1a1a1a !important;
     line-height: 1 !important;
@@ -8790,7 +8800,7 @@ footer .footer-bot .footer-copyright p a:hover {
     min-height: calc(100vh - 84px) !important;
     max-height: calc(100vh - 84px) !important;
     display: flex !important;
-    flex-direction: column;
+    flex-direction: column !important;
     justify-content: center !important;
     margin: 0 !important;
     padding: 20px 0 !important;
