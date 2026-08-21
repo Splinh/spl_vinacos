@@ -21,7 +21,18 @@ defined( 'ABSPATH' ) || exit;
 <?php wp_body_open(); ?>
 
 <?php
-$logo_url = get_template_directory_uri() . '/static/img/logo.png?v=2';
+use SPL\Core\Helper;
+
+$logo_field = Helper::getField( 'logo', 'option' );
+$logo_url   = '';
+if ( is_numeric( $logo_field ) && $logo_field > 0 ) {
+	$logo_url = wp_get_attachment_image_url( (int) $logo_field, 'full' );
+} elseif ( is_string( $logo_field ) && ! empty( $logo_field ) ) {
+	$logo_url = $logo_field;
+}
+if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || stripos( $logo_url, 'dailyxedien' ) !== false ) {
+	$logo_url = get_template_directory_uri() . '/static/img/logo.png';
+}
 ?>
 <header>
 	<div class="header-wrap">
