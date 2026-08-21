@@ -8385,7 +8385,7 @@ footer .footer-bot .footer-copyright p a:hover {
     height: 84px !important;
   }
 
-  /* SECTION 1: HERO SLIDER (To lớn như cũ & Padding trên dưới đều đặn) */
+  /* SECTION 1: HERO SLIDER (To lớn như cũ & Căn giữa đối xứng trên dưới) */
   body.home .home-banner {
     height: calc(100vh - 84px) !important;
     min-height: calc(100vh - 84px) !important;
@@ -8413,19 +8413,25 @@ footer .footer-bot .footer-copyright p a:hover {
   }
   body.home .home-banner .key-visual-slide .key-img-box {
     position: absolute !important;
-    inset: 0 !important;
+    top: 50% !important;
+    bottom: auto !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: translateY(-50%) !important;
+    transform-origin: center center !important;
     width: 100% !important;
-    height: 100% !important;
+    height: min(calc(100vh - 130px), 640px) !important;
+    max-height: calc(100vh - 130px) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     pointer-events: none !important;
   }
   body.home .home-banner .key-visual-slide .key-img-box img {
-    position: relative !important;
-    height: calc(100vh - 104px) !important;
-    max-height: calc(100vh - 104px) !important;
+    position: static !important;
+    height: 100% !important;
+    max-height: min(calc(100vh - 130px), 640px) !important;
     width: auto !important;
     max-width: none !important;
     object-fit: contain !important;
