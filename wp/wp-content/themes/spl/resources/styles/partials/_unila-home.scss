@@ -421,21 +421,34 @@ body {
 			.swiper-slide {
 				width: 140px;
 				height: 90px;
-				border-radius: 10px;
+				border-radius: 12px;
 				overflow: hidden;
 				cursor: pointer;
-				opacity: 0.6;
-				transition: opacity 0.3s ease;
+				opacity: 0.7;
+				transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+				border: 4px solid transparent;
+				box-sizing: border-box;
 
-				&.swiper-slide-thumb-active {
-					opacity: 1;
-					border: 2px solid #1a1a1a;
-				}
-
+				.image,
 				img {
 					width: 100%;
 					height: 100%;
 					object-fit: cover;
+					display: block;
+					border-radius: 8px;
+				}
+
+				&:hover {
+					opacity: 0.9;
+				}
+
+				&.swiper-slide-thumb-active,
+				&.swiper-slide-active {
+					opacity: 1 !important;
+					border: 7.5px solid #1e60a3 !important;
+					border-radius: 12px !important;
+					box-shadow: 0 8px 24px rgba(30, 96, 163, 0.35) !important;
+					transform: translateY(-2px);
 				}
 			}
 		}
