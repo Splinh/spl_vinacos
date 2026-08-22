@@ -242,6 +242,18 @@ add_action( 'admin_head', function (): void {
 		window.wp.Uploader.limitExceeded = false;
 		window.wp.Uploader.browser = window.wp.Uploader.browser || { supported: true, mobile: false };
 
+		// Ensure media settings defaultProps exists (prevents Cannot read properties of undefined reading 'align')
+		window._wpMediaViewsL10n = window._wpMediaViewsL10n || {};
+		window._wpMediaViewsL10n.settings = window._wpMediaViewsL10n.settings || {};
+		window._wpMediaViewsL10n.settings.defaultProps = window._wpMediaViewsL10n.settings.defaultProps || {
+			align: 'none',
+			size: 'medium',
+			link: 'none'
+		};
+		window._wpMediaViewsL10n.settings.embedExts = window._wpMediaViewsL10n.settings.embedExts || [
+			'mp3', 'ogg', 'flac', 'm4a', 'wav', 'mp4', 'm4v', 'webm', 'ogv', 'flv'
+		];
+
 		function ensureMediaReady(callback) {
 			if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
 				callback();
