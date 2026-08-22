@@ -166,13 +166,6 @@ function spl_enqueue_all_admin_media(): void {
 	}
 }
 
-add_action( 'admin_footer', 'spl_print_media_templates_fallback', 0 );
-function spl_print_media_templates_fallback(): void {
-	if ( function_exists( 'wp_print_media_templates' ) ) {
-		wp_print_media_templates();
-	}
-}
-
 add_action( 'admin_head', function (): void {
 	?>
 	<script>
