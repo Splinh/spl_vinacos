@@ -52,6 +52,10 @@ final class ScriptLoader {
 	 * @return string
 	 */
 	public static function removeAssetVersion( string $src ): string {
+		if ( is_admin() ) {
+			return $src;
+		}
+
 		if ( str_contains( $src, 'ver=' ) ) {
 			$src = remove_query_arg( 'ver', $src );
 		}
