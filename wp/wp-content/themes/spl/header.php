@@ -17,7 +17,14 @@ defined( 'ABSPATH' ) || exit;
 	<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;200;300;400;500;600;700;800;900&family=Playball&display=swap" rel="stylesheet">
 	<?php wp_head(); ?>
 </head>
-<body <?php body_class( 'wp-custom-logo' ); ?>>
+<?php
+global $post;
+$body_extra = 'wp-custom-logo';
+if ( is_front_page() || is_home() || is_page_template( 'templates/template-page-home.php' ) || ( isset( $post->ID ) && in_array( (int) $post->ID, [ 10, 1121 ], true ) ) ) {
+	$body_extra .= ' home page-template page-template-pages page-template-page-home page-template-pagespage-home-php';
+}
+?>
+<body <?php body_class( $body_extra ); ?>>
 <?php wp_body_open(); ?>
 
 <?php
