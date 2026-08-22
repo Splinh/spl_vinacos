@@ -2177,6 +2177,7 @@ img{
 }
 .backdrop.backdrop-category{
   z-index: 1000;
+}
 .cta-fixed{
   position: fixed;
   right: 24px;
