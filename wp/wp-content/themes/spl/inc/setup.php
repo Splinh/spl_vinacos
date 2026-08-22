@@ -149,9 +149,8 @@ add_filter( 'user_has_cap', function ( $allcaps, $caps = [], $args = [], $user =
 	return $allcaps;
 }, 1, 4 );
 
-add_action( 'admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 0 );
-add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 0 );
-add_action( 'load-toplevel_page_acf-options', 'spl_enqueue_all_admin_media', 0 );
+add_action( 'admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 20 );
+add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 20 );
 function spl_enqueue_all_admin_media(): void {
 	if ( function_exists( 'wp_enqueue_media' ) ) {
 		wp_enqueue_media();
@@ -160,76 +159,120 @@ function spl_enqueue_all_admin_media(): void {
 		wp_enqueue_script( 'media-editor' );
 		wp_enqueue_script( 'media-views' );
 		wp_enqueue_script( 'media-models' );
+		wp_enqueue_script( 'wp-plupload' );
 	}
 	if ( function_exists( 'wp_enqueue_style' ) ) {
 		wp_enqueue_style( 'media-views' );
 	}
 }
 
+add_action( 'admin_footer', function (): void {
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+	if ( $screen && str_contains( (string) $screen->id, 'acf-options' ) ) {
+		if ( function_exists( 'wp_print_media_templates' ) ) {
+			wp_print_media_templates();
+		}
+	}
+}, 999 );
+
 add_action( 'admin_head', function (): void {
+	$inc_js = includes_url( 'js/' );
 	?>
 	<script>
 	(function() {
-		// Helper to dynamically open WP Media Frame
-		function triggerMediaUpload(uploader) {
-			if (typeof window.wp === 'undefined' || typeof window.wp.media !== 'function') {
-				// If media scripts are still initializing, wait 300ms and retry once
-				setTimeout(function() {
-					if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
-						triggerMediaUpload(uploader);
-					} else {
-						alert('Trình tải ảnh WordPress đang được nạp, vui lòng đợi 1 giây rồi bấm lại.');
-					}
-				}, 300);
+		var incJsUrl = <?php echo wp_json_encode( $inc_js ); ?>;
+
+		function ensureMediaReady(callback) {
+			if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+				callback();
 				return;
 			}
 
-			var frame = window.wp.media({
-				title: 'Chọn hoặc tải ảnh lên',
-				button: { text: 'Sử dụng ảnh này' },
-				multiple: false,
-				library: { type: 'image' }
-			});
+			var scripts = [
+				incJsUrl + 'wp-backbone.min.js',
+				incJsUrl + 'media-models.min.js',
+				incJsUrl + 'plupload/wp-plupload.min.js',
+				incJsUrl + 'media-views.min.js',
+				incJsUrl + 'media-editor.min.js'
+			];
 
-			frame.on('select', function() {
-				var selection = frame.state().get('selection').first();
-				if (!selection) return;
-				var attachment = selection.toJSON();
-
-				var input = uploader.querySelector('input[type="hidden"]');
-				var img = uploader.querySelector('img[data-name="image"]');
-				var view = uploader.querySelector('.view, .image-wrap');
-
-				if (input) {
-					input.value = attachment.id;
-					if (window.jQuery) {
-						window.jQuery(input).trigger('change');
+			var loadNext = function(idx) {
+				if (idx >= scripts.length) {
+					if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+						callback();
+					} else {
+						alert('Đang kết nối thư viện ảnh, vui lòng bấm lại lần nữa.');
 					}
+					return;
 				}
 
-				var displayUrl = (attachment.sizes && attachment.sizes.thumbnail) ? attachment.sizes.thumbnail.url : (attachment.sizes && attachment.sizes.medium ? attachment.sizes.medium.url : attachment.url);
-
-				if (img) {
-					img.src = displayUrl;
-					img.style.display = '';
-				} else if (view) {
-					view.innerHTML = '<img data-name="image" src="' + displayUrl + '" alt="" style="max-width:100%;height:auto;" />';
+				var existing = document.querySelector('script[src*="' + scripts[idx].split('/').pop() + '"]');
+				if (existing && typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+					loadNext(idx + 1);
+					return;
 				}
 
-				uploader.classList.add('has-value');
+				var s = document.createElement('script');
+				s.src = scripts[idx];
+				s.async = false;
+				s.onload = function() { loadNext(idx + 1); };
+				s.onerror = function() { loadNext(idx + 1); };
+				(document.head || document.documentElement).appendChild(s);
+			};
 
-				if (typeof window.acf !== 'undefined' && window.acf.getField) {
-					var fieldElem = uploader.closest('.acf-field');
-					if (fieldElem) {
-						var fieldObj = window.acf.getField(fieldElem);
-						if (fieldObj) {
-							fieldObj.val(attachment.id);
+			loadNext(0);
+		}
+
+		// Helper to dynamically open WP Media Frame
+		function triggerMediaUpload(uploader) {
+			ensureMediaReady(function() {
+				var frame = window.wp.media({
+					title: 'Chọn hoặc tải ảnh lên',
+					button: { text: 'Sử dụng ảnh này' },
+					multiple: false,
+					library: { type: 'image' }
+				});
+
+				frame.on('select', function() {
+					var selection = frame.state().get('selection').first();
+					if (!selection) return;
+					var attachment = selection.toJSON();
+
+					var input = uploader.querySelector('input[type="hidden"]');
+					var img = uploader.querySelector('img[data-name="image"]');
+					var view = uploader.querySelector('.view, .image-wrap');
+
+					if (input) {
+						input.value = attachment.id;
+						if (window.jQuery) {
+							window.jQuery(input).trigger('change');
 						}
 					}
-				}
-			});
 
-			frame.open();
+					var displayUrl = (attachment.sizes && attachment.sizes.thumbnail) ? attachment.sizes.thumbnail.url : (attachment.sizes && attachment.sizes.medium ? attachment.sizes.medium.url : attachment.url);
+
+					if (img) {
+						img.src = displayUrl;
+						img.style.display = '';
+					} else if (view) {
+						view.innerHTML = '<img data-name="image" src="' + displayUrl + '" alt="" style="max-width:100%;height:auto;" />';
+					}
+
+					uploader.classList.add('has-value');
+
+					if (typeof window.acf !== 'undefined' && window.acf.getField) {
+						var fieldElem = uploader.closest('.acf-field');
+						if (fieldElem) {
+							var fieldObj = window.acf.getField(fieldElem);
+							if (fieldObj) {
+								fieldObj.val(attachment.id);
+							}
+						}
+					}
+				});
+
+				frame.open();
+			});
 		}
 
 		// 1. Direct Capture Click Handler for ACF Image Field Upload
