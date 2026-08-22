@@ -942,8 +942,13 @@ header {
 .cta-fixed {
 	position: fixed;
 	right: 24px;
-	bottom: 30px;
+	bottom: 40px;
 	z-index: 999;
+
+	@media (max-width: 768px) {
+		right: 14px;
+		bottom: 24px;
+	}
 
 	ul {
 		display: flex;
@@ -953,17 +958,26 @@ header {
 		margin: 0;
 		padding: 0;
 
+		@media (max-width: 768px) {
+			gap: 10px;
+		}
+
 		li {
 			width: 48px;
 			height: 48px;
 			border-radius: 50%;
-			background-color: #13467b;
-			box-shadow: 0 4px 16px rgba(19, 70, 123, 0.35);
+			background-color: #1e60a3;
+			box-shadow: 0 4px 16px rgba(30, 96, 163, 0.35);
 			display: flex;
 			align-items: center;
 			justify-content: center;
 			cursor: pointer;
-			transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+			transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+
+			@media (max-width: 768px) {
+				width: 42px;
+				height: 42px;
+			}
 
 			a {
 				color: #ffffff;
@@ -972,36 +986,39 @@ header {
 				justify-content: center;
 				width: 100%;
 				height: 100%;
+				text-decoration: none;
 
 				svg {
 					color: #ffffff;
+					fill: none;
 					stroke: #ffffff;
+					display: block;
 				}
 
-				img {
-					width: 24px;
-					height: auto;
+				svg.spl-icon--messenger {
+					fill: #ffffff;
+					stroke: none;
 				}
-			}
 
-			svg {
-				color: #ffffff;
-				stroke: #ffffff;
+				.zalo-text {
+					font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Be Vietnam Pro', sans-serif;
+					font-size: 14.5px;
+					font-weight: 800;
+					color: #ffffff;
+					letter-spacing: -0.3px;
+					line-height: 1;
+					user-select: none;
+
+					@media (max-width: 768px) {
+						font-size: 13px;
+					}
+				}
 			}
 
 			&:hover {
-				background-color: #0d345d;
-				transform: translateY(-3px) scale(1.05);
-				box-shadow: 0 6px 20px rgba(13, 52, 93, 0.45);
-			}
-
-			&.back-to-top {
-				background-color: #13467b;
-				color: #ffffff;
-
-				&:hover {
-					background-color: #0d345d;
-				}
+				background-color: #154577;
+				transform: translateY(-3px) scale(1.08);
+				box-shadow: 0 8px 22px rgba(21, 69, 119, 0.5);
 			}
 		}
 	}

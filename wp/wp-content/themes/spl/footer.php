@@ -22,17 +22,16 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 	<div class="backdrop backdrop-category"></div>
 	<div class="cta-fixed">
 		<ul>
-			<li class="back-to-top" title="Lên đầu trang"><?= spl_icon( 'arrow-up', '', 20 ) ?></li>
-			<li><a href="tel:0902666746" title="Gọi hotline"><?= spl_icon( 'phone', '', 20 ) ?></a></li>
-			<li><a href="mailto:info@vinacos.com.vn" title="Gửi email"><?= spl_icon( 'envelope', '', 20 ) ?></a></li>
+			<li><a href="tel:0902666746" title="Gọi hotline" aria-label="Gọi hotline"><?= spl_icon( 'phone', '', 22 ) ?></a></li>
+			<li><a href="mailto:info@vinacos.com.vn" title="Gửi email" aria-label="Gửi email"><?= spl_icon( 'envelope', '', 22 ) ?></a></li>
 			<li>
-				<a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" title="Messenger">
-					<?= spl_icon( 'messenger', '', 22 ) ?>
+				<a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" title="Messenger" aria-label="Messenger">
+					<?= spl_icon( 'messenger', '', 24 ) ?>
 				</a>
 			</li>
-			<li>
-				<a href="https://zalo.me/0902666746" target="_blank" rel="noopener noreferrer" title="Zalo">
-					<?= spl_icon( 'zalo', '', 22 ) ?>
+			<li class="item-zalo">
+				<a href="https://zalo.me/0902666746" target="_blank" rel="noopener noreferrer" title="Zalo" aria-label="Zalo">
+					<span class="zalo-text">Zalo</span>
 				</a>
 			</li>
 		</ul>
