@@ -1,6 +1,6 @@
 {
     "key": "group_daily_home",
-    "title": "VINACOS - Trang chủ",
+    "title": "VINACOS - Cấu hình Trang Chủ",
     "fields": [
         {
             "key": "field_daily_home_fc",
@@ -19,7 +19,7 @@
                 "layout_home_hero_slider": {
                     "key": "layout_home_hero_slider",
                     "name": "hero_slider",
-                    "label": "Hero Banner Slider",
+                    "label": "1. Hero Banner Slider",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -27,14 +27,6 @@
                             "label": "Ẩn section này",
                             "name": "disable",
                             "type": "true_false",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
                             "ui": 1,
                             "ui_on_text": "Ẩn",
                             "ui_off_text": "Hiện",
@@ -45,14 +37,6 @@
                             "label": "Danh sách Slide",
                             "name": "slides",
                             "type": "repeater",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
                             "layout": "block",
                             "button_label": "Thêm Slide",
                             "sub_fields": [
@@ -61,62 +45,51 @@
                                     "label": "Ảnh banner (Desktop)",
                                     "name": "bg_image",
                                     "type": "image",
-                                    "instructions": "Kích thước chuẩn: 1920×750px",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "33",
-                                        "class": "",
-                                        "id": ""
-                                    },
                                     "return_format": "id",
-                                    "preview_size": "medium"
+                                    "preview_size": "medium",
+                                    "wrapper": {
+                                        "width": "33"
+                                    }
                                 },
                                 {
                                     "key": "field_hero_slide_image_mobile",
                                     "label": "Ảnh banner (Mobile)",
                                     "name": "bg_image_mobile",
                                     "type": "image",
-                                    "instructions": "Kích thước chuẩn: 880×660px. Nếu bỏ trống sẽ dùng ảnh Desktop.",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "33",
-                                        "class": "",
-                                        "id": ""
-                                    },
                                     "return_format": "id",
-                                    "preview_size": "medium"
+                                    "preview_size": "medium",
+                                    "wrapper": {
+                                        "width": "33"
+                                    }
+                                },
+                                {
+                                    "key": "field_hero_slide_title",
+                                    "label": "Tiêu đề Slide",
+                                    "name": "title",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "33"
+                                    }
+                                },
+                                {
+                                    "key": "field_hero_slide_desc",
+                                    "label": "Mô tả ngắn",
+                                    "name": "description",
+                                    "type": "textarea",
+                                    "rows": 2,
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
                                 },
                                 {
                                     "key": "field_hero_slide_link",
                                     "label": "Đường dẫn liên kết",
                                     "name": "link",
                                     "type": "link",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
+                                    "return_format": "array",
                                     "wrapper": {
-                                        "width": "50",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "return_format": "array"
-                                },
-                                {
-                                    "key": "field_hero_slide_title",
-                                    "label": "Tiêu đề \/ Thẻ alt",
-                                    "name": "title",
-                                    "type": "text",
-                                    "instructions": "",
-                                    "required": 0,
-                                    "conditional_logic": 0,
-                                    "wrapper": {
-                                        "width": "",
-                                        "class": "",
-                                        "id": ""
-                                    },
-                                    "placeholder": "VD: Banner xe điện Vespa Roma S"
+                                        "width": "50"
+                                    }
                                 }
                             ]
                         }
@@ -1492,7 +1465,7 @@
                                         "class": "",
                                         "id": ""
                                     },
-                                    "placeholder": "https://example.com hoặc #"
+                                    "placeholder": "https:\/\/example.com hoặc #"
                                 }
                             ]
                         }
@@ -1693,6 +1666,544 @@
                                 "id": ""
                             },
                             "placeholder": "[contact-form-7 id=\"123\" title=\"Form tư vấn\"]"
+                        }
+                    ]
+                },
+                "layout_home_about_section": {
+                    "key": "layout_home_about_section",
+                    "name": "about_section",
+                    "label": "2. Giới thiệu (Tâm Thế Cộng Sự)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_about_disable",
+                            "label": "Ẩn section này",
+                            "name": "disable",
+                            "type": "true_false",
+                            "ui": 1,
+                            "ui_on_text": "Ẩn",
+                            "ui_off_text": "Hiện",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_about_title",
+                            "label": "Tiêu đề chính",
+                            "name": "title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_about_image",
+                            "label": "Hình ảnh minh họa",
+                            "name": "image",
+                            "type": "image",
+                            "return_format": "id",
+                            "preview_size": "medium",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_about_content",
+                            "label": "Nội dung chi tiết (Tầm nhìn & Sứ mệnh)",
+                            "name": "content",
+                            "type": "wysiwyg",
+                            "tabs": "all",
+                            "toolbar": "full",
+                            "media_upload": 1
+                        },
+                        {
+                            "key": "field_about_btn_text",
+                            "label": "Chữ nút bấm",
+                            "name": "btn_text",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_about_btn_link",
+                            "label": "Link nút bấm",
+                            "name": "btn_link",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        }
+                    ]
+                },
+                "layout_home_brand_banner": {
+                    "key": "layout_home_brand_banner",
+                    "name": "brand_banner",
+                    "label": "3. Banner Thương Hiệu (Brand Banner)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_brand_banner_disable",
+                            "label": "Ẩn section này",
+                            "name": "disable",
+                            "type": "true_false",
+                            "ui": 1,
+                            "ui_on_text": "Ẩn",
+                            "ui_off_text": "Hiện",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_brand_banner_img",
+                            "label": "Ảnh banner thương hiệu",
+                            "name": "image",
+                            "type": "image",
+                            "return_format": "id",
+                            "preview_size": "medium",
+                            "wrapper": {
+                                "width": "100"
+                            }
+                        }
+                    ]
+                },
+                "layout_home_rd_system": {
+                    "key": "layout_home_rd_system",
+                    "name": "rd_system",
+                    "label": "4. Hệ thống R&D (Năng lực & Công trình)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_rd_disable",
+                            "label": "Ẩn section này",
+                            "name": "disable",
+                            "type": "true_false",
+                            "ui": 1,
+                            "ui_on_text": "Ẩn",
+                            "ui_off_text": "Hiện",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_rd_main_title",
+                            "label": "Tiêu đề khối",
+                            "name": "title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "100"
+                            }
+                        },
+                        {
+                            "key": "field_rd_items",
+                            "label": "Danh sách thẻ R&D",
+                            "name": "items",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Thêm thẻ R&D",
+                            "sub_fields": [
+                                {
+                                    "key": "field_rd_item_label",
+                                    "label": "Nhãn nhỏ trên",
+                                    "name": "label",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
+                                },
+                                {
+                                    "key": "field_rd_item_title",
+                                    "label": "Tiêu đề thẻ",
+                                    "name": "title",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
+                                },
+                                {
+                                    "key": "field_rd_item_desc",
+                                    "label": "Mô tả chi tiết",
+                                    "name": "desc",
+                                    "type": "textarea",
+                                    "rows": 3,
+                                    "wrapper": {
+                                        "width": "100"
+                                    }
+                                },
+                                {
+                                    "key": "field_rd_item_img",
+                                    "label": "Ảnh minh họa",
+                                    "name": "image",
+                                    "type": "image",
+                                    "return_format": "id",
+                                    "preview_size": "medium",
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
+                                },
+                                {
+                                    "key": "field_rd_item_btn_text",
+                                    "label": "Chữ nút",
+                                    "name": "btn_text",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "25"
+                                    }
+                                },
+                                {
+                                    "key": "field_rd_item_btn_link",
+                                    "label": "Link nút",
+                                    "name": "btn_link",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "25"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_home_key_numbers": {
+                    "key": "layout_home_key_numbers",
+                    "name": "key_numbers",
+                    "label": "5. Con số nổi bật (Key Numbers)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_numbers_disable",
+                            "label": "Ẩn section này",
+                            "name": "disable",
+                            "type": "true_false",
+                            "ui": 1,
+                            "ui_on_text": "Ẩn",
+                            "ui_off_text": "Hiện",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_numbers_title",
+                            "label": "Tiêu đề khối",
+                            "name": "title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "100"
+                            }
+                        },
+                        {
+                            "key": "field_numbers_bg",
+                            "label": "Ảnh nền (Background)",
+                            "name": "bg_image",
+                            "type": "image",
+                            "return_format": "id",
+                            "preview_size": "medium",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_numbers_fig",
+                            "label": "Ảnh đồ họa \/ Người mẫu",
+                            "name": "figure_image",
+                            "type": "image",
+                            "return_format": "id",
+                            "preview_size": "medium",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_numbers_items",
+                            "label": "Danh sách con số",
+                            "name": "items",
+                            "type": "repeater",
+                            "layout": "table",
+                            "button_label": "Thêm con số",
+                            "sub_fields": [
+                                {
+                                    "key": "field_num_count",
+                                    "label": "Số lượng",
+                                    "name": "count",
+                                    "type": "number",
+                                    "wrapper": {
+                                        "width": "20"
+                                    }
+                                },
+                                {
+                                    "key": "field_num_suffix",
+                                    "label": "Ký tự sau (%, +)",
+                                    "name": "suffix",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "20"
+                                    }
+                                },
+                                {
+                                    "key": "field_num_title",
+                                    "label": "Mô tả con số",
+                                    "name": "title",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "60"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_home_product_showcase": {
+                    "key": "layout_home_product_showcase",
+                    "name": "product_showcase",
+                    "label": "6. Danh mục sản phẩm tiêu biểu",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_prod_showcase_disable",
+                            "label": "Ẩn section này",
+                            "name": "disable",
+                            "type": "true_false",
+                            "ui": 1,
+                            "ui_on_text": "Ẩn",
+                            "ui_off_text": "Hiện",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_prod_showcase_title",
+                            "label": "Tiêu đề khối",
+                            "name": "title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "100"
+                            }
+                        },
+                        {
+                            "key": "field_prod_showcase_items",
+                            "label": "Danh sách sản phẩm tiêu biểu",
+                            "name": "items",
+                            "type": "repeater",
+                            "layout": "block",
+                            "button_label": "Thêm sản phẩm",
+                            "sub_fields": [
+                                {
+                                    "key": "field_prod_item_title",
+                                    "label": "Tên sản phẩm \/ Công thức",
+                                    "name": "title",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
+                                },
+                                {
+                                    "key": "field_prod_item_img",
+                                    "label": "Ảnh sản phẩm",
+                                    "name": "image",
+                                    "type": "image",
+                                    "return_format": "id",
+                                    "preview_size": "medium",
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
+                                },
+                                {
+                                    "key": "field_prod_item_desc",
+                                    "label": "Mô tả công thức",
+                                    "name": "description",
+                                    "type": "textarea",
+                                    "rows": 3,
+                                    "wrapper": {
+                                        "width": "100"
+                                    }
+                                },
+                                {
+                                    "key": "field_prod_item_btn_text",
+                                    "label": "Chữ nút",
+                                    "name": "btn_text",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
+                                },
+                                {
+                                    "key": "field_prod_item_btn_link",
+                                    "label": "Link nút",
+                                    "name": "btn_link",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": "50"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_home_partners_section": {
+                    "key": "layout_home_partners_section",
+                    "name": "partners_section",
+                    "label": "7. Đối tác (Nguyên liệu & Nghiên cứu)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_partners_disable",
+                            "label": "Ẩn section này",
+                            "name": "disable",
+                            "type": "true_false",
+                            "ui": 1,
+                            "ui_on_text": "Ẩn",
+                            "ui_off_text": "Hiện",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_partners_watermark",
+                            "label": "Chữ mờ nền (Watermark)",
+                            "name": "watermark",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_partners_watermark_img",
+                            "label": "Ảnh logo mờ nền",
+                            "name": "watermark_image",
+                            "type": "image",
+                            "return_format": "id",
+                            "preview_size": "medium",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_partners_left_title",
+                            "label": "Tiêu đề bên trái",
+                            "name": "left_title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_partners_right_title",
+                            "label": "Tiêu đề bên phải",
+                            "name": "right_title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_partners_left_list",
+                            "label": "Danh sách Đối tác Trái",
+                            "name": "left_partners",
+                            "type": "repeater",
+                            "layout": "table",
+                            "sub_fields": [
+                                {
+                                    "key": "field_pl_name",
+                                    "label": "Tên đối tác",
+                                    "name": "name",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_pl_logo",
+                                    "label": "Logo",
+                                    "name": "logo",
+                                    "type": "image",
+                                    "return_format": "id",
+                                    "preview_size": "medium",
+                                    "wrapper": {
+                                        "width": ""
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_partners_right_list",
+                            "label": "Danh sách Đối tác Phải",
+                            "name": "right_partners",
+                            "type": "repeater",
+                            "layout": "table",
+                            "sub_fields": [
+                                {
+                                    "key": "field_pr_name",
+                                    "label": "Tên đối tác",
+                                    "name": "name",
+                                    "type": "text",
+                                    "wrapper": {
+                                        "width": ""
+                                    }
+                                },
+                                {
+                                    "key": "field_pr_logo",
+                                    "label": "Logo",
+                                    "name": "logo",
+                                    "type": "image",
+                                    "return_format": "id",
+                                    "preview_size": "medium",
+                                    "wrapper": {
+                                        "width": ""
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "layout_home_news_section": {
+                    "key": "layout_home_news_section",
+                    "name": "news_section",
+                    "label": "8. Tin tức & Hoạt động",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_news_section_disable",
+                            "label": "Ẩn section này",
+                            "name": "disable",
+                            "type": "true_false",
+                            "ui": 1,
+                            "ui_on_text": "Ẩn",
+                            "ui_off_text": "Hiện",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_news_section_title",
+                            "label": "Tiêu đề khối tin tức",
+                            "name": "title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "100"
+                            }
+                        }
+                    ]
+                },
+                "layout_home_consult_modal": {
+                    "key": "layout_home_consult_modal",
+                    "name": "consult_modal",
+                    "label": "9. Khung đăng ký nhận tư vấn (Popup \/ Form)",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_consult_modal_disable",
+                            "label": "Ẩn section này",
+                            "name": "disable",
+                            "type": "true_false",
+                            "ui": 1,
+                            "ui_on_text": "Ẩn",
+                            "ui_off_text": "Hiện",
+                            "default_value": 0
+                        },
+                        {
+                            "key": "field_consult_modal_title",
+                            "label": "Tiêu đề form tư vấn",
+                            "name": "title",
+                            "type": "text",
+                            "wrapper": {
+                                "width": "50"
+                            }
+                        },
+                        {
+                            "key": "field_consult_modal_img",
+                            "label": "Ảnh banner popup",
+                            "name": "image",
+                            "type": "image",
+                            "return_format": "id",
+                            "preview_size": "medium",
+                            "wrapper": {
+                                "width": "50"
+                            }
                         }
                     ]
                 }
