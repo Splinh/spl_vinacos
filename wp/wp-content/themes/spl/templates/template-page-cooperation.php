@@ -10,23 +10,7 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 global $post;
-$page_id  = $post->ID ?? 0;
-$sections = $page_id ? ( function_exists( 'get_field' ) ? get_field( 'cooperation_sections', $page_id ) : false ) : false;
-
-if ( ! empty( $sections ) && is_array( $sections ) ) {
-	foreach ( $sections as $section ) {
-		if ( ! empty( $section['disable'] ) ) {
-			continue;
-		}
-		$layout = $section['acf_fc_layout'] ?? '';
-		$part   = str_replace( 'cooperation_', '', $layout );
-		$part   = str_replace( '_', '-', $part );
-		if ( 'form' === $part ) {
-			$part = 'register-form';
-		}
-		get_template_part( 'parts/cooperation/' . $part, null, $section );
-	}
-} else {
+$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 ?>
 
 <section class="banner-child">
@@ -289,5 +273,5 @@ if ( ! empty( $sections ) && is_array( $sections ) ) {
 </section>
 
 <?php
-}
 get_footer();
+
