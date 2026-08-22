@@ -155,6 +155,9 @@ final class Admin extends Feature implements HasAdminContext {
 	// --------------------------------------------------
 
 	public function adminEnqueueScripts(): void {
+		if ( function_exists( 'wp_enqueue_media' ) ) {
+			wp_enqueue_media();
+		}
 		Asset::enqueueJS( 'admin.js', [ 'jquery' ], null, true, [ 'module', 'defer' ] );
 	}
 

@@ -190,6 +190,20 @@ add_action( 'admin_head', function (): void {
 	(function() {
 		var incJsUrl = <?php echo wp_json_encode( $inc_js ); ?>;
 
+		// Ensure WordPress Media localization objects are defined
+		window._wpMediaViewsL10n = window._wpMediaViewsL10n || {};
+		window._wpMediaViewsL10n.settings = window._wpMediaViewsL10n.settings || {};
+		window._wpMediaViewsL10n.settings.tabs = window._wpMediaViewsL10n.settings.tabs || [];
+		window._wpMediaViewsL10n.settings.tabUrl = window._wpMediaViewsL10n.settings.tabUrl || '';
+		window._wpMediaViewsL10n.settings.mimeTypes = window._wpMediaViewsL10n.settings.mimeTypes || {};
+		window._wpMediaViewsL10n.settings.captions = true;
+		window._wpMediaViewsL10n.settings.defaultProps = window._wpMediaViewsL10n.settings.defaultProps || {};
+		window._wpMediaViewsL10n.settings.attachmentCounts = window._wpMediaViewsL10n.settings.attachmentCounts || {};
+		window._wpMediaViewsL10n.settings.nonce = window._wpMediaViewsL10n.settings.nonce || {};
+		window._wpMediaViewsL10n.settings.post = window._wpMediaViewsL10n.settings.post || { id: 0 };
+		window._wpMediaViewsL10n.warnDelete = window._wpMediaViewsL10n.warnDelete || 'Bạn có chắc chắn muốn xóa không?';
+		window._wpMediaViewsL10n.limitExceeded = window._wpMediaViewsL10n.limitExceeded || 'Đã vượt quá giới hạn.';
+
 		function ensureMediaReady(callback) {
 			if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
 				callback();
