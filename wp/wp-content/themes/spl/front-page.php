@@ -34,6 +34,10 @@ if ( $sections ) :
 				get_template_part( 'parts/home/about-section', null, $section );
 				break;
 
+			case 'brand_banner':
+				get_template_part( 'parts/home/brand-banner', null, $section );
+				break;
+
 			case 'rd_system':
 				get_template_part( 'parts/home/rd-system', null, $section );
 				break;
@@ -45,6 +49,11 @@ if ( $sections ) :
 			case 'product_showcase':
 			case 'categories':
 				get_template_part( 'parts/home/product-showcase', null, $section );
+				break;
+
+			case 'partners_section':
+			case 'partners':
+				get_template_part( 'parts/home/partners-section', null, $section );
 				break;
 
 			case 'news_section':
@@ -63,9 +72,11 @@ else :
 	// Render default Unila sections in exact visual sequence.
 	get_template_part( 'parts/home/hero-slider' );
 	get_template_part( 'parts/home/about-section' );
+	get_template_part( 'parts/home/brand-banner' );
 	get_template_part( 'parts/home/rd-system' );
 	get_template_part( 'parts/home/key-numbers' );
 	get_template_part( 'parts/home/product-showcase' );
+	get_template_part( 'parts/home/partners-section' );
 	get_template_part( 'parts/home/news-section' );
 	get_template_part( 'parts/home/consult-modal' );
 endif;
