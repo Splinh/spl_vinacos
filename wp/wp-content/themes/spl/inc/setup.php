@@ -155,6 +155,9 @@ function spl_enqueue_all_admin_media(): void {
 	if ( function_exists( 'wp_enqueue_media' ) ) {
 		wp_enqueue_media();
 	}
+	if ( function_exists( 'wp_plupload_default_settings' ) ) {
+		wp_plupload_default_settings();
+	}
 	if ( function_exists( 'wp_enqueue_script' ) ) {
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'underscore' );
@@ -163,6 +166,8 @@ function spl_enqueue_all_admin_media(): void {
 		wp_enqueue_script( 'wp-backbone' );
 		wp_enqueue_script( 'wp-api-request' );
 		wp_enqueue_script( 'media-models' );
+		wp_enqueue_script( 'moxie' );
+		wp_enqueue_script( 'plupload' );
 		wp_enqueue_script( 'wp-plupload' );
 		wp_enqueue_script( 'media-views' );
 		wp_enqueue_script( 'media-editor' );
@@ -190,7 +195,23 @@ add_action( 'admin_head', function (): void {
 	(function() {
 		var incJsUrl = <?php echo wp_json_encode( $inc_js ); ?>;
 
-		// Ensure WordPress Media localization objects are defined
+		// Ensure WordPress Media localization & Plupload objects are defined
+		window._wpPluploadSettings = window._wpPluploadSettings || {
+			defaults: {
+				file_data_name: 'async-upload',
+				url: window.ajaxurl || '/wp/wp-admin/admin-ajax.php',
+				filters: { max_file_size: '104857600b', mime_types: [{ title: 'Allowed Files', extensions: '*' }] },
+				multipart_params: { action: 'upload-attachment', _wpnonce: '' }
+			},
+			browser: { supported: true, mobile: false, tag: 'input' },
+			limitExceeded: false
+		};
+
+		window.wp = window.wp || {};
+		window.wp.Uploader = window.wp.Uploader || function() {};
+		window.wp.Uploader.limitExceeded = false;
+		window.wp.Uploader.browser = window.wp.Uploader.browser || { supported: true, mobile: false };
+
 		window._wpMediaViewsL10n = window._wpMediaViewsL10n || {};
 		window._wpMediaViewsL10n.settings = window._wpMediaViewsL10n.settings || {};
 		window._wpMediaViewsL10n.settings.tabs = window._wpMediaViewsL10n.settings.tabs || [];
