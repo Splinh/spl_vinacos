@@ -185,7 +185,7 @@ $structured_about_vi = [
     [
         'acf_fc_layout' => 'about_hero',
         'disable'       => 0,
-        'banner_image'  => $att['slide1_d'],
+        'banner_image'  => $att['about_b'] ?: $att['brand_b'],
         'title'         => 'TÂM THẾ CỘNG SỰ',
     ],
     [
@@ -271,7 +271,7 @@ $structured_coop_vi = [
     [
         'acf_fc_layout' => 'cooperation_hero',
         'disable'       => 0,
-        'banner_image'  => $att['slide3_d'],
+        'banner_image'  => $att['rd_b'] ?: $att['slide3_d'],
         'title'         => 'HỆ THỐNG R&D & GIA CÔNG OEM/ODM',
     ],
     [

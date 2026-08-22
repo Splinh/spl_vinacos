@@ -68,6 +68,8 @@ $att = [
     
     'about_img'  => import_local_image_to_media('static/img/tam-the-cong-su-vinacos.jpg', 'Tâm Thế Cộng Sự VINACOS'),
     'brand_b'    => import_local_image_to_media('static/img/banner/brand-banner-vi.jpg', 'Banner Thương Hiệu VINACOS'),
+    'about_b'    => import_local_image_to_media('static/img/banner/brand-banner-vi.jpg', 'Banner Trang Tâm Thế Cộng Sự VINACOS'),
+    'rd_b'       => import_local_image_to_media('static/img/banner/rd-system-banner-vi.jpg', 'Banner Trang Hệ Thống R&D VINACOS'),
     
     'rd_img1'    => import_local_image_to_media('static/img/nghien-cuu-nen-chat-vinacos.jpg', 'Hệ thống R&D Năng Lực Nghiên Cứu'),
     'rd_img2'    => import_local_image_to_media('static/img/story-vinacos.jpg', 'Công Trình Khoa Học VINACOS'),
