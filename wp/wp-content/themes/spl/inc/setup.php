@@ -179,6 +179,13 @@ function spl_enqueue_all_admin_media(): void {
 	}
 }
 
+add_filter( 'ajax_query_attachments_args', function ( $query ) {
+	if ( is_array( $query ) && isset( $query['lang'] ) ) {
+		unset( $query['lang'] );
+	}
+	return $query;
+}, 9999 );
+
 add_action( 'admin_footer', function (): void {
 	if ( function_exists( 'wp_print_media_templates' ) && ! did_action( 'wp_print_media_templates' ) ) {
 		wp_print_media_templates();
