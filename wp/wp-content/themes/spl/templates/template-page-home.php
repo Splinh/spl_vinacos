@@ -52,6 +52,11 @@ if ( $sections ) :
 				get_template_part( 'parts/home/brand-banner', null, $section );
 				break;
 
+			case 'partners_section':
+			case 'partners':
+				get_template_part( 'parts/home/partners', null, $section );
+				break;
+
 			case 'news_section':
 			case 'news':
 				get_template_part( 'parts/home/news-section', null, $section );
