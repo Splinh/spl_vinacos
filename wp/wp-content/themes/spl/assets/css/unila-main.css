@@ -4427,10 +4427,6 @@ header .header-logo img{
 }
 @media (min-width: 1400px){
   header .header-logo img{
-    height: 54px !important;
-    max-height: 60px !important;
-    max-width: 72px !important;
-  header .header-logo img{
     height: 58px !important;
     max-height: 64px !important;
     max-width: 76px !important;
