@@ -538,7 +538,7 @@ add_filter( 'acf/format_value/type=link', function( $value ) {
 	return $value;
 }, 9999 );
 
-require_once __DIR__ . '/acf-home-fields.php';
+require_once __DIR__ . '/acf-page-fields.php';
 
 
 

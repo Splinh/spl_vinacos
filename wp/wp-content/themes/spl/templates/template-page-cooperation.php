@@ -10,20 +10,22 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 global $post;
-$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
-$is_oem_unila_page = ( isset( $post->post_name ) && in_array( $post->post_name, [ 'oem-odm-gia-cong-unila-viet-nam', 'oem-odm-cosmetics-manufacturing' ], true ) );
+$page_id  = $post->ID ?? 0;
+$sections = $page_id ? ( function_exists( 'get_field' ) ? get_field( 'cooperation_sections', $page_id ) : false ) : false;
 
-if ( ! $is_oem_unila_page && have_rows( 'cooperation_sections' ) ) {
-	while ( have_rows( 'cooperation_sections' ) ) :
-		the_row();
-		$layout = get_row_layout();
+if ( ! empty( $sections ) && is_array( $sections ) ) {
+	foreach ( $sections as $section ) {
+		if ( ! empty( $section['disable'] ) ) {
+			continue;
+		}
+		$layout = $section['acf_fc_layout'] ?? '';
 		$part   = str_replace( 'cooperation_', '', $layout );
 		$part   = str_replace( '_', '-', $part );
 		if ( 'form' === $part ) {
 			$part = 'register-form';
 		}
-		get_template_part( 'parts/cooperation/' . $part, null, get_row( true ) );
-	endwhile;
+		get_template_part( 'parts/cooperation/' . $part, null, $section );
+	}
 } else {
 ?>
 

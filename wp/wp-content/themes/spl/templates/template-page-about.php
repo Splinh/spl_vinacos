@@ -5,32 +5,38 @@
  * @package SPL
  */
 
+use SPL\Core\Helper;
+
 defined( 'ABSPATH' ) || exit;
 
 get_header();
-?>
 
-<!-- Banner Child & Breadcrumbs -->
-<?php get_template_part( 'parts/about/hero' ); ?>
+global $post;
+$page_id  = $post->ID ?? 0;
+$sections = $page_id ? ( function_exists( 'get_field' ) ? get_field( 'about_sections', $page_id ) : ( class_exists( Helper::class ) ? Helper::getField( 'about_sections', $page_id ) : false ) ) : false;
 
-<!-- About Section 1: Tổ chức kiên định & Thông điệp từ trái tim -->
-<?php get_template_part( 'parts/about/story' ); ?>
-<?php get_template_part( 'parts/about/message' ); ?>
+if ( ! empty( $sections ) && is_array( $sections ) ) :
+	foreach ( $sections as $section ) :
+		if ( ! empty( $section['disable'] ) ) :
+			continue;
+		endif;
 
-<!-- About Section 2: Timeline Từng mốc dấu ấn -->
-<?php get_template_part( 'parts/about/timeline' ); ?>
+		$layout = $section['acf_fc_layout'] ?? '';
+		$part   = str_replace( 'about_', '', $layout );
 
-<!-- About Section 3: Tầm nhìn & Sứ mệnh -->
-<?php get_template_part( 'parts/about/mission' ); ?>
+		get_template_part( 'parts/about/' . $part, null, $section );
+	endforeach;
 
-<!-- About Section 4: Những con số biết nói -->
-<?php get_template_part( 'parts/about/stats' ); ?>
+else :
+	// Render default Unila sections in exact visual sequence.
+	get_template_part( 'parts/about/hero' );
+	get_template_part( 'parts/about/story' );
+	get_template_part( 'parts/about/message' );
+	get_template_part( 'parts/about/timeline' );
+	get_template_part( 'parts/about/mission' );
+	get_template_part( 'parts/about/stats' );
+	get_template_part( 'parts/about/team' );
+	get_template_part( 'parts/about/cta' );
+endif;
 
-<!-- About Section 5: Sức mạnh tập thể (Slide 8 phòng ban) -->
-<?php get_template_part( 'parts/about/team' ); ?>
-
-<!-- About Section 6: Nhà máy & Quy trình sản xuất -->
-<?php get_template_part( 'parts/about/cta' ); ?>
-
-<?php
 get_footer();
