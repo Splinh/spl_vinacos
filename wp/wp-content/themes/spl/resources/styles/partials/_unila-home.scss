@@ -1760,26 +1760,16 @@ main {
 
 /* Global Body & Main Layout */
 body {
-	margin: 0;
-	padding-top: 76px !important;
-
-	@media (min-width: 1200px) {
-		padding-top: 84px !important;
-	}
-
-	@media (min-width: 1400px) {
-		padding-top: 88px !important;
-	}
-
-	@media (max-width: 768px) {
-		padding-top: 62px !important;
-	}
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 main {
 	width: 100%;
 	display: block;
 	position: relative;
+	margin: 0 !important;
+	padding: 0 !important;
 }
 
 header {
@@ -1796,12 +1786,8 @@ header {
    ========================================================================== */
 @media (min-width: 1025px) {
 	body.home {
-		padding-top: 84px !important;
 		margin: 0 !important;
-
-		@media (min-width: 1400px) {
-			padding-top: 88px !important;
-		}
+		padding: 0 !important;
 
 		main {
 			padding: 0 !important;
@@ -1821,11 +1807,12 @@ header {
 
 		// SECTION 1: HERO SLIDER (To lớn như cũ & Padding trên dưới đều đặn)
 		.home-banner {
-			height: calc(100vh - 84px) !important;
-			min-height: calc(100vh - 84px) !important;
-			max-height: calc(100vh - 84px) !important;
+			height: 100vh !important;
+			min-height: 100vh !important;
+			max-height: 100vh !important;
+			padding-top: 84px !important;
+			box-sizing: border-box !important;
 			margin: 0 !important;
-			padding: 0 !important;
 			overflow: hidden !important;
 			display: flex !important;
 			align-items: center !important;
