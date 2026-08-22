@@ -196,6 +196,30 @@ add_action( 'admin_head', function (): void {
 		var incJsUrl = <?php echo wp_json_encode( $inc_js ); ?>;
 
 		// Ensure WordPress Media localization & Plupload objects are defined
+		window.pluploadL10n = window.pluploadL10n || {
+			queue_limit_exceeded: 'Bạn đã xếp hàng quá nhiều tệp.',
+			file_exceeds_size_limit: 'Tệp vượt quá kích thước cho phép.',
+			zero_byte_file: 'Tệp rỗng.',
+			invalid_filetype: 'Định dạng tệp không được phép.',
+			not_an_image: 'Tệp này không phải hình ảnh.',
+			image_memory_exceeded: 'Vượt quá bộ nhớ xử lý ảnh.',
+			image_dimensions_exceeded: 'Kích thước ảnh quá lớn.',
+			default_error: 'Có lỗi xảy ra khi tải lên.',
+			missing_upload_url: 'Lỗi cấu hình tải lên.',
+			upload_limit_exceeded: 'Chỉ có thể tải lên 1 tệp.',
+			http_error: 'Lỗi HTTP.',
+			upload_failed: 'Tải lên thất bại.',
+			io_error: 'Lỗi IO.',
+			security_error: 'Lỗi bảo mật.',
+			file_cancelled: 'Đã hủy tải lên.',
+			upload_stopped: 'Đã dừng tải lên.',
+			dismiss: 'Bỏ qua',
+			crunching: 'Đang xử lý...',
+			deleted: 'Đã xóa.',
+			error_uploading: 'Không thể tải lên.',
+			unsupported_image: 'Hình ảnh không được hỗ trợ.'
+		};
+
 		window._wpPluploadSettings = window._wpPluploadSettings || {
 			defaults: {
 				file_data_name: 'async-upload',
@@ -236,9 +260,9 @@ add_action( 'admin_head', function (): void {
 				incJsUrl + 'backbone.min.js',
 				incJsUrl + 'wp-util.min.js',
 				incJsUrl + 'wp-backbone.min.js',
-				incJsUrl + 'media-models.min.js',
 				incJsUrl + 'plupload/moxie.min.js',
 				incJsUrl + 'plupload/plupload.min.js',
+				incJsUrl + 'media-models.min.js',
 				incJsUrl + 'plupload/wp-plupload.min.js',
 				incJsUrl + 'media-views.min.js',
 				incJsUrl + 'media-editor.min.js'
