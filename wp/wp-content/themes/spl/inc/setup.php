@@ -25,6 +25,26 @@ function spl_register_nav_menus(): void {
 	] );
 }
 
+/**
+ * Universal safe helper to get image URL from ACF ID, Array, or String
+ */
+function spl_get_image_url( mixed $value, string $fallback = '' ): string {
+	if ( empty( $value ) ) {
+		return $fallback;
+	}
+	if ( is_numeric( $value ) ) {
+		$url = wp_get_attachment_url( (int) $value );
+		return $url ? $url : $fallback;
+	}
+	if ( is_array( $value ) ) {
+		return ! empty( $value['url'] ) ? (string) $value['url'] : $fallback;
+	}
+	if ( is_string( $value ) ) {
+		return $value;
+	}
+	return $fallback;
+}
+
 // --------------------------------------------------
 // Enqueue Unila Core Assets
 // --------------------------------------------------
@@ -436,16 +456,23 @@ function spl_fix_dynamic_url( mixed $url ): mixed {
  * @return string Valid image URL.
  */
 function spl_get_valid_image_url( mixed $url, string $default_fallback = '' ): string {
-	$fallback = $default_fallback ? get_template_directory_uri() . '/' . ltrim( $default_fallback, '/' ) : get_template_directory_uri() . '/static/img/vinacos/rd-lab-main.jpg';
+	$theme_uri = get_template_directory_uri();
+	$fallback  = $default_fallback ? $theme_uri . '/' . ltrim( $default_fallback, '/' ) : $theme_uri . '/static/img/tam-the-cong-su-vinacos.jpg';
 
 	if ( empty( $url ) ) {
 		return $fallback;
 	}
 
+	if ( is_numeric( $url ) ) {
+		$attached_url = wp_get_attachment_url( (int) $url );
+		if ( $attached_url ) {
+			return $attached_url;
+		}
+		return $fallback;
+	}
+
 	if ( is_array( $url ) ) {
 		$url = $url['url'] ?? '';
-	} elseif ( is_numeric( $url ) ) {
-		$url = wp_get_attachment_url( (int) $url );
 	}
 
 	if ( empty( $url ) || ! is_string( $url ) ) {
@@ -454,16 +481,6 @@ function spl_get_valid_image_url( mixed $url, string $default_fallback = '' ): s
 
 	if ( false !== strpos( $url, 'unila.com.vn' ) ) {
 		return $fallback;
-	}
-
-	if ( false !== strpos( $url, 'uploads/' ) ) {
-		$parsed_path = parse_url( $url, PHP_URL_PATH );
-		if ( $parsed_path ) {
-			$abs_path = ABSPATH . ltrim( $parsed_path, '/' );
-			if ( ! file_exists( $abs_path ) ) {
-				return $fallback;
-			}
-		}
 	}
 
 	return $url;
