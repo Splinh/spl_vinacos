@@ -16,9 +16,57 @@ echo "=================================================================\n\n";
 
 global $wpdb;
 
+function get_matching_page_ids(array $templates, array $slugs, array $fallback_ids): array {
+    global $wpdb;
+    $ids = [];
+    foreach ($fallback_ids as $id) {
+        if (get_post($id)) {
+            $ids[] = (int)$id;
+        }
+    }
+    if (in_array('templates/template-page-home.php', $templates, true)) {
+        $front = (int)get_option('page_on_front');
+        if ($front > 0) {
+            $ids[] = $front;
+        }
+    }
+    foreach ($templates as $tmpl) {
+        $found = $wpdb->get_col($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wp_page_template' AND meta_value = %s", $tmpl));
+        if (!empty($found)) {
+            foreach ($found as $fid) {
+                $ids[] = (int)$fid;
+            }
+        }
+    }
+    foreach ($slugs as $slug) {
+        $page = get_page_by_path($slug);
+        if ($page) {
+            $ids[] = (int)$page->ID;
+        }
+    }
+    return array_values(array_unique(array_filter($ids)));
+}
+
+function save_acf_flexible_data(int $post_id, string $field_key, string $field_name, array $value): void {
+    if (!get_post($post_id)) {
+        return;
+    }
+    update_field($field_key, $value, $post_id);
+    update_field($field_name, $value, $post_id);
+    update_post_meta($post_id, '_' . $field_name, $field_key);
+}
+
 // 1. Clear stale postmeta
-$wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id IN (10, 1121, 942, 936, 944, 926) AND (meta_key LIKE '%home_sections%' OR meta_key LIKE '%about_sections%' OR meta_key LIKE '%cooperation_sections%')");
-echo "1. Cleared stale postmeta for all target pages.\n";
+$target_home_ids  = get_matching_page_ids(['templates/template-page-home.php', 'template-page-home.php'], ['trang-chu', 'home'], [10, 1121]);
+$target_about_ids = get_matching_page_ids(['templates/template-page-about.php', 'template-page-about.php'], ['tam-the-cong-su-unila-viet-nam', 'gioi-thieu', 'about'], [942, 936]);
+$target_coop_ids  = get_matching_page_ids(['templates/template-page-cooperation.php', 'template-page-cooperation.php'], ['oem-odm-gia-cong-unila-viet-nam', 'co-hoi-hop-tac', 'cooperation'], [944, 926]);
+
+$all_target_ids = array_unique(array_merge($target_home_ids, $target_about_ids, $target_coop_ids));
+if (!empty($all_target_ids)) {
+    $ids_in = implode(',', array_map('intval', $all_target_ids));
+    $wpdb->query("DELETE FROM {$wpdb->postmeta} WHERE post_id IN ({$ids_in}) AND (meta_key LIKE '%home_sections%' OR meta_key LIKE '%about_sections%' OR meta_key LIKE '%cooperation_sections%')");
+}
+echo "1. Cleared stale postmeta for target pages: " . implode(', ', $all_target_ids) . "\n";
 
 // 2. Import authentic images
 require_once __DIR__ . '/import_and_link_real_images.php';
@@ -171,12 +219,19 @@ $structured_data_home_vi = [
     ],
 ];
 
-update_field('field_vinacos_home_fc', $structured_data_home_vi, 10);
-$structured_data_home_en = $structured_data_home_vi;
-$structured_data_home_en[0]['slides'][0]['title'] = "PIONEERING SCIENTIFIC\nVIETNAMESE COSMETICS\nGLOBAL STANDARDS";
-$structured_data_home_en[1]['title'] = "PARTNERSHIP\nMINDSET";
-update_field('field_vinacos_home_fc', $structured_data_home_en, 1121);
-echo "2. Populated Home Page (ID 10 & 1121) with 9 Flexible Blocks.\n";
+foreach ($target_home_ids as $h_id) {
+    $p = get_post($h_id);
+    $slug = $p ? $p->post_name : '';
+    $is_en = (stripos($slug, 'en') !== false || $h_id == 1121);
+    
+    $data = $structured_data_home_vi;
+    if ($is_en) {
+        $data[0]['slides'][0]['title'] = "PIONEERING SCIENTIFIC\nVIETNAMESE COSMETICS\nGLOBAL STANDARDS";
+        $data[1]['title'] = "PARTNERSHIP\nMINDSET";
+    }
+    save_acf_flexible_data($h_id, 'field_vinacos_home_fc', 'home_sections', $data);
+    echo "2. Populated Home Page (ID {$h_id}) with 9 Flexible Blocks.\n";
+}
 
 // -------------------------------------------------------------
 // 2. TÂM THẾ CỘNG SỰ (ABOUT PAGE - ID 942 & 936)
@@ -255,13 +310,9 @@ $structured_about_vi = [
     ],
 ];
 
-if (get_post(942)) {
-    update_field('field_vinacos_about_fc', $structured_about_vi, 942);
-    echo "3. Populated 'Tâm Thế Cộng Sự' (ID 942) with 8 Flexible Blocks.\n";
-}
-if (get_post(936)) {
-    update_field('field_vinacos_about_fc', $structured_about_vi, 936);
-    echo "   Populated 'Giới Thiệu' (ID 936) with 8 Flexible Blocks.\n";
+foreach ($target_about_ids as $a_id) {
+    save_acf_flexible_data($a_id, 'field_vinacos_about_fc', 'about_sections', $structured_about_vi);
+    echo "3. Populated About Page (ID {$a_id}) with 8 Flexible Blocks.\n";
 }
 
 // -------------------------------------------------------------
@@ -317,13 +368,9 @@ $structured_coop_vi = [
     ],
 ];
 
-if (get_post(944)) {
-    update_field('field_vinacos_coop_fc', $structured_coop_vi, 944);
-    echo "4. Populated 'Hệ Thống R&D' (ID 944) with 4 Flexible Blocks.\n";
-}
-if (get_post(926)) {
-    update_field('field_vinacos_coop_fc', $structured_coop_vi, 926);
-    echo "   Populated 'Cơ Hội Hợp Tác' (ID 926) with 4 Flexible Blocks.\n";
+foreach ($target_coop_ids as $c_id) {
+    save_acf_flexible_data($c_id, 'field_vinacos_coop_fc', 'cooperation_sections', $structured_coop_vi);
+    echo "4. Populated Cooperation/RD Page (ID {$c_id}) with 4 Flexible Blocks.\n";
 }
 
 echo "\n=================================================================\n";
