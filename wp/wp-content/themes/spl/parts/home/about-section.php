@@ -14,8 +14,7 @@ $title    = $section['title'] ?? ( $is_en ? 'PARTNER <br/> MINDSET' : 'TÂM TH�
 $content  = $section['content'] ?? '';
 $btn_text = $section['btn_text'] ?? ( $is_en ? 'About Us' : 'Về chúng tôi' );
 $btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' ) ) );
-$raw_image = $section['image'] ?? null;
-$image     = function_exists( 'spl_get_valid_image_url' ) ? spl_get_valid_image_url( $raw_image, 'static/img/tam-the-cong-su-vinacos.jpg' ) : ( get_template_directory_uri() . '/static/img/tam-the-cong-su-vinacos.jpg' );
+$image     = function_exists( 'spl_get_valid_image_url' ) ? spl_get_valid_image_url( $raw_image, 'static/img/tam-the-cong-su-collage.jpg' ) : ( get_template_directory_uri() . '/static/img/tam-the-cong-su-collage.jpg' );
 
 if ( empty( $content ) ) {
 	if ( $is_en ) {

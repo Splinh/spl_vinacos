@@ -66,12 +66,12 @@ $att = [
     'slide4_d'   => import_local_image_to_media('static/img/banner/slide4-desktop.jpg', 'Slide 4 Desktop VINACOS'),
     'slide4_m'   => import_local_image_to_media('static/img/banner/slide4-mobile.jpg', 'Slide 4 Mobile VINACOS'),
     
-    'about_img'  => import_local_image_to_media('static/img/tam-the-cong-su-vinacos.jpg', 'Tâm Thế Cộng Sự VINACOS'),
+    'about_img'  => import_local_image_to_media('static/img/tam-the-cong-su-collage.jpg', 'Tâm Thế Cộng Sự - Ảnh Ghép VINACOS'),
     'brand_b'    => import_local_image_to_media('static/img/banner/brand-banner-vi.jpg', 'Banner Thương Hiệu VINACOS'),
     'about_b'    => import_local_image_to_media('static/img/banner/brand-banner-vi.jpg', 'Banner Trang Tâm Thế Cộng Sự VINACOS'),
     'rd_b'       => import_local_image_to_media('static/img/banner/rd-system-banner-vi.jpg', 'Banner Trang Hệ Thống R&D VINACOS'),
     
-    'rd_img1'    => import_local_image_to_media('static/img/nghien-cuu-nen-chat-vinacos.jpg', 'Hệ thống R&D Năng Lực Nghiên Cứu'),
+    'rd_img1'    => import_local_image_to_media('static/img/tam-the-cong-su-vinacos.jpg', 'Hệ thống R&D Năng Lực Nghiên Cứu VINACOS'),
     'rd_img2'    => import_local_image_to_media('static/img/story-vinacos.jpg', 'Công Trình Khoa Học VINACOS'),
     
     'stats_bg'   => import_local_image_to_media('static/img/bg-stats-vinacos.jpg', 'Background Con Số Nổi Bật'),
