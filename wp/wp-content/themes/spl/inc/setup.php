@@ -171,35 +171,38 @@ add_action( 'admin_head', function (): void {
 		function patchAcfMedia() {
 			if (typeof window.acf !== 'undefined' && window.acf.newMediaPopup && !window.acf._mediaPopupPatched) {
 				window.acf._mediaPopupPatched = true;
-				var origNewMediaPopup = window.acf.newMediaPopup;
 
 				window.acf.newMediaPopup = function(options) {
-					try {
-						if (typeof window.wp === 'object' && typeof window.wp.media === 'function' && window.wp.media.controller && window.wp.media.controller.Library && typeof window.wp.media.query === 'function') {
-							return origNewMediaPopup.apply(this, arguments);
-						}
-					} catch (err) {
-						console.warn('ACF native popup warning:', err);
-					}
+					options = options || {};
+					var title = options.title || 'Chọn hình ảnh';
+					var buttonText = (options.button && options.button.text) ? options.button.text : (typeof options.button === 'string' ? options.button : 'Sử dụng ảnh này');
+					var multiple = (options.multiple === true || options.multiple === 'add');
+					var libraryType = options.type || (options.mime_types ? options.mime_types : 'image');
 
 					if (typeof window.wp === 'object' && typeof window.wp.media === 'function') {
 						var frame = window.wp.media({
-							title: (options && options.title) || 'Chọn hình ảnh',
-							button: { text: (options && options.button && options.button.text) || 'Sử dụng ảnh này' },
-							multiple: (options && options.multiple) || false,
-							library: { type: (options && options.type) || 'image' }
+							title: title,
+							button: { text: buttonText },
+							multiple: multiple,
+							library: { type: libraryType }
 						});
 
-						if (options && typeof options.select === 'function') {
+						if (typeof options.select === 'function') {
 							frame.on('select', function() {
 								var selection = frame.state().get('selection');
 								options.select(selection);
 							});
 						}
+
 						return frame;
 					}
 
-					return origNewMediaPopup.apply(this, arguments);
+					return {
+						open: function() {
+							alert('WordPress Media library is not available.');
+						},
+						on: function() {}
+					};
 				};
 			}
 		}
@@ -209,6 +212,8 @@ add_action( 'admin_head', function (): void {
 		} else {
 			patchAcfMedia();
 		}
+		// Also run on window load to ensure ACF has initialized
+		window.addEventListener('load', patchAcfMedia);
 	})();
 	</script>
 	<?php
