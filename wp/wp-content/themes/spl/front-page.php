@@ -14,10 +14,10 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 // ACF Flexible Content field name on front page.
-$front_page_id = (int) get_option( 'page_on_front' );
-$sections      = $front_page_id ? Helper::getField( 'home_sections', $front_page_id ) : Helper::getField( 'home_sections' );
+$front_page_id = (int) get_option( 'page_on_front' ) ?: 10;
+$sections      = function_exists( 'get_field' ) ? get_field( 'home_sections', $front_page_id ) : ( $front_page_id ? Helper::getField( 'home_sections', $front_page_id ) : false );
 
-if ( $sections ) :
+if ( ! empty( $sections ) && is_array( $sections ) ) :
 	foreach ( $sections as $section ) :
 		if ( ! empty( $section['disable'] ) ) :
 			continue;

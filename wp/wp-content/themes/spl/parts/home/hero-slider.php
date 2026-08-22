@@ -84,8 +84,15 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 					if ( ! empty( $s['title_line_1'] ) ) { $title_lines[] = $s['title_line_1']; }
 					if ( ! empty( $s['title_line_2'] ) ) { $title_lines[] = $s['title_line_2']; }
 					if ( ! empty( $s['title_line_3'] ) ) { $title_lines[] = $s['title_line_3']; }
+					if ( empty( $title_lines ) && ! empty( $s['title'] ) ) {
+						$title_lines = is_array( $s['title'] ) ? $s['title'] : explode( "\n", (string) $s['title'] );
+					}
 					if ( empty( $title_lines ) ) {
-						$title_lines = $v['title_lines'];
+						$title_lines = (array) ( $v['title_lines'] ?? array() );
+					}
+					$title_lines = array_filter( array_map( 'trim', (array) $title_lines ) );
+					if ( empty( $title_lines ) ) {
+						$title_lines = (array) ( $v['title_lines'] ?? array( 'VINACOS' ) );
 					}
 
 					$desc     = ! empty( $s['description'] ) ? $s['description'] : $v['desc'];

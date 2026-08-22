@@ -57,8 +57,8 @@ if ( empty( $items ) ) {
 			<div class="swiper home-3-top">
 				<div class="swiper-wrapper">
 					<?php foreach ( $items as $idx => $item ) : 
-						$fallback_img = ( 0 === $idx ) ? 'static/img/vinacos/rd-lab-main.jpg' : 'static/img/vinacos/research-process.jpg';
-						$item_img     = spl_get_valid_image_url( $item['image'] ?? null, $fallback_img );
+						$fallback_img = ( 0 === $idx ) ? 'static/img/nghien-cuu-nen-chat-vinacos.jpg' : 'static/img/story-vinacos.jpg';
+						$item_img     = function_exists( 'spl_get_valid_image_url' ) ? spl_get_valid_image_url( $item['image'] ?? null, $fallback_img ) : ( get_template_directory_uri() . '/' . $fallback_img );
 						$btn_url      = is_array( $item['btn_link'] ?? null ) ? ( $item['btn_link']['url'] ?? '#' ) : ( $item['btn_link'] ?? '#' );
 						$btn_text     = $item['btn_text'] ?? ( $is_en ? 'Learn More' : 'Tìm hiểu thêm' );
 					?>
