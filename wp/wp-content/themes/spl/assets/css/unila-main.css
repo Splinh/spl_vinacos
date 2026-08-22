@@ -4086,12 +4086,13 @@ textarea{
 }
 .home-banner .split-parent{
   --tw-text-opacity: 1;
-  overflow: hidden;
+  overflow: visible !important;
   color: rgb(35 31 32 / var(--tw-text-opacity));
   font-weight: 800;
   font-size: 1.4583333333333335rem;
-  line-height: 1.5;
+  line-height: 1.35 !important;
   text-transform: uppercase;
+  padding: 2px 0 !important;
 }
 @media (min-width: 768px){
   .home-banner .split-parent{
@@ -4100,10 +4101,12 @@ textarea{
 }
 @media (min-width: 1200px){
   .home-banner .split-parent{
-    margin-top: calc(calc(12/1920*100rem) * -1);
-    margin-bottom: calc(calc(12/1920*100rem) * -1);
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
     max-width: 48%;
     font-size: 2.8rem;
+    line-height: 1.35 !important;
+    overflow: visible !important;
   }
 }
 .home-banner .caption{
@@ -4422,41 +4425,79 @@ header .header-logo img{
     height: 54px !important;
     max-height: 60px !important;
     max-width: 72px !important;
+  header .header-logo img{
+    height: 58px !important;
+    max-height: 64px !important;
+    max-width: 76px !important;
+  }
+}
+@media (min-width: 1200px) and (max-width: 1399px){
+  header .header-logo img{
+    height: 50px !important;
+    max-height: 54px !important;
+    max-width: 65px !important;
+  }
+}
+@media (max-width: 1024px){
+  header .header-logo img{
+    height: 40px !important;
+    max-height: 44px !important;
+    max-width: 52px !important;
   }
 }
 @media (max-width: 768px){
   header .header-logo img{
-    height: 38px !important;
-    max-height: 42px !important;
-    max-width: 50px !important;
+    height: 34px !important;
+    max-height: 38px !important;
+    max-width: 44px !important;
+  }
+}
+@media (max-width: 480px){
+  header .header-logo img{
+    height: 30px !important;
+    max-height: 34px !important;
+    max-width: 38px !important;
   }
 }
 header .header-logo .logo-text{
   font-family: 'Be Vietnam Pro', sans-serif;
-  font-size: 20px;
+  font-size: 34px;
   font-weight: 800;
   color: #1e60a3;
   letter-spacing: 0.8px;
   line-height: 1;
   text-transform: uppercase;
   white-space: nowrap;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, font-size 0.3s ease;
 }
 @media (min-width: 1400px){
   header .header-logo .logo-text{
-    font-size: 22px;
+    font-size: 42px;
     letter-spacing: 1px;
+  }
+}
+@media (max-width: 1199px){
+  header .header-logo .logo-text{
+    font-size: 26px;
+    letter-spacing: 0.6px;
   }
 }
 @media (max-width: 1024px){
   header .header-logo .logo-text{
-    font-size: 17px;
+    font-size: 22px;
+    letter-spacing: 0.5px;
   }
 }
 @media (max-width: 768px){
   header .header-logo .logo-text{
-    font-size: 15px;
+    font-size: 18px;
     letter-spacing: 0.4px;
+  }
+}
+@media (max-width: 480px){
+  header .header-logo .logo-text{
+    font-size: 15.5px;
+    letter-spacing: 0.2px;
   }
 }
 header .header-logo:hover .logo-text{
@@ -8469,16 +8510,22 @@ footer .footer-bot .footer-copyright p a:hover {
   }
   body.home .home-banner .key-visual-slide .caption .banner-title {
     margin-bottom: clamp(14px, 2vh, 26px) !important;
+    line-height: 1.35 !important;
   }
   body.home .home-banner .key-visual-slide .caption .banner-title .split-parent {
-    font-size: clamp(32px, 3.2vw, 54px) !important;
-    line-height: 1.15 !important;
+    font-size: clamp(30px, 3vw, 50px) !important;
+    line-height: 1.35 !important;
     max-width: none !important;
     margin: 0 !important;
+    overflow: visible !important;
+    padding: 2px 0 !important;
   }
   body.home .home-banner .key-visual-slide .caption .banner-title .split-parent strong {
     opacity: 1 !important;
     transform: none !important;
+    display: block !important;
+    line-height: 1.35 !important;
+    padding: 2px 0 !important;
   }
   body.home .home-banner .key-visual-slide .caption .desc {
     max-width: 500px !important;

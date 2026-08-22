@@ -130,15 +130,23 @@ body {
 			.banner-title {
 				font-size: clamp(26px, 3.2vw, 44px);
 				font-weight: 800;
-				line-height: 1.2;
+				line-height: 1.35;
 				text-transform: uppercase;
 				color: #1a1a1a;
 				margin-bottom: 16px;
 
 				.split-parent {
-					overflow: hidden;
+					overflow: visible !important;
 					display: block;
 					color: #1a1a1a;
+					line-height: 1.35;
+					padding: 2px 0;
+
+					strong {
+						display: block;
+						line-height: 1.35;
+						padding: 2px 0;
+					}
 				}
 			}
 
@@ -773,41 +781,70 @@ header {
 				padding: 0 !important;
 
 				@media (min-width: 1400px) {
-					height: 54px !important;
-					max-height: 60px !important;
-					max-width: 72px !important;
+					height: 58px !important;
+					max-height: 64px !important;
+					max-width: 76px !important;
+				}
+
+				@media (min-width: 1200px) and (max-width: 1399px) {
+					height: 50px !important;
+					max-height: 54px !important;
+					max-width: 65px !important;
+				}
+
+				@media (max-width: 1024px) {
+					height: 40px !important;
+					max-height: 44px !important;
+					max-width: 52px !important;
 				}
 
 				@media (max-width: 768px) {
-					height: 38px !important;
-					max-height: 42px !important;
-					max-width: 50px !important;
+					height: 34px !important;
+					max-height: 38px !important;
+					max-width: 44px !important;
+				}
+
+				@media (max-width: 480px) {
+					height: 30px !important;
+					max-height: 34px !important;
+					max-width: 38px !important;
 				}
 			}
 
 			.logo-text {
 				font-family: 'Be Vietnam Pro', sans-serif;
-				font-size: 20px;
+				font-size: 34px;
 				font-weight: 800;
 				color: #1e60a3;
 				letter-spacing: 0.8px;
 				line-height: 1;
 				text-transform: uppercase;
 				white-space: nowrap;
-				transition: color 0.3s ease;
+				transition: color 0.3s ease, font-size 0.3s ease;
 
 				@media (min-width: 1400px) {
-					font-size: 22px;
+					font-size: 42px;
 					letter-spacing: 1px;
 				}
 
+				@media (max-width: 1199px) {
+					font-size: 26px;
+					letter-spacing: 0.6px;
+				}
+
 				@media (max-width: 1024px) {
-					font-size: 17px;
+					font-size: 22px;
+					letter-spacing: 0.5px;
 				}
 
 				@media (max-width: 768px) {
-					font-size: 15px;
+					font-size: 18px;
 					letter-spacing: 0.4px;
+				}
+
+				@media (max-width: 480px) {
+					font-size: 15.5px;
+					letter-spacing: 0.2px;
 				}
 			}
 
@@ -1353,41 +1390,70 @@ header {
 		padding: 0 !important;
 
 		@media (min-width: 1400px) {
-			height: 54px !important;
-			max-height: 60px !important;
-			max-width: 72px !important;
+			height: 58px !important;
+			max-height: 64px !important;
+			max-width: 76px !important;
+		}
+
+		@media (min-width: 1200px) and (max-width: 1399px) {
+			height: 50px !important;
+			max-height: 54px !important;
+			max-width: 65px !important;
+		}
+
+		@media (max-width: 1024px) {
+			height: 40px !important;
+			max-height: 44px !important;
+			max-width: 52px !important;
 		}
 
 		@media (max-width: 768px) {
-			height: 38px !important;
-			max-height: 42px !important;
-			max-width: 50px !important;
+			height: 34px !important;
+			max-height: 38px !important;
+			max-width: 44px !important;
+		}
+
+		@media (max-width: 480px) {
+			height: 30px !important;
+			max-height: 34px !important;
+			max-width: 38px !important;
 		}
 	}
 
 	.logo-text {
 		font-family: 'Be Vietnam Pro', sans-serif;
-		font-size: 20px;
+		font-size: 34px;
 		font-weight: 800;
 		color: #1e60a3;
 		letter-spacing: 0.8px;
 		line-height: 1;
 		text-transform: uppercase;
 		white-space: nowrap;
-		transition: color 0.3s ease;
+		transition: color 0.3s ease, font-size 0.3s ease;
 
 		@media (min-width: 1400px) {
-			font-size: 22px;
+			font-size: 42px;
 			letter-spacing: 1px;
 		}
 
+		@media (max-width: 1199px) {
+			font-size: 26px;
+			letter-spacing: 0.6px;
+		}
+
 		@media (max-width: 1024px) {
-			font-size: 17px;
+			font-size: 22px;
+			letter-spacing: 0.5px;
 		}
 
 		@media (max-width: 768px) {
-			font-size: 15px;
+			font-size: 18px;
 			letter-spacing: 0.4px;
+		}
+
+		@media (max-width: 480px) {
+			font-size: 15.5px;
+			letter-spacing: 0.2px;
 		}
 	}
 
@@ -1781,16 +1847,22 @@ main {
 
 					.banner-title {
 						margin-bottom: clamp(14px, 2vh, 26px) !important;
+						line-height: 1.35 !important;
 
 						.split-parent {
-							font-size: clamp(32px, 3.2vw, 54px) !important;
-							line-height: 1.15 !important;
+							font-size: clamp(30px, 3vw, 50px) !important;
+							line-height: 1.35 !important;
 							max-width: none !important;
 							margin: 0 !important;
+							overflow: visible !important;
+							padding: 2px 0 !important;
 
 							strong {
 								opacity: 1 !important;
 								transform: none !important;
+								display: block !important;
+								line-height: 1.35 !important;
+								padding: 2px 0 !important;
 							}
 						}
 					}
