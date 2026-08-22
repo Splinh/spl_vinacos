@@ -1,5 +1,5 @@
-# Translation of WordPress - 7.0.x - Development - Administration - Network Admin in Vietnamese
-# This file is distributed under the same license as the WordPress - 7.0.x - Development - Administration - Network Admin package.
+# Translation of WordPress - 7.1.x - Development - Administration - Network Admin in Vietnamese
+# This file is distributed under the same license as the WordPress - 7.1.x - Development - Administration - Network Admin package.
 msgid ""
 msgstr ""
 "PO-Revision-Date: 2025-03-29 08:53:06+0000\n"
@@ -7,9 +7,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: GlotPress/4.0.3\n"
+"X-Generator: GlotPress/4.1.0\n"
 "Language: vi_VN\n"
-"Project-Id-Version: WordPress - 7.0.x - Development - Administration - Network Admin\n"
+"Project-Id-Version: WordPress - 7.1.x - Development - Administration - Network Admin\n"
 
 #: wp-admin/network/upgrade.php:37
 msgid "<a href=\"https://developer.wordpress.org/advanced-administration/multisite/admin/#network-admin-updates-screen\">Documentation on Upgrade Network</a>"
@@ -603,7 +603,7 @@ msgstr "Đường dẫn"
 msgid "Domain"
 msgstr "Tên miền"
 
-#: wp-admin/network/user-new.php:29 wp-admin/network/users.php:270
+#: wp-admin/network/user-new.php:29 wp-admin/network/users.php:297
 msgid "<a href=\"https://codex.wordpress.org/Network_Admin_Users_Screen\">Documentation on Network Users</a>"
 msgstr "<a href=\"https://codex.wordpress.org/Network_Admin_Users_Screen\" target=\"_blank\">Tài Liệu về Người Sử Dụng Mạng Lưới</a>"
 
@@ -668,7 +668,7 @@ msgstr "Thêm phần sau đây vào tệp %1$s của bạn trong %2$s, <strong>r
 msgid "Confirm your action"
 msgstr "Xác nhận thao tác"
 
-#: wp-admin/network/users.php:260
+#: wp-admin/network/users.php:287
 msgid "Hover over any user on the list to make the edit links appear. The Edit link on the left will take you to their Edit User profile page; the Edit link on the right by any site name goes to an Edit Site screen for that site."
 msgstr "Liên kết chỉnh sửa sẽ hiển thị khi con trỏ chuột được di lên bất kỳ người sử dụng nào trong danh sách. Bấm chuột vào liên kết chỉnh sửa bên tay trái để chỉnh sửa lý lịch người sử dụng; bấm chuột vào liên kết chỉnh sửa bên tay phải để chỉnh sửa trang mạng tương ứng."
 
@@ -1018,10 +1018,6 @@ msgstr "Mạng Lưới"
 msgid "The choice of subdirectory sites is disabled if this setup is more than a month old because of permalink problems with &#8220;/blog/&#8221; from the main site. This disabling will be addressed in a future version."
 msgstr "Lựa chọn thư mục con sẽ bị vô hiệu hóa nếu cài đặt này có từ hơn một tháng trước, do những vấn đề về liên kết tĩnh với &#8220;/blog/&#8221; từ trang mạng chính. Vấn đề này sẽ được giải quyết trong tương lai."
 
-#: wp-admin/network.php:65
-msgid "Once you add this code and refresh your browser, multisite should be enabled. This screen, now in the Network Admin navigation menu, will keep an archive of the added code. You can toggle between Network Admin and Site Admin by clicking on the Network Admin or an individual site name under the My Sites dropdown in the Toolbar."
-msgstr "Khi bạn thêm mã này và làm mới trình duyệt, đa trang web sẽ được kích hoạt. Màn hình này, hiện nằm trong menu điều hướng Quản trị mạng, sẽ lưu trữ một bản lưu trữ của mã đã thêm. Bạn có thể chuyển đổi giữa Quản trị mạng và Quản trị trang web bằng cách nhấp vào Quản trị mạng hoặc tên trang web riêng lẻ trong menu thả xuống Trang web của tôi trong Thanh công cụ."
-
 #: wp-admin/network.php:63
 msgid "The next screen for Network Setup will give you individually-generated lines of code to add to your wp-config.php and .htaccess files. Make sure the settings of your FTP client make files starting with a dot visible, so that you can find .htaccess; you may have to create this file if it really is not there. Make backup copies of those two files."
 msgstr "Màn hình Cài Đặt Mạng Lưới tiếp theo sẽ cung cấp cho bạn những dòng mã cụ thể để thêm vào các tập tin wp-config.php và .htaccess của bạn. Hãy đảm bảo ứng dụng truy cập FTP của bạn được cài đặt để hiển thị các tập tin bắt đầu bằng dấu chấm, như vậy bạn có thể nhìn thấy tập tin .htaccess; bạn có thể sẽ phải tự tạo tập tin này nếu nó không tồn tại. Hãy sao lưu hai tập tin trên trước khi thay đổi nội dung của chúng."
@@ -1043,7 +1039,7 @@ msgid "The Network creation panel is not for WordPress MU networks."
 msgstr "Bảng khởi tạo Mạng Lưới không dành cho các mạng lưới WordPress MU."
 
 #. translators: %s: User login.
-#: wp-admin/network/users.php:87 wp-admin/network/users.php:126
+#: wp-admin/network/users.php:88 wp-admin/network/users.php:127
 msgid "Warning! User cannot be modified. The user %s is a network administrator."
 msgstr "Cảnh báo! Không thể chỉnh sửa dữ liệu người dùng. %s là quản trị viên mạng lưới."
 
@@ -1059,11 +1055,11 @@ msgstr "Di chuột lên mỗi trang mạng để xem bảy lựa chọn (ba cho 
 msgid "Operational settings has fields for the network&#8217;s name and admin email."
 msgstr "Cài đặt hoạt động có các trường cho tên mạng lưới và địa chỉ thư điện tử quản trị."
 
-#: wp-admin/network/users.php:263
+#: wp-admin/network/users.php:290
 msgid "The bulk action will permanently delete selected users, or mark/unmark those selected as spam. Spam users will have posts removed and will be unable to sign up again with the same email addresses."
 msgstr "Thao tác nhóm sẽ xóa vĩnh viễn những người dùng được chọn, hoặc đánh dấu / bỏ đánh dấu những tài khoản người dùng rác. Người dùng rác sẽ bị xóa bài viết và không thể đăng ký lại với cùng địa chỉ thư điện tử."
 
-#: wp-admin/network/users.php:261
+#: wp-admin/network/users.php:288
 msgid "You can also go to the user&#8217;s profile page by clicking on the individual username."
 msgstr "Bạn cũng có thể tới trang hồ sơ người dùng bằng cách bấm vào tên truy cập của một người dùng."
 
@@ -1071,7 +1067,7 @@ msgstr "Bạn cũng có thể tới trang hồ sơ người dùng bằng cách b
 msgid "Upload settings control the size of the uploaded files and the amount of available upload space for each site. You can change the default value for specific sites when you edit a particular site. Allowed file types are also listed (space separated only)."
 msgstr "Cài đặt tải lên chỉ định kích thước của các tập tin được tải lên và dung lượng lưu trữ khả dụng cho mỗi trang mạng. Bạn có thể thay đổi các giá trị mặc định cho từng trang mạng khi bạn chỉnh sửa một trang nhất định. Các định dạng tập tin cho phép cũng được liệt kê (phân cách bằng khoảng trống)."
 
-#: wp-admin/network/users.php:264
+#: wp-admin/network/users.php:291
 msgid "You can make an existing user an additional super admin by going to the Edit User profile page and checking the box to grant that privilege."
 msgstr "Bạn có thể cho phép một người sử dụng trở thành quản trị viên cao cấp bằng cách mở trang hồ sơ Chỉnh Sửa Người Dùng và đánh dấu hộp kiểm để cấp quyền đó."
 
@@ -1079,11 +1075,11 @@ msgstr "Bạn có thể cho phép một người sử dụng trở thành quản
 msgid "Users who are signed up to the network without a site are added as subscribers to the main or primary dashboard site, giving them profile pages to manage their accounts. These users will only see Dashboard and My Sites in the main navigation until a site is created for them."
 msgstr "Người dùng đã đăng ký vào mạng mà không có trang web sẽ được thêm làm người đăng ký vào trang web bảng điều khiển chính hoặc bảng điều khiển chính, cung cấp cho họ các trang hồ sơ để quản lý tài khoản của họ. Những người dùng này sẽ chỉ thấy Bảng điều khiển và Trang web của tôi trong điều hướng chính cho đến khi một trang web được tạo cho họ."
 
-#: wp-admin/network/users.php:262
+#: wp-admin/network/users.php:289
 msgid "You can sort the table by clicking on any of the table headings and switch between list and excerpt views by using the icons above the users list."
 msgstr "Bạn có thể sắp xếp bảng bằng cách bấm vào bất kỳ tiêu đề cột nào được in đậm và chuyển qua lại giữa kiểu xem danh sách và trích đoạn sử dụng các biểu tượng ở phía trên bên phải."
 
-#: wp-admin/network/users.php:259
+#: wp-admin/network/users.php:286
 msgid "This table shows all users across the network and the sites to which they are assigned."
 msgstr "Bảng này hiển thị tất cả người sử dụng trên mạng lưới và trang mạng họ đã đăng ký."
 
@@ -1140,7 +1136,7 @@ msgstr "Nếu bạn muốn cấm đăng ký trang mạng cho tên miền nào đ
 msgid "If you want to limit site registrations to certain domains. One domain per line."
 msgstr "Nếu bạn muốn giới hạn đăng ký trang mạng cho tên miền nào đó. Mỗi dòng một tên miền."
 
-#: wp-admin/network/users.php:294
+#: wp-admin/network/users.php:321
 msgid "Users removed from spam."
 msgstr "Đã bỏ đánh dấu người dùng rác."
 
@@ -1160,11 +1156,11 @@ msgstr "Đã đánh dấu trang rác"
 msgid "Sites removed from spam."
 msgstr "Đã bỏ đánh dấu trang rác."
 
-#: wp-admin/network/users.php:297
+#: wp-admin/network/users.php:324
 msgid "Users deleted."
 msgstr "Đã xóa người sử dụng."
 
-#: wp-admin/network/users.php:291
+#: wp-admin/network/users.php:318
 msgid "Users marked as spam."
 msgstr "Thành viên đã bị đánh dấu là spam."
 
