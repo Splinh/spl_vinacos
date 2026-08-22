@@ -305,122 +305,12 @@ add_action( 'admin_head', function (): void {
 			loadNext(0);
 		}
 
-		// Helper to dynamically open WP Media Frame
-		function triggerMediaUpload(uploader) {
-			ensureMediaReady(function() {
-				if (typeof window.wp === 'undefined' || typeof window.wp.media !== 'function') {
-					return;
-				}
-
-				var frame = window.wp.media({
-					title: 'Chọn hoặc tải ảnh lên',
-					button: { text: 'Sử dụng ảnh này' },
-					multiple: false,
-					library: { type: 'image' }
-				});
-
-				if (!frame) return;
-
-				frame.on('select', function() {
-					var selection = frame.state().get('selection').first();
-					if (!selection) return;
-					var attachment = selection.toJSON();
-
-					var input = uploader.querySelector('input[type="hidden"]');
-					var img = uploader.querySelector('img[data-name="image"]');
-					var view = uploader.querySelector('.view, .image-wrap');
-
-					if (input) {
-						input.value = attachment.id;
-						if (window.jQuery) {
-							window.jQuery(input).trigger('change');
-						}
-					}
-
-					var displayUrl = (attachment.sizes && attachment.sizes.thumbnail) ? attachment.sizes.thumbnail.url : (attachment.sizes && attachment.sizes.medium ? attachment.sizes.medium.url : attachment.url);
-
-					if (img) {
-						img.src = displayUrl;
-						img.style.display = '';
-					} else if (view) {
-						view.innerHTML = '<img data-name="image" src="' + displayUrl + '" alt="" style="max-width:100%;height:auto;" />';
-					}
-
-					uploader.classList.add('has-value');
-
-					if (typeof window.acf !== 'undefined' && window.acf.getField) {
-						var fieldElem = uploader.closest('.acf-field');
-						if (fieldElem) {
-							var fieldObj = window.acf.getField(fieldElem);
-							if (fieldObj) {
-								fieldObj.val(attachment.id);
-							}
-						}
-					}
-				});
-
-				frame.open();
-			});
+		// Auto-initialize dependencies on DOM ready
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', function() { ensureMediaReady(function(){}); });
+		} else {
+			ensureMediaReady(function(){});
 		}
-
-		// 1. Direct Capture Click Handler for ACF Image Field Upload
-		document.addEventListener('click', function(e) {
-			var addBtn = e.target.closest(
-				'.acf-field-image [data-name="add"], .acf-field-image .button, .acf-image-uploader [data-name="add"], .acf-image-uploader .button, .acf-uploader [data-name="add"], .acf-uploader input[type="button"]'
-			);
-			if (!addBtn) return;
-
-			var uploader = addBtn.closest('.acf-image-uploader, .acf-uploader');
-			if (!uploader) return;
-
-			if (e.target.closest('[data-name="remove"]') || e.target.closest('[data-name="edit"]')) return;
-
-			e.preventDefault();
-			e.stopImmediatePropagation();
-
-			triggerMediaUpload(uploader);
-		}, true);
-
-		// 2. Direct Capture Click Handler for ACF Image Field Remove
-		document.addEventListener('click', function(e) {
-			var removeBtn = e.target.closest(
-				'.acf-field-image [data-name="remove"], .acf-image-uploader [data-name="remove"], .acf-uploader [data-name="remove"]'
-			);
-			if (!removeBtn) return;
-
-			var uploader = removeBtn.closest('.acf-image-uploader, .acf-uploader');
-			if (!uploader) return;
-
-			e.preventDefault();
-			e.stopImmediatePropagation();
-
-			var input = uploader.querySelector('input[type="hidden"]');
-			var img = uploader.querySelector('img[data-name="image"]');
-
-			if (input) {
-				input.value = '';
-				if (window.jQuery) {
-					window.jQuery(input).trigger('change');
-				}
-			}
-
-			if (img) {
-				img.src = '';
-				img.style.display = 'none';
-			}
-
-			uploader.classList.remove('has-value');
-
-			if (typeof window.acf !== 'undefined' && window.acf.getField) {
-				var fieldElem = uploader.closest('.acf-field');
-				if (fieldElem) {
-					var fieldObj = window.acf.getField(fieldElem);
-					if (fieldObj) {
-						fieldObj.val('');
-					}
-				}
-			}
-		}, true);
 	})();
 	</script>
 	<?php
