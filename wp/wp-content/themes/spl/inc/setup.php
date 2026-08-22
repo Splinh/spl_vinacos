@@ -156,13 +156,21 @@ function spl_enqueue_all_admin_media(): void {
 		wp_enqueue_media();
 	}
 	if ( function_exists( 'wp_enqueue_script' ) ) {
-		wp_enqueue_script( 'media-editor' );
-		wp_enqueue_script( 'media-views' );
+		wp_enqueue_script( 'jquery' );
+		wp_enqueue_script( 'underscore' );
+		wp_enqueue_script( 'backbone' );
+		wp_enqueue_script( 'wp-util' );
+		wp_enqueue_script( 'wp-backbone' );
+		wp_enqueue_script( 'wp-api-request' );
 		wp_enqueue_script( 'media-models' );
 		wp_enqueue_script( 'wp-plupload' );
+		wp_enqueue_script( 'media-views' );
+		wp_enqueue_script( 'media-editor' );
+		wp_enqueue_script( 'media-audiovideo' );
 	}
 	if ( function_exists( 'wp_enqueue_style' ) ) {
 		wp_enqueue_style( 'media-views' );
+		wp_enqueue_style( 'imgareaselect' );
 	}
 }
 
@@ -189,8 +197,13 @@ add_action( 'admin_head', function (): void {
 			}
 
 			var scripts = [
+				incJsUrl + 'underscore.min.js',
+				incJsUrl + 'backbone.min.js',
+				incJsUrl + 'wp-util.min.js',
 				incJsUrl + 'wp-backbone.min.js',
 				incJsUrl + 'media-models.min.js',
+				incJsUrl + 'plupload/moxie.min.js',
+				incJsUrl + 'plupload/plupload.min.js',
 				incJsUrl + 'plupload/wp-plupload.min.js',
 				incJsUrl + 'media-views.min.js',
 				incJsUrl + 'media-editor.min.js'
@@ -201,13 +214,17 @@ add_action( 'admin_head', function (): void {
 					if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
 						callback();
 					} else {
-						alert('Đang kết nối thư viện ảnh, vui lòng bấm lại lần nữa.');
+						alert('Đang tải cấu phần Media, vui lòng thử lại sau 1 giây.');
 					}
 					return;
 				}
 
-				var existing = document.querySelector('script[src*="' + scripts[idx].split('/').pop() + '"]');
-				if (existing && typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+				var filename = scripts[idx].split('/').pop();
+				if (filename === 'underscore.min.js' && typeof window._ !== 'undefined') {
+					loadNext(idx + 1);
+					return;
+				}
+				if (filename === 'backbone.min.js' && typeof window.Backbone !== 'undefined') {
 					loadNext(idx + 1);
 					return;
 				}
@@ -226,12 +243,18 @@ add_action( 'admin_head', function (): void {
 		// Helper to dynamically open WP Media Frame
 		function triggerMediaUpload(uploader) {
 			ensureMediaReady(function() {
+				if (typeof window.wp === 'undefined' || typeof window.wp.media !== 'function') {
+					return;
+				}
+
 				var frame = window.wp.media({
 					title: 'Chọn hoặc tải ảnh lên',
 					button: { text: 'Sử dụng ảnh này' },
 					multiple: false,
 					library: { type: 'image' }
 				});
+
+				if (!frame) return;
 
 				frame.on('select', function() {
 					var selection = frame.state().get('selection').first();
