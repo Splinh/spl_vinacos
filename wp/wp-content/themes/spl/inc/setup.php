@@ -180,17 +180,16 @@ function spl_enqueue_all_admin_media(): void {
 }
 
 add_action( 'admin_footer', function (): void {
-	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-	if ( $screen && str_contains( (string) $screen->id, 'acf-options' ) ) {
-		if ( function_exists( 'wp_print_media_templates' ) ) {
-			wp_print_media_templates();
-		}
+	if ( function_exists( 'wp_print_media_templates' ) && ! did_action( 'wp_print_media_templates' ) ) {
+		wp_print_media_templates();
 	}
 }, 999 );
 
 add_action( 'admin_head', function (): void {
-	$inc_js = includes_url( 'js/' );
+	$inc_js  = includes_url( 'js/' );
+	$inc_css = includes_url( 'css/' );
 	?>
+	<link rel="stylesheet" href="<?php echo esc_url( $inc_css . 'media-views.min.css' ); ?>" type="text/css" media="all" />
 	<script>
 	(function() {
 		var incJsUrl = <?php echo wp_json_encode( $inc_js ); ?>;
