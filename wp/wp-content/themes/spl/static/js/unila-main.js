@@ -263,9 +263,11 @@ function initAbout6Swiper(){
 
 function initFullPageScroll() {
 	if (window.innerWidth < 1025) return;
-	if (!$(".home-banner").length && !$("body").hasClass("home")) return;
+	// Only activate full-page scroll on the actual homepage with hero banner
+	if (!$("body").hasClass("home") && !$("body").hasClass("front-page") && !$("body").hasClass("page-template-template-page-home")) return;
+	if (!$(".home-banner").length) return;
 
-	var $sections = $(".home-banner, .about-1-section, .home-3-section, .home-4-section, .home-5-section, .home-9-section, footer.footer-vinacos");
+	var $sections = $(".home-banner, .home-banner + .about-1-section, .home-3-section, .home-4-section, .home-5-section, .home-9-section, footer.footer-vinacos");
 	if ($sections.length <= 1) return;
 
 	var isScrolling = false;
