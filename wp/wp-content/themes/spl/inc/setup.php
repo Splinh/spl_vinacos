@@ -149,16 +149,11 @@ add_filter( 'user_has_cap', function ( $allcaps, $caps = [], $args = [], $user =
 	return $allcaps;
 }, 1, 4 );
 
-add_action( 'admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 0 );
-add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 0 );
+add_action( 'admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 1 );
+add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 1 );
 function spl_enqueue_all_admin_media(): void {
 	if ( function_exists( 'wp_enqueue_media' ) ) {
 		wp_enqueue_media();
-	}
-	if ( function_exists( 'wp_enqueue_script' ) ) {
-		wp_enqueue_script( 'media-editor' );
-		wp_enqueue_script( 'media-models' );
-		wp_enqueue_script( 'media-views' );
 	}
 	add_action( 'admin_footer', 'spl_print_media_templates_fallback', 1 );
 }
@@ -173,50 +168,21 @@ add_action( 'admin_head', function (): void {
 	?>
 	<script>
 	(function() {
-		// 1. Polyfill wp.media, wp.media.query, and wp.media.controller.Library immediately
-		if (typeof window.wp !== 'undefined') {
-			window.wp.media = window.wp.media || {};
-			window.wp.media.controller = window.wp.media.controller || {};
-
-			if (typeof window.wp.media.controller.Library === 'undefined') {
-				if (typeof window.wp.media.controller.State !== 'undefined') {
-					window.wp.media.controller.Library = window.wp.media.controller.State.extend({});
-				} else if (typeof window.Backbone !== 'undefined') {
-					window.wp.media.controller.Library = window.Backbone.Model.extend({});
-				} else {
-					window.wp.media.controller.Library = function() {};
-				}
-			}
-
-			if (typeof window.wp.media.query !== 'function') {
-				window.wp.media.query = function(props) {
-					if (window.wp.media.model && window.wp.media.model.Attachments) {
-						return new window.wp.media.model.Attachments(null, {
-							props: (typeof jQuery !== 'undefined' ? jQuery.extend({ orderby: 'date' }, props || {}, { query: true }) : Object.assign({ orderby: 'date' }, props || {}, { query: true }))
-						});
-					}
-					return null;
-				};
-			}
-		}
-
-		// 2. Patch acf.newMediaPopup directly to guarantee ACF media fields never crash
-		function patchAcfMediaPopup() {
+		function patchAcfMedia() {
 			if (typeof window.acf !== 'undefined' && window.acf.newMediaPopup && !window.acf._mediaPopupPatched) {
 				window.acf._mediaPopupPatched = true;
 				var origNewMediaPopup = window.acf.newMediaPopup;
 
 				window.acf.newMediaPopup = function(options) {
 					try {
-						if (window.wp && window.wp.media && window.wp.media.controller && window.wp.media.controller.Library && typeof window.wp.media.query === 'function') {
+						if (typeof window.wp === 'object' && typeof window.wp.media === 'function' && window.wp.media.controller && window.wp.media.controller.Library && typeof window.wp.media.query === 'function') {
 							return origNewMediaPopup.apply(this, arguments);
 						}
 					} catch (err) {
 						console.warn('ACF native popup warning:', err);
 					}
 
-					// Fallback to standard WordPress media modal
-					if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+					if (typeof window.wp === 'object' && typeof window.wp.media === 'function') {
 						var frame = window.wp.media({
 							title: (options && options.title) || 'Chọn hình ảnh',
 							button: { text: (options && options.button && options.button.text) || 'Sử dụng ảnh này' },
@@ -238,14 +204,15 @@ add_action( 'admin_head', function (): void {
 			}
 		}
 
-		patchAcfMediaPopup();
 		if (document.readyState === 'loading') {
-			document.addEventListener('DOMContentLoaded', patchAcfMediaPopup);
+			document.addEventListener('DOMContentLoaded', patchAcfMedia);
+		} else {
+			patchAcfMedia();
 		}
 	})();
 	</script>
 	<?php
-}, 0 );
+}, 99 );
 
 add_action( 'acf/init', 'spl_register_bottom_nav_acf_fields' );
 function spl_register_bottom_nav_acf_fields(): void {
