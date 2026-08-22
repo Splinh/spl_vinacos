@@ -149,15 +149,24 @@ add_filter( 'user_has_cap', function ( $allcaps, $caps = [], $args = [], $user =
 	return $allcaps;
 }, 1, 4 );
 
-add_action( 'admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 1 );
-add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 1 );
+add_action( 'admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 0 );
+add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 0 );
+add_action( 'load-toplevel_page_acf-options', 'spl_enqueue_all_admin_media', 0 );
 function spl_enqueue_all_admin_media(): void {
 	if ( function_exists( 'wp_enqueue_media' ) ) {
 		wp_enqueue_media();
 	}
-	add_action( 'admin_footer', 'spl_print_media_templates_fallback', 1 );
+	if ( function_exists( 'wp_enqueue_script' ) ) {
+		wp_enqueue_script( 'media-editor' );
+		wp_enqueue_script( 'media-views' );
+		wp_enqueue_script( 'media-models' );
+	}
+	if ( function_exists( 'wp_enqueue_style' ) ) {
+		wp_enqueue_style( 'media-views' );
+	}
 }
 
+add_action( 'admin_footer', 'spl_print_media_templates_fallback', 0 );
 function spl_print_media_templates_fallback(): void {
 	if ( function_exists( 'wp_print_media_templates' ) ) {
 		wp_print_media_templates();
@@ -168,23 +177,17 @@ add_action( 'admin_head', function (): void {
 	?>
 	<script>
 	(function() {
-		// 1. Direct Capture Click Handler for ACF Image Field Upload
-		document.addEventListener('click', function(e) {
-			var addBtn = e.target.closest(
-				'.acf-field-image [data-name="add"], .acf-field-image .button, .acf-image-uploader [data-name="add"], .acf-image-uploader .button, .acf-uploader [data-name="add"], .acf-uploader input[type="button"]'
-			);
-			if (!addBtn) return;
-
-			var uploader = addBtn.closest('.acf-image-uploader, .acf-uploader');
-			if (!uploader) return;
-
-			if (e.target.closest('[data-name="remove"]') || e.target.closest('[data-name="edit"]')) return;
-
-			e.preventDefault();
-			e.stopImmediatePropagation();
-
+		// Helper to dynamically open WP Media Frame
+		function triggerMediaUpload(uploader) {
 			if (typeof window.wp === 'undefined' || typeof window.wp.media !== 'function') {
-				alert('Trình tải ảnh WordPress đang được nạp, vui lòng thử lại sau giây lát.');
+				// If media scripts are still initializing, wait 300ms and retry once
+				setTimeout(function() {
+					if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+						triggerMediaUpload(uploader);
+					} else {
+						alert('Trình tải ảnh WordPress đang được nạp, vui lòng đợi 1 giây rồi bấm lại.');
+					}
+				}, 300);
 				return;
 			}
 
@@ -234,6 +237,24 @@ add_action( 'admin_head', function (): void {
 			});
 
 			frame.open();
+		}
+
+		// 1. Direct Capture Click Handler for ACF Image Field Upload
+		document.addEventListener('click', function(e) {
+			var addBtn = e.target.closest(
+				'.acf-field-image [data-name="add"], .acf-field-image .button, .acf-image-uploader [data-name="add"], .acf-image-uploader .button, .acf-uploader [data-name="add"], .acf-uploader input[type="button"]'
+			);
+			if (!addBtn) return;
+
+			var uploader = addBtn.closest('.acf-image-uploader, .acf-uploader');
+			if (!uploader) return;
+
+			if (e.target.closest('[data-name="remove"]') || e.target.closest('[data-name="edit"]')) return;
+
+			e.preventDefault();
+			e.stopImmediatePropagation();
+
+			triggerMediaUpload(uploader);
 		}, true);
 
 		// 2. Direct Capture Click Handler for ACF Image Field Remove
