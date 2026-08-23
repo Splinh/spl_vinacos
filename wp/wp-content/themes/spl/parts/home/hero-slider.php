@@ -103,7 +103,7 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 				<div class="swiper-slide key-visual-slide" data-swiper-autoplay="2999">
 					<div class="image key-img-box">
 						<img class="mb" src="<?php echo esc_url( $mobile_img ); ?>" alt="">
-						<img src="<?php echo esc_url( $desktop_img ); ?>" alt="<?php echo esc_attr( $title_lines[0] ?? '' ); ?>">
+						<img class="desk" src="<?php echo esc_url( $desktop_img ); ?>" alt="<?php echo esc_attr( $title_lines[0] ?? '' ); ?>">
 					</div>
 					<div class="caption container">
 						<div class="content">

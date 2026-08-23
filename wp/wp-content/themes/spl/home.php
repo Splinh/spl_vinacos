@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 $is_en       = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
-$news_banner = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'news-banner-en.jpg' : 'news-banner-vi.jpg' );
+$news_banner = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'news-banner-en.jpg' : 'news-banner-vi.jpg' ) . '?v=hd_logo';
 $queried_obj = get_queried_object();
 $is_cat      = is_category();
 

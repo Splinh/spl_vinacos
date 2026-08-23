@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $is_en_lang  = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
-$img_banner = get_template_directory_uri() . '/static/img/banner/' . ( $is_en_lang ? 'rd-system-banner-en.jpg' : 'rd-system-banner-vi.jpg' );
+$img_banner = get_template_directory_uri() . '/static/img/banner/' . ( $is_en_lang ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg' ) . '?v=brand';
 ?>
 <?php
 $title = $args['title'] ?? ( ( function_exists( 'pll_current_language' ) && 'en' === pll_current_language() ) ? 'R&D SYSTEM & OEM/ODM COSMETICS MANUFACTURING' : 'HỆ THỐNG R&D & GIA CÔNG MỸ PHẨM OEM / ODM' );

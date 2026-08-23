@@ -12,7 +12,7 @@ $section    = $args ?? array();
 $banner_img = is_array( $section['banner_image'] ?? null ) ? ( $section['banner_image']['url'] ?? '' ) : ( is_numeric( $section['banner_image'] ?? null ) ? wp_get_attachment_url( $section['banner_image'] ) : ( $section['banner_image'] ?? '' ) );
 
 if ( empty( $banner_img ) ) {
-	$banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg' );
+	$banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg' ) . '?v=clean';
 }
 ?>
 <section class="banner-child">

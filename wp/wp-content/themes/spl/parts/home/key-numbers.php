@@ -73,7 +73,7 @@ if ( empty( $fig_img ) ) {
 		<h2 class="site-title text-center" data-aos="fade-up" data-aos-duration="700">
 			<?php echo esc_html( $title ); ?>
 		</h2>
-		<div class="home-4-wrap mt-6" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+		<div class="home-4-wrap" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
 			<div class="home-4-list">
 				<?php foreach ( $items as $item ) : ?>
 					<div class="home-4-item">

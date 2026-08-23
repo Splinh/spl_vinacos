@@ -18,7 +18,7 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
 				<div class="image img-cover">
-					<?php $hero_banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'rd-system-banner-en.jpg' : 'rd-system-banner-vi.jpg' ); ?>
+					<?php $hero_banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg' ) . '?v=brand'; ?>
 					<img src="<?php echo esc_url( $hero_banner_img ); ?>" alt="OEM/ODM VINACOS">
 				</div>
 			</div>

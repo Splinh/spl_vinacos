@@ -77,7 +77,7 @@ if ( empty( $items ) ) {
 ?>
 
 <section class="home-5-section" id="products">
-	<div class="block-content bg-neutral-50">
+	<div class="block-content">
 		<h2 class="site-title" data-aos="fade-up" data-aos-duration="700">
 			<?php echo esc_html( $title ); ?>
 		</h2>
