@@ -9728,9 +9728,6 @@ header {
 
   /* SECTION 7: FOOTER */
   body.home footer.footer-vinacos {
-    height: calc(100vh - 84px) !important;
-    min-height: calc(100vh - 84px) !important;
-  body.home footer.footer-vinacos {
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
