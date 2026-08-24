@@ -3467,33 +3467,35 @@ header {
 	}
 
 	/* 3. Mobile Hero Banner: TEXT FIRST, FULL-WIDTH IMAGE BELOW, STRICT SLIDE CLIPPING */
-	.home-banner {
-		padding-top: calc(76px + 35px) !important;
-		padding-bottom: 40px !important;
+	/* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
+	.home-banner,
+	body.home .home-banner {
+		padding-top: calc(76px + 16px) !important;
+		padding-bottom: 24px !important;
+		height: auto !important;
+		min-height: 0 !important;
+		max-height: none !important;
 		position: relative !important;
 		overflow: hidden !important;
+		display: block !important;
 
 		@media (max-width: 768px) {
-			padding-top: calc(62px + 35px) !important;
-			padding-bottom: 35px !important;
+			padding-top: calc(62px + 12px) !important;
+			padding-bottom: 20px !important;
 		}
 
-		.banner-slider {
-			position: relative !important;
-			width: 100% !important;
-			height: 560px !important;
-			max-height: 560px !important;
-			padding-top: 0 !important;
-			overflow: hidden !important;
-		}
-
+		.banner-slider,
 		.swiper,
 		.key-visual-swiper,
 		.swiper-wrapper {
 			position: relative !important;
 			width: 100% !important;
-			height: 100% !important;
+			height: auto !important;
+			min-height: 0 !important;
+			max-height: none !important;
+			padding-top: 0 !important;
 			overflow: hidden !important;
+			display: block !important;
 		}
 
 		.swiper-slide,
@@ -3502,29 +3504,36 @@ header {
 			flex-direction: column !important;
 			justify-content: flex-start !important;
 			align-items: center !important;
-			height: 100% !important;
+			height: auto !important;
+			min-height: 0 !important;
+			max-height: none !important;
 			width: 100% !important;
 			min-width: 100% !important;
 			max-width: 100% !important;
-			position: absolute !important;
-			inset: 0 !important;
-			padding: 10px 16px 20px 16px !important;
+			position: relative !important;
+			inset: auto !important;
+			top: auto !important;
+			left: auto !important;
+			transform: none !important;
+			padding: 10px 16px 16px 16px !important;
 			overflow: hidden !important;
 			box-sizing: border-box !important;
 
 			&:not(.swiper-slide-active) {
+				display: none !important;
 				opacity: 0 !important;
 				visibility: hidden !important;
 				pointer-events: none !important;
 			}
 
 			&.swiper-slide-active {
+				display: flex !important;
 				opacity: 1 !important;
 				visibility: visible !important;
 				pointer-events: auto !important;
 			}
 
-			/* 1. TEXT ON TOP */
+			/* 1. TEXT ON TOP (ORDER 1) */
 			.caption {
 				position: relative !important;
 				top: auto !important;
@@ -3535,10 +3544,11 @@ header {
 				width: 100% !important;
 				max-width: 100% !important;
 				padding: 0 !important;
-				margin: 0 0 10px 0 !important;
+				margin: 0 0 16px 0 !important;
 				text-align: left !important;
 				box-sizing: border-box !important;
 				z-index: 5 !important;
+				order: 1 !important;
 
 				.content {
 					max-width: 100% !important;
@@ -3576,12 +3586,12 @@ header {
 				}
 
 				.button {
-					margin-top: 8px !important;
+					margin-top: 10px !important;
 					margin-bottom: 0 !important;
 				}
 			}
 
-			/* 2. IMAGE BELOW */
+			/* 2. IMAGE BELOW (ORDER 2) */
 			.key-img-box {
 				position: relative !important;
 				top: auto !important;
@@ -3590,17 +3600,17 @@ header {
 				right: auto !important;
 				transform: none !important;
 				width: 100% !important;
-				max-width: min(100%, 270px) !important;
-				height: 270px !important;
-				max-height: 270px !important;
-				margin: 6px auto 0 auto !important;
+				max-width: min(100%, 320px) !important;
+				height: auto !important;
+				min-height: 0 !important;
+				max-height: none !important;
+				margin: 8px auto 0 auto !important;
 				padding: 0 !important;
 				box-sizing: border-box !important;
-				display: flex !important;
-				align-items: center !important;
-				justify-content: center !important;
+				display: block !important;
 				overflow: hidden !important;
 				z-index: 1 !important;
+				order: 2 !important;
 
 				img.desk,
 				img:not(.mb) {
@@ -3609,15 +3619,14 @@ header {
 
 				img.mb {
 					position: relative !important;
+					display: block !important;
 					width: 100% !important;
-					height: 100% !important;
-					max-width: 270px !important;
-					max-height: 270px !important;
+					height: auto !important;
+					max-width: 320px !important;
 					aspect-ratio: 1 / 1 !important;
 					object-fit: contain !important;
 					object-position: center !important;
 					margin: 0 auto !important;
-					display: block !important;
 					border-radius: 16px !important;
 					background-color: #ffffff !important;
 					box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
@@ -3626,11 +3635,12 @@ header {
 		}
 
 		.swiper-pagination {
-			position: absolute !important;
-			bottom: 4px !important;
-			left: 0 !important;
-			right: 0 !important;
+			position: relative !important;
+			bottom: auto !important;
+			left: auto !important;
+			right: auto !important;
 			width: 100% !important;
+			margin-top: 14px !important;
 			display: flex !important;
 			justify-content: center !important;
 			z-index: 10 !important;
