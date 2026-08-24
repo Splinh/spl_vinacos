@@ -4247,6 +4247,15 @@ textarea{
   margin-bottom: 1.25rem;
 }
 @media (max-width: 767px){
+  .home-banner,
+  body.home .home-banner{
+    padding-top: calc(62px + 60px) !important;
+    padding-bottom: 24px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
   .home-banner .banner-slider{
     padding-top: 0 !important;
     height: 640px !important;
@@ -4272,44 +4281,8 @@ textarea{
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-items: center !important;
-    padding: 10px 16px 20px 16px !important;
+    padding: 0 16px 20px 16px !important;
     box-sizing: border-box !important;
-  }
-  .home-banner .key-img-box{
-    position: relative !important;
-    top: auto !important;
-    bottom: auto !important;
-    left: auto !important;
-    right: auto !important;
-    transform: none !important;
-    width: 100% !important;
-    max-width: 280px !important;
-    height: 280px !important;
-    max-height: 280px !important;
-    margin: 10px auto 0 auto !important;
-    order: 2 !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  .home-banner .key-img-box img.desk,
-  .home-banner .key-img-box img:not(.mb){
-    display: none !important;
-  }
-  .home-banner .key-img-box img.mb{
-    position: relative !important;
-    display: block !important;
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 280px !important;
-    max-height: 280px !important;
-    aspect-ratio: 1 / 1 !important;
-    object-fit: contain !important;
-    object-position: center !important;
-    border-radius: 16px !important;
-    background-color: #ffffff !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
-    margin: 0 auto !important;
   }
   .home-banner .caption{
     position: relative !important;
@@ -4321,7 +4294,7 @@ textarea{
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 !important;
-    margin: 0 0 10px 0 !important;
+    margin: 0 0 12px 0 !important;
     order: 1 !important;
     text-align: left !important;
     z-index: 5 !important;
@@ -4351,6 +4324,42 @@ textarea{
   }
   .home-banner .caption .button{
     margin-top: 8px !important;
+  }
+  .home-banner .key-img-box{
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: min(100%, 350px) !important;
+    height: 350px !important;
+    max-height: 350px !important;
+    margin: 8px auto 0 auto !important;
+    order: 2 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  .home-banner .key-img-box img.desk,
+  .home-banner .key-img-box img:not(.mb){
+    display: none !important;
+  }
+  .home-banner .key-img-box img.mb{
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 350px !important;
+    max-height: 350px !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    border-radius: 20px !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
+    margin: 0 auto !important;
   }
   .home-banner .swiper-pagination{
     position: absolute !important;
@@ -9942,10 +9951,8 @@ header {
 
   /* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
   .home-banner,
-  /* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
-  .home-banner,
   body.home .home-banner {
-    padding-top: calc(76px + 16px) !important;
+    padding-top: calc(62px + 60px) !important;
     padding-bottom: 24px !important;
     height: auto !important;
     min-height: 0 !important;
@@ -9957,12 +9964,21 @@ header {
   @media (max-width: 768px) {
     .home-banner,
     body.home .home-banner {
-      padding-top: calc(62px + 12px) !important;
+      padding-top: calc(62px + 60px) !important;
       padding-bottom: 20px !important;
     }
   }
   .home-banner .banner-slider,
-  body.home .home-banner .banner-slider,
+  body.home .home-banner .banner-slider {
+    position: relative !important;
+    width: 100% !important;
+    height: 640px !important;
+    min-height: 640px !important;
+    max-height: 640px !important;
+    padding-top: 0 !important;
+    overflow: hidden !important;
+    display: block !important;
+  }
   .home-banner .swiper,
   body.home .home-banner .swiper,
   .home-banner .key-visual-swiper,
@@ -9970,14 +9986,9 @@ header {
   .home-banner .swiper-wrapper,
   body.home .home-banner .swiper-wrapper {
     position: relative !important;
-    inset: auto !important;
     width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    padding-top: 0 !important;
+    height: 100% !important;
     overflow: hidden !important;
-    display: block !important;
   }
   .home-banner .swiper-slide,
   body.home .home-banner .swiper-slide,
@@ -9987,20 +9998,13 @@ header {
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-items: center !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
+    height: 100% !important;
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
-    position: relative !important;
-    inset: auto !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    transform: none !important;
-    padding: 10px 16px 16px 16px !important;
+    position: absolute !important;
+    inset: 0 !important;
+    padding: 0 16px 20px 16px !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
     opacity: 1 !important;
@@ -10021,7 +10025,7 @@ header {
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 !important;
-    margin: 0 0 16px 0 !important;
+    margin: 0 0 12px 0 !important;
     text-align: left !important;
     box-sizing: border-box !important;
     z-index: 5 !important;
@@ -10083,14 +10087,15 @@ header {
     right: auto !important;
     transform: none !important;
     width: 100% !important;
-    max-width: min(100%, 320px) !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
+    max-width: min(100%, 350px) !important;
+    height: 350px !important;
+    max-height: 350px !important;
     margin: 8px auto 0 auto !important;
     padding: 0 !important;
     box-sizing: border-box !important;
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     overflow: hidden !important;
     z-index: 1 !important;
     order: 2 !important;
@@ -10106,24 +10111,24 @@ header {
     position: relative !important;
     display: block !important;
     width: 100% !important;
-    height: auto !important;
-    max-width: 320px !important;
+    height: 100% !important;
+    max-width: 350px !important;
+    max-height: 350px !important;
     aspect-ratio: 1 / 1 !important;
     object-fit: contain !important;
     object-position: center !important;
     margin: 0 auto !important;
-    border-radius: 16px !important;
+    border-radius: 20px !important;
     background-color: #ffffff !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
   }
   .home-banner .swiper-pagination,
   body.home .home-banner .swiper-pagination {
-    position: relative !important;
-    bottom: auto !important;
-    left: auto !important;
-    right: auto !important;
+    position: absolute !important;
+    bottom: 6px !important;
+    left: 0 !important;
+    right: 0 !important;
     width: 100% !important;
-    margin-top: 14px !important;
     display: flex !important;
     justify-content: center !important;
     z-index: 10 !important;
