@@ -2441,14 +2441,14 @@ header {
 					img.desk,
 					img:not(.mb) {
 						position: static !important;
-						height: min(calc(100vh - 120px), 640px) !important;
-						max-height: calc(100vh - 84px) !important;
+						height: calc(100vh - 100px) !important;
+						max-height: calc(100vh - 100px) !important;
 						width: auto !important;
-						max-width: 50vw !important;
+						max-width: 55vw !important;
 						aspect-ratio: 1 / 1 !important;
 						object-fit: contain !important;
-						object-position: center !important;
-						margin-right: clamp(20px, 4vw, 80px) !important;
+						object-position: right center !important;
+						margin-right: clamp(16px, 3.5vw, 60px) !important;
 						top: auto !important;
 						bottom: auto !important;
 						left: auto !important;
