@@ -3893,7 +3893,7 @@ header {
 		}
 	}
 
-	/* 6. Footer mobile padding */
+	/* 6. Footer mobile full container perfection */
 	footer,
 	footer.footer-vinacos,
 	body.home footer,
@@ -3904,6 +3904,179 @@ header {
 		min-height: 0 !important;
 		max-height: none !important;
 		box-sizing: border-box !important;
+		width: 100% !important;
+		max-width: 100% !important;
+		overflow-x: hidden !important;
+
+		.container {
+			width: 100% !important;
+			max-width: 100% !important;
+			padding-left: 16px !important;
+			padding-right: 16px !important;
+			margin: 0 auto !important;
+			box-sizing: border-box !important;
+		}
+
+		.footer-top,
+		.footer-bot,
+		.section {
+			padding: 0 !important;
+			margin: 0 !important;
+			width: 100% !important;
+			max-width: 100% !important;
+			box-sizing: border-box !important;
+		}
+
+		.footer-top {
+			padding-bottom: 30px !important;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+		}
+
+		.row {
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+			margin-top: 0 !important;
+			display: flex !important;
+			flex-direction: column !important;
+			width: 100% !important;
+			max-width: 100% !important;
+			box-sizing: border-box !important;
+		}
+
+		.col {
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+			margin-top: 0 !important;
+			margin-bottom: 20px !important;
+			width: 100% !important;
+			max-width: 100% !important;
+			box-sizing: border-box !important;
+		}
+
+		.footer-address {
+			width: 100% !important;
+			max-width: 100% !important;
+
+			h3 {
+				margin-bottom: 12px !important;
+
+				span {
+					font-size: 20px !important;
+					line-height: 1.35 !important;
+					font-weight: 800 !important;
+					display: block !important;
+				}
+			}
+
+			ul {
+				margin-top: 10px !important;
+				padding: 0 !important;
+				list-style: none !important;
+
+				li {
+					font-size: 14px !important;
+					line-height: 1.55 !important;
+					margin-bottom: 6px !important;
+					color: #e0ecf8 !important;
+
+					strong {
+						color: #ffffff !important;
+					}
+
+					a {
+						color: #ffffff !important;
+					}
+				}
+			}
+		}
+
+		.footer-form {
+			margin-top: 10px !important;
+			width: 100% !important;
+			max-width: 100% !important;
+
+			p {
+				font-size: 14px !important;
+				line-height: 1.5 !important;
+				margin-bottom: 12px !important;
+				color: #ffffff !important;
+			}
+
+			.row {
+				display: flex !important;
+				flex-direction: column !important;
+				gap: 10px !important;
+				margin: 0 !important;
+				width: 100% !important;
+			}
+
+			.form-group {
+				width: 100% !important;
+				max-width: 100% !important;
+				margin: 0 !important;
+				padding: 0 !important;
+
+				.wpcf7-form-control-wrap {
+					display: block !important;
+					width: 100% !important;
+				}
+
+				input {
+					width: 100% !important;
+					max-width: 100% !important;
+					box-sizing: border-box !important;
+					height: 44px !important;
+					border-radius: 8px !important;
+				}
+
+				&.form-submit {
+					margin-top: 6px !important;
+
+					.btn-lined {
+						width: 100% !important;
+						max-width: 140px !important;
+						justify-content: center !important;
+						height: 42px !important;
+						font-size: 14px !important;
+					}
+				}
+			}
+		}
+
+		.footer-bot {
+			padding-top: 25px !important;
+			margin-top: 0 !important;
+
+			.col {
+				margin-bottom: 20px !important;
+			}
+
+			.footer-title {
+				font-size: 16px !important;
+				margin-bottom: 10px !important;
+				font-weight: 800 !important;
+			}
+
+			.footer-menu {
+				padding: 0 !important;
+				list-style: none !important;
+
+				li {
+					margin-bottom: 6px !important;
+
+					a {
+						font-size: 13.5px !important;
+						color: rgba(255, 255, 255, 0.85) !important;
+					}
+				}
+			}
+
+			.footer-copyright {
+				p, a {
+					font-size: 13px !important;
+				}
+			}
+		}
 	}
 
 	.mobile-wrap:not(.active) {
