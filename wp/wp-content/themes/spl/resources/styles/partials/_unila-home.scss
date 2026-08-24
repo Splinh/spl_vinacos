@@ -3484,18 +3484,24 @@ header {
 			padding-bottom: 20px !important;
 		}
 
-		.banner-slider,
+		.banner-slider {
+			position: relative !important;
+			width: 100% !important;
+			height: 640px !important;
+			min-height: 640px !important;
+			max-height: 640px !important;
+			padding-top: 0 !important;
+			overflow: hidden !important;
+			display: block !important;
+		}
+
 		.swiper,
 		.key-visual-swiper,
 		.swiper-wrapper {
 			position: relative !important;
 			width: 100% !important;
-			height: auto !important;
-			min-height: 0 !important;
-			max-height: none !important;
-			padding-top: 0 !important;
+			height: 100% !important;
 			overflow: hidden !important;
-			display: block !important;
 		}
 
 		.swiper-slide,
@@ -3504,20 +3510,16 @@ header {
 			flex-direction: column !important;
 			justify-content: flex-start !important;
 			align-items: center !important;
-			height: auto !important;
-			min-height: 0 !important;
-			max-height: none !important;
+			height: 100% !important;
 			width: 100% !important;
 			min-width: 100% !important;
 			max-width: 100% !important;
-			position: relative !important;
-			inset: auto !important;
-			top: auto !important;
-			left: auto !important;
-			transform: none !important;
-			padding: 10px 16px 16px 16px !important;
+			position: absolute !important;
+			inset: 0 !important;
+			padding: 10px 16px 20px 16px !important;
 			overflow: hidden !important;
 			visibility: visible !important;
+			box-sizing: border-box !important;
 
 			/* 1. TEXT ON TOP (ORDER 1) */
 			.caption {
