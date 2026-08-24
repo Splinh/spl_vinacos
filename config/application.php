@@ -94,6 +94,10 @@ Config::define( 'NONCE_SALT', env( 'NONCE_SALT' ) );
 	========================================================================== */
 
 /** Security */
+Config::define( 'ADMIN_COOKIE_PATH', '/' );
+Config::define( 'COOKIEPATH', '/' );
+Config::define( 'SITECOOKIEPATH', '/' );
+Config::define( 'COOKIE_DOMAIN', '' );
 Config::define( 'DISALLOW_FILE_EDIT', true );
 Config::define( 'DISALLOW_FILE_MODS', false );
 Config::define( 'FS_METHOD', 'direct' );
