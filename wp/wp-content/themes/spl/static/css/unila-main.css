@@ -10130,7 +10130,7 @@ header {
   .home-4-section,
   body.home .home-4-section {
     padding-top: 40px !important;
-    padding-bottom: 40px !important;
+    padding-bottom: 0 !important;
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
