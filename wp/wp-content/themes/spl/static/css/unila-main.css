@@ -10129,7 +10129,120 @@ header {
     z-index: 10 !important;
   }
 
-  /* 4. Fix Product Showcase (Home 5) horizontal overflow */
+  /* 4. Key Numbers (Home 4) Mobile Optimization */
+  .home-4-section,
+  body.home .home-4-section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    display: block !important;
+    box-sizing: border-box !important;
+  }
+  .home-4-section .container,
+  body.home .home-4-section .container {
+    padding: 0 16px !important;
+    display: block !important;
+    height: auto !important;
+  }
+  .home-4-section .site-title,
+  body.home .home-4-section .site-title {
+    font-size: clamp(24px, 5.5vw, 30px) !important;
+    font-weight: 800 !important;
+    margin-top: 0 !important;
+    margin-bottom: 25px !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
+  }
+  .home-4-section .home-4-wrap,
+  body.home .home-4-section .home-4-wrap {
+    height: auto !important;
+    max-height: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    display: block !important;
+  }
+  .home-4-section .home-4-list,
+  body.home .home-4-section .home-4-list {
+    position: static !important;
+    inset: auto !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    column-gap: 16px !important;
+    row-gap: 20px !important;
+    margin: 0 0 25px 0 !important;
+    padding: 0 !important;
+    pointer-events: auto !important;
+  }
+  .home-4-section .home-4-list .home-4-item,
+  body.home .home-4-section .home-4-list .home-4-item {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: left !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  .home-4-section .home-4-list .home-4-item .number,
+  body.home .home-4-section .home-4-list .home-4-item .number {
+    font-size: clamp(28px, 6.5vw, 36px) !important;
+    font-weight: 800 !important;
+    color: #1a1a1a !important;
+    line-height: 1.1 !important;
+    margin-bottom: 6px !important;
+  }
+  .home-4-section .home-4-list .home-4-item .number .suffix,
+  body.home .home-4-section .home-4-list .home-4-item .number .suffix {
+    color: #1e60a3 !important;
+    font-size: 0.8em !important;
+  }
+  .home-4-section .home-4-list .home-4-item .title,
+  body.home .home-4-section .home-4-list .home-4-item .title {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #4a4a4a !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+  }
+  .home-4-section .home-4-image,
+  body.home .home-4-section .home-4-image {
+    position: relative !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    display: block !important;
+  }
+  .home-4-section .home-4-image img.bg,
+  body.home .home-4-section .home-4-image img.bg {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+  }
+  .home-4-section .home-4-image figure,
+  body.home .home-4-section .home-4-image figure {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 !important;
+  }
+  .home-4-section .home-4-image figure img,
+  body.home .home-4-section .home-4-image figure img {
+    width: 85% !important;
+    height: auto !important;
+    object-fit: contain !important;
+    display: block !important;
+  }
+
+  /* 5. Fix Product Showcase (Home 5) horizontal overflow */
   .home-5-section {
     overflow: hidden !important;
     width: 100% !important;
