@@ -9945,8 +9945,8 @@ header {
   /* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
   .home-banner,
   body.home .home-banner {
-    padding-top: calc(60px + 8px) !important;
-    padding-bottom: 10px !important;
+    padding-top: calc(70px + 60px) !important;
+    padding-bottom: 20px !important;
     height: auto !important;
     min-height: 0 !important;
     max-height: none !important;
@@ -9957,17 +9957,17 @@ header {
   @media (max-width: 768px) {
     .home-banner,
     body.home .home-banner {
-      padding-top: calc(60px + 8px) !important;
-      padding-bottom: 10px !important;
+      padding-top: calc(70px + 60px) !important;
+      padding-bottom: 20px !important;
     }
   }
   .home-banner .banner-slider,
   body.home .home-banner .banner-slider {
     position: relative !important;
     width: 100% !important;
-    height: 510px !important;
-    min-height: 510px !important;
-    max-height: 510px !important;
+    height: 560px !important;
+    min-height: 560px !important;
+    max-height: 560px !important;
     padding-top: 0 !important;
     overflow: hidden !important;
     display: block !important;
@@ -9997,7 +9997,7 @@ header {
     max-width: 100% !important;
     position: absolute !important;
     inset: 0 !important;
-    padding: 0 16px 8px 16px !important;
+    padding: 0 16px 12px 16px !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
     opacity: 1 !important;
@@ -10018,7 +10018,7 @@ header {
     width: 100% !important;
     max-width: 100% !important;
     padding: 0 !important;
-    margin: 0 0 6px 0 !important;
+    margin: 0 !important;
     text-align: left !important;
     box-sizing: border-box !important;
     z-index: 5 !important;
@@ -10031,7 +10031,7 @@ header {
   }
   .home-banner .caption .banner-title,
   body.home .home-banner .key-visual-slide .caption .banner-title {
-    margin-bottom: 4px !important;
+    margin-bottom: 6px !important;
   }
   .home-banner .caption .banner-title .split-parent,
   body.home .home-banner .key-visual-slide .caption .banner-title .split-parent {
@@ -10054,7 +10054,7 @@ header {
     max-width: 100% !important;
     font-size: 13.5px !important;
     line-height: 1.45 !important;
-    margin-bottom: 6px !important;
+    margin-bottom: 8px !important;
   }
   .home-banner .caption .desc p,
   body.home .home-banner .key-visual-slide .caption .desc p {
@@ -10064,11 +10064,11 @@ header {
   }
   .home-banner .caption .button,
   body.home .home-banner .key-visual-slide .caption .button {
-    margin-top: 4px !important;
+    margin-top: 6px !important;
     margin-bottom: 0 !important;
   }
 
-  /* IMAGE BELOW */
+  /* IMAGE BELOW - EXACT 30PX GAP FROM BUTTON */
   .home-banner .key-visual-slide .key-img-box,
   body.home .home-banner .key-visual-slide .key-img-box,
   .home-banner .key-img-box,
@@ -10084,7 +10084,7 @@ header {
     height: auto !important;
     max-height: 320px !important;
     aspect-ratio: 1 / 1 !important;
-    margin: 6px auto 0 auto !important;
+    margin: 30px auto 0 auto !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -10117,7 +10117,7 @@ header {
   .home-banner .swiper-pagination,
   body.home .home-banner .swiper-pagination {
     position: absolute !important;
-    bottom: 2px !important;
+    bottom: 4px !important;
     left: 0 !important;
     right: 0 !important;
     width: 100% !important;
