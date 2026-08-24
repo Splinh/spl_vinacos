@@ -9894,20 +9894,8 @@ body.single-product main,
 body.page-template-single-product main,
 body.woocommerce main,
 body.woocommerce-page main {
-  padding-top: 84px !important;
+  padding-top: 0 !important;
   margin-top: 0 !important;
-}
-
-@media (max-width: 1024px) {
-  body.post-type-archive-product main,
-  body.tax-product_cat main,
-  body.page-template-archive-product main,
-  body.single-product main,
-  body.page-template-single-product main,
-  body.woocommerce main,
-  body.woocommerce-page main {
-    padding-top: 70px !important;
-  }
 }
 
 body.post-type-archive-product .global-breadcrumb,
@@ -9918,8 +9906,9 @@ body.page-template-single-product .global-breadcrumb,
 body.woocommerce .global-breadcrumb,
 body.woocommerce-page .global-breadcrumb {
   background-color: #f8fafc !important;
-  padding-top: 14px !important;
-  padding-bottom: 14px !important;
+  margin-top: calc(84px + 10px) !important;
+  padding-top: 8px !important;
+  padding-bottom: 8px !important;
   margin-bottom: 0 !important;
 }
 
@@ -9931,8 +9920,9 @@ body.woocommerce-page .global-breadcrumb {
   body.page-template-single-product .global-breadcrumb,
   body.woocommerce .global-breadcrumb,
   body.woocommerce-page .global-breadcrumb {
-    padding-top: 12px !important;
-    padding-bottom: 12px !important;
+    margin-top: calc(60px + 10px) !important;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
   }
 }
 
@@ -9943,7 +9933,7 @@ body.single-product .product-detail-section,
 body.page-template-single-product .product-detail-section,
 body.woocommerce .product-section,
 body.woocommerce-page .product-section {
-  padding-top: 36px !important;
+  padding-top: 24px !important;
 }
 
 @media (max-width: 1024px) {
@@ -9954,18 +9944,18 @@ body.woocommerce-page .product-section {
   body.page-template-single-product .product-detail-section,
   body.woocommerce .product-section,
   body.woocommerce-page .product-section {
-    padding-top: 24px !important;
+    padding-top: 16px !important;
   }
 }
 
 /* Fallback for any page where global-breadcrumb is first child */
 main > .global-breadcrumb:first-child {
-  margin-top: 84px !important;
+  margin-top: calc(84px + 10px) !important;
 }
 
 @media (max-width: 1024px) {
   main > .global-breadcrumb:first-child {
-    margin-top: 70px !important;
+    margin-top: calc(60px + 10px) !important;
   }
 }
 
