@@ -9863,11 +9863,11 @@ header {
     box-sizing: border-box !important;
   }
 
-  /* 3. Mobile Hero Banner: TEXT FIRST (ORDER 1), IMAGE BELOW (ORDER 2) */
+  /* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
   .home-banner,
   body.home .home-banner {
-    padding-top: calc(76px + 24px) !important;
-    padding-bottom: 30px !important;
+    padding-top: calc(76px + 16px) !important;
+    padding-bottom: 20px !important;
     position: relative !important;
     overflow: hidden !important;
     height: auto !important;
@@ -9877,25 +9877,29 @@ header {
   @media (max-width: 768px) {
     .home-banner,
     body.home .home-banner {
-      padding-top: calc(62px + 20px) !important;
-      padding-bottom: 24px !important;
+      padding-top: calc(62px + 12px) !important;
+      padding-bottom: 16px !important;
     }
   }
   .home-banner .banner-slider,
-  body.home .home-banner .banner-slider,
-  .home-banner .key-visual-swiper,
-  body.home .home-banner .key-visual-swiper {
-    padding-top: 0 !important;
-    height: auto !important;
-    min-height: 0 !important;
+  body.home .home-banner .banner-slider {
     position: relative !important;
+    width: 100% !important;
+    height: 560px !important;
+    max-height: 560px !important;
+    padding-top: 0 !important;
     overflow: hidden !important;
   }
+  .home-banner .swiper,
+  body.home .home-banner .swiper,
+  .home-banner .key-visual-swiper,
+  body.home .home-banner .key-visual-swiper,
   .home-banner .swiper-wrapper,
   body.home .home-banner .swiper-wrapper {
+    position: relative !important;
     width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
   }
   .home-banner .swiper-slide,
   body.home .home-banner .swiper-slide,
@@ -9903,13 +9907,15 @@ header {
   body.home .home-banner .key-visual-slide {
     display: flex !important;
     flex-direction: column !important;
-    height: auto !important;
-    min-height: 0 !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    height: 100% !important;
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
-    position: relative !important;
-    padding-bottom: 24px !important;
+    position: absolute !important;
+    inset: 0 !important;
+    padding: 10px 16px 20px 16px !important;
     overflow: hidden !important;
     box-sizing: border-box !important;
   }
@@ -9924,10 +9930,9 @@ header {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
-    display: flex !important;
   }
 
-  /* TEXT ON TOP (ORDER 1) */
+  /* TEXT ON TOP */
   .home-banner .key-visual-slide .caption,
   body.home .home-banner .key-visual-slide .caption,
   .home-banner .caption,
@@ -9940,12 +9945,11 @@ header {
     transform: none !important;
     width: 100% !important;
     max-width: 100% !important;
-    padding: 0 16px !important;
-    order: 1 !important;
+    padding: 0 !important;
+    margin: 0 0 10px 0 !important;
     text-align: left !important;
     box-sizing: border-box !important;
     z-index: 5 !important;
-    margin-bottom: 16px !important;
   }
   .home-banner .caption .content,
   body.home .home-banner .key-visual-slide .caption .content {
@@ -9953,29 +9957,29 @@ header {
   }
   .home-banner .caption .banner-title,
   body.home .home-banner .key-visual-slide .caption .banner-title {
-    margin-bottom: 10px !important;
+    margin-bottom: 8px !important;
   }
   .home-banner .caption .banner-title .split-parent,
   body.home .home-banner .key-visual-slide .caption .banner-title .split-parent {
-    font-size: clamp(22px, 5.5vw, 30px) !important;
-    line-height: 1.3 !important;
+    font-size: clamp(20px, 5.2vw, 28px) !important;
+    line-height: 1.25 !important;
     max-width: 100% !important;
     overflow: visible !important;
-    padding: 2px 0 !important;
+    padding: 1px 0 !important;
   }
   .home-banner .caption .banner-title .split-parent strong,
   body.home .home-banner .key-visual-slide .caption .banner-title .split-parent strong {
     opacity: 1 !important;
     transform: none !important;
     display: block !important;
-    line-height: 1.3 !important;
+    line-height: 1.25 !important;
   }
   .home-banner .caption .desc,
   body.home .home-banner .key-visual-slide .caption .desc {
     max-width: 100% !important;
-    font-size: 14px !important;
-    line-height: 1.55 !important;
-    margin-bottom: 12px !important;
+    font-size: 13.5px !important;
+    line-height: 1.5 !important;
+    margin-bottom: 8px !important;
   }
   .home-banner .caption .desc p,
   body.home .home-banner .key-visual-slide .caption .desc p {
@@ -9984,11 +9988,11 @@ header {
   }
   .home-banner .caption .button,
   body.home .home-banner .key-visual-slide .caption .button {
-    margin-top: 12px !important;
-    margin-bottom: 6px !important;
+    margin-top: 8px !important;
+    margin-bottom: 0 !important;
   }
 
-  /* IMAGE BELOW (ORDER 2) - FULL WIDTH */
+  /* IMAGE BELOW */
   .home-banner .key-visual-slide .key-img-box,
   body.home .home-banner .key-visual-slide .key-img-box,
   .home-banner .key-img-box,
@@ -10000,16 +10004,17 @@ header {
     right: auto !important;
     transform: none !important;
     width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
-    order: 2 !important;
-    margin: 0 auto !important;
-    padding: 0 16px !important;
+    max-width: min(100%, 270px) !important;
+    height: 270px !important;
+    max-height: 270px !important;
+    margin: 6px auto 0 auto !important;
+    padding: 0 !important;
     box-sizing: border-box !important;
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     overflow: hidden !important;
+    z-index: 1 !important;
   }
   .home-banner .key-img-box img.desk,
   .home-banner .key-img-box img:not(.mb),
@@ -10021,10 +10026,10 @@ header {
   body.home .home-banner .key-visual-slide .key-img-box img.mb {
     position: relative !important;
     width: 100% !important;
-    max-width: min(100%, 380px) !important;
-    height: auto !important;
+    height: 100% !important;
+    max-width: 270px !important;
+    max-height: 270px !important;
     aspect-ratio: 1 / 1 !important;
-    max-height: 380px !important;
     object-fit: contain !important;
     object-position: center !important;
     margin: 0 auto !important;
@@ -10042,6 +10047,7 @@ header {
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
+    z-index: 10 !important;
   }
 
   /* 4. Fix Product Showcase (Home 5) horizontal overflow */
