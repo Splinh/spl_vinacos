@@ -10030,7 +10030,7 @@ main > .global-breadcrumb:first-child {
   /* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
   .home-banner,
   body.home .home-banner {
-    padding-top: calc(70px + 60px) !important;
+    padding-top: 60px !important;
     padding-bottom: 20px !important;
     height: auto !important;
     min-height: 0 !important;
@@ -10042,7 +10042,7 @@ main > .global-breadcrumb:first-child {
   @media (max-width: 768px) {
     .home-banner,
     body.home .home-banner {
-      padding-top: calc(70px + 60px) !important;
+      padding-top: 60px !important;
       padding-bottom: 20px !important;
     }
   }

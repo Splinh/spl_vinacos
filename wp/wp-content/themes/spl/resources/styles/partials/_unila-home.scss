@@ -3520,11 +3520,10 @@ main > .global-breadcrumb:first-child {
 		box-sizing: border-box !important;
 	}
 
-	/* 3. Mobile Hero Banner: TEXT FIRST, FULL-WIDTH IMAGE BELOW, STRICT SLIDE CLIPPING */
 	/* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
 	.home-banner,
 	body.home .home-banner {
-		padding-top: calc(70px + 60px) !important;
+		padding-top: 60px !important;
 		padding-bottom: 20px !important;
 		height: auto !important;
 		min-height: 0 !important;
@@ -3534,7 +3533,7 @@ main > .global-breadcrumb:first-child {
 		display: block !important;
 
 		@media (max-width: 768px) {
-			padding-top: calc(70px + 60px) !important;
+			padding-top: 60px !important;
 			padding-bottom: 20px !important;
 		}
 
