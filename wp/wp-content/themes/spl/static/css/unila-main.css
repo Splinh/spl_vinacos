@@ -9863,41 +9863,48 @@ header {
     box-sizing: border-box !important;
   }
 
-  /* 3. Mobile Hero Banner: TEXT FIRST, FULL-WIDTH IMAGE BELOW, STRICT SLIDE CLIPPING */
-  .home-banner {
-    padding-top: calc(76px + 35px) !important;
-    padding-bottom: 40px !important;
+  /* 3. Mobile Hero Banner: TEXT FIRST (ORDER 1), IMAGE BELOW (ORDER 2) */
+  .home-banner,
+  body.home .home-banner {
+    padding-top: calc(76px + 24px) !important;
+    padding-bottom: 30px !important;
     position: relative !important;
     overflow: hidden !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
   }
   @media (max-width: 768px) {
-    .home-banner {
-      padding-top: calc(62px + 35px) !important;
-      padding-bottom: 35px !important;
+    .home-banner,
+    body.home .home-banner {
+      padding-top: calc(62px + 20px) !important;
+      padding-bottom: 24px !important;
     }
   }
-  .home-banner .banner-slider {
+  .home-banner .banner-slider,
+  body.home .home-banner .banner-slider,
+  .home-banner .key-visual-swiper,
+  body.home .home-banner .key-visual-swiper {
     padding-top: 0 !important;
     height: auto !important;
+    min-height: 0 !important;
     position: relative !important;
     overflow: hidden !important;
   }
-  .home-banner .swiper,
-  .home-banner .key-visual-swiper {
-    position: relative !important;
-    inset: auto !important;
-    height: auto !important;
-    width: 100% !important;
-    overflow: hidden !important;
-  }
-  .home-banner .swiper-wrapper {
+  .home-banner .swiper-wrapper,
+  body.home .home-banner .swiper-wrapper {
     width: 100% !important;
     height: auto !important;
+    min-height: 0 !important;
   }
-  .home-banner .swiper-slide {
+  .home-banner .swiper-slide,
+  body.home .home-banner .swiper-slide,
+  .home-banner .key-visual-slide,
+  body.home .home-banner .key-visual-slide {
     display: flex !important;
     flex-direction: column !important;
     height: auto !important;
+    min-height: 0 !important;
     width: 100% !important;
     min-width: 100% !important;
     max-width: 100% !important;
@@ -9906,19 +9913,25 @@ header {
     overflow: hidden !important;
     box-sizing: border-box !important;
   }
-  .home-banner .swiper-slide:not(.swiper-slide-active) {
+  .home-banner .swiper-slide:not(.swiper-slide-active),
+  body.home .home-banner .swiper-slide:not(.swiper-slide-active) {
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
   }
-  .home-banner .swiper-slide.swiper-slide-active {
+  .home-banner .swiper-slide.swiper-slide-active,
+  body.home .home-banner .swiper-slide.swiper-slide-active {
     opacity: 1 !important;
     visibility: visible !important;
     pointer-events: auto !important;
+    display: flex !important;
   }
 
   /* TEXT ON TOP (ORDER 1) */
-  .home-banner .caption {
+  .home-banner .key-visual-slide .caption,
+  body.home .home-banner .key-visual-slide .caption,
+  .home-banner .caption,
+  body.home .home-banner .caption {
     position: relative !important;
     top: auto !important;
     left: auto !important;
@@ -9934,41 +9947,52 @@ header {
     z-index: 5 !important;
     margin-bottom: 16px !important;
   }
-  .home-banner .caption .content {
+  .home-banner .caption .content,
+  body.home .home-banner .key-visual-slide .caption .content {
     max-width: 100% !important;
   }
-  .home-banner .caption .banner-title {
+  .home-banner .caption .banner-title,
+  body.home .home-banner .key-visual-slide .caption .banner-title {
     margin-bottom: 10px !important;
   }
-  .home-banner .caption .banner-title .split-parent {
+  .home-banner .caption .banner-title .split-parent,
+  body.home .home-banner .key-visual-slide .caption .banner-title .split-parent {
     font-size: clamp(22px, 5.5vw, 30px) !important;
     line-height: 1.3 !important;
     max-width: 100% !important;
     overflow: visible !important;
     padding: 2px 0 !important;
   }
-  .home-banner .caption .banner-title .split-parent strong {
+  .home-banner .caption .banner-title .split-parent strong,
+  body.home .home-banner .key-visual-slide .caption .banner-title .split-parent strong {
     opacity: 1 !important;
     transform: none !important;
     display: block !important;
     line-height: 1.3 !important;
   }
-  .home-banner .caption .desc {
+  .home-banner .caption .desc,
+  body.home .home-banner .key-visual-slide .caption .desc {
     max-width: 100% !important;
     font-size: 14px !important;
     line-height: 1.55 !important;
     margin-bottom: 12px !important;
   }
-  .home-banner .caption .desc p {
+  .home-banner .caption .desc p,
+  body.home .home-banner .key-visual-slide .caption .desc p {
     opacity: 1 !important;
     transform: none !important;
   }
-  .home-banner .caption .button {
+  .home-banner .caption .button,
+  body.home .home-banner .key-visual-slide .caption .button {
     margin-top: 12px !important;
+    margin-bottom: 6px !important;
   }
 
-  /* IMAGE BELOW (ORDER 2) - NEAR FULL WIDTH */
-  .home-banner .key-img-box {
+  /* IMAGE BELOW (ORDER 2) - FULL WIDTH */
+  .home-banner .key-visual-slide .key-img-box,
+  body.home .home-banner .key-visual-slide .key-img-box,
+  .home-banner .key-img-box,
+  body.home .home-banner .key-img-box {
     position: relative !important;
     top: auto !important;
     bottom: auto !important;
@@ -9978,6 +10002,7 @@ header {
     width: 100% !important;
     max-width: 100% !important;
     height: auto !important;
+    min-height: 0 !important;
     max-height: none !important;
     order: 2 !important;
     margin: 0 auto !important;
@@ -9987,16 +10012,19 @@ header {
     overflow: hidden !important;
   }
   .home-banner .key-img-box img.desk,
-  .home-banner .key-img-box img:not(.mb) {
+  .home-banner .key-img-box img:not(.mb),
+  body.home .home-banner .key-visual-slide .key-img-box img.desk,
+  body.home .home-banner .key-visual-slide .key-img-box img:not(.mb) {
     display: none !important;
   }
-  .home-banner .key-img-box img.mb {
+  .home-banner .key-img-box img.mb,
+  body.home .home-banner .key-visual-slide .key-img-box img.mb {
     position: relative !important;
     width: 100% !important;
-    max-width: min(100%, 360px) !important;
+    max-width: min(100%, 380px) !important;
     height: auto !important;
     aspect-ratio: 1 / 1 !important;
-    max-height: 360px !important;
+    max-height: 380px !important;
     object-fit: contain !important;
     object-position: center !important;
     margin: 0 auto !important;
@@ -10005,7 +10033,8 @@ header {
     background-color: #ffffff !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06) !important;
   }
-  .home-banner .swiper-pagination {
+  .home-banner .swiper-pagination,
+  body.home .home-banner .swiper-pagination {
     position: absolute !important;
     bottom: 4px !important;
     left: 0 !important;
