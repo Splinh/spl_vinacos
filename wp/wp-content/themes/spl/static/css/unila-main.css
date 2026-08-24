@@ -8984,7 +8984,7 @@ header {
     height: 100vh !important;
     min-height: 100vh !important;
     max-height: 100vh !important;
-    padding-top: 84px !important;
+    padding-top: 0 !important;
     box-sizing: border-box !important;
     margin: 0 !important;
     overflow: hidden !important;
