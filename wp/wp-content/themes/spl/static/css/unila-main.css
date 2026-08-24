@@ -10242,32 +10242,55 @@ header {
     display: block !important;
   }
 
-  /* 5. Fix Product Showcase (Home 5) horizontal overflow */
-  .home-5-section {
+  /* 5. Fix Product Showcase (Home 5) mobile padding & layout */
+  .home-5-section,
+  body.home .home-5-section {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
     overflow: hidden !important;
     width: 100% !important;
     max-width: 100% !important;
+    display: block !important;
+    box-sizing: border-box !important;
   }
-  .home-5-section .home-5-wrap {
+  .home-5-section .home-5-wrap,
+  body.home .home-5-section .home-5-wrap {
     width: 100% !important;
     max-width: 100% !important;
     flex-direction: column !important;
   }
-  .home-5-section .home-5-caption,
-  .home-5-section .site-title {
+  .home-5-section .site-title,
+  body.home .home-5-section .site-title {
+    font-size: clamp(24px, 5.5vw, 30px) !important;
+    font-weight: 800 !important;
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+    text-align: center !important;
+    line-height: 1.25 !important;
     width: 100% !important;
     max-width: 100% !important;
   }
-  .home-5-section .home-5-image {
+  .home-5-section .home-5-caption,
+  body.home .home-5-section .home-5-caption {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .home-5-section .home-5-image,
+  body.home .home-5-section .home-5-image {
     width: 100% !important;
     max-width: 100% !important;
     overflow: hidden !important;
     padding: 10px 0 !important;
   }
-  .home-5-section .home-5-image .swiper-wrapper {
+  .home-5-section .home-5-image .swiper-wrapper,
+  body.home .home-5-section .home-5-image .swiper-wrapper {
     width: 100% !important;
   }
-  .home-5-section .home-5-image .swiper-slide {
+  .home-5-section .home-5-image .swiper-slide,
+  body.home .home-5-section .home-5-image .swiper-slide {
     width: 120px !important;
     max-width: 120px !important;
   }
