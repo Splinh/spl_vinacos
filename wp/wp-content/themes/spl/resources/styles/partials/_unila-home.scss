@@ -3409,15 +3409,14 @@ header {
 }
 
 /* ==========================================================================
-   PRODUCT ARCHIVE & SINGLE PRODUCT DETAIL TOP SPACING (NO BANNER)
+   PRODUCT ARCHIVE & SINGLE PRODUCT DETAIL TOP SPACING (NO BANNER ONLY)
    ========================================================================== */
 body.post-type-archive-product,
 body.tax-product_cat,
 body.page-template-archive-product,
 body.single-product,
 body.page-template-single-product,
-body.woocommerce,
-body.woocommerce-page {
+body.woocommerce-shop {
 	main {
 		padding-top: 0 !important;
 		margin-top: 0 !important;
@@ -3448,15 +3447,6 @@ body.woocommerce-page {
 		@media (max-width: 1024px) {
 			padding-top: 16px !important;
 		}
-	}
-}
-
-/* Fallback for any page where global-breadcrumb is the first element inside main */
-main > .global-breadcrumb:first-child {
-	margin-top: calc(84px + 10px) !important;
-
-	@media (max-width: 1024px) {
-		margin-top: calc(60px + 10px) !important;
 	}
 }
 

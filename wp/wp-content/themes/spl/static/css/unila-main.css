@@ -9892,8 +9892,7 @@ body.tax-product_cat main,
 body.page-template-archive-product main,
 body.single-product main,
 body.page-template-single-product main,
-body.woocommerce main,
-body.woocommerce-page main {
+body.woocommerce-shop main {
   padding-top: 0 !important;
   margin-top: 0 !important;
 }
@@ -9903,8 +9902,7 @@ body.tax-product_cat .global-breadcrumb,
 body.page-template-archive-product .global-breadcrumb,
 body.single-product .global-breadcrumb,
 body.page-template-single-product .global-breadcrumb,
-body.woocommerce .global-breadcrumb,
-body.woocommerce-page .global-breadcrumb {
+body.woocommerce-shop .global-breadcrumb {
   background-color: #f8fafc !important;
   margin-top: calc(84px + 10px) !important;
   padding-top: 8px !important;
@@ -9918,8 +9916,7 @@ body.woocommerce-page .global-breadcrumb {
   body.page-template-archive-product .global-breadcrumb,
   body.single-product .global-breadcrumb,
   body.page-template-single-product .global-breadcrumb,
-  body.woocommerce .global-breadcrumb,
-  body.woocommerce-page .global-breadcrumb {
+  body.woocommerce-shop .global-breadcrumb {
     margin-top: calc(60px + 10px) !important;
     padding-top: 6px !important;
     padding-bottom: 6px !important;
@@ -9931,8 +9928,7 @@ body.tax-product_cat .product-section,
 body.page-template-archive-product .product-section,
 body.single-product .product-detail-section,
 body.page-template-single-product .product-detail-section,
-body.woocommerce .product-section,
-body.woocommerce-page .product-section {
+body.woocommerce-shop .product-section {
   padding-top: 24px !important;
 }
 
@@ -9942,20 +9938,8 @@ body.woocommerce-page .product-section {
   body.page-template-archive-product .product-section,
   body.single-product .product-detail-section,
   body.page-template-single-product .product-detail-section,
-  body.woocommerce .product-section,
-  body.woocommerce-page .product-section {
+  body.woocommerce-shop .product-section {
     padding-top: 16px !important;
-  }
-}
-
-/* Fallback for any page where global-breadcrumb is first child */
-main > .global-breadcrumb:first-child {
-  margin-top: calc(84px + 10px) !important;
-}
-
-@media (max-width: 1024px) {
-  main > .global-breadcrumb:first-child {
-    margin-top: calc(60px + 10px) !important;
   }
 }
 
