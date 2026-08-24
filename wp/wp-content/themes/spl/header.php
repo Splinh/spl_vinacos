@@ -18,9 +18,8 @@ defined( 'ABSPATH' ) || exit;
 	<?php wp_head(); ?>
 </head>
 <?php
-global $post;
 $body_extra = 'wp-custom-logo';
-if ( is_front_page() || is_home() || is_page_template( 'templates/template-page-home.php' ) || ( isset( $post->ID ) && in_array( (int) $post->ID, [ 10, 1121 ], true ) ) ) {
+if ( ! is_shop() && ! is_product() && ! is_tax( 'product_cat' ) && ! is_post_type_archive( 'product' ) && ! is_archive() && ! is_single() && ( is_front_page() || ( is_page() && ( is_page_template( 'templates/template-page-home.php' ) || in_array( (int) get_the_ID(), [ 10, 1121 ], true ) ) ) ) ) {
 	$body_extra .= ' home page-template page-template-pages page-template-page-home page-template-pagespage-home-php';
 }
 ?>
