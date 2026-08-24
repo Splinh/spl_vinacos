@@ -4248,30 +4248,49 @@ textarea{
 }
 @media (max-width: 767px){
   .home-banner .banner-slider{
-    padding-top: 140% !important;
+    padding-top: 0 !important;
+    height: auto !important;
   }
   .home-banner .key-img-box{
-    position: absolute !important;
-    top: 0 !important;
-    bottom: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
+    position: relative !important;
+    top: auto !important;
+    bottom: auto !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
     width: 100% !important;
-    height: 100% !important;
+    max-width: 320px !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    margin: 10px auto 0 auto !important;
+    order: 2 !important;
   }
   .home-banner .key-img-box img.mb{
+    position: relative !important;
     width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    object-position: center 60% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    border-radius: 16px !important;
+    margin: 0 auto !important;
   }
   .home-banner .caption{
-    top: 50% !important;
-    transform: translate(-50%, -50%) !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
     bottom: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 16px !important;
+    margin: 0 0 16px 0 !important;
+    order: 1 !important;
+    text-align: left !important;
   }
   .home-banner .banner-title{
-    margin-bottom: 0.4rem !important;
+    margin-bottom: 0.5rem !important;
   }
   .home-banner .split-parent{
     font-size: 1.4rem !important;
@@ -4279,11 +4298,14 @@ textarea{
   }
   .home-banner .desc{
     font-size: 14px !important;
-    line-height: 1.35 !important;
-    max-width: 98% !important;
+    line-height: 1.5 !important;
+    max-width: 100% !important;
+    margin-bottom: 10px !important;
   }
   .home-banner .swiper-pagination{
-    bottom: 8px !important;
+    position: relative !important;
+    bottom: auto !important;
+    margin-top: 12px !important;
   }
 }
 @media (min-width: 768px){
