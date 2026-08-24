@@ -10227,8 +10227,9 @@ header {
     right: auto !important;
     transform: none !important;
     width: 100% !important;
-    max-width: 280px !important;
+    max-width: 100% !important;
     margin: 20px auto 0 auto !important;
+    padding: 0 !important;
     height: auto !important;
     aspect-ratio: 1 / 1 !important;
     display: block !important;
@@ -10263,8 +10264,8 @@ header {
     top: auto !important;
     left: auto !important;
     transform: none !important;
-    width: 85% !important;
-    height: 85% !important;
+    width: 100% !important;
+    height: 100% !important;
     object-fit: contain !important;
     display: block !important;
     margin: auto !important;
