@@ -9941,18 +9941,7 @@ header {
     overflow: hidden !important;
     box-sizing: border-box !important;
   }
-  .home-banner .swiper-slide:not(.swiper-slide-active),
-  body.home .home-banner .swiper-slide:not(.swiper-slide-active) {
-    opacity: 0 !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-  .home-banner .swiper-slide.swiper-slide-active,
-  body.home .home-banner .swiper-slide.swiper-slide-active {
-    opacity: 1 !important;
-    visibility: visible !important;
-    pointer-events: auto !important;
-  }
+
 
   /* TEXT ON TOP */
   .home-banner .key-visual-slide .caption,

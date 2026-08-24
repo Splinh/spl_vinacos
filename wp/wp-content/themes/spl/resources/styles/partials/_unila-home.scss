@@ -3517,21 +3517,7 @@ header {
 			transform: none !important;
 			padding: 10px 16px 16px 16px !important;
 			overflow: hidden !important;
-			box-sizing: border-box !important;
-
-			&:not(.swiper-slide-active) {
-				display: none !important;
-				opacity: 0 !important;
-				visibility: hidden !important;
-				pointer-events: none !important;
-			}
-
-			&.swiper-slide-active {
-				display: flex !important;
-				opacity: 1 !important;
-				visibility: visible !important;
-				pointer-events: auto !important;
-			}
+			visibility: visible !important;
 
 			/* 1. TEXT ON TOP (ORDER 1) */
 			.caption {
