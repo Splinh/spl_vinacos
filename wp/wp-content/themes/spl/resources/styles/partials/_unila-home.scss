@@ -3817,6 +3817,19 @@ header {
 		}
 	}
 
+	/* 6. Footer mobile padding */
+	footer,
+	footer.footer-vinacos,
+	body.home footer,
+	body.home footer.footer-vinacos {
+		padding-top: 40px !important;
+		padding-bottom: 30px !important;
+		height: auto !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		box-sizing: border-box !important;
+	}
+
 	.mobile-wrap:not(.active) {
 		display: none !important;
 		pointer-events: none !important;
