@@ -10080,10 +10080,11 @@ header {
     right: auto !important;
     transform: none !important;
     width: 100% !important;
-    max-width: min(100%, 290px) !important;
-    height: 280px !important;
-    max-height: 280px !important;
-    margin: 8px auto 0 auto !important;
+    max-width: 360px !important;
+    height: auto !important;
+    max-height: none !important;
+    aspect-ratio: 1 / 1 !important;
+    margin: 16px auto 0 auto !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -10092,7 +10093,6 @@ header {
     overflow: hidden !important;
     z-index: 1 !important;
     order: 2 !important;
-    border-radius: 16px !important;
   }
   .home-banner .key-img-box img.desk,
   .home-banner .key-img-box img:not(.mb),
@@ -10106,12 +10106,12 @@ header {
     display: block !important;
     width: 100% !important;
     height: 100% !important;
-    max-width: 290px !important;
-    max-height: 280px !important;
+    max-width: 100% !important;
+    max-height: none !important;
     aspect-ratio: 1 / 1 !important;
     object-fit: contain !important;
     object-position: center !important;
-    transform: none !important;
+    transform: scale(1.35) !important;
     margin: 0 auto !important;
   }
   .home-banner .swiper-pagination,
