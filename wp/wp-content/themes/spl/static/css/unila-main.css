@@ -9026,19 +9026,19 @@ header {
   body.home .home-banner .key-visual-slide .key-img-box img,
   body.home .home-banner .key-visual-slide .key-img-box img.desk {
     position: static !important;
-    height: calc(100vh - 84px) !important;
+    height: min(calc(100vh - 120px), 640px) !important;
     max-height: calc(100vh - 84px) !important;
     width: auto !important;
-    max-width: none !important;
+    max-width: 50vw !important;
+    aspect-ratio: 1 / 1 !important;
     object-fit: contain !important;
-    object-position: right center !important;
+    object-position: center !important;
     margin-right: clamp(20px, 4vw, 80px) !important;
     top: auto !important;
     bottom: auto !important;
     left: auto !important;
     right: auto !important;
-    transform: scale(1.06) !important;
-    transform-origin: right center !important;
+    transform: none !important;
     display: block !important;
   }
   body.home .home-banner .key-visual-slide .caption {
