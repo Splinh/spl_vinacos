@@ -55,7 +55,7 @@ function spl_enqueue_unila_assets(): void {
 		return;
 	}
 
-	$ver = '1.3.7';
+	$ver = '1.3.8';
 	$dir = get_template_directory_uri() . '/static';
 
 	// Unila Core CSS — global.min.css (reset, grid, typography, header, footer).
