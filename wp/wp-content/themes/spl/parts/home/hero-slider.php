@@ -101,10 +101,6 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 					$btn_url  = function_exists( 'spl_fix_dynamic_url' ) ? spl_fix_dynamic_url( $raw_url ) : $raw_url;
 				?>
 				<div class="swiper-slide key-visual-slide" data-swiper-autoplay="2999">
-					<div class="image key-img-box">
-						<img class="mb" src="<?php echo esc_url( $mobile_img ); ?>" alt="">
-						<img class="desk" src="<?php echo esc_url( $desktop_img ); ?>" alt="<?php echo esc_attr( $title_lines[0] ?? '' ); ?>">
-					</div>
 					<div class="caption container">
 						<div class="content">
 							<div class="banner-title">
@@ -126,6 +122,10 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 							</a>
 						</div>
 						<?php endif; ?>
+					</div>
+					<div class="image key-img-box">
+						<img class="mb" src="<?php echo esc_url( $mobile_img ); ?>" alt="">
+						<img class="desk" src="<?php echo esc_url( $desktop_img ); ?>" alt="<?php echo esc_attr( $title_lines[0] ?? '' ); ?>">
 					</div>
 				</div>
 				<?php endfor; ?>
