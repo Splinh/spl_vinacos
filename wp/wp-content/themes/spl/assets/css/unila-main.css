@@ -9885,6 +9885,91 @@ header {
 }
 
 /* ==========================================================================
+   PRODUCT ARCHIVE & SINGLE PRODUCT DETAIL TOP SPACING (NO BANNER)
+   ========================================================================== */
+body.post-type-archive-product main,
+body.tax-product_cat main,
+body.page-template-archive-product main,
+body.single-product main,
+body.page-template-single-product main,
+body.woocommerce main,
+body.woocommerce-page main {
+  padding-top: 84px !important;
+  margin-top: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  body.post-type-archive-product main,
+  body.tax-product_cat main,
+  body.page-template-archive-product main,
+  body.single-product main,
+  body.page-template-single-product main,
+  body.woocommerce main,
+  body.woocommerce-page main {
+    padding-top: 70px !important;
+  }
+}
+
+body.post-type-archive-product .global-breadcrumb,
+body.tax-product_cat .global-breadcrumb,
+body.page-template-archive-product .global-breadcrumb,
+body.single-product .global-breadcrumb,
+body.page-template-single-product .global-breadcrumb,
+body.woocommerce .global-breadcrumb,
+body.woocommerce-page .global-breadcrumb {
+  background-color: #f8fafc !important;
+  padding-top: 14px !important;
+  padding-bottom: 14px !important;
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 1024px) {
+  body.post-type-archive-product .global-breadcrumb,
+  body.tax-product_cat .global-breadcrumb,
+  body.page-template-archive-product .global-breadcrumb,
+  body.single-product .global-breadcrumb,
+  body.page-template-single-product .global-breadcrumb,
+  body.woocommerce .global-breadcrumb,
+  body.woocommerce-page .global-breadcrumb {
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+  }
+}
+
+body.post-type-archive-product .product-section,
+body.tax-product_cat .product-section,
+body.page-template-archive-product .product-section,
+body.single-product .product-detail-section,
+body.page-template-single-product .product-detail-section,
+body.woocommerce .product-section,
+body.woocommerce-page .product-section {
+  padding-top: 36px !important;
+}
+
+@media (max-width: 1024px) {
+  body.post-type-archive-product .product-section,
+  body.tax-product_cat .product-section,
+  body.page-template-archive-product .product-section,
+  body.single-product .product-detail-section,
+  body.page-template-single-product .product-detail-section,
+  body.woocommerce .product-section,
+  body.woocommerce-page .product-section {
+    padding-top: 24px !important;
+  }
+}
+
+/* Fallback for any page where global-breadcrumb is first child */
+main > .global-breadcrumb:first-child {
+  margin-top: 84px !important;
+}
+
+@media (max-width: 1024px) {
+  main > .global-breadcrumb:first-child {
+    margin-top: 70px !important;
+  }
+}
+
+/* ==========================================================================
    MOBILE RESPONSIVE PERFECTION (< 1025px)
    ========================================================================== */
 @media (max-width: 1024px) {
