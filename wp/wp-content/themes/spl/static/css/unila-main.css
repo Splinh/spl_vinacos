@@ -4258,9 +4258,9 @@ textarea{
   }
   .home-banner .banner-slider{
     padding-top: 0 !important;
-    height: 580px !important;
-    min-height: 580px !important;
-    max-height: 580px !important;
+    height: 560px !important;
+    min-height: 560px !important;
+    max-height: 560px !important;
     position: relative !important;
     overflow: hidden !important;
   }
@@ -4336,16 +4336,16 @@ textarea{
     right: auto !important;
     transform: none !important;
     width: 100% !important;
-    max-width: min(100%, 340px) !important;
-    height: 320px !important;
-    max-height: 320px !important;
-    margin: 6px auto 0 auto !important;
+    max-width: min(100%, 290px) !important;
+    height: 280px !important;
+    max-height: 280px !important;
+    margin: 8px auto 0 auto !important;
     order: 2 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     overflow: hidden !important;
-    border-radius: 20px !important;
+    border-radius: 16px !important;
   }
   .home-banner .key-img-box img.desk,
   .home-banner .key-img-box img:not(.mb){
@@ -4356,13 +4356,12 @@ textarea{
     display: block !important;
     width: 100% !important;
     height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
+    max-width: 290px !important;
+    max-height: 280px !important;
     aspect-ratio: 1 / 1 !important;
     object-fit: contain !important;
     object-position: center !important;
-    transform: scale(1.3) !important;
-    transform-origin: center center !important;
+    transform: none !important;
     margin: 0 auto !important;
   }
   .home-banner .swiper-pagination{
@@ -9976,9 +9975,9 @@ header {
   body.home .home-banner .banner-slider {
     position: relative !important;
     width: 100% !important;
-    height: 580px !important;
-    min-height: 580px !important;
-    max-height: 580px !important;
+    height: 560px !important;
+    min-height: 560px !important;
+    max-height: 560px !important;
     padding-top: 0 !important;
     overflow: hidden !important;
     display: block !important;
@@ -10060,7 +10059,7 @@ header {
     line-height: 1.25 !important;
     color: #1a1a1a !important;
   }
-  .home-banner .caption .desc,
+  .home-banner .desc,
   body.home .home-banner .key-visual-slide .caption .desc {
     max-width: 100% !important;
     font-size: 13.5px !important;
@@ -10091,10 +10090,10 @@ header {
     right: auto !important;
     transform: none !important;
     width: 100% !important;
-    max-width: min(100%, 340px) !important;
-    height: 320px !important;
-    max-height: 320px !important;
-    margin: 6px auto 0 auto !important;
+    max-width: min(100%, 290px) !important;
+    height: 280px !important;
+    max-height: 280px !important;
+    margin: 8px auto 0 auto !important;
     padding: 0 !important;
     box-sizing: border-box !important;
     display: flex !important;
@@ -10103,7 +10102,7 @@ header {
     overflow: hidden !important;
     z-index: 1 !important;
     order: 2 !important;
-    border-radius: 20px !important;
+    border-radius: 16px !important;
   }
   .home-banner .key-img-box img.desk,
   .home-banner .key-img-box img:not(.mb),
@@ -10117,13 +10116,12 @@ header {
     display: block !important;
     width: 100% !important;
     height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
+    max-width: 290px !important;
+    max-height: 280px !important;
     aspect-ratio: 1 / 1 !important;
     object-fit: contain !important;
     object-position: center !important;
-    transform: scale(1.3) !important;
-    transform-origin: center center !important;
+    transform: none !important;
     margin: 0 auto !important;
   }
   .home-banner .swiper-pagination,
