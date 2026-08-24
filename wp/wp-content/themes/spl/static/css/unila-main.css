@@ -4414,22 +4414,15 @@ textarea{
     overflow: visible !important;
   }
 }
-.home-banner .caption{
-  --tw-translate-x: -50%;
-  --tw-translate-y: -50%;
-  position: absolute;
-  top: 50% !important;
-  bottom: auto !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
-  z-index: 10;
-  width: 100%;
-}
-@media (min-width: 1200px) {
+@media (min-width: 1025px) {
   .home-banner .caption{
+    position: absolute;
     top: 50% !important;
     bottom: auto !important;
+    left: 50% !important;
     transform: translate(-50%, -50%) !important;
+    z-index: 10;
+    width: 100%;
   }
 }
 .home-banner .desc{
