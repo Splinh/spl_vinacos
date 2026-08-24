@@ -3787,6 +3787,77 @@ body.woocommerce-shop {
 		}
 	}
 
+	/* 5.1 Product Archive & Single Product Mobile Perfection */
+	.product-section,
+	.product-detail-section {
+		width: 100% !important;
+		max-width: 100% !important;
+		overflow-x: hidden !important;
+
+		.container {
+			width: 100% !important;
+			max-width: 100% !important;
+			padding-left: 16px !important;
+			padding-right: 16px !important;
+			box-sizing: border-box !important;
+		}
+
+		.row {
+			display: flex !important;
+			flex-direction: column !important;
+			width: 100% !important;
+			max-width: 100% !important;
+			margin-left: 0 !important;
+			margin-right: 0 !important;
+			margin-top: 0 !important;
+			box-sizing: border-box !important;
+		}
+
+		.col {
+			width: 100% !important;
+			max-width: 100% !important;
+			flex: 0 0 100% !important;
+			padding-left: 0 !important;
+			padding-right: 0 !important;
+			margin-top: 0 !important;
+			box-sizing: border-box !important;
+		}
+
+		.product-wrap {
+			width: 100% !important;
+			max-width: 100% !important;
+
+			.site-title {
+				font-size: clamp(20px, 5.5vw, 26px) !important;
+				margin-bottom: 16px !important;
+				line-height: 1.3 !important;
+			}
+		}
+
+		.product-list {
+			width: 100% !important;
+			max-width: 100% !important;
+			display: grid !important;
+			grid-template-columns: repeat(2, 1fr) !important;
+			gap: 16px !important;
+			margin-top: 16px !important;
+			box-sizing: border-box !important;
+		}
+
+		.product-item {
+			width: 100% !important;
+			max-width: 100% !important;
+			box-sizing: border-box !important;
+		}
+
+		.product-gallery,
+		.product-detail {
+			width: 100% !important;
+			max-width: 100% !important;
+			box-sizing: border-box !important;
+		}
+	}
+
 	/* 6. Footer mobile full container perfection */
 	footer,
 	footer.footer-vinacos,
