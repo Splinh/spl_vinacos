@@ -10126,6 +10126,52 @@ header {
     z-index: 10 !important;
   }
 
+  /* 3.5. Home 3 R&D Section Mobile Optimization */
+  .home-3-section,
+  body.home .home-3-section {
+    padding-top: 40px !important;
+    padding-bottom: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+  }
+  .home-3-section .block-content,
+  body.home .home-3-section .block-content {
+    padding: 0 16px 20px 16px !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .home-3-section .block-content .site-title,
+  body.home .home-3-section .block-content .site-title {
+    font-size: clamp(24px, 5.5vw, 30px) !important;
+    font-weight: 800 !important;
+    margin-bottom: 12px !important;
+    line-height: 1.25 !important;
+  }
+  .home-3-section .block-content .site-desc h3,
+  body.home .home-3-section .block-content .site-desc h3 {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    margin-top: 14px !important;
+    margin-bottom: 4px !important;
+  }
+  .home-3-section .block-content .site-desc p,
+  body.home .home-3-section .block-content .site-desc p {
+    font-size: 13.5px !important;
+    line-height: 1.55 !important;
+    margin-bottom: 10px !important;
+  }
+  .home-3-section .home-3-item .image,
+  body.home .home-3-section .home-3-item .image {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
   /* 4. Key Numbers (Home 4) Mobile Optimization */
   .home-4-section,
   body.home .home-4-section {
