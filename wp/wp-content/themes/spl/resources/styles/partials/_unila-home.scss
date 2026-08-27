@@ -986,89 +986,51 @@ header {
 			a, .custom-logo-link {
 				display: inline-flex;
 				align-items: center;
-				gap: 12px;
 				text-decoration: none;
 			}
 
 			img, .site-logo-img {
 				width: auto !important;
-				height: 48px !important;
-				max-height: 54px !important;
-				max-width: 64px !important;
+				height: 40px !important;
+				max-height: 44px !important;
+				max-width: 230px !important;
 				object-fit: contain;
 				display: block;
 				padding: 0 !important;
 
 				@media (min-width: 1400px) {
-					height: 58px !important;
-					max-height: 64px !important;
-					max-width: 76px !important;
+					height: 44px !important;
+					max-height: 48px !important;
+					max-width: 250px !important;
 				}
 
 				@media (min-width: 1200px) and (max-width: 1399px) {
-					height: 50px !important;
-					max-height: 54px !important;
-					max-width: 65px !important;
+					height: 40px !important;
+					max-height: 44px !important;
+					max-width: 230px !important;
 				}
 
 				@media (max-width: 1024px) {
-					height: 40px !important;
-					max-height: 44px !important;
-					max-width: 52px !important;
+					height: 36px !important;
+					max-height: 40px !important;
+					max-width: 200px !important;
 				}
 
 				@media (max-width: 768px) {
-					height: 34px !important;
-					max-height: 38px !important;
-					max-width: 44px !important;
+					height: 32px !important;
+					max-height: 36px !important;
+					max-width: 175px !important;
 				}
 
 				@media (max-width: 480px) {
-					height: 30px !important;
-					max-height: 34px !important;
-					max-width: 38px !important;
+					height: 28px !important;
+					max-height: 32px !important;
+					max-width: 155px !important;
 				}
 			}
 
 			.logo-text {
-				font-family: 'Be Vietnam Pro', sans-serif;
-				font-size: 34px;
-				font-weight: 800;
-				color: #1e60a3;
-				letter-spacing: 0.8px;
-				line-height: 1;
-				text-transform: uppercase;
-				white-space: nowrap;
-				transition: color 0.3s ease, font-size 0.3s ease;
-
-				@media (min-width: 1400px) {
-					font-size: 42px;
-					letter-spacing: 1px;
-				}
-
-				@media (max-width: 1199px) {
-					font-size: 26px;
-					letter-spacing: 0.6px;
-				}
-
-				@media (max-width: 1024px) {
-					font-size: 22px;
-					letter-spacing: 0.5px;
-				}
-
-				@media (max-width: 768px) {
-					font-size: 18px;
-					letter-spacing: 0.4px;
-				}
-
-				@media (max-width: 480px) {
-					font-size: 15.5px;
-					letter-spacing: 0.2px;
-				}
-			}
-
-			&:hover .logo-text {
-				color: #154577;
+				display: none !important;
 			}
 		}
 
@@ -1898,89 +1860,51 @@ header {
 	a, .custom-logo-link {
 		display: inline-flex;
 		align-items: center;
-		gap: 12px;
 		text-decoration: none;
 	}
 
 	img, .site-logo-img {
 		width: auto !important;
-		height: 48px !important;
-		max-height: 54px !important;
-		max-width: 64px !important;
+		height: 40px !important;
+		max-height: 44px !important;
+		max-width: 230px !important;
 		object-fit: contain;
 		display: block;
 		padding: 0 !important;
 
 		@media (min-width: 1400px) {
-			height: 58px !important;
-			max-height: 64px !important;
-			max-width: 76px !important;
+			height: 44px !important;
+			max-height: 48px !important;
+			max-width: 250px !important;
 		}
 
 		@media (min-width: 1200px) and (max-width: 1399px) {
-			height: 50px !important;
-			max-height: 54px !important;
-			max-width: 65px !important;
+			height: 40px !important;
+			max-height: 44px !important;
+			max-width: 230px !important;
 		}
 
 		@media (max-width: 1024px) {
-			height: 40px !important;
-			max-height: 44px !important;
-			max-width: 52px !important;
+			height: 36px !important;
+			max-height: 40px !important;
+			max-width: 200px !important;
 		}
 
 		@media (max-width: 768px) {
-			height: 34px !important;
-			max-height: 38px !important;
-			max-width: 44px !important;
+			height: 32px !important;
+			max-height: 36px !important;
+			max-width: 175px !important;
 		}
 
 		@media (max-width: 480px) {
-			height: 30px !important;
-			max-height: 34px !important;
-			max-width: 38px !important;
+			height: 28px !important;
+			max-height: 32px !important;
+			max-width: 155px !important;
 		}
 	}
 
 	.logo-text {
-		font-family: 'Be Vietnam Pro', sans-serif;
-		font-size: 34px;
-		font-weight: 800;
-		color: #1e60a3;
-		letter-spacing: 0.8px;
-		line-height: 1;
-		text-transform: uppercase;
-		white-space: nowrap;
-		transition: color 0.3s ease, font-size 0.3s ease;
-
-		@media (min-width: 1400px) {
-			font-size: 42px;
-			letter-spacing: 1px;
-		}
-
-		@media (max-width: 1199px) {
-			font-size: 26px;
-			letter-spacing: 0.6px;
-		}
-
-		@media (max-width: 1024px) {
-			font-size: 22px;
-			letter-spacing: 0.5px;
-		}
-
-		@media (max-width: 768px) {
-			font-size: 18px;
-			letter-spacing: 0.4px;
-		}
-
-		@media (max-width: 480px) {
-			font-size: 15.5px;
-			letter-spacing: 0.2px;
-		}
-	}
-
-	&:hover .logo-text {
-		color: #154577;
+		display: none !important;
 	}
 }
 

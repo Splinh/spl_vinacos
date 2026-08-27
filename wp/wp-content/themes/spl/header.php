@@ -57,8 +57,7 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 		<div class="header-logo">
 			<p>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link">
-					<img decoding="async" class="alignnone size-full wp-image-81 site-logo-img" src="<?php echo esc_url( $logo_url ); ?>" alt="VINACOS" />
-					<span class="logo-text">B&B VINACOS</span>
+					<img decoding="async" class="alignnone size-full wp-image-81 site-logo-img" src="<?php echo esc_url( $logo_url ); ?>" alt="B&B VINACOS" />
 				</a>
 			</p>
 		</div>
