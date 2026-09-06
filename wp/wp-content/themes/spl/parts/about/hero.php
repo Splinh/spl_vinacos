@@ -26,15 +26,3 @@ if ( empty( $banner_img ) || false !== strpos( $banner_img, 'brand-banner-' ) ) 
 		</div>
 	</div>
 </section>
-
-<section class="global-breadcrumb">
-	<div class="container">
-		<nav aria-label="breadcrumbs" class="rank-math-breadcrumb">
-			<p>
-				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?= $is_en ? 'Home' : 'Trang chủ' ?></a>
-				<span class="separator"> - </span>
-				<span class="last"><?= $is_en ? 'VINACOS – About Us' : 'VINACOS Việt Nam – Về chúng tôi' ?></span>
-			</p>
-		</nav>
-	</div>
-</section>
