@@ -24,7 +24,7 @@ $image     = '';
 if ( ! empty( $raw_image ) ) {
 	$image = is_numeric( $raw_image ) ? wp_get_attachment_image_url( (int) $raw_image, 'full' ) : (string) $raw_image;
 }
-if ( empty( $image ) || false !== strpos( $image, 'tam-the-cong-su-collage.jpg' ) ) {
+if ( empty( $image ) || false !== strpos( $image, 'tam-the-cong-su' ) ) {
 	$image = get_template_directory_uri() . '/static/img/vinacos/tam-the-cong-su-home.webp';
 }
 
