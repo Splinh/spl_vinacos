@@ -80,6 +80,15 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 					$desktop_img = function_exists( 'spl_get_image_url' ) ? spl_get_image_url( $raw_desk, $img_base . '/slide' . ( $i + 1 ) . '-desktop.jpg' ) : ( $img_base . '/slide' . ( $i + 1 ) . '-desktop.jpg' );
 					$mobile_img  = function_exists( 'spl_get_image_url' ) ? spl_get_image_url( $raw_mobi, $img_base . '/slide' . ( $i + 1 ) . '-mobile.jpg' ) : ( $img_base . '/slide' . ( $i + 1 ) . '-mobile.jpg' );
 
+					if ( 0 === $i ) {
+						if ( empty( $raw_desk ) || false !== strpos( (string) $desktop_img, 'slide1-desktop.jpg' ) ) {
+							$desktop_img = $img_base . '/slide1-desktop.webp';
+						}
+						if ( empty( $raw_mobi ) || false !== strpos( (string) $mobile_img, 'slide1-mobile.jpg' ) ) {
+							$mobile_img  = $img_base . '/slide1-mobile.webp';
+						}
+					}
+
 					$title_lines = array();
 					if ( ! empty( $s['title_line_1'] ) ) { $title_lines[] = $s['title_line_1']; }
 					if ( ! empty( $s['title_line_2'] ) ) { $title_lines[] = $s['title_line_2']; }

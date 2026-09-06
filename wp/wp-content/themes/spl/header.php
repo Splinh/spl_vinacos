@@ -127,6 +127,11 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 						}
 					}
 				}
+
+				if ( empty( $about_label ) || false !== stripos( (string) $about_label, 'TÂM THẾ' ) ) {
+					$about_label = $is_en ? 'About Us' : 'Về chúng tôi';
+					$about_url   = $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' );
+				}
 				?>
 				<ul id="primary-menu" class="main-menu">
 					<li class="menu-item menu-item-type-post_type menu-item-object-page">

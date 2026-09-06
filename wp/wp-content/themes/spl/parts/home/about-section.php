@@ -14,6 +14,9 @@ $title    = $section['title'] ?? ( $is_en ? 'PARTNER <br/> MINDSET' : 'TÂM TH�
 $content  = $section['content'] ?? '';
 $btn_text = $section['btn_text'] ?? ( $is_en ? 'About Us' : 'Về chúng tôi' );
 $btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' ) ) );
+if ( is_string( $btn_url ) && ( false !== strpos( $btn_url, 'tam-the-cong-su' ) || '#about' === $btn_url ) ) {
+	$btn_url = $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' );
+}
 
 // Image: Ưu tiên ảnh từ ACF, fallback về ảnh mới tam-the-cong-su-home.webp
 $raw_image = $section['image'] ?? null;
