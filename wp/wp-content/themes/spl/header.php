@@ -48,7 +48,7 @@ if ( empty( $logo_url ) ) {
 	}
 }
 
-if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || stripos( $logo_url, 'dailyxedien' ) !== false ) {
+if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || stripos( $logo_url, 'dailyxedien' ) !== false || stripos( $logo_url, '2026/07/logo-vinacos.png' ) !== false ) {
 	$logo_url = get_template_directory_uri() . '/static/img/logo.png';
 }
 ?>
