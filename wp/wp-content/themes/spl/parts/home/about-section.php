@@ -13,8 +13,17 @@ $section  = $args ?? array();
 $title    = $section['title'] ?? ( $is_en ? 'PARTNER <br/> MINDSET' : 'TÂM THẾ <br/> CỘNG SỰ' );
 $content  = $section['content'] ?? '';
 $btn_text = $section['btn_text'] ?? ( $is_en ? 'About Us' : 'Về chúng tôi' );
-$btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' ) ) );
-$image     = function_exists( 'spl_get_valid_image_url' ) ? spl_get_valid_image_url( $raw_image, 'static/img/tam-the-cong-su-collage.jpg' ) : ( get_template_directory_uri() . '/static/img/tam-the-cong-su-collage.jpg' );
+$btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' ) ) );
+
+// Image: Ưu tiên ảnh từ ACF, fallback về ảnh mới tam-the-cong-su-home.webp
+$raw_image = $section['image'] ?? null;
+$image     = '';
+if ( ! empty( $raw_image ) ) {
+	$image = is_numeric( $raw_image ) ? wp_get_attachment_image_url( (int) $raw_image, 'full' ) : (string) $raw_image;
+}
+if ( empty( $image ) || false !== strpos( $image, 'tam-the-cong-su-collage.jpg' ) ) {
+	$image = get_template_directory_uri() . '/static/img/vinacos/tam-the-cong-su-home.webp';
+}
 
 if ( empty( $content ) ) {
 	if ( $is_en ) {
@@ -35,13 +44,13 @@ if ( empty( $content ) ) {
 }
 ?>
 
-<section class="about-1-section" id="about-us">
+<section class="about-1-section about-home-section" id="about-us">
 	<div class="about-container">
 		<div class="about-grid">
-			<!-- LEFT: Collage Multi-Photo Image -->
+			<!-- LEFT: Collage Multi-Photo Image (Full bleed bên trái) -->
 			<div class="about-col-image" data-aos="fade-right" data-aos-duration="700">
 				<div class="about-image">
-					<img class="lozad" src="<?php echo esc_url( $image ); ?>" data-src="<?php echo esc_url( $image ); ?>" loading="lazy" alt="VINACOS - TÂM THẾ CỘNG SỰ" width="1200" height="900">
+					<img class="lozad" src="<?php echo esc_url( $image ); ?>" data-src="<?php echo esc_url( $image ); ?>" loading="lazy" alt="VINACOS - TÂM THẾ CỘNG SỰ" width="866" height="1482">
 				</div>
 			</div>
 			<!-- RIGHT: Content Block -->

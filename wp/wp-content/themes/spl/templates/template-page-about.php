@@ -24,17 +24,25 @@ if ( ! empty( $sections ) && is_array( $sections ) ) :
 		$layout = $section['acf_fc_layout'] ?? '';
 		$part   = str_replace( 'about_', '', $layout );
 
+		// Map 'stats' or 'promises' layout to 'promises'
+		if ( in_array( $part, [ 'stats', 'promises' ], true ) ) :
+			get_template_part( 'parts/about/promises', null, $section );
+			continue;
+		endif;
+
+		// Skip hidden sections: hero, mission, timeline as requested
+		if ( in_array( $part, [ 'hero', 'mission', 'timeline' ], true ) ) :
+			continue;
+		endif;
+
 		get_template_part( 'parts/about/' . $part, null, $section );
 	endforeach;
 
 else :
-	// Render default Unila sections in exact visual sequence.
-	get_template_part( 'parts/about/hero' );
+	// Render default Unila sections in exact visual sequence
 	get_template_part( 'parts/about/story' );
 	get_template_part( 'parts/about/message' );
-	get_template_part( 'parts/about/timeline' );
-	get_template_part( 'parts/about/mission' );
-	get_template_part( 'parts/about/stats' );
+	get_template_part( 'parts/about/promises' );
 	get_template_part( 'parts/about/team' );
 	get_template_part( 'parts/about/cta' );
 endif;

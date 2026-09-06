@@ -9,7 +9,7 @@ defined( 'ABSPATH' ) || exit;
 
 $is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $section = $args ?? array();
-$title   = $section['title'] ?? ( $is_en ? 'VINACOS OEM/ODM Product Portfolio' : 'Danh mục sản phẩm VINACOS' );
+$title   = $section['title'] ?? ( $is_en ? 'Featured Product Portfolio' : 'Danh mục sản phẩm tiêu biểu' );
 $items   = $section['items'] ?? array();
 
 $img_base = get_template_directory_uri() . '/static/img/products/';

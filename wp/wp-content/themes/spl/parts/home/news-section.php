@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 
 $section = $args ?? array();
-$title   = $section['title'] ?? ( $is_en ? 'News & Beauty Insights' : 'Tin tức' );
+$title   = $section['title'] ?? ( $is_en ? 'News & Activities' : 'Tin tức & Hoạt động' );
 
 // Fetch recent posts for current language
 $recent_posts = get_posts( array(

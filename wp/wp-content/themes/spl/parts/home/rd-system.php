@@ -1,9 +1,15 @@
 <?php
 /**
- * R&D System Section (HỆ THỐNG R&D)
+ * Home — R&D System Section (HỆ THỐNG R&D - Canva Slide Format).
  *
- * Full-bleed 50/50 split layout matching 'Tâm Thế Cộng Sự' editorial structure,
- * with structured informative text on the LEFT and big full-bleed image on the RIGHT.
+ * Exact 1:1 full-bleed layout matching the Canva Slide format:
+ * - Desktop: Full-screen (100vw, 100vh - header) edge-to-edge layout with Canva organic curve and team meeting photo.
+ * - Mobile/Tablet: Clean stacked responsive layout with photo banner on top, content below.
+ * - Left Content area:
+ *   - Badge with custom icon (icon-tam-the-cong-su.webp) and Subtitle/Label at top-left.
+ *   - Main Title & Description positioned lower down matching the slide rhythm.
+ *   - Button is hidden by default; only displayed when a custom link is entered via ACF.
+ * - Appearance animations: Consistent with Home page data-aos standard (fade-up sequence).
  *
  * @package SPL
  */
@@ -13,71 +19,101 @@ defined( 'ABSPATH' ) || exit;
 $is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $section = $args ?? array();
 
-$title    = $section['title'] ?? ( $is_en ? 'R&D <br/> SYSTEM' : 'HỆ THỐNG <br/> R&D' );
-$content  = $section['content'] ?? '';
-$btn_text = $section['btn_text'] ?? ( $is_en ? 'Learn More' : 'Tìm hiểu thêm' );
-$btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/oem-odm-cosmetics-manufacturing/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) ) );
+// Section Title / Badge text (ACF or default)
+$badge_text = ! empty( $section['title'] ) ? $section['title'] : ( $is_en ? 'R&D SYSTEM' : 'HỆ THỐNG R&D' );
 
-$raw_image = $section['image'] ?? ( $section['items'][0]['image'] ?? null );
-$image     = function_exists( 'spl_get_valid_image_url' ) ? spl_get_valid_image_url( $raw_image, 'static/img/story-vinacos.jpg' ) : ( get_template_directory_uri() . '/static/img/story-vinacos.jpg' );
+// Retrieve repeater items or fallback
+$items      = $section['items'] ?? array();
+$first_item = ! empty( $items[0] ) ? $items[0] : array();
 
-if ( empty( $content ) ) {
-	$items = $section['items'] ?? array();
-	if ( ! empty( $items ) && is_array( $items ) ) {
-		$content = '';
-		foreach ( $items as $item ) {
-			$item_title = $item['title'] ?? '';
-			$item_desc  = $item['desc'] ?? '';
-			if ( $item_title ) {
-				$content .= '<h3><strong>' . esc_html( $item_title ) . '</strong></h3>';
-			}
-			if ( $item_desc ) {
-				$content .= '<p>' . nl2br( esc_html( $item_desc ) ) . '</p>';
-			}
-		}
-	} else {
-		if ( $is_en ) {
-			$content = '<h3><strong>Formula & Raw Ingredient Research</strong></h3>
-<p><em>VINACOS R&D Center focuses on active raw material extraction, bio-analysis, and turn-key OEM/ODM cosmetic formulation engineering.</em></p>
-<p>We ensure optimal efficacy, stability, and sensory texture, ready for automated commercial scale-up production.</p>
-<h3><strong>Scientific Papers & Innovations</strong></h3>
-<p><em>Applying lipid nano-emulsion and bio-encapsulation in active skincare for targeted transdermal absorption.</em></p>
-<p>Our research breakthroughs ensure active ingredients penetrate deeper, maximizing stability and efficacy for Asian skin.</p>';
-		} else {
-			$content = '<h3><strong>Năng lực nghiên cứu sản xuất</strong></h3>
-<p><em>VINACOS tập trung khai thác và đánh giá các nguồn nguyên liệu tiềm năng, từ tách chiết, phân tích hoạt chất đến thử nghiệm độ ổn định.</em></p>
-<p>Chúng tôi phát triển công thức mỹ phẩm hoàn chỉnh OEM/ODM, đảm bảo hiệu quả, cảm quan cao cấp, sẵn sàng chuyển giao và sản xuất hàng loạt.</p>
-<h3><strong>Các bài báo & Công trình khoa học</strong></h3>
-<p><em>Ứng dụng hệ thống nhũ tương nano lipid và màng bao sinh học bọc hoạt chất tiên tiến trong mỹ phẩm chăm sóc da.</em></p>
-<p>Công trình nghiên cứu ứng dụng công nghệ hiện đại giúp hoạt chất thẩm thấu sâu và bảo toàn hiệu quả tối đa trên làn da người Việt.</p>';
-		}
+// Item Title
+$raw_item_title = $first_item['title'] ?? ( $section['heading'] ?? '' );
+if ( empty( $raw_item_title ) ) {
+	$main_title = $is_en
+		? "Advanced Formulation<br>&amp; <strong>Biotechnology R&amp;D</strong><br>for Vietnamese Brands."
+		: "Năng lực nghiên cứu<br><strong>sản xuất &amp; công nghệ</strong><br>tiên phong tại Việt Nam.";
+} else {
+	$main_title = $raw_item_title;
+	// Auto-format bold and rhythm if needed
+	if ( false === strpos( $main_title, '<strong' ) && false === strpos( $main_title, '<b' ) ) {
+		$main_title = str_replace(
+			array( 'sản xuất & công nghệ', 'sản xuất &amp; công nghệ', 'Năng lực nghiên cứu sản xuất' ),
+			array( '<strong>sản xuất &amp; công nghệ</strong>', '<strong>sản xuất &amp; công nghệ</strong>', 'Năng lực nghiên cứu<br><strong>sản xuất &amp; công nghệ</strong>' ),
+			$main_title
+		);
 	}
 }
+
+// Item Desc
+$raw_desc = $first_item['desc'] ?? ( $section['content'] ?? '' );
+if ( empty( $raw_desc ) ) {
+	$main_desc = $is_en
+		? "VINACOS R&D Center pioneers active extraction, bio-analysis, and turn-key OEM/ODM cosmetic formulation complying with cGMP & FDA standards."
+		: "VINACOS tập trung khai thác nguyên liệu tiềm năng, phân tích hoạt chất và phát triển công thức mỹ phẩm hoàn chỉnh OEM/ODM đạt chuẩn quốc tế cGMP và FDA.";
+} else {
+	$main_desc = wp_strip_all_tags( $raw_desc );
+}
+
+// Button logic: Ẩn mặc định, chỉ hiển thị khi có link hợp lệ được nhập trong ACF (không fallback link mặc định)
+$raw_btn_link = $first_item['btn_link'] ?? ( $section['btn_link'] ?? '' );
+$btn_url      = '';
+if ( is_array( $raw_btn_link ) ) {
+	$btn_url = ! empty( $raw_btn_link['url'] ) ? trim( $raw_btn_link['url'] ) : '';
+} elseif ( is_string( $raw_btn_link ) ) {
+	$btn_url = trim( $raw_btn_link );
+}
+
+$show_button = ! empty( $btn_url ) && '#' !== $btn_url;
+$btn_text    = ! empty( $first_item['btn_text'] ) ? $first_item['btn_text'] : ( $section['btn_text'] ?? ( $is_en ? 'Learn More' : 'Tìm hiểu thêm' ) );
+
+// Background image: Dùng ảnh trang Tâm thế cộng sự (bg-tam-the-cong-su.webp) theo yêu cầu, hoặc ảnh custom từ ACF nếu có
+$custom_bg_id = $section['image'] ?? ( $first_item['image'] ?? 0 );
+$bg_url       = '';
+if ( ! empty( $custom_bg_id ) ) {
+	$bg_url = is_numeric( $custom_bg_id ) ? wp_get_attachment_image_url( (int) $custom_bg_id, 'full' ) : (string) $custom_bg_id;
+}
+// Nếu chưa upload ảnh riêng hoặc đang dùng ảnh cũ, mặc định dùng ảnh trang Tâm thế cộng sự
+if ( empty( $bg_url ) || false !== strpos( $bg_url, 'tam-the-cong-su-vinacos.jpg' ) || false !== strpos( $bg_url, 'bg-rd-system.webp' ) ) {
+	$bg_url = get_template_directory_uri() . '/static/img/vinacos/bg-tam-the-cong-su.webp';
+}
+
+$icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-cong-su.webp';
 ?>
 
-<section class="home-3-section" id="rd-system">
-	<!-- LEFT: Content Block (Giống Tâm Thế Cộng Sự) -->
-	<div class="block-content">
-		<div class="about-content">
-			<h2 class="site-title" data-aos="fade-up" data-aos-duration="700">
-				<?php echo wp_kses_post( $title ); ?>
-			</h2>
-			<div class="site-desc mt-6" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
-				<?php echo wp_kses_post( $content ); ?>
-			</div>
-			<div class="button mt-8" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
-				<a class="btn-lined" href="<?php echo esc_url( $btn_url ); ?>" title="<?php echo esc_attr( $btn_text ); ?>">
-					<span><?php echo esc_html( $btn_text ); ?></span>
-					<?= spl_icon( 'plus', '', 16 ) ?>
-				</a>
-			</div>
+<section class="home-3-section home-rd-section" id="rd-system">
+	<div class="home-rd-card" style="--rd-bg: url('<?php echo esc_url( $bg_url ); ?>');" data-aos="fade-up" data-aos-duration="700">
+		<!-- Mobile Photo Banner (Visible only on < 1025px) -->
+		<div class="home-rd-mobile-media" data-aos="fade-up" data-aos-duration="700">
+			<img src="<?php echo esc_url( $bg_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $badge_text ) ); ?> - VINACOS" loading="lazy" width="800" height="450">
 		</div>
-	</div>
 
-	<!-- RIGHT: Big Full-Bleed Showcase Image -->
-	<div class="home-3-controller" data-aos="fade-left" data-aos-duration="700" data-aos-delay="200">
-		<div class="image img-cover">
-			<img class="lozad" src="<?php echo esc_url( $image ); ?>" data-src="<?php echo esc_url( $image ); ?>" loading="lazy" alt="VINACOS R&D CENTER" width="1200" height="900">
+		<!-- Content Area (Left on Desktop, Below photo on Mobile) -->
+		<div class="home-rd-content">
+			<!-- Top Badge: Icon + Subtitle -->
+			<div class="home-rd-badge" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+				<img src="<?php echo esc_url( $icon_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $badge_text ) ); ?>" class="home-rd-icon" width="48" height="48" loading="lazy">
+				<span class="home-rd-badge-text">
+					<?php echo wp_kses_post( $badge_text ); ?>
+				</span>
+			</div>
+
+			<!-- Main Content: Title + Description + (Optional) Button -->
+			<div class="home-rd-quote-wrap">
+				<h2 class="home-rd-title" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+					<?php echo wp_kses_post( $main_title ); ?>
+				</h2>
+				<div class="home-rd-desc" data-aos="fade-up" data-aos-duration="700" data-aos-delay="500">
+					<?php echo wp_kses_post( nl2br( $main_desc ) ); ?>
+				</div>
+				<?php if ( $show_button ) : ?>
+					<div class="home-rd-action" data-aos="fade-up" data-aos-duration="700" data-aos-delay="600">
+						<a href="<?php echo esc_url( $btn_url ); ?>" class="home-rd-btn" title="<?php echo esc_attr( $btn_text ); ?>">
+							<span><?php echo esc_html( $btn_text ); ?></span>
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+						</a>
+					</div>
+				<?php endif; ?>
+			</div>
 		</div>
 	</div>
 </section>

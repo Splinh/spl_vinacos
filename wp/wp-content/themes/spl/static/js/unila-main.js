@@ -83,21 +83,55 @@ function initKeySwiper(){
 }
 
 function initHome5Swiper(){
-	if (!document.querySelector(".home-5-section")) return;
-	
+	var section = document.querySelector(".home-5-section");
+	if (!section) return;
+
+	if (window._home5Instances) {
+		try {
+			if (window._home5Instances.preview && window._home5Instances.preview.destroy) {
+				window._home5Instances.preview.destroy(true, true);
+			}
+			if (window._home5Instances.caption && window._home5Instances.caption.destroy) {
+				window._home5Instances.caption.destroy(true, true);
+			}
+			if (window._home5Instances.image && window._home5Instances.image.destroy) {
+				window._home5Instances.image.destroy(true, true);
+			}
+		} catch(e) {}
+		window._home5Instances = null;
+	}
+
 	var previewSwiper = new Swiper(".home-5-preview", {
 		effect: "fade",
 		fadeEffect: { crossFade: true },
-		speed: 800,
-		allowTouchMove: false
+		speed: 600,
+		allowTouchMove: false,
+		observer: true,
+		observeParents: true
+	});
+
+	var captionSwiper = new Swiper(".home-5-caption", {
+		effect: "fade",
+		fadeEffect: { crossFade: true },
+		speed: 600,
+		allowTouchMove: false,
+		autoplay: {
+			delay: 5000,
+			disableOnInteraction: false,
+			pauseOnMouseEnter: true
+		},
+		observer: true,
+		observeParents: true
 	});
 
 	var imageSwiper = new Swiper(".home-5-image", {
 		slidesPerView: "auto",
 		spaceBetween: 16,
 		speed: 600,
-		slideToClickedSlide: true,
+		slideToClickedSlide: false,
 		grabCursor: true,
+		observer: true,
+		observeParents: true,
 		breakpoints: {
 			768: {
 				spaceBetween: 20
@@ -105,45 +139,64 @@ function initHome5Swiper(){
 		}
 	});
 
-	var captionSwiper = new Swiper(".home-5-caption", {
-		effect: "fade",
-		fadeEffect: { crossFade: true },
-		speed: 800,
-		autoplay: {
-			delay: 4000,
-			disableOnInteraction: false,
-			pauseOnMouseEnter: true
-		},
-		on: {
-			init: function () {
-				$(".home-5-image .swiper-slide").removeClass("swiper-slide-thumb-active swiper-slide-active").eq(0).addClass("swiper-slide-thumb-active swiper-slide-active");
-			},
-			slideChange: function () {
-				var activeIndex = this.realIndex;
-				if (previewSwiper && previewSwiper.slideTo) { previewSwiper.slideTo(activeIndex); }
-				if (imageSwiper && imageSwiper.slideTo) { imageSwiper.slideTo(activeIndex); }
-				$(".home-5-image .swiper-slide").removeClass("swiper-slide-thumb-active swiper-slide-active").eq(activeIndex).addClass("swiper-slide-thumb-active swiper-slide-active");
+	var isSyncing = false;
+	function syncHome5(index) {
+		if (typeof index === "undefined" || index === null || index < 0) return;
+		if (isSyncing) return;
+		isSyncing = true;
+
+		if (previewSwiper && !previewSwiper.destroyed && previewSwiper.activeIndex !== index) {
+			previewSwiper.slideTo(index, 600);
+		}
+		if (captionSwiper && !captionSwiper.destroyed && captionSwiper.activeIndex !== index) {
+			captionSwiper.slideTo(index, 600);
+		}
+		if (imageSwiper && !imageSwiper.destroyed && imageSwiper.activeIndex !== index) {
+			imageSwiper.slideTo(index, 600);
+		}
+
+		$(".home-5-image .swiper-slide")
+			.removeClass("swiper-slide-thumb-active swiper-slide-active")
+			.eq(index)
+			.addClass("swiper-slide-thumb-active swiper-slide-active");
+
+		setTimeout(function () {
+			isSyncing = false;
+		}, 100);
+	}
+
+	captionSwiper.on("slideChange", function () {
+		syncHome5(this.realIndex);
+	});
+
+	$(document).off("click.home5Thumb", ".home-5-image .swiper-slide").on("click.home5Thumb", ".home-5-image .swiper-slide", function (e) {
+		e.preventDefault();
+		var idx = $(this).index();
+		if (idx >= 0) {
+			syncHome5(idx);
+			if (captionSwiper && captionSwiper.autoplay) {
+				captionSwiper.autoplay.stop();
+				if (window._home5AutoplayTimer) clearTimeout(window._home5AutoplayTimer);
+				window._home5AutoplayTimer = setTimeout(function () {
+					if (captionSwiper && captionSwiper.autoplay && !captionSwiper.destroyed) {
+						captionSwiper.autoplay.start();
+					}
+				}, 6000);
 			}
 		}
 	});
 
-	if (imageSwiper) {
-		imageSwiper.on("slideChange", function () {
-			var activeIndex = this.realIndex;
-			if (captionSwiper && captionSwiper.slideTo) { captionSwiper.slideTo(activeIndex); }
-			if (previewSwiper && previewSwiper.slideTo) { previewSwiper.slideTo(activeIndex); }
-			$(".home-5-image .swiper-slide").removeClass("swiper-slide-thumb-active swiper-slide-active").eq(activeIndex).addClass("swiper-slide-thumb-active swiper-slide-active");
-		});
+	// Initialize active state on first slide
+	$(".home-5-image .swiper-slide")
+		.removeClass("swiper-slide-thumb-active swiper-slide-active")
+		.eq(0)
+		.addClass("swiper-slide-thumb-active swiper-slide-active");
 
-		imageSwiper.on("click", function () {
-			var idx = typeof this.clickedIndex !== "undefined" ? this.clickedIndex : $(this.clickedSlide).index();
-			if (typeof idx !== "undefined" && idx !== null && idx >= 0) {
-				if (captionSwiper && captionSwiper.slideTo) { captionSwiper.slideTo(idx); }
-				if (previewSwiper && previewSwiper.slideTo) { previewSwiper.slideTo(idx); }
-				$(".home-5-image .swiper-slide").removeClass("swiper-slide-thumb-active swiper-slide-active").eq(idx).addClass("swiper-slide-thumb-active swiper-slide-active");
-			}
-		});
-	}
+	window._home5Instances = {
+		preview: previewSwiper,
+		caption: captionSwiper,
+		image: imageSwiper
+	};
 }
 
 function initProductDetailSwiper(){
@@ -263,12 +316,21 @@ function initAbout6Swiper(){
 
 function initFullPageScroll() {
 	if (window.innerWidth < 1025) return;
-	// Only activate full-page scroll on the actual homepage with hero banner
-	if (!$("body").hasClass("home") && !$("body").hasClass("front-page") && !$("body").hasClass("page-template-template-page-home")) return;
-	if (!$(".home-banner").length) return;
 
-	var $sections = $(".home-banner, .home-banner + .about-1-section, .home-3-section, .home-4-section, .home-5-section, .home-9-section, footer.footer-vinacos");
-	if ($sections.length <= 1) return;
+	var isHomePage = $("body").hasClass("home") || $("body").hasClass("front-page") || $("body").hasClass("page-template-template-page-home");
+	var isAboutPage = $("body").hasClass("page-template-template-page-about") || $("body").hasClass("page-id-942") || $("body").hasClass("page-id-936");
+
+	if (!isHomePage && !isAboutPage) return;
+
+	var $sections;
+	if (isHomePage) {
+		if (!$(".home-banner").length) return;
+		$sections = $(".home-banner, .home-banner + .about-1-section, .home-3-section, .home-4-section, .home-5-section, .home-9-section, footer.footer-vinacos");
+	} else if (isAboutPage) {
+		$sections = $(".about-story-section, .about-brand, .about-promises-section, .about-5-section, .about-6-section, footer.footer-vinacos");
+	}
+
+	if (!$sections || $sections.length <= 1) return;
 
 	var isScrolling = false;
 	var currentIndex = 0;

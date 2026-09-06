@@ -65,25 +65,68 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 			<nav class="navbar-nav" id="toggleMenu">
 				<?php
 				$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
-				if ( has_nav_menu( 'main-nav' ) ) :
-					wp_nav_menu( array(
-						'theme_location' => 'main-nav',
-						'menu_class'     => 'main-menu',
-						'container'      => false,
-						'menu_id'        => 'primary-menu',
-					) );
-				else :
-					$about_url   = $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' );
-					$shop_url    = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' );
-					$oem_url     = $is_en ? home_url( '/en/rd-system-oem-odm/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' );
-					$news_url    = $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' );
-					$contact_url = $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' );
 
-					$about_label   = $is_en ? 'PARTNER MINDSET' : 'TÂM THẾ CỘNG SỰ';
-					$shop_label    = $is_en ? 'Products' : 'Sản phẩm';
-					$oem_label     = $is_en ? 'R&D & OEM/ODM' : 'HỆ THỐNG R&D';
-					$news_label    = $is_en ? 'News' : 'Tin tức';
-					$contact_label = $is_en ? 'Contact Us' : 'Liên hệ';
+				// 1. Detect assigned menu (check main-nav, primary, main_menu, or specific slugs)
+				$locations  = get_nav_menu_locations();
+				$menu_id    = $locations['main-nav'] ?? $locations['primary'] ?? $locations['main_menu'] ?? 0;
+				if ( ! $menu_id ) {
+					$all_menus = wp_get_nav_menus();
+					foreach ( $all_menus as $m ) {
+						if ( $m->slug === 'vinacos-primary-menu' || $m->slug === 'primary-menu' || $m->slug === 'menu-chinh' ) {
+							$menu_id = $m->term_id;
+							break;
+						}
+					}
+				}
+				$menu_items = $menu_id ? wp_get_nav_menu_items( $menu_id ) : false;
+
+				// 2. Base pages & default labels from WordPress database
+				$about_page = get_post( 942 );
+				if ( ! $about_page ) {
+					$about_pages = get_posts( array( 'post_type' => 'page', 'name' => 've-chung-toi', 'posts_per_page' => 1 ) );
+					$about_page  = ! empty( $about_pages ) ? $about_pages[0] : null;
+				}
+				$about_url   = $about_page ? get_permalink( $about_page ) : ( $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' ) );
+				$about_label = $about_page ? get_the_title( $about_page ) : ( $is_en ? 'About Us' : 'Về chúng tôi' );
+
+				$shop_url    = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' );
+				$shop_label  = $is_en ? 'Products' : 'Sản phẩm';
+
+				$oem_page    = get_post( 944 );
+				$oem_url     = $oem_page ? get_permalink( $oem_page ) : ( $is_en ? home_url( '/en/rd-system-oem-odm/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) );
+				$oem_label   = $oem_page ? get_the_title( $oem_page ) : ( $is_en ? 'R&D & OEM/ODM' : 'HỆ THỐNG R&D' );
+
+				$news_page   = get_post( 928 );
+				$news_url    = $news_page ? get_permalink( $news_page ) : ( $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' ) );
+				$news_label  = $news_page ? get_the_title( $news_page ) : ( $is_en ? 'News' : 'Tin tức' );
+
+				$contact_page  = get_post( 937 );
+				$contact_url   = $contact_page ? get_permalink( $contact_page ) : ( $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' ) );
+				$contact_label = $contact_page ? get_the_title( $contact_page ) : ( $is_en ? 'Contact Us' : 'Liên hệ' );
+
+				// 3. Override labels & URLs directly from WordPress Menu (Giao diện -> Menu)
+				if ( ! empty( $menu_items ) ) {
+					foreach ( $menu_items as $mi ) {
+						$mi_title = $mi->title;
+						$mi_url   = $mi->url;
+						if ( (int) $mi->object_id === 942 || stripos( $mi_url, 've-chung-toi' ) !== false || stripos( $mi_url, 'tam-the' ) !== false || stripos( $mi_url, 'about' ) !== false ) {
+							$about_label = $mi_title;
+							$about_url   = $mi_url;
+						} elseif ( (int) $mi->object_id === 943 || stripos( $mi_url, 'san-pham' ) !== false || stripos( $mi_url, 'product' ) !== false ) {
+							$shop_label  = $mi_title;
+							$shop_url    = $mi_url;
+						} elseif ( (int) $mi->object_id === 944 || stripos( $mi_url, 'oem' ) !== false || stripos( $mi_url, 'rd-system' ) !== false ) {
+							$oem_label   = $mi_title;
+							$oem_url     = $mi_url;
+						} elseif ( (int) $mi->object_id === 928 || stripos( $mi_url, 'tin-tuc' ) !== false || stripos( $mi_url, 'news' ) !== false ) {
+							$news_label  = $mi_title;
+							$news_url    = $mi_url;
+						} elseif ( (int) $mi->object_id === 937 || stripos( $mi_url, 'lien-he' ) !== false || stripos( $mi_url, 'contact' ) !== false ) {
+							$contact_label = $mi_title;
+							$contact_url   = $mi_url;
+						}
+					}
+				}
 				?>
 				<ul id="primary-menu" class="main-menu">
 					<li class="menu-item menu-item-type-post_type menu-item-object-page">
@@ -196,7 +239,6 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 						<a href="<?php echo esc_url( $contact_url ); ?>"><?php echo esc_html( $contact_label ); ?></a>
 					</li>
 				</ul>
-				<?php endif; ?>
 			</nav>
 		</div>
 		<div class="header-right">

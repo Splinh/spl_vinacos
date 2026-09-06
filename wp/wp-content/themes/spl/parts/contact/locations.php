@@ -71,7 +71,7 @@ $btn_map   = $is_en ? 'Get Directions' : 'Chỉ đường trên bản đồ';
 							</div>
 							<div>
 								<p class="text-xs text-slate-400 font-medium"><?= esc_html( $lbl_addr ) ?></p>
-								<p class="text-sm font-bold text-slate-700 leading-relaxed" id="location-address"><?= $is_en ? '44 Thanh Xuan 31, Thoi An Ward, Dist 12, HCMC' : '44 Thạnh Xuân 31, P. Thới An, Q. 12, TP.HCM' ?></p>
+								<p class="text-sm font-bold text-slate-700 leading-relaxed" id="location-address"><?= $is_en ? 'No. 44, Thanh Xuan 31 St., Thoi An Ward, Ho Chi Minh City' : 'Số 44, Thạnh Xuân 31, Phường Thới An, Thành Phố Hồ Chí Minh' ?></p>
 							</div>
 						</div>
 
@@ -82,7 +82,7 @@ $btn_map   = $is_en ? 'Get Directions' : 'Chỉ đường trên bản đồ';
 								</div>
 								<div>
 									<p class="text-xs text-slate-400 font-medium"><?= esc_html( $lbl_phone ) ?></p>
-									<p class="text-sm font-bold text-slate-700" id="location-phone">0967 198 483</p>
+									<p class="text-sm font-bold text-slate-700" id="location-phone">0906 941 088</p>
 								</div>
 							</div>
 
@@ -143,8 +143,8 @@ $btn_map   = $is_en ? 'Get Directions' : 'Chỉ đường trên bản đồ';
 			tabClass: 'active-store',
 			name: isEn ? 'Office & Cosmetics Packaging Warehouse' : 'Văn phòng & Kho bao bì Chai lọ Mỹ phẩm',
 			company: isEn ? 'B&B VINACOS CO., LTD' : 'CÔNG TY TNHH B&B VINACOS',
-			address: isEn ? 'No. 44 Thanh Xuan 31 St., Thoi An Ward, Dist. 12, HCMC' : 'Số 44 Đường Thạnh Xuân 31, Phường Thới An, Quận 12, TP. Hồ Chí Minh',
-			phone: '0967 198 483',
+			address: isEn ? 'No. 44, Thanh Xuan 31 St., Thoi An Ward, Ho Chi Minh City' : 'Số 44, Thạnh Xuân 31, Phường Thới An, Thành Phố Hồ Chí Minh',
+			phone: '0906 941 088',
 			fax: '—',
 			hours: isEn ? '8:00 – 18:00 (Mon–Sun)' : '8:00 – 18:00 (T2–CN)',
 			mapSrc: 'https://maps.google.com/maps?q=44+Thanh+Xuan+31+Quan+12+Ho+Chi+Minh&z=15&output=embed',
@@ -156,7 +156,7 @@ $btn_map   = $is_en ? 'Get Directions' : 'Chỉ đường trên bản đồ';
 			tabClass: 'active-factory1',
 			name: isEn ? 'Official Registered Headquarters' : 'Trụ sở đăng ký kinh doanh chính',
 			company: isEn ? 'B&B VINACOS CO., LTD (Tax Code: 2601138503)' : 'CÔNG TY TNHH B&B VINACOS (MST: 2601138503)',
-			address: isEn ? 'Plot 55, Map 22, Dao Xa Ward, Thanh Thuy Dist, Phu Tho Province' : 'Thửa đất số 55, tờ bản đồ số 22, Xã Đào Xá, Huyện Thanh Thủy, Tỉnh Phú Thọ',
+			address: isEn ? 'Land plot No. 55, Map sheet 22, Dao Xa, Phu Tho Province.' : 'Thửa đất số 55, tờ bản đồ 22, Đào Xá, Tỉnh Phú Thọ.',
 			phone: '0906 941 088',
 			fax: '—',
 			hours: isEn ? '8:00 – 17:00 (Mon–Fri)' : '8:00 – 17:00 (T2–T6)',

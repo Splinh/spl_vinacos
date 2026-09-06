@@ -29,9 +29,9 @@ $lbl_hq      = $is_en ? 'Headquarters' : 'Trụ sở chính';
 $lbl_factory = $is_en ? 'cGMP Factory' : 'Nhà máy sản xuất';
 $lbl_tax     = $is_en ? 'Tax ID' : 'Mã số thuế';
 
-$addr_branch = $is_en ? 'No. 44 Thanh Xuan 31 St., Thoi An Ward, Dist. 12, HCMC' : 'Số 44 Đường Thạnh Xuân 31, Phường Thới An, Quận 12, TP. Hồ Chí Minh';
-$addr_hq     = $is_en ? 'Land Plot 55, Map 22, Dao Xa Ward, Thanh Thuy Dist., Phu Tho Prov.' : 'Thửa đất số 55, tờ bản đồ số 22, Xã Đào Xá, Huyện Thanh Thủy, Tỉnh Phú Thọ';
-$val_tax     = $is_en ? '2601138503 (HCMC Branch: 2601138503-001)' : '2601138503 (CN TP.HCM: 2601138503-001)';
+$addr_branch = $is_en ? 'No. 44, Thanh Xuan 31 St., Thoi An Ward, Ho Chi Minh City' : 'Số 44, Thạnh Xuân 31, Phường Thới An, Thành Phố Hồ Chí Minh';
+$addr_hq     = $is_en ? 'Land plot No. 55, Map sheet 22, Dao Xa, Phu Tho Province.' : 'Thửa đất số 55, tờ bản đồ 22, Đào Xá, Tỉnh Phú Thọ.';
+$val_tax     = '2601138503';
 ?>
 <section class="global-breadcrumb">
 	<div class="container">
@@ -69,8 +69,6 @@ $val_tax     = $is_en ? '2601138503 (HCMC Branch: 2601138503-001)' : '2601138503
 							<li class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-2">
 								<strong class="text-slate-900 shrink-0 font-bold">Hotline / Zalo:</strong>
 								<span class="inline-flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold text-primary">
-									<a href="tel:0967198483" class="hover:underline whitespace-nowrap">0967.198.483</a>
-									<span class="text-slate-400 font-normal">–</span>
 									<a href="tel:0906941088" class="hover:underline whitespace-nowrap">0906.941.088</a>
 								</span>
 							</li>

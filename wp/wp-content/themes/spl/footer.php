@@ -22,15 +22,15 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 	<div class="backdrop backdrop-category"></div>
 	<div class="cta-fixed">
 		<ul>
-			<li><a href="tel:0902666746" title="Gọi hotline" aria-label="Gọi hotline"><?= spl_icon( 'phone', '', 22 ) ?></a></li>
-			<li><a href="mailto:info@vinacos.com.vn" title="Gửi email" aria-label="Gửi email"><?= spl_icon( 'envelope', '', 22 ) ?></a></li>
+			<li><a href="tel:0906941088" title="Gọi hotline" aria-label="Gọi hotline"><?= spl_icon( 'phone', '', 22 ) ?></a></li>
+			<li><a href="mailto:bbvinacos@gmail.com" title="Gửi email" aria-label="Gửi email"><?= spl_icon( 'envelope', '', 22 ) ?></a></li>
 			<li>
 				<a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" title="Messenger" aria-label="Messenger">
 					<?= spl_icon( 'messenger', '', 24 ) ?>
 				</a>
 			</li>
 			<li class="item-zalo">
-				<a href="https://zalo.me/0902666746" target="_blank" rel="noopener noreferrer" title="Zalo" aria-label="Zalo">
+				<a href="https://zalo.me/0906941088" target="_blank" rel="noopener noreferrer" title="Zalo" aria-label="Zalo">
 					<span class="zalo-text">Zalo</span>
 				</a>
 			</li>
@@ -44,12 +44,15 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 			<div class="row -mt-10">
 				<div class="col w-full mt-10 lg:w-1/2">
 					<div class="footer-address">
-						<h3><span style="font-size: 24pt; color: #ffffff;"><?php echo esc_html( pll__( 'CÔNG TY TNHH VINACOS VIỆT NAM' ) ); ?></span></h3>
+						<h3><span style="font-size: 20pt; color: #ffffff; font-weight: 800;"><?php echo esc_html( $is_en ? 'B&B VINACOS CO., LTD' : 'CÔNG TY TNHH B&B VINACOS' ); ?></span></h3>
 						<ul>
-							<li><strong><?php echo esc_html( pll__( 'Văn phòng:' ) ); ?></strong> <?php echo esc_html( pll__( 'KCN Thái Hòa, Xã Đức Lập, Tỉnh Tây Ninh / VP TP.HCM' ) ); ?></li>
-							<li><strong><?php echo esc_html( pll__( 'Nhà máy:' ) ); ?></strong> <?php echo esc_html( pll__( 'Nhà máy mỹ phẩm đạt chuẩn FDA / GMP' ) ); ?></li>
-							<li><strong><?php echo esc_html( pll__( 'Hotline:' ) ); ?></strong> <a href="tel:0902666746">0902.666.746</a></li>
-							<li><strong><?php echo esc_html( pll__( 'Email:' ) ); ?></strong> <a href="mailto:info@vinacos.com.vn">info@vinacos.com.vn</a></li>
+							<li><strong><?php echo esc_html( $is_en ? 'Tax ID:' : 'MST:' ); ?></strong> 2601138503</li>
+							<li><strong><?php echo esc_html( $is_en ? 'Headquarters:' : 'Địa chỉ (Trụ sở chính):' ); ?></strong> <?php echo esc_html( $is_en ? 'Land plot No. 55, Map sheet 22, Dao Xa, Phu Tho Province.' : 'Thửa đất số 55, tờ bản đồ 22, Đào Xá, Tỉnh Phú Thọ.' ); ?></li>
+							<li><strong><?php echo esc_html( $is_en ? 'Branch:' : 'Tên chi nhánh:' ); ?></strong> <?php echo esc_html( $is_en ? 'B&B Vinacos Co., Ltd Branch' : 'Chi nhánh công ty TNHH B&B Vinacos' ); ?></li>
+							<li><strong><?php echo esc_html( $is_en ? 'Branch Address:' : 'Địa chỉ chi nhánh:' ); ?></strong> <?php echo esc_html( $is_en ? 'No. 44, Thanh Xuan 31 St., Thoi An Ward, Ho Chi Minh City' : 'Số 44, Thạnh Xuân 31, Phường Thới An, Thành Phố Hồ Chí Minh' ); ?></li>
+							<li><strong><?php echo esc_html( $is_en ? 'Legal Representative:' : 'Người đại diện PL:' ); ?></strong> <?php echo esc_html( $is_en ? 'NGUYEN THI SON (Director)' : 'NGUYỄN THỊ SƠN (Chức vụ: Giám đốc)' ); ?></li>
+							<li><strong><?php echo esc_html( $is_en ? 'Phone:' : 'Điện thoại:' ); ?></strong> <a href="tel:0906941088">0906.941.088</a></li>
+							<li><strong><?php echo esc_html( $is_en ? 'Billing Email:' : 'EMAIL nhận hóa đơn:' ); ?></strong> <a href="mailto:bbvinacos@gmail.com">bbvinacos@gmail.com</a></li>
 						</ul>
 					</div>
 				</div>
@@ -87,7 +90,7 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 				<div class="col w-full mt-10 md:w-1/2 lg:w-1/4">
 					<p class="footer-title"><?php echo esc_html( pll__( 'Liên kết nhanh' ) ); ?></p>
 					<ul id="footer-1" class="footer-menu">
-						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/tam-the-cong-su-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'Giới thiệu' ) ); ?></a></li>
+						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' ) ); ?>"><?php echo esc_html( pll__( 'Giới thiệu' ) ); ?></a></li>
 						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'Sản phẩm' ) ); ?></a></li>
 						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/rd-system-oem-odm/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) ); ?>"><?php echo esc_html( pll__( 'OEM/ODM' ) ); ?></a></li>
 						<li><a href="<?php echo esc_url( $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' ) ); ?>"><?php echo esc_html( pll__( 'Tuyển dụng' ) ); ?></a></li>

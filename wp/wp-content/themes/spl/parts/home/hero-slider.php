@@ -41,7 +41,7 @@ $default_vinacos_slides = $is_en ? array(
 		'title_lines' => array( 'MỞ LỐI KỶ NGUYÊN', 'MỸ PHẨM VIỆT', 'CHUẨN KHOA HỌC' ),
 		'desc'        => 'VINACOS là đơn vị tiên phong ứng dụng khoa học vào nghiên cứu và gia công mỹ phẩm sạch. Dẫn đầu để đặt ra tiêu chuẩn mới cho thương hiệu mỹ phẩm Việt.',
 		'btn_text'    => 'Xem thêm',
-		'btn_link'    => home_url( '/tam-the-cong-su-unila-viet-nam/' ),
+		'btn_link'    => home_url( '/ve-chung-toi/' ),
 	),
 	array(
 		'title_lines' => array( 'HIỂU LÀN DA VIỆT', 'ĐỒNG HÀNH', 'THƯƠNG HIỆU VIỆT' ),
@@ -114,7 +114,7 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 							</div>
 							<?php endif; ?>
 						</div>
-						<?php if ( ! empty( $btn_text ) ) : ?>
+						<?php if ( ! empty( $btn_text ) && ( 0 !== $i || ! empty( $s['button_text'] ) ) ) : ?>
 						<div class="button mt-4 xl:mt-6">
 							<a class="btn-lined" href="<?php echo esc_url( $btn_url ); ?>" title="<?php echo esc_attr( $btn_text ); ?>">
 								<span><?php echo esc_html( $btn_text ); ?></span>
@@ -124,8 +124,15 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 						<?php endif; ?>
 					</div>
 					<div class="image key-img-box">
-						<img class="mb" src="<?php echo esc_url( $mobile_img ); ?>" alt="">
-						<img class="desk" src="<?php echo esc_url( $desktop_img ); ?>" alt="<?php echo esc_attr( $title_lines[0] ?? '' ); ?>">
+						<div class="key-img-inner">
+							<img class="mb" src="<?php echo esc_url( $mobile_img ); ?>" alt="">
+							<img class="desk" src="<?php echo esc_url( $desktop_img ); ?>" alt="<?php echo esc_attr( $title_lines[0] ?? '' ); ?>">
+							<?php if ( 0 === $i ) : ?>
+							<a href="<?php echo esc_url( get_template_directory_uri() . '/static/video/intro-vinacos.mp4' ); ?>" class="banner-play-btn" data-fx-lightbox data-video="<?php echo esc_url( get_template_directory_uri() . '/static/video/intro-vinacos.mp4' ); ?>" aria-label="Xem video giới thiệu">
+								<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 4 19 12 7 20 7 4"/></svg>
+							</a>
+							<?php endif; ?>
+						</div>
 					</div>
 				</div>
 				<?php endfor; ?>
