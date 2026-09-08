@@ -1864,6 +1864,12 @@ footer {
 		width: 100% !important;
 		height: 100% !important;
 		position: relative !important;
+
+		@media (max-width: 991px) {
+			height: auto !important;
+			margin: 0 !important;
+			padding: 0 !important;
+		}
 	}
 
 	.about-story-shape-card {
@@ -1882,10 +1888,11 @@ footer {
 		box-sizing: border-box !important;
 
 		@media (max-width: 991px) {
+			height: auto !important;
 			min-height: 240px !important;
 			background-size: cover !important;
 			border-radius: 20px !important;
-			margin: 16px !important;
+			margin: 16px 16px 0 16px !important;
 			width: calc(100% - 32px) !important;
 			padding: 35px 25px !important;
 		}
@@ -1915,7 +1922,9 @@ footer {
 		box-sizing: border-box !important;
 
 		@media (max-width: 991px) {
-			padding: 15px 20px 40px 20px !important;
+			height: auto !important;
+			justify-content: flex-start !important;
+			padding: 20px 20px 40px 20px !important;
 		}
 	}
 
@@ -4152,6 +4161,52 @@ body.woocommerce-shop {
 		min-height: 0 !important;
 		max-height: none !important;
 		box-sizing: border-box !important;
+	}
+
+	/* About Story (Nghiên cứu sản xuất mỹ phẩm) Mobile Spacing Optimization */
+	.about-story-section {
+		.about-story-shape-col {
+			height: auto !important;
+			margin: 0 !important;
+			padding: 0 !important;
+		}
+
+		.about-story-shape-card {
+			height: auto !important;
+			min-height: 240px !important;
+			margin: 16px 16px 0 16px !important;
+			width: calc(100% - 32px) !important;
+		}
+
+		.about-story-content-col {
+			height: auto !important;
+			justify-content: flex-start !important;
+			padding: 20px 20px 40px 20px !important;
+		}
+	}
+
+	/* About 5 (Sức mạnh tập thể) & About 6 (Nhà máy) Mobile Spacing Optimization */
+	.about-5-section {
+		padding-top: 25px !important;
+		padding-bottom: 15px !important;
+
+		.about-5-list,
+		.about-5-list.is-page,
+		&.swiper-relative.about-5-list.is-page {
+			padding-bottom: 0 !important;
+			margin-top: 14px !important;
+		}
+
+		.about-5-list .caption,
+		.caption.mt-6 {
+			padding: 0 !important;
+			margin-top: 12px !important;
+		}
+	}
+
+	.about-6-section {
+		padding-top: 15px !important;
+		padding-bottom: 30px !important;
 	}
 
 	/* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */

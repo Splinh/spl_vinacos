@@ -259,7 +259,8 @@ function initAbout5Swiper(){
 		spaceBetween: 20,
 		slidesPerView: 1,
 		effect: "fade",
-		fadeEffect: { crossFade: true }
+		fadeEffect: { crossFade: true },
+		autoHeight: true
 	});
 
 	var imageSwiper = new Swiper(".about-5-image", {
