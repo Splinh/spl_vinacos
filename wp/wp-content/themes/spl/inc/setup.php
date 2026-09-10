@@ -173,9 +173,44 @@ add_action( 'admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 20 );
 add_action( 'acf/input/admin_enqueue_scripts', 'spl_enqueue_all_admin_media', 20 );
 function spl_enqueue_all_admin_media(): void {
 	if ( function_exists( 'wp_enqueue_media' ) ) {
-		wp_enqueue_media();
+		global $post;
+		$post_id = 0;
+		if ( isset( $post ) && $post instanceof WP_Post ) {
+			$post_id = (int) $post->ID;
+		} elseif ( isset( $_GET['post'] ) ) {
+			$post_id = (int) $_GET['post'];
+		}
+		if ( $post_id > 0 ) {
+			wp_enqueue_media( [ 'post' => $post_id ] );
+		} else {
+			wp_enqueue_media();
+		}
 	}
 }
+
+add_filter( 'media_view_settings', function ( $settings, $post ) {
+	if ( ! is_array( $settings ) ) {
+		$settings = [];
+	}
+	if ( empty( $settings['post']['id'] ) ) {
+		$post_id = 0;
+		if ( $post instanceof WP_Post ) {
+			$post_id = (int) $post->ID;
+		} elseif ( ! empty( $GLOBALS['post']->ID ) ) {
+			$post_id = (int) $GLOBALS['post']->ID;
+		} elseif ( isset( $_GET['post'] ) ) {
+			$post_id = (int) $_GET['post'];
+		}
+		if ( $post_id > 0 ) {
+			$settings['post'] = [
+				'id'              => $post_id,
+				'nonce'           => wp_create_nonce( 'update-post_' . $post_id ),
+				'featuredImageId' => (int) get_post_thumbnail_id( $post_id ),
+			];
+		}
+	}
+	return $settings;
+}, 10, 2 );
 
 add_filter( 'ajax_query_attachments_args', function ( $query ) {
 	if ( is_array( $query ) ) {
