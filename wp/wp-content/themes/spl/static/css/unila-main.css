@@ -8869,14 +8869,14 @@ footer .footer-bot .footer-copyright p a:hover {
    About Promises Section (LỜI HỨA CỦA BB VINACOS)
    ========================================================================== */
 .about-promises-section {
-  padding: 80px 0 !important;
+  padding: 40px 0 !important;
   background-color: #ffffff !important;
   width: 100% !important;
   display: block !important;
 }
 @media (max-width: 768px) {
   .about-promises-section {
-    padding: 50px 0 !important;
+    padding: 20px 0 !important;
   }
 }
 .about-promises-section .container {
@@ -9089,111 +9089,67 @@ footer .footer-bot .footer-copyright p a:hover {
   display: block !important;
 }
 
-    padding-top: 0 !important;
-    padding-bottom: 0 !important;
-  }
-  body.page-template-template-page-about .about-brand .row,
-  body.page-id-942 .about-brand .row,
-  body.page-id-936 .about-brand .row {
-    width: 100% !important;
-    margin-top: 0 !important;
-    align-items: center !important;
-  }
-  body.page-template-template-page-about .about-brand .col,
-  body.page-id-942 .about-brand .col,
-  body.page-id-936 .about-brand .col {
-    margin-top: 0 !important;
-  }
-  body.page-template-template-page-about .about-brand .image-2,
-  body.page-id-942 .about-brand .image-2,
-  body.page-id-936 .about-brand .image-2 {
-    max-height: min(calc(100vh - 140px), 640px) !important;
-  }
-  body.page-template-template-page-about .about-brand .image-2 img,
-  body.page-id-942 .about-brand .image-2 img,
-  body.page-id-936 .about-brand .image-2 img {
-    max-height: min(calc(100vh - 140px), 640px) !important;
-    object-fit: cover !important;
-  }
+/* Page About: Section Padding Optimization (PC: 40px top/bottom => 80px gap between 2 white sections; Mobile: 20px top/bottom => 40px gap) */
+body.page-template-template-page-about .about-story-section,
+body.page-id-942 .about-story-section,
+body.page-id-936 .about-story-section,
+body.page-template-template-page-about .about-message-section,
+body.page-id-942 .about-message-section,
+body.page-id-936 .about-message-section,
+body.page-template-template-page-about .about-brand,
+body.page-id-942 .about-brand,
+body.page-id-936 .about-brand,
+body.page-template-template-page-about .about-promises-section,
+body.page-id-942 .about-promises-section,
+body.page-id-936 .about-promises-section,
+body.page-template-template-page-about .about-5-section,
+body.page-id-942 .about-5-section,
+body.page-id-936 .about-5-section,
+body.page-template-template-page-about .about-6-section,
+body.page-id-942 .about-6-section,
+body.page-id-936 .about-6-section,
+body.page-template-template-page-about .about-2-section,
+body.page-id-942 .about-2-section,
+body.page-id-936 .about-2-section,
+body.page-template-template-page-about .about-3-section,
+body.page-id-942 .about-3-section,
+body.page-id-936 .about-3-section,
+body.page-template-template-page-about .about-4-section,
+body.page-id-942 .about-4-section,
+body.page-id-936 .about-4-section {
+  padding-top: 40px !important;
+  padding-bottom: 40px !important;
+}
+@media (max-width: 991px) {
+  body.page-template-template-page-about .about-story-section,
+  body.page-id-942 .about-story-section,
+  body.page-id-936 .about-story-section,
+  body.page-template-template-page-about .about-message-section,
+  body.page-id-942 .about-message-section,
+  body.page-id-936 .about-message-section,
+  body.page-template-template-page-about .about-brand,
+  body.page-id-942 .about-brand,
+  body.page-id-936 .about-brand,
   body.page-template-template-page-about .about-promises-section,
   body.page-id-942 .about-promises-section,
-  body.page-id-936 .about-promises-section {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 20px !important;
-  }
-  body.page-template-template-page-about .about-promises-section .container,
-  body.page-id-942 .about-promises-section .container,
-  body.page-id-936 .about-promises-section .container {
-    width: 100% !important;
-  }
+  body.page-id-936 .about-promises-section,
   body.page-template-template-page-about .about-5-section,
   body.page-id-942 .about-5-section,
-  body.page-id-936 .about-5-section {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 20px !important;
-  }
-  body.page-template-template-page-about .about-5-section .container,
-  body.page-id-942 .about-5-section .container,
-  body.page-id-936 .about-5-section .container {
-    width: 100% !important;
-  }
-  body.page-template-template-page-about .about-5-section .image.text-center,
-  body.page-id-942 .about-5-section .image.text-center,
-  body.page-id-936 .about-5-section .image.text-center {
-    margin-top: 15px !important;
-  }
-  body.page-template-template-page-about .about-5-section .image.text-center img,
-  body.page-id-942 .about-5-section .image.text-center img,
-  body.page-id-936 .about-5-section .image.text-center img {
-    max-height: min(calc(30vh - 20px), 220px) !important;
-    width: auto !important;
-    margin: 0 auto !important;
-    object-fit: contain !important;
-  }
-  body.page-template-template-page-about .about-5-section .about-5-list,
-  body.page-id-942 .about-5-section .about-5-list,
-  body.page-id-936 .about-5-section .about-5-list {
-    margin-top: 15px !important;
-  }
+  body.page-id-936 .about-5-section,
   body.page-template-template-page-about .about-6-section,
   body.page-id-942 .about-6-section,
-  body.page-id-936 .about-6-section {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 0 20px !important;
-  }
-  body.page-template-template-page-about .about-6-section .container,
-  body.page-id-942 .about-6-section .container,
-  body.page-id-936 .about-6-section .container {
-    width: 100% !important;
-  }
-  body.page-template-template-page-about .about-6-section .about-6-wrap,
-  body.page-id-942 .about-6-section .about-6-wrap,
-  body.page-id-936 .about-6-section .about-6-wrap {
-    width: 100% !important;
-  }
-  body.page-template-template-page-about .about-6-section .about-6-image,
-  body.page-id-942 .about-6-section .about-6-image,
-  body.page-id-936 .about-6-section .about-6-image {
-    max-height: min(calc(36vh - 20px), 320px) !important;
-  }
-  body.page-template-template-page-about .about-6-section .about-6-image img,
-  body.page-id-942 .about-6-section .about-6-image img,
-  body.page-id-936 .about-6-section .about-6-image img {
-    max-height: min(calc(36vh - 20px), 320px) !important;
-    width: 100% !important;
-    object-fit: cover !important;
-  }
-  body.page-template-template-page-about .about-6-section .about-6-caption,
-  body.page-id-942 .about-6-section .about-6-caption,
-  body.page-id-936 .about-6-section .about-6-caption {
-    margin-top: 15px !important;
-    padding-top: 15px !important;
+  body.page-id-936 .about-6-section,
+  body.page-template-template-page-about .about-2-section,
+  body.page-id-942 .about-2-section,
+  body.page-id-936 .about-2-section,
+  body.page-template-template-page-about .about-3-section,
+  body.page-id-942 .about-3-section,
+  body.page-id-936 .about-3-section,
+  body.page-template-template-page-about .about-4-section,
+  body.page-id-942 .about-4-section,
+  body.page-id-936 .about-4-section {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
   }
 }
 

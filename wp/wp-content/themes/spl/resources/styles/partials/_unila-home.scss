@@ -1743,13 +1743,13 @@ footer {
 }
 
 .about-promises-section {
-	padding: 80px 0 !important;
+	padding: 40px 0 !important;
 	background-color: #ffffff !important;
 	width: 100% !important;
 	display: block !important;
 
 	@media (max-width: 768px) {
-		padding: 50px 0 !important;
+		padding: 20px 0 !important;
 	}
 
 	.container {
@@ -2266,6 +2266,30 @@ footer {
 	}
 }
 
+/* ==========================================================================
+   Page About: Section Padding Optimization (PC: 40px top/bottom => 80px gap between 2 white sections; Mobile: 20px top/bottom => 40px gap)
+   ========================================================================== */
+body.page-template-template-page-about,
+body.page-id-942,
+body.page-id-936 {
+	.about-story-section,
+	.about-message-section,
+	.about-brand,
+	.about-promises-section,
+	.about-5-section,
+	.about-6-section,
+	.about-2-section,
+	.about-3-section,
+	.about-4-section {
+		padding-top: 40px !important;
+		padding-bottom: 40px !important;
+
+		@media (max-width: 991px) {
+			padding-top: 20px !important;
+			padding-bottom: 20px !important;
+		}
+	}
+}
 
 .about-42-list {
 	display: grid;
@@ -2320,11 +2344,11 @@ footer {
 }
 
 .about-5-section {
-	padding: 80px 0;
+	padding: 40px 0 !important;
 
 	@media (max-width: 768px) {
-		padding-top: 25px !important;
-		padding-bottom: 15px !important;
+		padding-top: 20px !important;
+		padding-bottom: 20px !important;
 
 		.image.mt-10 {
 			margin-top: 14px !important;
@@ -2385,11 +2409,11 @@ footer {
 }
 
 .about-6-section {
-	padding: 80px 0;
+	padding: 40px 0 !important;
 
 	@media (max-width: 768px) {
-		padding-top: 15px !important;
-		padding-bottom: 30px !important;
+		padding-top: 20px !important;
+		padding-bottom: 20px !important;
 
 		.about-6-wrap {
 			padding: 16px 14px !important;
