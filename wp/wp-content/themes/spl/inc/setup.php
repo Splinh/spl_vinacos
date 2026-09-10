@@ -212,7 +212,34 @@ add_action( 'admin_footer', function (): void {
 	}
 }, 999 );
 
+add_filter( 'media_view_settings', function ( $settings, $post ) {
+	if ( ! is_array( $settings ) ) {
+		$settings = [];
+	}
+	if ( empty( $settings['post'] ) || ! is_array( $settings['post'] ) ) {
+		$post_id = 0;
+		if ( $post instanceof WP_Post ) {
+			$post_id = (int) $post->ID;
+		} elseif ( isset( $_GET['post'] ) ) {
+			$post_id = (int) $_GET['post'];
+		}
+		$settings['post'] = [
+			'id'              => $post_id,
+			'featuredImageId' => $post_id ? (int) ( get_post_thumbnail_id( $post_id ) ?: 0 ) : 0,
+			'nonce'           => $post_id ? wp_create_nonce( 'update-post_' . $post_id ) : '',
+		];
+	}
+	return $settings;
+}, 9999, 2 );
+
 add_action( 'admin_head', function (): void {
+	global $post;
+	$post_id = 0;
+	if ( isset( $post ) && $post instanceof WP_Post ) {
+		$post_id = (int) $post->ID;
+	} elseif ( isset( $_GET['post'] ) ) {
+		$post_id = (int) $_GET['post'];
+	}
 	$inc_js  = includes_url( 'js/' );
 	$inc_css = includes_url( 'css/' );
 	?>
@@ -262,9 +289,14 @@ add_action( 'admin_head', function (): void {
 		window.wp.Uploader.limitExceeded = false;
 		window.wp.Uploader.browser = window.wp.Uploader.browser || { supported: true, mobile: false };
 
-		// Ensure media settings defaultProps exists (prevents Cannot read properties of undefined reading 'align')
+		// Ensure media settings defaultProps & post exist (prevents Cannot read properties of undefined reading 'id' / 'align')
 		window._wpMediaViewsL10n = window._wpMediaViewsL10n || {};
 		window._wpMediaViewsL10n.settings = window._wpMediaViewsL10n.settings || {};
+		window._wpMediaViewsL10n.settings.post = window._wpMediaViewsL10n.settings.post || {
+			id: <?php echo $post_id; ?>,
+			featuredImageId: <?php echo $post_id ? (int) ( get_post_thumbnail_id( $post_id ) ?: 0 ) : 0; ?>,
+			nonce: '<?php echo $post_id ? wp_create_nonce( 'update-post_' . $post_id ) : ''; ?>'
+		};
 		window._wpMediaViewsL10n.settings.defaultProps = window._wpMediaViewsL10n.settings.defaultProps || {
 			align: 'none',
 			size: 'medium',
@@ -273,9 +305,28 @@ add_action( 'admin_head', function (): void {
 		window._wpMediaViewsL10n.settings.embedExts = window._wpMediaViewsL10n.settings.embedExts || [
 			'mp3', 'ogg', 'flac', 'm4a', 'wav', 'mp4', 'm4v', 'webm', 'ogv', 'flv'
 		];
+		window._wpMediaViewsL10n.settings.mimeTypes = window._wpMediaViewsL10n.settings.mimeTypes || {};
+		window._wpMediaViewsL10n.settings.months = window._wpMediaViewsL10n.settings.months || [];
+		window._wpMediaViewsL10n.settings.tabs = window._wpMediaViewsL10n.settings.tabs || {};
+		window._wpMediaViewsL10n.settings.tabUrl = window._wpMediaViewsL10n.settings.tabUrl || '';
+		window._wpMediaViewsL10n.settings.attachmentCounts = window._wpMediaViewsL10n.settings.attachmentCounts || { audio: 0, video: 0 };
+		window._wpMediaViewsL10n.settings.mediaTrash = window._wpMediaViewsL10n.settings.mediaTrash || 0;
+		window._wpMediaViewsL10n.settings.infiniteScrolling = window._wpMediaViewsL10n.settings.infiniteScrolling || 0;
+		window._wpMediaViewsL10n.settings.nonce = window._wpMediaViewsL10n.settings.nonce || {};
+
+		window._wpMediaViewsL10n.allMediaItems = window._wpMediaViewsL10n.allMediaItems || 'Tất cả tệp tin';
+		window._wpMediaViewsL10n.uploadedToThisPost = window._wpMediaViewsL10n.uploadedToThisPost || 'Đã tải lên bài viết này';
+		window._wpMediaViewsL10n.unattached = window._wpMediaViewsL10n.unattached || 'Chưa đính kèm';
+		window._wpMediaViewsL10n.mine = window._wpMediaViewsL10n.mine || 'Của tôi';
+		window._wpMediaViewsL10n.trash = window._wpMediaViewsL10n.trash || 'Thùng rác';
+		window._wpMediaViewsL10n.allDates = window._wpMediaViewsL10n.allDates || 'Tất cả ngày';
+		window._wpMediaViewsL10n.warnDelete = window._wpMediaViewsL10n.warnDelete || 'Bạn có chắc chắn muốn xóa không?';
 
 		function ensureMediaReady(callback) {
 			if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+				if (window.wp.media.view && window.wp.media.view.settings) {
+					window.wp.media.view.settings.post = window.wp.media.view.settings.post || window._wpMediaViewsL10n.settings.post;
+				}
 				callback();
 				return;
 			}
@@ -296,6 +347,9 @@ add_action( 'admin_head', function (): void {
 			var loadNext = function(idx) {
 				if (idx >= scripts.length) {
 					if (typeof window.wp !== 'undefined' && typeof window.wp.media === 'function') {
+						if (window.wp.media.view && window.wp.media.view.settings) {
+							window.wp.media.view.settings.post = window.wp.media.view.settings.post || window._wpMediaViewsL10n.settings.post;
+						}
 						callback();
 					} else {
 						alert('Đang tải cấu phần Media, vui lòng thử lại sau 1 giây.');
