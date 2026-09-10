@@ -2085,18 +2085,14 @@ footer {
 
 	/* Desktop >= 1025px: Full Canva Slide 18 Layout Edge-to-Edge */
 	@media (min-width: 1025px) {
-		height: calc(100vh - 84px) !important;
-		min-height: calc(100vh - 84px) !important;
-		max-height: calc(100vh - 84px) !important;
+		min-height: clamp(520px, 68vh, 640px) !important;
 
 		.about-message-card {
 			background-image: var(--msg-bg, url('../img/vinacos/bg-tam-the-cong-su.webp')) !important;
 			background-repeat: no-repeat !important;
 			background-position: right center !important;
 			background-size: cover !important;
-			height: 100% !important;
-			min-height: 100% !important;
-			max-height: 100% !important;
+			min-height: clamp(520px, 68vh, 640px) !important;
 			flex-direction: row !important;
 			align-items: stretch !important;
 			border-radius: 0 !important;
@@ -2270,127 +2266,6 @@ footer {
 	}
 }
 
-/* 1 lướt là 1 section như trang chủ cho trang Tâm Thế Cộng Sự (About Page) */
-@media (min-width: 1025px) {
-	body.page-template-template-page-about,
-	body.page-id-942,
-	body.page-id-936 {
-		overflow-x: hidden !important;
-
-		.about-story-section,
-		.about-message-section,
-		.about-brand,
-		.about-promises-section,
-		.about-5-section,
-		.about-6-section {
-			height: calc(100vh - 84px) !important;
-			min-height: calc(100vh - 84px) !important;
-			max-height: calc(100vh - 84px) !important;
-			overflow: hidden !important;
-			box-sizing: border-box !important;
-			margin: 0 !important;
-		}
-
-		/* Section 1: Story / Nghiên cứu sản xuất mỹ phẩm */
-		.about-story-section {
-			.about-story-grid {
-				height: 100% !important;
-				min-height: 100% !important;
-			}
-			.about-story-shape-card {
-				height: 100% !important;
-				min-height: 100% !important;
-			}
-			.about-story-content-col {
-				height: 100% !important;
-				overflow-y: auto !important;
-			}
-		}
-
-		/* Section 2: Thông điệp Slide 18 Full Edge-to-Edge */
-		.about-message-section,
-		.about-brand {
-			display: block !important;
-			margin: 0 !important;
-			padding: 0 !important;
-			width: 100% !important;
-			height: 100% !important;
-			min-height: 100% !important;
-			max-height: 100% !important;
-
-			.about-message-card {
-				width: 100% !important;
-				height: 100% !important;
-				min-height: 100% !important;
-				max-height: 100% !important;
-				border-radius: 0 !important;
-			}
-		}
-
-		/* Section 3: Lời hứa của BB VINACOS */
-		.about-promises-section {
-			display: flex !important;
-			align-items: center !important;
-			justify-content: center !important;
-			padding: 0 20px !important;
-
-			.container {
-				width: 100% !important;
-			}
-		}
-
-		/* Section 4: Sức mạnh tập thể */
-		.about-5-section {
-			display: flex !important;
-			align-items: center !important;
-			justify-content: center !important;
-			padding: 0 20px !important;
-
-			.container {
-				width: 100% !important;
-			}
-			.image.text-center {
-				margin-top: 15px !important;
-			}
-			.image.text-center img {
-				max-height: min(calc(30vh - 20px), 220px) !important;
-				width: auto !important;
-				margin: 0 auto !important;
-				object-fit: contain !important;
-			}
-			.about-5-list {
-				margin-top: 15px !important;
-			}
-		}
-
-		/* Section 5: Nhà máy cGMP */
-		.about-6-section {
-			display: flex !important;
-			align-items: center !important;
-			justify-content: center !important;
-			padding: 0 20px !important;
-
-			.container {
-				width: 100% !important;
-			}
-			.about-6-wrap {
-				width: 100% !important;
-			}
-			.about-6-image {
-				max-height: min(calc(36vh - 20px), 320px) !important;
-			}
-			.about-6-image img {
-				max-height: min(calc(36vh - 20px), 320px) !important;
-				width: 100% !important;
-				object-fit: cover !important;
-			}
-			.about-6-caption {
-				margin-top: 15px !important;
-				padding-top: 15px !important;
-			}
-		}
-	}
-}
 
 .about-42-list {
 	display: grid;

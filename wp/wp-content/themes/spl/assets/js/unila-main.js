@@ -318,19 +318,12 @@ function initAbout6Swiper(){
 function initFullPageScroll() {
 	if (window.innerWidth < 1025) return;
 
+	// Only activate full-page scroll on the actual homepage with hero banner
 	var isHomePage = $("body").hasClass("home") || $("body").hasClass("front-page") || $("body").hasClass("page-template-template-page-home");
-	var isAboutPage = $("body").hasClass("page-template-template-page-about") || $("body").hasClass("page-id-942") || $("body").hasClass("page-id-936");
+	if (!isHomePage) return;
+	if (!$(".home-banner").length) return;
 
-	if (!isHomePage && !isAboutPage) return;
-
-	var $sections;
-	if (isHomePage) {
-		if (!$(".home-banner").length) return;
-		$sections = $(".home-banner, .home-banner + .about-1-section, .home-3-section, .home-4-section, .home-5-section, .home-9-section, footer.footer-vinacos");
-	} else if (isAboutPage) {
-		$sections = $(".about-story-section, .about-brand, .about-promises-section, .about-5-section, .about-6-section, footer.footer-vinacos");
-	}
-
+	var $sections = $(".home-banner, .home-banner + .about-1-section, .home-3-section, .home-4-section, .home-5-section, .home-9-section, footer.footer-vinacos");
 	if (!$sections || $sections.length <= 1) return;
 
 	var isScrolling = false;

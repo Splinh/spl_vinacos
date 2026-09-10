@@ -9089,60 +9089,6 @@ footer .footer-bot .footer-copyright p a:hover {
   display: block !important;
 }
 
-/* 1 lướt là 1 section như trang chủ cho trang Tâm Thế Cộng Sự (About Page) */
-@media (min-width: 1025px) {
-  body.page-template-template-page-about,
-  body.page-id-942,
-  body.page-id-936 {
-    overflow-x: hidden !important;
-  }
-  body.page-template-template-page-about .about-story-section,
-  body.page-id-942 .about-story-section,
-  body.page-id-936 .about-story-section,
-  body.page-template-template-page-about .about-brand,
-  body.page-id-942 .about-brand,
-  body.page-id-936 .about-brand,
-  body.page-template-template-page-about .about-promises-section,
-  body.page-id-942 .about-promises-section,
-  body.page-id-936 .about-promises-section,
-  body.page-template-template-page-about .about-5-section,
-  body.page-id-942 .about-5-section,
-  body.page-id-936 .about-5-section,
-  body.page-template-template-page-about .about-6-section,
-  body.page-id-942 .about-6-section,
-  body.page-id-936 .about-6-section {
-    height: calc(100vh - 84px) !important;
-    min-height: calc(100vh - 84px) !important;
-    max-height: calc(100vh - 84px) !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    margin: 0 !important;
-  }
-  body.page-template-template-page-about .about-story-section .about-story-grid,
-  body.page-id-942 .about-story-section .about-story-grid,
-  body.page-id-936 .about-story-section .about-story-grid {
-    height: 100% !important;
-    min-height: 100% !important;
-  }
-  body.page-template-template-page-about .about-story-section .about-story-shape-card,
-  body.page-id-942 .about-story-section .about-story-shape-card,
-  body.page-id-936 .about-story-section .about-story-shape-card {
-    height: 100% !important;
-    min-height: 100% !important;
-  }
-  body.page-template-template-page-about .about-story-section .about-story-content-col,
-  body.page-id-942 .about-story-section .about-story-content-col,
-  body.page-id-936 .about-story-section .about-story-content-col {
-    height: 100% !important;
-    overflow-y: auto !important;
-  }
-  body.page-template-template-page-about .about-brand,
-  body.page-id-942 .about-brand,
-  body.page-id-936 .about-brand {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin: 0 auto !important;
     padding-top: 0 !important;
     padding-bottom: 0 !important;
   }
@@ -11056,9 +11002,7 @@ body.woocommerce-shop .product-section {
 /* Desktop >= 1025px: Full Canva Slide 18 Layout Edge-to-Edge */
 @media (min-width: 1025px) {
   .about-message-section {
-    height: calc(100vh - 84px) !important;
-    min-height: calc(100vh - 84px) !important;
-    max-height: calc(100vh - 84px) !important;
+    min-height: clamp(520px, 68vh, 640px) !important;
   }
 
   .about-message-card {
@@ -11066,9 +11010,7 @@ body.woocommerce-shop .product-section {
     background-repeat: no-repeat !important;
     background-position: right center !important;
     background-size: cover !important;
-    height: 100% !important;
-    min-height: 100% !important;
-    max-height: 100% !important;
+    min-height: clamp(520px, 68vh, 640px) !important;
     flex-direction: row !important;
     align-items: stretch !important;
     border-radius: 0 !important;
@@ -11108,31 +11050,6 @@ body.woocommerce-shop .product-section {
   }
 }
 
-/* Desktop 1 lướt 1 section (Full Viewport Snap) */
-@media (min-width: 1025px) {
-  body.page-template-template-page-about .about-message-section,
-  body.page-id-942 .about-message-section,
-  body.page-id-936 .about-message-section {
-    height: calc(100vh - 84px) !important;
-    min-height: calc(100vh - 84px) !important;
-    max-height: calc(100vh - 84px) !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    margin: 0 !important;
-    display: block !important;
-    padding: 0 !important;
-  }
-
-  body.page-template-template-page-about .about-message-section .about-message-card,
-  body.page-id-942 .about-message-section .about-message-card,
-  body.page-id-936 .about-message-section .about-message-card {
-    width: 100% !important;
-    height: 100% !important;
-    min-height: 100% !important;
-    max-height: 100% !important;
-    border-radius: 0 !important;
-  }
-}
 
 /* ==========================================================================
    Section: R&D System (Canva Slide Format on Home)
