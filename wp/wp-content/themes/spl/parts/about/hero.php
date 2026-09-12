@@ -19,7 +19,7 @@ if ( empty( $banner_img ) || false !== strpos( $banner_img, 'brand-banner-' ) ) 
 	<div class="swiper">
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
-				<div class="image img-cover">
+				<div class="image">
 					<img class="lozad" src="<?php echo esc_url( $banner_img ); ?>" data-src="<?php echo esc_url( $banner_img ); ?>" alt="VINACOS - <?= $is_en ? 'About Us' : 'Về chúng tôi' ?>" width="1920" height="600" fetchpriority="high">
 				</div>
 			</div>

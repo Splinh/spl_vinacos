@@ -1414,31 +1414,20 @@ footer {
 	width: 100%;
 	overflow: hidden;
 
-	.image {
-		width: 100%;
-		aspect-ratio: 1920/600;
-
-		@media (max-width: 768px) {
-			aspect-ratio: auto !important;
-			min-height: 0 !important;
-			max-height: none !important;
-			height: auto !important;
-			width: 100% !important;
-		}
+	.image,
+	.image.img-cover {
+		width: 100% !important;
+		height: auto !important;
+		aspect-ratio: auto !important;
+		min-height: 0 !important;
+		max-height: none !important;
 
 		img {
-			width: 100%;
-			height: 100%;
-			object-fit: cover;
-			object-position: center;
-			display: block;
-
-			@media (max-width: 768px) {
-				width: 100% !important;
-				height: auto !important;
-				max-width: 100% !important;
-				object-fit: contain !important;
-			}
+			width: 100% !important;
+			height: auto !important;
+			max-width: 100% !important;
+			object-fit: contain !important;
+			display: block !important;
 		}
 	}
 }

@@ -23,7 +23,7 @@ $crumb_text = ( function_exists( 'pll_current_language' ) && 'en' === pll_curren
 	<div class="swiper">
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
-				<div class="image img-cover">
+				<div class="image">
 					<img class="lozad" src="<?php echo esc_url( $img_banner ); ?>" data-src="<?php echo esc_url( $img_banner ); ?>" alt="R&D VINACOS">
 				</div>
 			</div>
