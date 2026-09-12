@@ -2103,12 +2103,18 @@ footer {
 		.about-message-content {
 			width: 50% !important;
 			max-width: 660px !important;
-			height: 100% !important;
-			padding: clamp(35px, 6vh, 75px) clamp(40px, 6vw, 110px) clamp(45px, 8vh, 90px) !important;
+			min-height: clamp(520px, 68vh, 640px) !important;
+			display: flex !important;
+			flex-direction: column !important;
+			justify-content: space-between !important;
+			align-self: stretch !important;
+			box-sizing: border-box !important;
+			padding: clamp(35px, 5vh, 60px) clamp(40px, 6vw, 110px) clamp(40px, 6vh, 70px) !important;
 		}
 
 		.about-message-badge {
-			margin-bottom: auto !important;
+			margin-top: 0 !important;
+			margin-bottom: 0 !important;
 		}
 
 		.about-message-icon {
@@ -2122,7 +2128,7 @@ footer {
 
 		.about-message-quote-wrap {
 			margin-top: auto !important;
-			margin-bottom: clamp(10px, 3vh, 40px) !important;
+			margin-bottom: 0 !important;
 		}
 
 		.about-message-quote {
