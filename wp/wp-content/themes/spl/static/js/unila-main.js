@@ -35,19 +35,25 @@ $((function(){
 }));
 
 
-$(window).on("scroll",(function(){APP.fixed()}));
+$(window).on("scroll resize orientationchange",(function(){APP.fixed()}));
 var header=$("header"),body=$("body"),backToTop=$(".back-to-top"),buttonMenu=$("#buttonMenu"),mobileWrap=$(".mobile-wrap"),buttonSearch=$("header .button-search"),searchWrap=$(".search-wrap"),heightHeader=$("header").height(),heightWindow=$(window).height(),widthWindow=$(window).width(),outerHeightWindow=$(window).outerHeight();
 $.fn.extend({toggleText:function(e,t){return this.text(this.text()==t?e:t)}});
 
 var APP={
-	fixed:()=>{$(window).scrollTop()>heightHeader?header.addClass("active"):header.removeClass("active"),$(window).scrollTop()>outerHeightWindow-heightHeader?backToTop.addClass("active"):backToTop.removeClass("active")},
+	fixed:()=>{
+		var st = $(window).scrollTop();
+		var h = $("header").outerHeight() || heightHeader || 62;
+		var threshold = header.hasClass("active") ? 10 : h;
+		st > threshold ? header.addClass("active") : header.removeClass("active");
+		st > outerHeightWindow - h ? backToTop.addClass("active") : backToTop.removeClass("active");
+	},
 	backToTop:()=>{backToTop.on("click",(function(){$("html, body").animate({scrollTop:0},500)}))},
 	mapping:()=>{$("header .navbar-nav").mapping({mobileWrapper:".mobile-wrap .navbar-nav-list",mobileMethod:"prependTo",desktopWrapper:"header .header-center",desktopMethod:"appendTo",breakpoint:1023.98})},
 	megaMenu:()=>{$(".main-menu > .menu-item-has-children").on("mouseenter",(function(){$(".backdrop-mega-menu").fadeIn()})).on("mouseleave",(function(){$(".backdrop-mega-menu").fadeOut()})),$(".main-menu [data-walker-img]").on("mouseenter",(function(){const e=$(this).data("walker-img");$(this).parents(".menu-item-has-children").find(".walker-preview img").attr("src",e).fadeIn()}))},
 	toggleMenuMobile:()=>{$(buttonMenu).on("click",(function(){mobileWrap.slideDown().toggleClass("active"),$(".backdrop-mobile").fadeIn()})),$(mobileWrap).find(".close-mobile").on("click",(function(){mobileWrap.fadeOut().removeClass("active"),$(".backdrop-mobile").fadeOut()})),$(document).on("click",(function(e){$(e.target).closest(mobileWrap).length||$(e.target).closest(buttonMenu).length||(mobileWrap.fadeOut().removeClass("active"),$(".backdrop-mobile").fadeOut())})),$(".main-menu .menu-item-has-children > .sub-menu").each((function(){var e=$('<span class="toggle-submenu"></span>');$(this).before(e)})),$(".main-menu .menu-item-has-children > .mega-menu").each((function(){var e=$('<span class="toggle-mega"></span>');$(this).before(e)})),$(".main-menu .menu-item-has-children > .mega-wrap").each((function(){var e=$('<span class="toggle-wrap"></span>');$(this).before(e)})),$(".main-menu .toggle-submenu, .main-menu .toggle-mega, .main-menu .toggle-wrap").on("click",(function(){widthWindow<1200&&($(this).toggleClass("active"),$(this).next().slideToggle())}))},
 	toggleSearch:()=>{buttonSearch.on("click",(function(){searchWrap.fadeToggle(),searchWrap.find("input").trigger("focus"),$(".backdrop-search").fadeToggle("fast")})),$(document).on("click",(function(e){$(e.target).closest(searchWrap).length||$(e.target).closest(buttonSearch).length||(searchWrap.fadeOut("fast"),$(".backdrop-search").fadeOut("fast"))}))},
 	toggleCategory:()=>{$(".toggle-category").on("click",(function(){$(".box-category").fadeIn(),$(".backdrop-category").fadeIn()})),$(".box-category .box-close").on("click",(function(){$(".box-category").slideUp(),$(".backdrop-category").fadeOut()})),$(document).on("click",(function(e){widthWindow<1024&&($(e.target).closest(".box-category").length||$(e.target).closest(".toggle-category").length||($(".box-category").slideUp(),$(".backdrop-category").fadeOut()))}))},
-	init:()=>{APP.backToTop(),APP.mapping(),APP.megaMenu(),APP.toggleMenuMobile(),APP.toggleSearch(),APP.toggleCategory()}
+	init:()=>{APP.fixed(),APP.backToTop(),APP.mapping(),APP.megaMenu(),APP.toggleMenuMobile(),APP.toggleSearch(),APP.toggleCategory()}
 };
 defaultSettingSwiper={preventInteractionOnTransition:!0,observer:!0,observeParents:!0,lazy:{loadPrevNext:!0}};
 
