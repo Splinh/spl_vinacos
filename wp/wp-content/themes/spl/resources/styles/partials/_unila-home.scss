@@ -3997,13 +3997,13 @@ body.woocommerce-shop {
 
 	.global-breadcrumb {
 		background-color: #f8fafc !important;
-		margin-top: calc(84px + 10px) !important;
+		margin-top: 0 !important;
 		padding-top: 8px !important;
 		padding-bottom: 8px !important;
 		margin-bottom: 0 !important;
 
 		@media (max-width: 1024px) {
-			margin-top: calc(60px + 10px) !important;
+			margin-top: 0 !important;
 			padding-top: 6px !important;
 			padding-bottom: 6px !important;
 		}
