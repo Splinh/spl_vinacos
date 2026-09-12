@@ -188,6 +188,113 @@ function spl_enqueue_all_admin_media(): void {
 	}
 }
 
+add_action( 'admin_head', 'spl_print_admin_media_scripts', 20 );
+function spl_print_admin_media_scripts(): void {
+	if ( ! is_admin() || ! function_exists( 'wp_enqueue_media' ) ) {
+		return;
+	}
+
+	global $post;
+	$post_id = 0;
+	if ( isset( $post ) && $post instanceof WP_Post ) {
+		$post_id = (int) $post->ID;
+	} elseif ( isset( $_GET['post'] ) ) {
+		$post_id = (int) $_GET['post'];
+	}
+
+	if ( $post_id > 0 ) {
+		wp_enqueue_media( [ 'post' => $post_id ] );
+	} else {
+		wp_enqueue_media();
+	}
+
+	// Output core media styles and scripts in head so window.wp.media is immediately available.
+	// wp_print_scripts marks handles done, preventing footer duplication.
+	wp_print_styles( [ 'media-views', 'imgareaselect' ] );
+	wp_print_scripts( [ 'media-editor', 'media-views', 'media-models' ] );
+	?>
+	<script>
+	(function() {
+		window._wpMediaViewsL10n = window._wpMediaViewsL10n || {};
+		window._wpMediaViewsL10n.settings = window._wpMediaViewsL10n.settings || {};
+		if (!window._wpMediaViewsL10n.settings.post) {
+			window._wpMediaViewsL10n.settings.post = {
+				id: <?php echo (int) $post_id; ?>,
+				featuredImageId: <?php echo (int) ( $post_id ? ( get_post_thumbnail_id( $post_id ) ?: 0 ) : 0 ); ?>,
+				nonce: '<?php echo $post_id ? esc_js( wp_create_nonce( 'update-post_' . $post_id ) ) : ''; ?>'
+			};
+		}
+
+		function syncMediaSettings() {
+			if (window.wp && window.wp.media && window.wp.media.view && window.wp.media.view.settings) {
+				window.wp.media.view.settings.post = window.wp.media.view.settings.post || window._wpMediaViewsL10n.settings.post;
+				if (window.wp.media.model && window.wp.media.model.settings) {
+					window.wp.media.model.settings.post = window.wp.media.model.settings.post || window.wp.media.view.settings.post;
+				}
+			}
+		}
+		syncMediaSettings();
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', syncMediaSettings);
+		}
+
+		// Safeguard ACF media popup when Add Image is clicked
+		if (typeof window.acf !== 'undefined' && !window.acf._safeMediaWrapped) {
+			window.acf._safeMediaWrapped = true;
+			var origNewMediaPopup = window.acf.newMediaPopup;
+			if (typeof origNewMediaPopup === 'function') {
+				window.acf.newMediaPopup = function(options) {
+					syncMediaSettings();
+					if (!window.wp || !window.wp.media || typeof window.wp.media.query !== 'function') {
+						console.warn('[ACF Media Safeguard] wp.media.query not ready, falling back to native wp.media frame.');
+						if (window.wp && typeof window.wp.media === 'function') {
+							var frame = window.wp.media({
+								title: (options && options.title) || 'Chọn hình ảnh',
+								button: { text: (options && options.button && options.button.text) || 'Chọn ảnh' },
+								multiple: (options && options.multiple) || false,
+								library: { type: (options && options.type) || 'image' }
+							});
+							if (options && typeof options.select === 'function') {
+								frame.on('select', function() {
+									options.select(frame.state().get('selection'));
+								});
+							}
+							return frame;
+						}
+					}
+					return origNewMediaPopup.apply(this, arguments);
+				};
+			}
+		}
+	})();
+	</script>
+	<?php
+}
+
+add_action( 'admin_footer', function (): void {
+	if ( function_exists( 'wp_print_media_templates' ) && ! did_action( 'wp_print_media_templates' ) ) {
+		wp_print_media_templates();
+	}
+}, 1 );
+
+// Diagnostics for footer execution
+add_action( 'admin_footer', function (): void {
+	@file_put_contents( WP_CONTENT_DIR . '/uploads/admin_debug.txt', "[" . gmdate( 'Y-m-d H:i:s' ) . "] admin_footer 25 reached on " . ( $_SERVER['REQUEST_URI'] ?? '' ) . "\n", FILE_APPEND );
+}, 25 );
+
+add_action( 'admin_print_footer_scripts', function (): void {
+	@file_put_contents( WP_CONTENT_DIR . '/uploads/admin_debug.txt', "[" . gmdate( 'Y-m-d H:i:s' ) . "] admin_print_footer_scripts 999 reached\n", FILE_APPEND );
+}, 999 );
+
+add_action( 'shutdown', function (): void {
+	$err = error_get_last();
+	$msg = "[" . gmdate( 'Y-m-d H:i:s' ) . "] shutdown reached. Peak RAM: " . round( memory_get_peak_usage() / 1024 / 1024, 2 ) . " MB\n";
+	if ( $err && in_array( $err['type'], [ E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR, E_RECOVERABLE_ERROR ], true ) ) {
+		$msg .= sprintf( "FATAL: %s in %s:%d\n", $err['message'], $err['file'], $err['line'] );
+	}
+	@file_put_contents( WP_CONTENT_DIR . '/uploads/admin_debug.txt', $msg, FILE_APPEND );
+}, 9999 );
+
 add_filter( 'media_view_settings', function ( $settings, $post ) {
 	if ( ! is_array( $settings ) ) {
 		$settings = [];
