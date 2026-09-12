@@ -211,10 +211,43 @@ function spl_print_admin_media_scripts(): void {
 	// Output core media styles and scripts in head so window.wp.media is immediately available.
 	// wp_print_scripts marks handles done, preventing footer duplication.
 	wp_print_styles( [ 'media-views', 'imgareaselect' ] );
-	wp_print_scripts( [ 'media-editor', 'media-views', 'media-models' ] );
+	wp_print_scripts( [ 'media-editor', 'media-views', 'media-models', 'media-audiovideo', 'mce-view', 'image-edit' ] );
 	?>
 	<script>
 	(function() {
+		window.wp = window.wp || {};
+		window.wp.media = window.wp.media || function() {};
+
+		// Polyfill wp.media.mixin to prevent "Cannot read properties of undefined (reading 'removeAllPlayers')" in media-views.js
+		window.wp.media.mixin = window.wp.media.mixin || {
+			mejsSettings: window._wpmejsSettings || {},
+			removeAllPlayers: function() {
+				if (window.mejs && window.mejs.players) {
+					for (var e in window.mejs.players) {
+						try {
+							window.mejs.players[e].pause();
+							this.removePlayer(window.mejs.players[e]);
+						} catch (err) {}
+					}
+				}
+			},
+			removePlayer: function(e) {
+				if (!e) return;
+				try {
+					if (window.mejs && window.mejs.players && e.id) {
+						delete window.mejs.players[e.id];
+					}
+					if (e.container && typeof e.container.remove === 'function') {
+						e.container.remove();
+					}
+				} catch (err) {}
+			},
+			unsetPlayers: function() {
+				this.players = [];
+			}
+		};
+		window.MediaElementPlayer = window.MediaElementPlayer || function() {};
+
 		window._wpMediaViewsL10n = window._wpMediaViewsL10n || {};
 		window._wpMediaViewsL10n.settings = window._wpMediaViewsL10n.settings || {};
 		if (!window._wpMediaViewsL10n.settings.post) {
