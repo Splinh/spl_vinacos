@@ -265,8 +265,7 @@ function initAbout5Swiper(){
 		spaceBetween: 20,
 		slidesPerView: 1,
 		effect: "fade",
-		fadeEffect: { crossFade: true },
-		autoHeight: true
+		fadeEffect: { crossFade: true }
 	});
 
 	var imageSwiper = new Swiper(".about-5-image", {
@@ -286,6 +285,12 @@ function initAbout5Swiper(){
 	imageSwiper.on("slideChange", function(){
 		if (captionSwiper && captionSwiper.slideTo) {
 			captionSwiper.slideTo(imageSwiper.activeIndex);
+		}
+	});
+
+	captionSwiper.on("slideChange", function(){
+		if (imageSwiper && imageSwiper.slideTo) {
+			imageSwiper.slideTo(captionSwiper.activeIndex);
 		}
 	});
 }

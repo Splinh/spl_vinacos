@@ -11,7 +11,7 @@ defined( 'ABSPATH' ) || exit;
 
 $title      = $data['title'] ?? 'Sức mạnh tập thể';
 $img_dir    = get_template_directory_uri() . '/static/img/vinacos/';
-$banner_img = get_template_directory_uri() . '/static/img/suc-manh-tap-the-vinacos.jpg';
+$banner_img = get_template_directory_uri() . '/static/img/suc-manh-tap-the-vinacos.png';
 $depts      = [
 	[
 		'title' => 'BAN GIÁM ĐỐC',
