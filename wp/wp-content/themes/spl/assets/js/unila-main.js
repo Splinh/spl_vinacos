@@ -324,12 +324,18 @@ function initAbout6Swiper(){
 function initFullPageScroll() {
 	if (window.innerWidth < 1025) return;
 
-	// Only activate full-page scroll on the actual homepage with hero banner
+	// Activate full-page scroll on homepage and about page
 	var isHomePage = $("body").hasClass("home") || $("body").hasClass("front-page") || $("body").hasClass("page-template-template-page-home");
-	if (!isHomePage) return;
-	if (!$(".home-banner").length) return;
+	var isAboutPage = $("body").hasClass("page-template-template-page-about") || $("body").hasClass("page-template-template-page-about-php") || $("body").is("[class*='template-page-about']") || $("body").hasClass("page-id-942") || $("body").hasClass("page-id-936");
+	if (!isHomePage && !isAboutPage) return;
 
-	var $sections = $(".home-banner, .home-banner + .about-1-section, .home-3-section, .home-4-section, .home-5-section, .home-9-section, footer.footer-vinacos");
+	var $sections;
+	if (isHomePage) {
+		if (!$(".home-banner").length) return;
+		$sections = $(".home-banner, .home-banner + .about-1-section, .home-3-section, .home-4-section, .home-5-section, .home-9-section, footer.footer-vinacos");
+	} else if (isAboutPage) {
+		$sections = $("main > section:visible, footer.footer-vinacos");
+	}
 	if (!$sections || $sections.length <= 1) return;
 
 	var isScrolling = false;

@@ -64,17 +64,6 @@ $bg_image = get_template_directory_uri() . '/static/img/bg-story-shape.png';
 						<?php echo $is_en ? 'We understand that Vietnamese consumers deserve skincare made with genuine safety. And brands seeking that vision require a partner who not only manufactures, but actively listens, consults, and co-shapes the product from the very beginning.' : 'Chúng tôi hiểu rằng người Việt xứng đáng được chăm sóc bằng những gì thực sự an toàn. Và các thương hiệu muốn làm điều đó cần một đối tác không chỉ biết sản xuất, mà còn biết lắng nghe, tư vấn và cùng định hình sản phẩm từ đầu.'; ?>
 					</p>
 				</div>
-
-				<hr class="about-story-hr">
-
-				<!-- Block 3 -->
-				<div class="about-story-block">
-					<p class="about-story-text">
-						<?php echo $is_en ? 'You can select "No camera" option and only record your voice.' : 'Bạn có thể chọn tùy chọn <strong>\'Không camera\'</strong> và chỉ ghi âm giọng nói của mình.'; ?>
-					</p>
-				</div>
-
-				<hr class="about-story-hr">
 			</div>
 		</div>
 	</div>
