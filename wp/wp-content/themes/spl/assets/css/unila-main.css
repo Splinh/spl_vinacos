@@ -10261,13 +10261,14 @@ header.active {
     margin: 0 !important;
   }
   body.page-template-template-page-about .about-5-section,
+  body.page-template-template-page-about-php .about-5-section,
   body.page-id-942 .about-5-section,
   body.page-id-936 .about-5-section {
     height: calc(100vh - 84px) !important;
     min-height: calc(100vh - 84px) !important;
     max-height: calc(100vh - 84px) !important;
     margin: 0 !important;
-    padding: clamp(20px, 3vh, 45px) 0 !important;
+    padding: clamp(16px, 2.5vh, 32px) 0 !important;
     box-sizing: border-box !important;
     overflow: hidden !important;
     display: flex !important;
@@ -10275,54 +10276,174 @@ header.active {
     justify-content: center !important;
     background: #ffffff !important;
   }
-  body.page-template-template-page-about .about-5-section .container {
+  body.page-template-template-page-about .about-5-section .container,
+  body.page-template-template-page-about-php .about-5-section .container,
+  body.page-id-942 .about-5-section .container,
+  body.page-id-936 .about-5-section .container {
     width: 100% !important;
-    max-width: 1320px !important;
+    max-width: 1200px !important;
+    height: 100% !important;
     display: flex !important;
     flex-direction: column !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+  }
+  body.page-template-template-page-about .about-5-section .site-title,
+  body.page-template-template-page-about-php .about-5-section .site-title,
+  body.page-id-942 .about-5-section .site-title,
+  body.page-id-936 .about-5-section .site-title {
+    font-size: clamp(24px, 2.2vw, 34px) !important;
+    font-weight: 800 !important;
+    margin: 0 0 clamp(8px, 1.2vh, 14px) 0 !important;
+    text-align: center !important;
+    color: #1a1a1a !important;
+    flex-shrink: 0 !important;
+  }
+  body.page-template-template-page-about .about-5-section .image.text-center,
+  body.page-template-template-page-about-php .about-5-section .image.text-center,
+  body.page-id-942 .about-5-section .image.text-center,
+  body.page-id-936 .about-5-section .image.text-center {
+    margin: 0 !important;
+    width: 100% !important;
+    display: flex !important;
     justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+  body.page-template-template-page-about .about-5-section .image.text-center img,
+  body.page-template-template-page-about-php .about-5-section .image.text-center img,
+  body.page-id-942 .about-5-section .image.text-center img,
+  body.page-id-936 .about-5-section .image.text-center img {
+    width: 100% !important;
+    max-width: 1100px !important;
+    height: clamp(120px, 16vh, 180px) !important;
+    object-fit: cover !important;
+    border-radius: 14px !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06) !important;
+    display: block !important;
+  }
+  body.page-template-template-page-about .about-5-section .about-5-list,
+  body.page-template-template-page-about-php .about-5-section .about-5-list,
+  body.page-id-942 .about-5-section .about-5-list,
+  body.page-id-936 .about-5-section .about-5-list {
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 1100px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: clamp(24px, 3vw, 44px) !important;
+    flex-grow: 1 !important;
+    max-height: clamp(250px, 34vh, 380px) !important;
+  }
+  body.page-template-template-page-about .about-5-section .about-5-image,
+  body.page-template-template-page-about-php .about-5-section .about-5-image,
+  body.page-id-942 .about-5-section .about-5-image,
+  body.page-id-936 .about-5-section .about-5-image {
+    flex: 1 1 54% !important;
+    max-width: 54% !important;
+    height: 100% !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08) !important;
+  }
+  body.page-template-template-page-about .about-5-section .about-5-image .swiper-wrapper,
+  body.page-template-template-page-about-php .about-5-section .about-5-image .swiper-wrapper,
+  body.page-id-942 .about-5-section .about-5-image .swiper-wrapper,
+  body.page-id-936 .about-5-section .about-5-image .swiper-wrapper,
+  body.page-template-template-page-about .about-5-section .about-5-image .swiper-slide,
+  body.page-template-template-page-about-php .about-5-section .about-5-image .swiper-slide,
+  body.page-id-942 .about-5-section .about-5-image .swiper-slide,
+  body.page-id-936 .about-5-section .about-5-image .swiper-slide {
     height: 100% !important;
   }
-  body.page-template-template-page-about .about-5-section .site-title {
-    font-size: clamp(24px, 2.3vw, 36px) !important;
-    font-weight: 800 !important;
-    margin-bottom: clamp(10px, 1.5vh, 20px) !important;
-    text-align: center !important;
+  body.page-template-template-page-about .about-5-section .about-5-image .swiper-slide .image,
+  body.page-template-template-page-about-php .about-5-section .about-5-image .swiper-slide .image,
+  body.page-id-942 .about-5-section .about-5-image .swiper-slide .image,
+  body.page-id-936 .about-5-section .about-5-image .swiper-slide .image {
+    height: 100% !important;
+    width: 100% !important;
   }
-  body.page-template-template-page-about .about-5-section .image.text-center {
-    margin-top: 0 !important;
-    margin-bottom: clamp(12px, 1.8vh, 24px) !important;
-  }
-  body.page-template-template-page-about .about-5-section .image.text-center img {
-    max-height: clamp(120px, 18vh, 200px) !important;
-    width: auto !important;
-    margin: 0 auto !important;
-    object-fit: contain !important;
-    border-radius: 12px !important;
-  }
-  body.page-template-template-page-about .about-5-section .about-5-list {
-    margin-top: 0 !important;
-  }
-  body.page-template-template-page-about .about-5-section .about-5-image .swiper-slide .image {
-    height: clamp(160px, 22vh, 240px) !important;
-  }
-  body.page-template-template-page-about .about-5-section .about-5-image .swiper-slide .image img {
+  body.page-template-template-page-about .about-5-section .about-5-image .swiper-slide .image img,
+  body.page-template-template-page-about-php .about-5-section .about-5-image .swiper-slide .image img,
+  body.page-id-942 .about-5-section .about-5-image .swiper-slide .image img,
+  body.page-id-936 .about-5-section .about-5-image .swiper-slide .image img {
     height: 100% !important;
     width: 100% !important;
     object-fit: cover !important;
-    border-radius: 12px !important;
+    border-radius: 16px !important;
   }
-  body.page-template-template-page-about .about-5-section .caption {
-    margin-top: clamp(8px, 1.2vh, 16px) !important;
+  body.page-template-template-page-about .about-5-section .caption,
+  body.page-template-template-page-about-php .about-5-section .caption,
+  body.page-id-942 .about-5-section .caption,
+  body.page-id-936 .about-5-section .caption {
+    flex: 1 1 46% !important;
+    max-width: 46% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
-  body.page-template-template-page-about .about-5-section .caption .title {
-    font-size: clamp(15px, 1.1vw, 18px) !important;
-    font-weight: 700 !important;
-    margin-bottom: 4px !important;
+  body.page-template-template-page-about .about-5-section .caption .title,
+  body.page-template-template-page-about-php .about-5-section .caption .title,
+  body.page-id-942 .about-5-section .caption .title,
+  body.page-id-936 .about-5-section .caption .title {
+    font-size: clamp(18px, 1.4vw, 24px) !important;
+    font-weight: 800 !important;
+    color: #1e60a3 !important;
+    margin-bottom: clamp(6px, 1vh, 12px) !important;
   }
-  body.page-template-template-page-about .about-5-section .caption .desc {
-    font-size: clamp(12.5px, 0.9vw, 14px) !important;
-    line-height: 1.5 !important;
+  body.page-template-template-page-about .about-5-section .caption .desc,
+  body.page-template-template-page-about-php .about-5-section .caption .desc,
+  body.page-id-942 .about-5-section .caption .desc,
+  body.page-id-936 .about-5-section .caption .desc {
+    font-size: clamp(13px, 0.95vw, 15px) !important;
+    line-height: 1.65 !important;
+    color: #475569 !important;
+  }
+  body.page-template-template-page-about .about-5-section .caption .desktop-only,
+  body.page-template-template-page-about-php .about-5-section .caption .desktop-only,
+  body.page-id-942 .about-5-section .caption .desktop-only,
+  body.page-id-936 .about-5-section .caption .desktop-only {
+    margin-top: clamp(12px, 1.8vh, 22px) !important;
+  }
+  body.page-template-template-page-about .about-5-section .caption .desktop-only .swiper-button,
+  body.page-template-template-page-about-php .about-5-section .caption .desktop-only .swiper-button,
+  body.page-id-942 .about-5-section .caption .desktop-only .swiper-button,
+  body.page-id-936 .about-5-section .caption .desktop-only .swiper-button {
+    display: flex !important;
+    gap: 12px !important;
+  }
+  body.page-template-template-page-about .about-5-section .caption .desktop-only .swiper-button .button-prev,
+  body.page-template-template-page-about-php .about-5-section .caption .desktop-only .swiper-button .button-prev,
+  body.page-id-942 .about-5-section .caption .desktop-only .swiper-button .button-prev,
+  body.page-id-936 .about-5-section .caption .desktop-only .swiper-button .button-prev,
+  body.page-template-template-page-about .about-5-section .caption .desktop-only .swiper-button .button-next,
+  body.page-template-template-page-about-php .about-5-section .caption .desktop-only .swiper-button .button-next,
+  body.page-id-942 .about-5-section .caption .desktop-only .swiper-button .button-next,
+  body.page-id-936 .about-5-section .caption .desktop-only .swiper-button .button-next {
+    width: 42px !important;
+    height: 42px !important;
+    border-radius: 50% !important;
+    background: #f1f5f9 !important;
+    color: #1e60a3 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+  }
+  body.page-template-template-page-about .about-5-section .caption .desktop-only .swiper-button .button-prev:hover,
+  body.page-template-template-page-about-php .about-5-section .caption .desktop-only .swiper-button .button-prev:hover,
+  body.page-id-942 .about-5-section .caption .desktop-only .swiper-button .button-prev:hover,
+  body.page-id-936 .about-5-section .caption .desktop-only .swiper-button .button-prev:hover,
+  body.page-template-template-page-about .about-5-section .caption .desktop-only .swiper-button .button-next:hover,
+  body.page-template-template-page-about-php .about-5-section .caption .desktop-only .swiper-button .button-next:hover,
+  body.page-id-942 .about-5-section .caption .desktop-only .swiper-button .button-next:hover,
+  body.page-id-936 .about-5-section .caption .desktop-only .swiper-button .button-next:hover {
+    background: #1e60a3 !important;
+    color: #ffffff !important;
   }
   body.page-template-template-page-about .about-6-section,
   body.page-id-942 .about-6-section,
