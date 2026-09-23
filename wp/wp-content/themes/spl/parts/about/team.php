@@ -60,10 +60,10 @@ $depts      = [
 		<h2 class="site-title text-center" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
 			<?php echo esc_html( $title ); ?>
 		</h2>
-		<div class="image text-center mt-10" data-aos="fade-up" data-aos-duration="700" data-aos-delay="800">
+		<div class="image text-center" data-aos="fade-up" data-aos-duration="700" data-aos-delay="800">
 			<img class="lozad" src="<?php echo esc_url( $banner_img ); ?>" data-src="<?php echo esc_url( $banner_img ); ?>" loading="lazy" alt="Sức Mạnh Tập Thể VINACOS">
 		</div>
-		<div class="swiper-relative mt-10 about-5-list is-page" data-aos="fade-up" data-aos-duration="700" data-aos-delay="1300">
+		<div class="swiper-relative about-5-list is-page" data-aos="fade-up" data-aos-duration="700" data-aos-delay="1300">
 			<div class="swiper about-5-image">
 				<div class="swiper-wrapper">
 					<?php foreach ( $depts as $dept ) : ?>

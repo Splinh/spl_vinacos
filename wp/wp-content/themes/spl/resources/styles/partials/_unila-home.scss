@@ -4277,27 +4277,32 @@ header {
 			padding: clamp(20px, 3vh, 36px) 0 !important;
 			box-sizing: border-box !important;
 			overflow: hidden !important;
-			display: block !important;
+			display: flex !important;
+			align-items: center !important;
+			justify-content: center !important;
 			background: #ffffff !important;
 
 			.container {
 				width: 100% !important;
 				max-width: 1200px !important;
-				height: 100% !important;
+				height: auto !important;
 				margin: 0 auto !important;
 				display: flex !important;
 				flex-direction: column !important;
-				justify-content: space-between !important;
+				align-items: center !important;
+				justify-content: center !important;
+				gap: 30px !important;
 				box-sizing: border-box !important;
 			}
 
 			.site-title {
 				font-size: clamp(24px, 2.2vw, 34px) !important;
 				font-weight: 800 !important;
-				margin: 0 0 clamp(6px, 1vh, 12px) 0 !important;
+				margin: 0 !important;
 				text-align: center !important;
 				color: #1a1a1a !important;
 				flex-shrink: 0 !important;
+				line-height: 1.2 !important;
 			}
 
 			.image.text-center {
@@ -4319,16 +4324,16 @@ header {
 			}
 
 			.about-5-list {
-				margin: 0 !important;
+				margin: 0 auto !important;
 				width: 100% !important;
 				max-width: 1100px !important;
-				margin-left: auto !important;
-				margin-right: auto !important;
 				display: flex !important;
 				align-items: center !important;
 				gap: clamp(24px, 3vw, 44px) !important;
-				flex-grow: 1 !important;
-				max-height: clamp(250px, 34vh, 380px) !important;
+				flex-grow: 0 !important;
+				flex-shrink: 0 !important;
+				height: clamp(240px, 32vh, 360px) !important;
+				max-height: clamp(240px, 32vh, 360px) !important;
 
 				.about-5-image {
 					flex: 0 0 52% !important;
