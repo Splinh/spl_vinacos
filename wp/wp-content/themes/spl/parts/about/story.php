@@ -14,7 +14,34 @@ defined( 'ABSPATH' ) || exit;
 $is_en     = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $section   = $args ?? array();
 $raw_title = $section['title'] ?? '';
-$title     = ! empty( $raw_title ) ? $raw_title : ( $is_en ? 'COSMETICS <br/> R&D & <br/> MANUFACTURING' : 'NGHIÊN CỨU <br/> SẢN XUẤT <br/> MỸ PHẨM' );
+$title     = ! empty( $raw_title ) ? $raw_title : ( $is_en ? 'COSMETICS R&D & <br/> MANUFACTURING' : 'NGHIÊN CỨU SẢN XUẤT <br/> MỸ PHẨM' );
+
+// Normalize 3-line format to wide 2-line format
+$title = str_replace(
+	array(
+		'NGHIÊN CỨU <br/> SẢN XUẤT <br/> MỸ PHẨM',
+		'NGHIÊN CỨU <br /> SẢN XUẤT <br /> MỸ PHẨM',
+		'NGHIÊN CỨU <br> SẢN XUẤT <br> MỸ PHẨM',
+		'NGHIÊN CỨU<br/>SẢN XUẤT<br/>MỸ PHẨM',
+		'NGHIÊN CỨU<br />SẢN XUẤT<br />MỸ PHẨM',
+		'COSMETICS <br/> R&D & <br/> MANUFACTURING',
+		'COSMETICS <br /> R&D & <br /> MANUFACTURING',
+		'COSMETICS <br> R&D & <br> MANUFACTURING',
+		'COSMETICS<br/>R&D &<br/>MANUFACTURING',
+	),
+	array(
+		'NGHIÊN CỨU SẢN XUẤT <br/> MỸ PHẨM',
+		'NGHIÊN CỨU SẢN XUẤT <br/> MỸ PHẨM',
+		'NGHIÊN CỨU SẢN XUẤT <br/> MỸ PHẨM',
+		'NGHIÊN CỨU SẢN XUẤT <br/> MỸ PHẨM',
+		'NGHIÊN CỨU SẢN XUẤT <br/> MỸ PHẨM',
+		'COSMETICS R&D & <br/> MANUFACTURING',
+		'COSMETICS R&D & <br/> MANUFACTURING',
+		'COSMETICS R&D & <br/> MANUFACTURING',
+		'COSMETICS R&D & <br/> MANUFACTURING',
+	),
+	$title
+);
 
 $bg_image = get_template_directory_uri() . '/static/img/bg-story-shape.png';
 ?>

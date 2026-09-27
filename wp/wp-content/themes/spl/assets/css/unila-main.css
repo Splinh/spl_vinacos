@@ -9040,7 +9040,7 @@ footer .footer-bot .footer-copyright p a:hover {
   background-repeat: no-repeat !important;
   background-position: left center !important;
   background-size: 100% 100% !important;
-  padding: 40px clamp(35px, 4vw, 80px) !important;
+  padding: 40px clamp(20px, 2vw, 35px) 40px clamp(35px, 4vw, 80px) !important;
   box-sizing: border-box !important;
 }
 @media (max-width: 991px) {
@@ -9064,6 +9064,8 @@ footer .footer-bot .footer-copyright p a:hover {
   margin: 0 !important;
   text-align: left !important;
   display: block !important;
+  width: 100% !important;
+  max-width: 96% !important;
 }
 @media (max-width: 991px) {
   .about-story-section .about-story-shape-title {
@@ -10118,10 +10120,12 @@ header.active {
     min-height: 100% !important;
     display: flex !important;
     align-items: center !important;
-    padding: clamp(30px, 4vh, 60px) clamp(30px, 3.5vw, 70px) !important;
+    padding: clamp(30px, 4vh, 60px) clamp(20px, 2vw, 35px) clamp(30px, 4vh, 60px) clamp(30px, 3.5vw, 65px) !important;
     box-sizing: border-box !important;
   }
   body.page-template-template-page-about .about-story-section .about-story-shape-title {
+    width: 100% !important;
+    max-width: 96% !important;
     font-size: clamp(26px, 2.5vw, 42px) !important;
     line-height: 1.25 !important;
   }
