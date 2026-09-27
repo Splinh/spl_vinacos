@@ -22,19 +22,19 @@ $default_vinacos_slides = $is_en ? array(
 		'title_lines' => array( 'DERMATOLOGY SCIENCE', 'TAILORED FOR SKIN', 'TRUSTED BRAND PARTNER' ),
 		'desc'        => 'VINACOS delivers safe, efficacious, and medically verified cosmetics formulas tailored for global market standards.',
 		'btn_text'    => 'Explore More',
-		'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
+		'btn_link'    => home_url( '/en/products/' ),
 	),
 	array(
 		'title_lines' => array( '0% HARMFUL SUBSTANCES', '100% VERIFIED FORMULAS', 'FULL REGULATORY FILINGS' ),
 		'desc'        => 'VINACOS prioritizes formula transparency & efficacy: 0% illegal actives, 100% stability tested, full A-Z legal compliance.',
 		'btn_text'    => 'Explore More',
-		'btn_link'    => home_url( '/en/oem-odm-cosmetics-manufacturing/' ),
+		'btn_link'    => home_url( '/en/rd-system-oem-odm/' ),
 	),
 	array(
 		'title_lines' => array( 'PROVEN R&D CAPACITY', '300+ EXCLUSIVE FORMULAS', 'FULL CLINICAL TRIALS' ),
 		'desc'        => '300+ exclusive formulations. 10+ years R&D excellence. Behind every product is solid scientific data and clinical testing.',
 		'btn_text'    => 'Explore More',
-		'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
+		'btn_link'    => home_url( '/en/products/' ),
 	),
 ) : array(
 	array(
@@ -96,13 +96,28 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 						$title_lines = (array) ( $v['title_lines'] ?? array() );
 					}
 					$title_lines = array_filter( array_map( 'trim', (array) $title_lines ) );
-					if ( empty( $title_lines ) ) {
+					if ( empty( $title_lines ) || ( $is_en && preg_match( '/[\x{00C0}-\x{1EF9}]/u', implode( ' ', $title_lines ) ) ) ) {
 						$title_lines = (array) ( $v['title_lines'] ?? array( 'VINACOS' ) );
 					}
 
 					$desc     = ! empty( $s['description'] ) ? $s['description'] : $v['desc'];
+					if ( $is_en && preg_match( '/[\x{00C0}-\x{1EF9}]/u', $desc ) ) {
+						$desc = $v['desc'];
+					}
+
 					$btn_text = ! empty( $s['button_text'] ) ? $s['button_text'] : $v['btn_text'];
+					if ( $is_en && ( 'Xem thêm' === $btn_text || 'Tìm hiểu thêm' === $btn_text || preg_match( '/[\x{00C0}-\x{1EF9}]/u', $btn_text ) ) ) {
+						$btn_text = $v['btn_text'];
+					}
+
 					$raw_url  = ! empty( $s['button_url'] ) ? $s['button_url'] : ( ! empty( $s['btn_link'] ) ? $s['btn_link'] : $v['btn_link'] );
+					if ( $is_en && is_string( $raw_url ) ) {
+						$raw_url = str_replace(
+							array( '/ve-chung-toi/', '/ve-chung-toi', '/about-us/', '/about-us', '/cosmetics-oem-products/', '/cosmetics-oem-products', '/san-pham-gia-cong-unila-viet-nam/', '/san-pham-gia-cong-unila-viet-nam', '/oem-odm-gia-cong-unila-viet-nam/', '/oem-odm-gia-cong-unila-viet-nam', '/oem-odm-cosmetics-manufacturing/' ),
+							array( '/en/partner-mindset-about/', '/en/partner-mindset-about/', '/en/partner-mindset-about/', '/en/partner-mindset-about/', '/en/products/', '/en/products/', '/en/products/', '/en/products/', '/en/rd-system-oem-odm/', '/en/rd-system-oem-odm/', '/en/rd-system-oem-odm/' ),
+							$raw_url
+						);
+					}
 					$btn_url  = function_exists( 'spl_fix_dynamic_url' ) ? spl_fix_dynamic_url( $raw_url ) : $raw_url;
 				?>
 				<div class="swiper-slide key-visual-slide" data-swiper-autoplay="2999">
@@ -133,7 +148,7 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 							<img class="mb" src="<?php echo esc_url( $mobile_img ); ?>" alt="">
 							<img class="desk" src="<?php echo esc_url( $desktop_img ); ?>" alt="<?php echo esc_attr( $title_lines[0] ?? '' ); ?>">
 							<?php if ( 0 === $i ) : ?>
-							<a href="<?php echo esc_url( get_template_directory_uri() . '/static/video/intro-vinacos.mp4' ); ?>" class="banner-play-btn" data-fx-lightbox data-video="<?php echo esc_url( get_template_directory_uri() . '/static/video/intro-vinacos.mp4' ); ?>" aria-label="Xem video giới thiệu">
+							<a href="<?php echo esc_url( get_template_directory_uri() . '/static/video/intro-vinacos.mp4' ); ?>" class="banner-play-btn" data-fx-lightbox data-video="<?php echo esc_url( get_template_directory_uri() . '/static/video/intro-vinacos.mp4' ); ?>" aria-label="<?php echo esc_attr( $is_en ? 'Watch introduction video' : 'Xem video giới thiệu' ); ?>">
 								<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><polygon points="7 4 19 12 7 20 7 4"/></svg>
 							</a>
 							<?php endif; ?>

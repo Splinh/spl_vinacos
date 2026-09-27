@@ -133,7 +133,8 @@ final class Theme {
 		/** WooCommerce — lightweight CSS + JS entry (heavy modules are lazy-loaded by DOM selectors) */
 		if ( Helper::isWoocommerceActive() ) {
 			Asset::enqueueCSS( 'woocommerce.scss', [ Asset::handle( $conditionalCss ) ] );
-			Asset::enqueueJS( 'woocommerce.js', [ Asset::handle( 'index.js' ) ], null, true, [ 'module', 'defer' ] );
+			$wc_deps = wp_script_is( Asset::handle( 'index.js' ), 'registered' ) ? [ Asset::handle( 'index.js' ) ] : [];
+			Asset::enqueueJS( 'woocommerce.js', $wc_deps, null, true, [ 'module', 'defer' ] );
 		}
 	}
 

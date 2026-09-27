@@ -88,7 +88,7 @@ function spl_dequeue_conflicting_assets(): void {
 
 	// Theme JS + WP jQuery — Unila global.js bundles jQuery 3.7.1 already.
 	// Two jQuery instances cause conflicts ($ undefined, event binding issues).
-	foreach ( [ 'jquery-core', 'jquery', 'jquery-migrate', 'index-js', 'home-js', 'preflight-js', 'dxd-js' ] as $h ) {
+	foreach ( [ 'jquery-core', 'jquery', 'jquery-migrate', 'index-js', 'home-js', 'preflight-js', 'dxd-js', 'woocommerce-js' ] as $h ) {
 		wp_dequeue_script( $h );
 		wp_deregister_script( $h );
 	}

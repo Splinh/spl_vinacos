@@ -80,32 +80,34 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 				}
 				$menu_items = $menu_id ? wp_get_nav_menu_items( $menu_id ) : false;
 
-				// 2. Base pages & default labels from WordPress database
-				$about_page = get_post( 942 );
-				if ( ! $about_page ) {
-					$about_pages = get_posts( array( 'post_type' => 'page', 'name' => 've-chung-toi', 'posts_per_page' => 1 ) );
-					$about_page  = ! empty( $about_pages ) ? $about_pages[0] : null;
-				}
-				$about_url   = $about_page ? get_permalink( $about_page ) : ( $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' ) );
-				$about_label = $about_page ? get_the_title( $about_page ) : ( $is_en ? 'About Us' : 'Về chúng tôi' );
+				// 2. Base pages & default labels from WordPress database with Polylang resolution
+				$about_id   = ( $is_en && function_exists( 'pll_get_post' ) ) ? ( pll_get_post( 942, 'en' ) ?: 1052 ) : 942;
+				$about_page = get_post( $about_id );
+				$about_url  = $about_page ? get_permalink( $about_page ) : ( $is_en ? home_url( '/en/partner-mindset-about/' ) : home_url( '/ve-chung-toi/' ) );
+				$about_label = $is_en ? 'About Us' : ( $about_page ? get_the_title( $about_page ) : 'Về chúng tôi' );
 
-				$shop_url    = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' );
-				$shop_label  = $is_en ? 'Products' : 'Sản phẩm';
+				$shop_id    = ( $is_en && function_exists( 'pll_get_post' ) ) ? ( pll_get_post( 943, 'en' ) ?: 1123 ) : 943;
+				$shop_page  = get_post( $shop_id );
+				$shop_url   = $shop_page ? get_permalink( $shop_page ) : ( $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' ) );
+				$shop_label = $is_en ? 'Products' : ( $shop_page ? get_the_title( $shop_page ) : 'Sản phẩm' );
 
-				$oem_page    = get_post( 944 );
-				$oem_url     = $oem_page ? get_permalink( $oem_page ) : ( $is_en ? home_url( '/en/rd-system-oem-odm/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) );
-				$oem_label   = $oem_page ? get_the_title( $oem_page ) : ( $is_en ? 'R&D & OEM/ODM' : 'HỆ THỐNG R&D' );
+				$oem_id     = ( $is_en && function_exists( 'pll_get_post' ) ) ? ( pll_get_post( 944, 'en' ) ?: 1122 ) : 944;
+				$oem_page   = get_post( $oem_id );
+				$oem_url    = $oem_page ? get_permalink( $oem_page ) : ( $is_en ? home_url( '/en/rd-system-oem-odm/' ) : home_url( '/oem-odm-gia-cong-unila-viet-nam/' ) );
+				$oem_label  = $is_en ? 'R&D System & OEM/ODM' : ( $oem_page ? get_the_title( $oem_page ) : 'HỆ THỐNG R&D' );
 
-				$news_page   = get_post( 928 );
-				$news_url    = $news_page ? get_permalink( $news_page ) : ( $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' ) );
-				$news_label  = $news_page ? get_the_title( $news_page ) : ( $is_en ? 'News' : 'Tin tức' );
+				$news_id    = ( $is_en && function_exists( 'pll_get_post' ) ) ? ( pll_get_post( 928, 'en' ) ?: 1124 ) : 928;
+				$news_page  = get_post( $news_id );
+				$news_url   = $news_page ? get_permalink( $news_page ) : ( $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' ) );
+				$news_label = $is_en ? 'News' : ( $news_page ? get_the_title( $news_page ) : 'Tin tức' );
 
-				$contact_page  = get_post( 937 );
-				$contact_url   = $contact_page ? get_permalink( $contact_page ) : ( $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' ) );
-				$contact_label = $contact_page ? get_the_title( $contact_page ) : ( $is_en ? 'Contact Us' : 'Liên hệ' );
+				$contact_id   = ( $is_en && function_exists( 'pll_get_post' ) ) ? ( pll_get_post( 937, 'en' ) ?: 1056 ) : 937;
+				$contact_page = get_post( $contact_id );
+				$contact_url  = $contact_page ? get_permalink( $contact_page ) : ( $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' ) );
+				$contact_label = $is_en ? 'Contact Us' : ( $contact_page ? get_the_title( $contact_page ) : 'Liên hệ' );
 
-				// 3. Override labels & URLs directly from WordPress Menu (Giao diện -> Menu)
-				if ( ! empty( $menu_items ) ) {
+				// 3. Override labels & URLs directly from WordPress Menu (only in VI mode to avoid overwriting EN)
+				if ( ! empty( $menu_items ) && ! $is_en ) {
 					foreach ( $menu_items as $mi ) {
 						$mi_title = $mi->title;
 						$mi_url   = $mi->url;
@@ -127,11 +129,6 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 						}
 					}
 				}
-
-				if ( empty( $about_label ) || false !== stripos( (string) $about_label, 'TÂM THẾ' ) ) {
-					$about_label = $is_en ? 'About Us' : 'Về chúng tôi';
-					$about_url   = $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' );
-				}
 				?>
 				<ul id="primary-menu" class="main-menu">
 					<li class="menu-item menu-item-type-post_type menu-item-object-page">
@@ -144,10 +141,10 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 								<ul class="sub-menu">
 									<?php
 									$mega_cats = $is_en ? array(
-										array( 'slug' => 'cham-soc-da-mat', 'title' => 'Facial & Body Care' ),
-										array( 'slug' => 'tinh-dau', 'title' => 'Natural Essential Oils' ),
-										array( 'slug' => 'dau-nen', 'title' => 'Pure Carrier Oils' ),
-										array( 'slug' => 'bot-nguyen-lieu', 'title' => 'Raw Cosmetic Powders' ),
+										array( 'slug' => 'facial-care', 'title' => 'Facial & Body Care' ),
+										array( 'slug' => 'essential-oils', 'title' => 'Natural Essential Oils' ),
+										array( 'slug' => 'carrier-oils', 'title' => 'Pure Carrier Oils' ),
+										array( 'slug' => 'raw-cosmetic-powders', 'title' => 'Raw Cosmetic Powders' ),
 									) : array(
 										array( 'slug' => 'cham-soc-da-mat', 'title' => 'Chăm sóc da mặt & Body' ),
 										array( 'slug' => 'tinh-dau', 'title' => 'Tinh dầu thiên nhiên' ),
@@ -162,6 +159,7 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 										$prods = get_posts( array(
 											'post_type'      => 'product',
 											'posts_per_page' => 5,
+											'lang'           => $is_en ? 'en' : 'vi',
 											'tax_query'      => array(
 												array(
 													'taxonomy' => 'product_cat',
@@ -203,9 +201,9 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 								<ul class="sub-menu">
 									<?php
 									$news_cats = $is_en ? array(
-										array( 'slug' => 'tin-tuc', 'title' => 'News & Market Trends' ),
-										array( 'slug' => 'blog', 'title' => 'Beauty Blog' ),
-										array( 'slug' => 'dich-vu-xe-dien', 'title' => 'OEM/ODM Insights' ),
+										array( 'slug' => 'news-industry-trends', 'title' => 'News & Market Trends' ),
+										array( 'slug' => 'beauty-skincare-blog', 'title' => 'Beauty Blog' ),
+										array( 'slug' => 'oem-odm-insights', 'title' => 'OEM/ODM Insights' ),
 									) : array(
 										array( 'slug' => 'tin-tuc', 'title' => 'Tin Tức & Thị Trường' ),
 										array( 'slug' => 'blog', 'title' => 'Blog Làm Đẹp' ),
@@ -219,6 +217,7 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 										$posts = get_posts( array(
 											'post_type'      => 'post',
 											'posts_per_page' => 4,
+											'lang'           => $is_en ? 'en' : 'vi',
 											'category_name'  => $nc['slug'],
 										) );
 										

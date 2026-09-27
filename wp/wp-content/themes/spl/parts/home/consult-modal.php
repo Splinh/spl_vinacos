@@ -11,6 +11,9 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 
 $section = $args ?? array();
 $title   = $section['title'] ?? ( $is_en ? 'Please submit your details for FREE PRODUCT INSIGHT CONSULTATION.' : 'Vui lòng để lại thông tin để nhận TƯ VẤN GIẢI PHÁP PRODUCT INSIGHT MIỄN PHÍ.' );
+if ( $is_en && ( 'Vui lòng để lại thông tin để nhận TƯ VẤN GIẢI PHÁP PRODUCT INSIGHT MIỄN PHÍ.' === $title || preg_match( '/[\x{00C0}-\x{1EF9}]/u', $title ) ) ) {
+	$title = 'Please submit your details for FREE PRODUCT INSIGHT CONSULTATION.';
+}
 $image   = is_array( $section['image'] ?? null ) ? ( $section['image']['url'] ?? '' ) : ( is_numeric( $section['image'] ?? null ) ? wp_get_attachment_url( $section['image'] ) : ( $section['image'] ?? '' ) );
 
 $ph_name  = $is_en ? 'Full Name *' : 'Họ và tên *';

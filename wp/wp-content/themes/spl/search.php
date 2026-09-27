@@ -20,10 +20,16 @@ if ( Helper::isWoocommerceActive() && get_query_var( 'post_type' ) === 'product'
 
 get_header();
 
+$is_en        = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $query_text   = get_search_query();
 $total_found  = $wp_query->found_posts ?? 0;
 $is_product   = false; // Product searches never reach here.
 $ratio_css    = Helper::aspectRatioClass( 'post' );
+
+$home_label   = $is_en ? 'Home' : 'Trang chủ';
+$search_title = $is_en ? 'Search Results' : 'Kết quả tìm kiếm';
+$ph_search    = $is_en ? 'Enter keywords to search...' : 'Nhập từ khóa tìm kiếm...';
+$btn_search   = $is_en ? 'Search' : 'Tìm kiếm';
 ?>
 
 <!-- Breadcrumb -->
@@ -32,10 +38,10 @@ $ratio_css    = Helper::aspectRatioClass( 'post' );
 		<nav class="breadcrumb" aria-label="Breadcrumb">
 			<a href="<?php echo esc_url( home_url( '/' ) ); ?>">
 				<svg class="icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-				<?php esc_html_e( 'Trang chủ', 'spl' ); ?>
+				<?php echo esc_html( $home_label ); ?>
 			</a>
 			<svg class="icon breadcrumb__sep" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-			<span class="breadcrumb__current"><?php esc_html_e( 'Kết quả tìm kiếm', 'spl' ); ?></span>
+			<span class="breadcrumb__current"><?php echo esc_html( $search_title ); ?></span>
 		</nav>
 	</div>
 </div>
@@ -53,25 +59,24 @@ $ratio_css    = Helper::aspectRatioClass( 'post' );
 					if ( $query_text ) :
 						printf(
 							/* translators: %s: search query */
-							esc_html__( 'Kết quả tìm kiếm cho: "%s"', 'spl' ),
+							$is_en ? esc_html__( 'Search results for: "%s"', 'spl' ) : esc_html__( 'Kết quả tìm kiếm cho: "%s"', 'spl' ),
 							'<span class="search-header__keyword">' . esc_html( $query_text ) . '</span>'
 						);
 					else :
-						esc_html_e( 'Tìm Kiếm', 'spl' );
+						echo esc_html( $is_en ? 'Search' : 'Tìm Kiếm' );
 					endif;
 					?>
 				</h1>
 				<p class="search-header__meta">
 					<?php
 					printf(
-						/* translators: %d: number of results */
-						esc_html( _n( 'Tìm thấy %d kết quả', 'Tìm thấy %d kết quả', $total_found, 'spl' ) ),
+						$is_en ? 'Found %d results' : 'Tìm thấy %d kết quả',
 						$total_found
 					);
 
 					if ( $is_product ) :
 						echo ' · <span class="search-header__type">';
-						esc_html_e( 'Sản phẩm', 'spl' );
+						echo esc_html( $is_en ? 'Products' : 'Sản phẩm' );
 						echo '</span>';
 					endif;
 					?>
@@ -86,23 +91,23 @@ $ratio_css    = Helper::aspectRatioClass( 'post' );
 				<input type="search"
 					name="s"
 					value="<?php echo esc_attr( $query_text ); ?>"
-					placeholder="<?php esc_attr_e( 'Nhập từ khóa tìm kiếm...', 'spl' ); ?>"
-					aria-label="<?php esc_attr_e( 'Tìm kiếm', 'spl' ); ?>"
+					placeholder="<?php echo esc_attr( $ph_search ); ?>"
+					aria-label="<?php echo esc_attr( $btn_search ); ?>"
 					required />
 				<?php if ( $is_product ) : ?>
 					<input type="hidden" name="post_type" value="product" />
 				<?php endif; ?>
 				<button type="submit" class="btn btn--primary btn--sm">
-					<?php esc_html_e( 'Tìm kiếm', 'spl' ); ?>
+					<?php echo esc_html( $btn_search ); ?>
 				</button>
 			</div>
 			<?php if ( $is_product && Helper::isWoocommerceActive() ) : ?>
 				<a href="<?php echo esc_url( add_query_arg( 's', $query_text, home_url( '/' ) ) ); ?>" class="search-form-inline__toggle">
-					<?php esc_html_e( 'Tìm trong tất cả →', 'spl' ); ?>
+					<?php echo esc_html( $is_en ? 'Search in all →' : 'Tìm trong tất cả →' ); ?>
 				</a>
 			<?php elseif ( Helper::isWoocommerceActive() ) : ?>
 				<a href="<?php echo esc_url( add_query_arg( [ 's' => $query_text, 'post_type' => 'product' ], home_url( '/' ) ) ); ?>" class="search-form-inline__toggle">
-					<?php esc_html_e( 'Chỉ tìm sản phẩm →', 'spl' ); ?>
+					<?php echo esc_html( $is_en ? 'Products only →' : 'Chỉ tìm sản phẩm →' ); ?>
 				</a>
 			<?php endif; ?>
 		</form>
@@ -158,9 +163,9 @@ $ratio_css    = Helper::aspectRatioClass( 'post' );
 
 						// Type badge text.
 						$type_label = match ( $post_type ) {
-							'product' => __( 'Sản phẩm', 'spl' ),
-							'page'    => __( 'Trang', 'spl' ),
-							default   => __( 'Bài viết', 'spl' ),
+							'product' => $is_en ? 'Product' : 'Sản phẩm',
+							'page'    => $is_en ? 'Page' : 'Trang',
+							default   => $is_en ? 'Article' : 'Bài viết',
 						};
 						?>
 						<article class="blog-card reveal">
@@ -186,7 +191,7 @@ $ratio_css    = Helper::aspectRatioClass( 'post' );
 									<?php echo esc_html( wp_trim_words( get_the_excerpt(), 20 ) ); ?>
 								</p>
 								<a href="<?php the_permalink(); ?>" class="blog-card__link">
-									<?php esc_html_e( 'Xem chi tiết', 'spl' ); ?>
+									<?php echo esc_html( $is_en ? 'View Details' : 'Xem chi tiết' ); ?>
 									<svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
 								</a>
 							</div>
@@ -216,16 +221,16 @@ $ratio_css    = Helper::aspectRatioClass( 'post' );
 						<line x1="14" y1="8" x2="8" y2="14" stroke-width="2"/>
 					</svg>
 				</div>
-				<h2><?php esc_html_e( 'Không tìm thấy kết quả', 'spl' ); ?></h2>
-				<p><?php esc_html_e( 'Rất tiếc, không có kết quả nào phù hợp với từ khóa của bạn. Hãy thử tìm kiếm với từ khóa khác.', 'spl' ); ?></p>
+				<h2><?php echo esc_html( $is_en ? 'No Results Found' : 'Không tìm thấy kết quả' ); ?></h2>
+				<p><?php echo esc_html( $is_en ? 'Sorry, no results matched your query. Try searching with different keywords.' : 'Rất tiếc, không có kết quả nào phù hợp với từ khóa của bạn. Hãy thử tìm kiếm với từ khóa khác.' ); ?></p>
 
 				<!-- Suggestions -->
 				<div class="search-no-results__suggestions">
-					<h3><?php esc_html_e( 'Gợi ý:', 'spl' ); ?></h3>
+					<h3><?php echo esc_html( $is_en ? 'Suggestions:' : 'Gợi ý:' ); ?></h3>
 					<ul>
-						<li><?php esc_html_e( 'Kiểm tra lại chính tả', 'spl' ); ?></li>
-						<li><?php esc_html_e( 'Sử dụng từ khóa ngắn gọn hơn', 'spl' ); ?></li>
-						<li><?php esc_html_e( 'Thử tìm kiếm với từ khóa khác', 'spl' ); ?></li>
+						<li><?php echo esc_html( $is_en ? 'Check your spelling' : 'Kiểm tra lại chính tả' ); ?></li>
+						<li><?php echo esc_html( $is_en ? 'Try more general keywords' : 'Sử dụng từ khóa ngắn gọn hơn' ); ?></li>
+						<li><?php echo esc_html( $is_en ? 'Try searching for different product lines' : 'Thử tìm kiếm với từ khóa khác' ); ?></li>
 					</ul>
 				</div>
 

@@ -8,9 +8,16 @@
 
 defined( 'ABSPATH' ) || exit;
 
+$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $data = $args ?? [];
-$title = $data['title'] ?? __( 'Danh mục nổi bật', 'spl' );
-$subtitle = $data['subtitle'] ?? __( 'Chọn nhanh theo nhu cầu', 'spl' );
+$title = $data['title'] ?? ( $is_en ? 'Featured Categories' : 'Danh mục nổi bật' );
+if ( $is_en && ( 'Danh mục nổi bật' === $title || preg_match( '/[\x{00C0}-\x{1EF9}]/u', $title ) ) ) {
+	$title = 'Featured Categories';
+}
+$subtitle = $data['subtitle'] ?? ( $is_en ? 'Quick Select by Need' : 'Chọn nhanh theo nhu cầu' );
+if ( $is_en && ( 'Chọn nhanh theo nhu cầu' === $subtitle || preg_match( '/[\x{00C0}-\x{1EF9}]/u', $subtitle ) ) ) {
+	$subtitle = 'Quick Select by Need';
+}
 $columns = isset( $data['columns'] ) ? absint( $data['columns'] ) : 6;
 $columns = max( 3, min( 6, $columns ?: 6 ) );
 
@@ -96,7 +103,14 @@ $cols_class = $cols_class_map[ $columns ] ?? 'lg:grid-cols-6';
 
 		if ( ! $rendered ) :
 			// Static fallback.
-			$fallback = [
+			$fallback = $is_en ? [
+				[ 'name' => 'Facial Care', 'slug' => 'facial-care', 'icon' => 'sparkles' ],
+				[ 'name' => 'Body Care', 'slug' => 'body-care', 'icon' => 'heart' ],
+				[ 'name' => 'Essential Oils', 'slug' => 'essential-oils', 'icon' => 'droplet' ],
+				[ 'name' => 'Carrier Oils', 'slug' => 'carrier-oils', 'icon' => 'droplet' ],
+				[ 'name' => 'Raw Powders', 'slug' => 'raw-cosmetic-powders', 'icon' => 'box' ],
+				[ 'name' => 'Home Care', 'slug' => 'home-care-cleansing', 'icon' => 'home' ],
+			] : [
 				[ 'name' => 'Chăm Sóc Da Mặt', 'slug' => 'cham-soc-da-mat', 'icon' => 'sparkles' ],
 				[ 'name' => 'Chăm Sóc Cơ Thể', 'slug' => 'cham-soc-co-the', 'icon' => 'heart' ],
 				[ 'name' => 'Tinh Dầu', 'slug' => 'tinh-dau', 'icon' => 'droplet' ],

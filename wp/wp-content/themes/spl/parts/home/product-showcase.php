@@ -10,6 +10,9 @@ defined( 'ABSPATH' ) || exit;
 $is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
 $section = $args ?? array();
 $title   = $section['title'] ?? ( $is_en ? 'Featured Product Portfolio' : 'Danh mục sản phẩm tiêu biểu' );
+if ( $is_en && ( 'Danh mục sản phẩm tiêu biểu' === $title || preg_match( '/[\x{00C0}-\x{1EF9}]/u', $title ) ) ) {
+	$title = 'Featured Product Portfolio';
+}
 $items   = $section['items'] ?? array();
 
 $img_base = get_template_directory_uri() . '/static/img/products/';
@@ -19,28 +22,28 @@ if ( empty( $items ) ) {
 			'title'       => 'Silicone-Free Water-Droplet Cream Base',
 			'description' => 'Cooling water-burst texture engineered without silicone, 100% lipid-friendly & safe for delicate sensitive skin.',
 			'btn_text'    => 'Learn More',
-			'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
+			'btn_link'    => home_url( '/en/products/' ),
 			'image'       => $img_base . 'product1.jpg',
 		),
 		array(
 			'title'       => 'Detoxifying Green Tea Mineral Clay Mask',
 			'description' => 'Absorbs excess sebum & impurities with natural mineral clay complex while preserving skin moisture barrier.',
 			'btn_text'    => 'Learn More',
-			'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
+			'btn_link'    => home_url( '/en/products/' ),
 			'image'       => $img_base . 'product2.jpg',
 		),
 		array(
 			'title'       => 'Natural Rice Husk Silica Exfoliator',
 			'description' => 'Bio-sustainable scrubbing system using upcycled rice husk silica, replacing microplastics with spherical bio-particles.',
 			'btn_text'    => 'Learn More',
-			'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
+			'btn_link'    => home_url( '/en/products/' ),
 			'image'       => $img_base . 'product3.jpg',
 		),
 		array(
 			'title'       => 'Chamomile Soothing & Recovery Mud Mask',
 			'description' => 'Combines natural mineral mud with standardized Chamomile extract for instant redness relief & skin barrier repair.',
 			'btn_text'    => 'Learn More',
-			'btn_link'    => home_url( '/en/cosmetics-oem-products/' ),
+			'btn_link'    => home_url( '/en/products/' ),
 			'image'       => $img_base . 'product4.jpg',
 		),
 	) : array(
@@ -73,6 +76,50 @@ if ( empty( $items ) ) {
 			'image'       => $img_base . 'product4.jpg',
 		),
 	);
+} else {
+	if ( $is_en ) {
+		$en_showcase = array(
+			'Nền kem vỡ nước - Không Silicone' => array(
+				'title'       => 'Silicone-Free Water-Droplet Cream Base',
+				'description' => 'Cooling water-burst texture engineered without silicone, 100% lipid-friendly & safe for delicate sensitive skin.',
+			),
+			'Mặt nạ đất sét trà xanh Detox' => array(
+				'title'       => 'Detoxifying Green Tea Mineral Clay Mask',
+				'description' => 'Absorbs excess sebum & impurities with natural mineral clay complex while preserving skin moisture barrier.',
+			),
+			'Tẩy tế bào chết Silica từ vỏ trấu Việt Nam' => array(
+				'title'       => 'Natural Rice Husk Silica Exfoliator',
+				'description' => 'Bio-sustainable scrubbing system using upcycled rice husk silica, replacing microplastics with spherical bio-particles.',
+			),
+			'Mặt nạ bùn Cúc La Mã làm dịu & phục hồi' => array(
+				'title'       => 'Chamomile Soothing & Recovery Mud Mask',
+				'description' => 'Combines natural mineral mud with standardized Chamomile extract for instant redness relief & skin barrier repair.',
+			),
+		);
+		foreach ( $items as &$it ) {
+			$it_title = $it['title'] ?? '';
+			if ( isset( $en_showcase[ $it_title ] ) ) {
+				$it['title']       = $en_showcase[ $it_title ]['title'];
+				$it['description'] = $en_showcase[ $it_title ]['description'];
+			} elseif ( preg_match( '/[\x{00C0}-\x{1EF9}]/u', $it_title ) ) {
+				if ( false !== strpos( $it_title, 'vỡ nước' ) || false !== strpos( $it_title, 'Silicone' ) ) {
+					$it['title']       = 'Silicone-Free Water-Droplet Cream Base';
+					$it['description'] = 'Cooling water-burst texture engineered without silicone, 100% lipid-friendly & safe for delicate sensitive skin.';
+				} elseif ( false !== strpos( $it_title, 'trà xanh' ) || false !== strpos( $it_title, 'Detox' ) ) {
+					$it['title']       = 'Detoxifying Green Tea Mineral Clay Mask';
+					$it['description'] = 'Absorbs excess sebum & impurities with natural mineral clay complex while preserving skin moisture barrier.';
+				} elseif ( false !== strpos( $it_title, 'vỏ trấu' ) || false !== strpos( $it_title, 'tế bào chết' ) ) {
+					$it['title']       = 'Natural Rice Husk Silica Exfoliator';
+					$it['description'] = 'Bio-sustainable scrubbing system using upcycled rice husk silica, replacing microplastics with spherical bio-particles.';
+				} elseif ( false !== strpos( $it_title, 'Cúc La Mã' ) || false !== strpos( $it_title, 'bùn' ) ) {
+					$it['title']       = 'Chamomile Soothing & Recovery Mud Mask';
+					$it['description'] = 'Combines natural mineral mud with standardized Chamomile extract for instant redness relief & skin barrier repair.';
+				}
+			}
+			$it['btn_text'] = 'Learn More';
+		}
+		unset( $it );
+	}
 }
 ?>
 
@@ -86,7 +133,17 @@ if ( empty( $items ) ) {
 				<div class="swiper-wrapper">
 					<?php foreach ( $items as $item ) : 
 						$btn_url  = is_array( $item['btn_link'] ?? null ) ? ( $item['btn_link']['url'] ?? '#' ) : ( $item['btn_link'] ?? '#' );
+						if ( $is_en && '#' !== $btn_url && ! empty( $btn_url ) ) {
+							$btn_url = str_replace(
+								array( '/cosmetics-oem-products/', '/cosmetics-oem-products', '/san-pham-gia-cong-unila-viet-nam/', '/san-pham-gia-cong-unila-viet-nam', '/san-pham/', '/san-pham' ),
+								array( '/en/products/', '/en/products/', '/en/products/', '/en/products/', '/en/products/', '/en/products/' ),
+								$btn_url
+							);
+						}
 						$btn_text = $item['btn_text'] ?? ( $is_en ? 'Learn More' : 'Xem thêm' );
+						if ( $is_en && ( 'Xem thêm' === $btn_text || 'Tìm hiểu thêm' === $btn_text ) ) {
+							$btn_text = 'Learn More';
+						}
 					?>
 						<div class="swiper-slide">
 							<div class="home-5-item">

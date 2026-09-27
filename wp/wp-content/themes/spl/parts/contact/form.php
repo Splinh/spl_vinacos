@@ -20,13 +20,13 @@ $social_desc   = $data['social_desc'] ?? 'Theo dõi chúng tôi trên mạng xã
 $hotline_title = $data['hotline_title'] ?? 'Gọi Ngay Hotline';
 $hotline_desc  = $data['hotline_desc'] ?? 'Tư vấn miễn phí, hỗ trợ 7 ngày/tuần';
 
-$hotline     = Helper::getField( 'hotline', 'option' ) ?: '0933 505 222';
+$hotline     = Helper::getField( 'hotline', 'option' ) ?: '0906 941 088';
 $hotline_url = 'tel:' . preg_replace( '/[^0-9+]/', '', $hotline );
 
 $social    = get_option( 'social_link__options' ) ?: [];
-$fb_url    = ! empty( $social['facebook']['url'] ) ? $social['facebook']['url'] : 'https://www.facebook.com/dailyxedien.vn';
-$yt_url    = ! empty( $social['youtube']['url'] ) ? $social['youtube']['url'] : 'https://www.youtube.com/c/dailyxedien';
-$zalo_url  = ! empty( $social['zalo']['url'] ) ? $social['zalo']['url'] : 'https://zalo.me/0933505222';
+$fb_url    = ! empty( $social['facebook']['url'] ) ? $social['facebook']['url'] : 'https://www.facebook.com/vinacos';
+$yt_url    = ! empty( $social['youtube']['url'] ) ? $social['youtube']['url'] : 'https://www.youtube.com/@vinacos';
+$zalo_url  = ! empty( $social['zalo']['url'] ) ? $social['zalo']['url'] : 'https://zalo.me/0906941088';
 ?>
 <section class="mb-14 md:mb-20">
 	<div class="container">

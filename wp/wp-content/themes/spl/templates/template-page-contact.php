@@ -12,5 +12,6 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 get_template_part( 'parts/contact/info' );
+get_template_part( 'parts/contact/locations' );
 
 get_footer();

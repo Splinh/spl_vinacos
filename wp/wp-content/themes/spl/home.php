@@ -48,7 +48,7 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( $home_label ); ?></a>
 				<span class="separator"> - </span>
 				<?php if ( $is_cat && ! empty( $queried_obj->name ) ) : ?>
-					<a href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>"><?php echo esc_html( $news_label ); ?></a>
+					<a href="<?php echo esc_url( $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' ) ); ?>"><?php echo esc_html( $news_label ); ?></a>
 					<span class="separator"> - </span>
 					<span class="last"><?php echo esc_html( $queried_obj->name ); ?></span>
 				<?php else : ?>
@@ -75,6 +75,7 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 						'post_status'    => 'publish',
 						'posts_per_page' => 8,
 						'paged'          => $paged,
+						'lang'           => $is_en ? 'en' : 'vi',
 					);
 					if ( $is_cat && ! empty( $queried_obj->slug ) ) {
 						$args['category_name'] = $queried_obj->slug;
@@ -153,7 +154,7 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 							// Render last page button (>>) if not on last page
 							if ( $current_p < $total_p && $total_p > 3 ) {
 								$last_url = get_pagenum_link( $total_p );
-								echo '<a class="page-numbers last-page" href="' . esc_url( $last_url ) . '" title="Trang cuối">'
+								echo '<a class="page-numbers last-page" href="' . esc_url( $last_url ) . '" title="' . ( $is_en ? 'Last Page' : 'Trang cuối' ) . '">'
 									. '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m13 17 5-5-5-5"/><path d="m6 17 5-5-5-5"/></svg>'
 									. '</a>';
 							}
@@ -172,14 +173,14 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 						<div class="box-body">
 							<ul class="news-category-list">
 								<li class="<?php echo ( ! $is_cat ) ? 'active' : ''; ?>">
-									<a href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>" title="<?php echo esc_attr( $all_label ); ?>">
+									<a href="<?php echo esc_url( $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' ) ); ?>" title="<?php echo esc_attr( $all_label ); ?>">
 										<?php echo esc_html( $all_label ); ?>
 									</a>
 								</li>
 								<?php
 								$cat_slugs = $is_en 
-									? array( 'news-industry-trends', 'beauty-skincare-blog', 'oem-odm-insights' )
-									: array( 'tin-tuc', 'blog', 'dich-vu-xe-dien' );
+									? array( 'news-industry-trends', 'beauty-skincare-blog', 'oem-odm-insights', 'rd-formulation-guides' )
+									: array( 'tin-tuc', 'blog' );
 
 								$cats = get_categories( array(
 									'slug'       => $cat_slugs,
@@ -189,8 +190,8 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 								if ( empty( $cats ) ) {
 									$cats = get_categories( array(
 										'hide_empty' => false,
-										'number'     => 3,
-										'exclude'    => array( 1 ),
+										'number'     => 4,
+										'exclude'    => array( 1, 464 ),
 									) );
 								}
 
@@ -217,6 +218,7 @@ if ( $is_cat && ! empty( $queried_obj->name ) ) {
 									'post_type'      => 'post',
 									'posts_per_page' => 5,
 									'post_status'    => 'publish',
+									'lang'           => $is_en ? 'en' : 'vi',
 								) );
 								foreach ( $latest_posts as $lp ) :
 									?>

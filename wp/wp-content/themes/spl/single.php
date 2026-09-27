@@ -26,7 +26,7 @@ $post_date    = get_the_date( 'd/m/Y', $post_id );
 			<p>
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php echo esc_html( $home_label ); ?></a>
 				<span class="separator"> - </span>
-				<a href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>"><?php echo esc_html( $news_label ); ?></a>
+				<a href="<?php echo esc_url( $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' ) ); ?>"><?php echo esc_html( $news_label ); ?></a>
 				<span class="separator"> - </span>
 				<span class="last"><?php echo esc_html( $post_title ); ?></span>
 			</p>
@@ -62,14 +62,14 @@ $post_date    = get_the_date( 'd/m/Y', $post_id );
 						<div class="box-body">
 							<ul class="news-category-list">
 								<li class="active">
-									<a href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc-unila-viet-nam/' ) ); ?>" title="<?php echo esc_attr( $all_label ); ?>">
+									<a href="<?php echo esc_url( $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' ) ); ?>" title="<?php echo esc_attr( $all_label ); ?>">
 										<?php echo esc_html( $all_label ); ?>
 									</a>
 								</li>
 								<?php
 								$cat_slugs = $is_en 
-									? array( 'news-industry-trends', 'beauty-skincare-blog', 'oem-odm-insights' )
-									: array( 'tin-tuc', 'blog', 'dich-vu-xe-dien' );
+									? array( 'news-industry-trends', 'beauty-skincare-blog', 'oem-odm-insights', 'rd-formulation-guides' )
+									: array( 'tin-tuc', 'blog' );
 
 								$cats = get_categories( array(
 									'slug'       => $cat_slugs,
@@ -79,8 +79,8 @@ $post_date    = get_the_date( 'd/m/Y', $post_id );
 								if ( empty( $cats ) ) {
 									$cats = get_categories( array(
 										'hide_empty' => false,
-										'number'     => 3,
-										'exclude'    => array( 1 ),
+										'number'     => 4,
+										'exclude'    => array( 1, 464 ),
 									) );
 								}
 
@@ -106,6 +106,7 @@ $post_date    = get_the_date( 'd/m/Y', $post_id );
 									'post_type'      => 'post',
 									'posts_per_page' => 5,
 									'post_status'    => 'publish',
+									'lang'           => $is_en ? 'en' : 'vi',
 								) );
 								foreach ( $latest_posts as $lp ) :
 									?>

@@ -11,12 +11,18 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 
 $section  = $args ?? array();
 $title    = $section['title'] ?? ( $is_en ? 'PARTNER <br/> MINDSET' : 'TÂM THẾ <br/> CỘNG SỰ' );
+if ( $is_en && ( false !== strpos( $title, 'TÂM THẾ' ) || false !== strpos( $title, 'CỘNG SỰ' ) ) ) {
+	$title = 'PARTNER <br/> MINDSET';
+}
+
 $content  = $section['content'] ?? '';
 $btn_text = $section['btn_text'] ?? ( $is_en ? 'About Us' : 'Về chúng tôi' );
-$btn_url  = is_array( $section['btn_link'] ?? null ) ? ( $section['btn_link']['url'] ?? '#about' ) : ( $section['btn_link'] ?? ( $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' ) ) );
-if ( is_string( $btn_url ) && ( false !== strpos( $btn_url, 'tam-the-cong-su' ) || '#about' === $btn_url ) ) {
-	$btn_url = $is_en ? home_url( '/en/about-us/' ) : home_url( '/ve-chung-toi/' );
+if ( $is_en && ( 'Về chúng tôi' === $btn_text || empty( $btn_text ) ) ) {
+	$btn_text = 'About Us';
 }
+
+$about_id = ( $is_en && function_exists( 'pll_get_post' ) ) ? ( pll_get_post( 942, 'en' ) ?: 1052 ) : 942;
+$btn_url  = $is_en ? get_permalink( $about_id ) : home_url( '/ve-chung-toi/' );
 
 // Image: Ưu tiên ảnh từ ACF, fallback về ảnh mới tam-the-cong-su-home.webp
 $raw_image = $section['image'] ?? null;
@@ -28,7 +34,7 @@ if ( empty( $image ) || false !== strpos( $image, 'tam-the-cong-su' ) ) {
 	$image = get_template_directory_uri() . '/static/img/vinacos/tam-the-cong-su-home.webp';
 }
 
-if ( empty( $content ) ) {
+if ( empty( $content ) || ( $is_en && false !== strpos( $content, 'Dẫn đầu' ) ) ) {
 	if ( $is_en ) {
 		$content = '<h3><strong>Pioneering Vision</strong></h3>
 <p><em>B&B VINACOS is a science & technology pioneer in clean cosmetics formulation research and cGMP/FDA OEM manufacturing in Vietnam.</em></p>

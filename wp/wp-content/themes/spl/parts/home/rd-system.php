@@ -21,6 +21,9 @@ $section = $args ?? array();
 
 // Section Title / Badge text (ACF or default)
 $badge_text = ! empty( $section['title'] ) ? $section['title'] : ( $is_en ? 'R&D SYSTEM' : 'HỆ THỐNG R&D' );
+if ( $is_en && ( 'HỆ THỐNG R&D' === $badge_text || 'Hệ thống R&D' === $badge_text ) ) {
+	$badge_text = 'R&D SYSTEM';
+}
 
 // Retrieve repeater items or fallback
 $items      = $section['items'] ?? array();
@@ -28,7 +31,7 @@ $first_item = ! empty( $items[0] ) ? $items[0] : array();
 
 // Item Title
 $raw_item_title = $first_item['title'] ?? ( $section['heading'] ?? '' );
-if ( empty( $raw_item_title ) ) {
+if ( empty( $raw_item_title ) || ( $is_en && preg_match( '/[\x{00C0}-\x{1EF9}]/u', $raw_item_title ) ) ) {
 	$main_title = $is_en
 		? "Advanced Formulation<br>&amp; <strong>Biotechnology R&amp;D</strong><br>for Vietnamese Brands."
 		: "Năng lực nghiên cứu<br><strong>sản xuất &amp; công nghệ</strong><br>tiên phong tại Việt Nam.";
@@ -46,7 +49,7 @@ if ( empty( $raw_item_title ) ) {
 
 // Item Desc
 $raw_desc = $first_item['desc'] ?? ( $section['content'] ?? '' );
-if ( empty( $raw_desc ) ) {
+if ( empty( $raw_desc ) || ( $is_en && preg_match( '/[\x{00C0}-\x{1EF9}]/u', $raw_desc ) ) ) {
 	$main_desc = $is_en
 		? "VINACOS R&D Center pioneers active extraction, bio-analysis, and turn-key OEM/ODM cosmetic formulation complying with cGMP & FDA standards."
 		: "VINACOS tập trung khai thác nguyên liệu tiềm năng, phân tích hoạt chất và phát triển công thức mỹ phẩm hoàn chỉnh OEM/ODM đạt chuẩn quốc tế cGMP và FDA.";
@@ -63,8 +66,19 @@ if ( is_array( $raw_btn_link ) ) {
 	$btn_url = trim( $raw_btn_link );
 }
 
+if ( $is_en && ! empty( $btn_url ) ) {
+	$btn_url = str_replace(
+		array( '/tam-the-cong-su-rd-oem-odm/', '/tam-the-cong-su-rd-oem-odm', '/oem-odm-gia-cong-unila-viet-nam/' ),
+		array( '/en/rd-system-oem-odm/', '/en/rd-system-oem-odm/', '/en/rd-system-oem-odm/' ),
+		$btn_url
+	);
+}
+
 $show_button = ! empty( $btn_url ) && '#' !== $btn_url;
 $btn_text    = ! empty( $first_item['btn_text'] ) ? $first_item['btn_text'] : ( $section['btn_text'] ?? ( $is_en ? 'Learn More' : 'Tìm hiểu thêm' ) );
+if ( $is_en && ( 'Tìm hiểu thêm' === $btn_text || 'Xem thêm' === $btn_text ) ) {
+	$btn_text = 'Learn More';
+}
 
 // Background image: Dùng ảnh trang Tâm thế cộng sự (bg-tam-the-cong-su.webp) theo yêu cầu, hoặc ảnh custom từ ACF nếu có
 $custom_bg_id = $section['image'] ?? ( $first_item['image'] ?? 0 );

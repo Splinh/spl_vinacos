@@ -167,6 +167,13 @@ $btn_map   = $is_en ? 'Get Directions' : 'Chỉ đường trên bản đồ';
 			badge: '<svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 22V4a2 2 0 0 0-2-2H3a2 2 0 0 0-2 2v18h13z"/><path d="M20 22V10a2 2 0 0 0-2-2h-4v14h6z"/><path d="M23 22v-6a2 2 0 0 0-2-2h-1v8h3z"/><path d="M4 6h3"/><path d="M4 10h3"/><path d="M4 14h3"/><path d="M4 18h3"/><path d="M17 12h2"/><path d="M17 16h2"/></svg> ' + (isEn ? 'cGMP / FDA Factory' : 'Nhà máy cGMP / FDA'),
 			badgeClass: 'bg-amber-50 text-amber-600 border-amber-100',
 			tabClass: 'active-factory2',
+			name: isEn ? 'cGMP & FDA Certified Cosmetics Factory' : 'Nhà máy sản xuất Mỹ phẩm chuẩn cGMP & FDA',
+			company: isEn ? 'VINACOS Cosmetics & Packaging Manufacturing Facility' : 'Hệ thống nhà máy sản xuất mỹ phẩm & bao bì VINACOS',
+			address: isEn ? 'No. 1351, National Route 51, Long Phuoc, Long Thanh, Dong Nai' : 'Số 1351, Quốc Lộ 51, Long Phước, Long Thành, Đồng Nai',
+			phone: '0906 941 088',
+			fax: '—',
+			hours: isEn ? '7:30 – 17:30 (Mon–Sat)' : '7:30 – 17:30 (T2–T7)',
+			mapSrc: 'https://maps.google.com/maps?q=1351+Quoc+Lo+51+Long+Phuoc+Long+Thanh+Dong+Nai&z=15&output=embed',
 			directionUrl: 'https://maps.google.com/?q=1351+Quốc+Lộ+51+Long+Phước+Long+Thành+Đồng+Nai'
 		}
 	];

@@ -11,6 +11,9 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 
 $section = $args ?? array();
 $title   = $section['title'] ?? ( $is_en ? 'News & Activities' : 'Tin tức & Hoạt động' );
+if ( $is_en && ( 'Tin tức & Hoạt động' === $title || 'Tin tức' === $title || preg_match( '/[\x{00C0}-\x{1EF9}]/u', $title ) ) ) {
+	$title = 'News & Activities';
+}
 
 // Fetch recent posts for current language
 $recent_posts = get_posts( array(
@@ -68,6 +71,10 @@ if ( empty( $articles ) ) {
 		),
 	);
 }
+
+$all_news_url = $is_en ? home_url( '/en/news/' ) : home_url( '/tin-tuc/' );
+$cat1_url     = $is_en ? home_url( '/en/category/news-industry-trends/' ) : home_url( '/chuyen-muc/tin-tuc/' );
+$cat2_url     = $is_en ? home_url( '/en/category/beauty-skincare-blog/' ) : home_url( '/chuyen-muc/blog/' );
 ?>
 
 <section class="home-9-section section-t-small section-b-large" id="news">
@@ -78,13 +85,13 @@ if ( empty( $articles ) ) {
 			</h2>
 			<ul class="site-nav" data-aos="fade-left" data-aos-duration="700" data-aos-delay="600">
 				<li class="active">
-					<a class="btn-lined" href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc/' ) ); ?>"><?= $is_en ? 'All' : 'Tất cả' ?></a>
+					<a class="btn-lined" href="<?php echo esc_url( $all_news_url ); ?>"><?= $is_en ? 'All' : 'Tất cả' ?></a>
 				</li>
 				<li>
-					<a class="btn-lined" href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc/' ) ); ?>"><?= $is_en ? 'Cosmetic News' : 'Tin mỹ phẩm' ?></a>
+					<a class="btn-lined" href="<?php echo esc_url( $cat1_url ); ?>"><?= $is_en ? 'Cosmetics News' : 'Tin mỹ phẩm' ?></a>
 				</li>
 				<li>
-					<a class="btn-lined" href="<?php echo esc_url( $is_en ? home_url( '/en/news-insights/' ) : home_url( '/tin-tuc/' ) ); ?>"><?= $is_en ? 'Beauty Trends' : 'Xu hướng mỹ phẩm' ?></a>
+					<a class="btn-lined" href="<?php echo esc_url( $cat2_url ); ?>"><?= $is_en ? 'Beauty Trends' : 'Xu hướng mỹ phẩm' ?></a>
 				</li>
 			</ul>
 		</div>

@@ -9,10 +9,52 @@ use SPL\Core\Helper;
 
 defined( 'ABSPATH' ) || exit;
 
-$title      = $data['title'] ?? 'Sức mạnh tập thể';
+$is_en      = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+$title      = ! empty( $data['title'] ) ? $data['title'] : ( $is_en ? 'Collective Strength & Team' : 'Sức mạnh tập thể' );
 $img_dir    = get_template_directory_uri() . '/static/img/vinacos/';
 $banner_img = get_template_directory_uri() . '/static/img/suc-manh-tap-the-vinacos.png';
-$depts      = [
+$depts      = $is_en ? [
+	[
+		'title' => 'EXECUTIVE BOARD & LEADERSHIP',
+		'desc'  => 'Guiding vision, steering strategy, and fostering a culture of dedication across the organization.',
+		'image' => $img_dir . 'ceo-founder.jpg',
+	],
+	[
+		'title' => 'R&D RESEARCH & DEVELOPMENT',
+		'desc'  => 'Formulation architects decoding botanical active efficacy through scientific rigor and clinical testing.',
+		'image' => $img_dir . 'team-rd.jpg',
+	],
+	[
+		'title' => 'PRODUCTION & MANUFACTURING',
+		'desc'  => 'Disciplined manufacturing operations adhering to strict cGMP cleanroom protocols and automation.',
+		'image' => $img_dir . 'team-production.jpg',
+	],
+	[
+		'title' => 'QUALITY ASSURANCE & CONTROL (QA/QC)',
+		'desc'  => 'Ensuring 100% compliance and stability from raw material intake to finished goods.',
+		'image' => $img_dir . 'team-qa.jpg',
+	],
+	[
+		'title' => 'OEM/ODM BUSINESS DEVELOPMENT',
+		'desc'  => 'Trusted advisors actively listening and turning product concepts into commercial reality.',
+		'image' => $img_dir . 'team-office.jpg',
+	],
+	[
+		'title' => 'MARKETING & COMMUNICATIONS',
+		'desc'  => 'Storytellers connecting scientific formulation value with brand identity and consumers.',
+		'image' => $img_dir . 'team-office.jpg',
+	],
+	[
+		'title' => 'HUMAN RESOURCES & ADMINISTRATION',
+		'desc'  => 'Fostering an empowering workplace to attract and develop top industry talent.',
+		'image' => $img_dir . 'team-office.jpg',
+	],
+	[
+		'title' => 'PROCUREMENT & SUPPLY CHAIN',
+		'desc'  => 'Selecting certified global raw ingredients with full COA and international traceability.',
+		'image' => $img_dir . 'research-process.jpg',
+	],
+] : [
 	[
 		'title' => 'BAN GIÁM ĐỐC',
 		'desc'  => 'Định hướng tầm nhìn, dẫn dắt tương lai. Dẫn dắt chiến lược phát triển và đảm bảo VINACOS luôn đi đúng hướng, truyền cảm hứng và xây dựng văn hóa tận tâm cho toàn bộ đội ngũ.',

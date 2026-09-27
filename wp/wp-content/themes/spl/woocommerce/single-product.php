@@ -51,9 +51,23 @@ if ( $contact_page ) {
 	}
 }
 if ( empty( $contact_url ) ) {
-	$contact_url = function_exists( 'pll_home_url' ) ? pll_home_url( $current_lang ) . 'lien-he/' : home_url( '/lien-he/' );
+	$contact_url = $is_en ? home_url( '/en/contact-us/' ) : home_url( '/lien-he/' );
 }
-$products_url = function_exists( 'pll_home_url' ) ? pll_home_url( $current_lang ) . 'san-pham/' : home_url( '/san-pham/' );
+
+$products_url = '';
+$products_page = get_page_by_path( 'san-pham-gia-cong-unila-viet-nam' );
+if ( ! $products_page ) {
+	$products_page = get_page_by_path( 'san-pham' );
+}
+if ( $products_page ) {
+	$p_trans_id = function_exists( 'pll_get_post' ) ? pll_get_post( $products_page->ID, $current_lang ) : 0;
+	if ( $p_trans_id ) {
+		$products_url = get_permalink( $p_trans_id );
+	}
+}
+if ( empty( $products_url ) ) {
+	$products_url = $is_en ? home_url( '/en/products/' ) : home_url( '/san-pham-gia-cong-unila-viet-nam/' );
+}
 ?>
 
 <section class="global-breadcrumb">
