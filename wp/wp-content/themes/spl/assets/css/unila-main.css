@@ -8803,7 +8803,8 @@ footer .footer-bot .footer-copyright p a:hover {
 }
 @media (max-width: 1024px) {
   .home-5-section .home-5-item .title {
-    font-size: 20px !important;
+    font-size: 19px !important;
+    font-weight: 600 !important;
   }
 }
 .home-5-section .home-5-item .desc {
@@ -10763,6 +10764,11 @@ body.woocommerce-shop .product-section {
     padding-top: 25px !important;
     padding-bottom: 15px !important;
   }
+  .about-5-section .site-title,
+  body.page-template-template-page-about .about-5-section .site-title {
+    padding-bottom: 15px !important;
+    margin-bottom: 0 !important;
+  }
   .about-5-section .about-5-list,
   .about-5-section .about-5-list.is-page,
   .swiper-relative.about-5-list.is-page {
@@ -11192,7 +11198,8 @@ body.woocommerce-shop .product-section {
   }
   .home-5-section .home-5-item .title,
   body.home .home-5-section .home-5-item .title {
-    font-size: 20px !important;
+    font-size: 19px !important;
+    font-weight: 600 !important;
   }
   .home-5-section .home-5-image,
   body.home .home-5-section .home-5-image {

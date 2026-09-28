@@ -4716,6 +4716,11 @@ body.woocommerce-shop {
 		padding-top: 25px !important;
 		padding-bottom: 15px !important;
 
+		.site-title {
+			padding-bottom: 15px !important;
+			margin-bottom: 0 !important;
+		}
+
 		.about-5-list,
 		.about-5-list.is-page,
 		&.swiper-relative.about-5-list.is-page {
@@ -5146,7 +5151,8 @@ body.woocommerce-shop {
 		}
 
 		.home-5-item .title {
-			font-size: 20px !important;
+			font-size: 19px !important;
+			font-weight: 600 !important;
 		}
 
 		.home-5-image {
