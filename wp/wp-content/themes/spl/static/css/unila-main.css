@@ -8801,6 +8801,11 @@ footer .footer-bot .footer-copyright p a:hover {
   font-size: 26px;
   font-weight: 800;
 }
+@media (max-width: 1024px) {
+  .home-5-section .home-5-item .title {
+    font-size: 20px !important;
+  }
+}
 .home-5-section .home-5-item .desc {
   font-size: 15px;
   line-height: 1.7;
@@ -11180,6 +11185,10 @@ body.woocommerce-shop .product-section {
   body.home .home-5-section .home-5-caption {
     width: 100% !important;
     max-width: 100% !important;
+  }
+  .home-5-section .home-5-item .title,
+  body.home .home-5-section .home-5-item .title {
+    font-size: 20px !important;
   }
   .home-5-section .home-5-image,
   body.home .home-5-section .home-5-image {
