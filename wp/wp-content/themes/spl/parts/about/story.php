@@ -43,6 +43,9 @@ $title = str_replace(
 	$title
 );
 
+// Normalize spaces and add desk-only class to <br> for clean responsive wrapping on mobile
+$title_clean = preg_replace( '/\s*<br\s*\/?>\s*/i', ' <br class="desk-only"> ', (string) $title );
+
 $bg_image = get_template_directory_uri() . '/static/img/bg-story-shape.png';
 ?>
 
@@ -52,7 +55,7 @@ $bg_image = get_template_directory_uri() . '/static/img/bg-story-shape.png';
 		<div class="about-story-shape-col" data-aos="fade-right" data-aos-duration="700">
 			<div class="about-story-shape-card" style="background-image: url('<?php echo esc_url( $bg_image ); ?>');">
 				<h2 class="about-story-shape-title">
-					<?php echo wp_kses_post( $title ); ?>
+					<?php echo wp_kses_post( $title_clean ); ?>
 				</h2>
 			</div>
 		</div>

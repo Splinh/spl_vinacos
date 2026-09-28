@@ -10748,6 +10748,10 @@ body.woocommerce-shop .product-section {
     margin: 16px 16px 0 16px !important;
     width: calc(100% - 32px) !important;
   }
+  .about-story-section .about-story-shape-title br,
+  .about-story-shape-title br {
+    display: none !important;
+  }
   .about-story-section .about-story-content-col {
     height: auto !important;
     justify-content: flex-start !important;

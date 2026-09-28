@@ -4700,6 +4700,10 @@ body.woocommerce-shop {
 			width: calc(100% - 32px) !important;
 		}
 
+		.about-story-shape-title br {
+			display: none !important;
+		}
+
 		.about-story-content-col {
 			height: auto !important;
 			justify-content: flex-start !important;
