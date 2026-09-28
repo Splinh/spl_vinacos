@@ -4287,7 +4287,7 @@ body.admin-bar header {
 @media (max-width: 767px){
   .home-banner,
   body.home .home-banner{
-    padding-top: 14px !important;
+    padding-top: 0 !important;
     padding-bottom: 16px !important;
     height: auto !important;
     min-height: 0 !important;
@@ -10773,7 +10773,7 @@ body.woocommerce-shop .product-section {
   /* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
   .home-banner,
   body.home .home-banner {
-    padding-top: 60px !important;
+    padding-top: 0 !important;
     padding-bottom: 20px !important;
     height: auto !important;
     min-height: 0 !important;
@@ -10785,7 +10785,7 @@ body.woocommerce-shop .product-section {
   @media (max-width: 768px) {
     .home-banner,
     body.home .home-banner {
-      padding-top: 60px !important;
+      padding-top: 0 !important;
       padding-bottom: 20px !important;
     }
   }
@@ -11675,6 +11675,7 @@ body.woocommerce-shop .product-section {
 }
 
 .home-rd-section .home-rd-mobile-media {
+  order: 2 !important;
   display: block !important;
   width: 100% !important;
   height: 280px !important;
@@ -11697,6 +11698,7 @@ body.woocommerce-shop .product-section {
 }
 
 .home-rd-section .home-rd-content {
+  order: 1 !important;
   padding: 36px 24px 32px !important;
   display: flex !important;
   flex-direction: column !important;
@@ -11824,6 +11826,7 @@ body.woocommerce-shop .product-section {
 }
 
 .home-rd-section .home-rd-mobile-media {
+  order: 2 !important;
   display: block !important;
   width: 100% !important;
   height: 280px !important;
@@ -11846,6 +11849,7 @@ body.woocommerce-shop .product-section {
 }
 
 .home-rd-section .home-rd-content {
+  order: 1 !important;
   padding: 36px 24px 32px !important;
   display: flex !important;
   flex-direction: column !important;
@@ -11960,6 +11964,7 @@ body.woocommerce-shop .product-section {
   }
 
   .home-rd-section .home-rd-content {
+    order: 0 !important;
     width: 52% !important;
     max-width: 700px !important;
     height: 100% !important;

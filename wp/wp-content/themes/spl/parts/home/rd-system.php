@@ -96,12 +96,7 @@ $icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-con
 
 <section class="home-3-section home-rd-section" id="rd-system">
 	<div class="home-rd-card" style="--rd-bg: url('<?php echo esc_url( $bg_url ); ?>');" data-aos="fade-up" data-aos-duration="700">
-		<!-- Mobile Photo Banner (Visible only on < 1025px) -->
-		<div class="home-rd-mobile-media" data-aos="fade-up" data-aos-duration="700">
-			<img src="<?php echo esc_url( $bg_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $badge_text ) ); ?> - VINACOS" loading="lazy" width="800" height="450">
-		</div>
-
-		<!-- Content Area (Left on Desktop, Below photo on Mobile) -->
+		<!-- Content Area (Left on Desktop, Top on Mobile: Text first) -->
 		<div class="home-rd-content">
 			<!-- Top Badge: Icon + Subtitle -->
 			<div class="home-rd-badge" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
@@ -128,6 +123,11 @@ $icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-con
 					</div>
 				<?php endif; ?>
 			</div>
+		</div>
+
+		<!-- Mobile Photo Banner (Visible only on < 1025px, Below text on Mobile) -->
+		<div class="home-rd-mobile-media" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
+			<img src="<?php echo esc_url( $bg_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $badge_text ) ); ?> - VINACOS" loading="lazy" width="800" height="450">
 		</div>
 	</div>
 </section>

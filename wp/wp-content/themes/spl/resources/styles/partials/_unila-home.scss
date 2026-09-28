@@ -4734,7 +4734,7 @@ body.woocommerce-shop {
 	/* 3. Mobile Hero Banner: TEXT FIRST (TOP), IMAGE BELOW (BOTTOM) */
 	.home-banner,
 	body.home .home-banner {
-		padding-top: 60px !important;
+		padding-top: 0 !important;
 		padding-bottom: 20px !important;
 		height: auto !important;
 		min-height: 0 !important;
@@ -4744,7 +4744,7 @@ body.woocommerce-shop {
 		display: block !important;
 
 		@media (max-width: 768px) {
-			padding-top: 60px !important;
+			padding-top: 0 !important;
 			padding-bottom: 20px !important;
 		}
 
@@ -4912,6 +4912,21 @@ body.woocommerce-shop {
 		display: flex !important;
 		flex-direction: column !important;
 		box-sizing: border-box !important;
+
+		&.home-rd-section {
+			padding: 0 !important;
+
+			.home-rd-card {
+				display: flex !important;
+				flex-direction: column !important;
+			}
+			.home-rd-content {
+				order: 1 !important;
+			}
+			.home-rd-mobile-media {
+				order: 2 !important;
+			}
+		}
 
 		.block-content {
 			padding: 0 16px 20px 16px !important;
