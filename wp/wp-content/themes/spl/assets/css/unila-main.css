@@ -2209,15 +2209,12 @@ img{
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, filter 0.3s ease;
   border-radius: 9999px;
-  background-color: #ffffff;
-  border: 1px solid rgba(30, 96, 163, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   width: 48px;
   height: 48px;
   overflow: hidden;
-  color: #1e60a3;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(30, 96, 163, 0.16);
   cursor: pointer;
   pointer-events: auto;
 }
@@ -2228,10 +2225,7 @@ img{
   }
 }
 .cta-fixed li:hover{
-  background-color: #f4f8fd;
-  border-color: rgba(30, 96, 163, 0.25);
   transform: translateY(-4px) scale(1.08);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18), 0 4px 12px rgba(30, 96, 163, 0.25);
 }
 .cta-fixed li a{
   display: flex;
@@ -2239,50 +2233,61 @@ img{
   align-items: center;
   width: 100%;
   height: 100%;
-  color: #1e60a3;
   text-decoration: none;
-  transition: color 0.3s ease;
+  color: #ffffff;
 }
 .cta-fixed li a svg{
-  color: #1e60a3;
-  fill: none;
-  stroke: #1e60a3;
+  color: #ffffff;
   display: block;
-  transition: stroke 0.3s ease, fill 0.3s ease;
+  transition: transform 0.3s ease;
+}
+.cta-fixed li a svg.spl-icon--phone,
+.cta-fixed li a svg.spl-icon--envelope{
+  fill: none;
+  stroke: #ffffff;
 }
 .cta-fixed li a svg.spl-icon--messenger,
 .cta-fixed li a svg.spl-icon--zalo{
-  fill: #1e60a3;
+  fill: #ffffff;
   stroke: none;
 }
-.cta-fixed li a .zalo-text{
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Be Vietnam Pro', sans-serif;
-  font-size: 14.5px;
-  font-weight: 800;
-  color: #1e60a3;
-  letter-spacing: -0.3px;
-  line-height: 1;
-  user-select: none;
-  transition: color 0.3s ease;
-}
-@media (max-width: 768px){
-  .cta-fixed li a .zalo-text{
-    font-size: 13px;
-  }
-}
-.cta-fixed li:hover a{
-  color: #154577;
-}
 .cta-fixed li:hover a svg{
-  color: #154577;
-  stroke: #154577;
+  transform: scale(1.08);
 }
-.cta-fixed li:hover a svg.spl-icon--messenger,
-.cta-fixed li:hover a svg.spl-icon--zalo{
-  fill: #154577;
+.cta-fixed li.item-phone{
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  box-shadow: 0 6px 18px rgba(34, 197, 94, 0.35);
+  animation: cta-phone-pulse 2.2s infinite;
 }
-.cta-fixed li:hover a .zalo-text{
-  color: #154577;
+.cta-fixed li.item-phone:hover{
+  animation: none;
+  box-shadow: 0 10px 24px rgba(34, 197, 94, 0.5);
+}
+.cta-fixed li.item-email{
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.35);
+}
+.cta-fixed li.item-email:hover{
+  box-shadow: 0 10px 24px rgba(234, 88, 12, 0.5);
+}
+.cta-fixed li.item-messenger{
+  background: linear-gradient(135deg, #00b2fe 0%, #006aff 50%, #a033ff 100%);
+  box-shadow: 0 6px 18px rgba(0, 106, 255, 0.35);
+}
+.cta-fixed li.item-messenger:hover{
+  box-shadow: 0 10px 24px rgba(160, 51, 255, 0.5);
+}
+.cta-fixed li.item-zalo{
+  background: linear-gradient(135deg, #0088ff 0%, #0068ff 100%);
+  box-shadow: 0 6px 18px rgba(0, 104, 255, 0.35);
+}
+.cta-fixed li.item-zalo:hover{
+  box-shadow: 0 10px 24px rgba(0, 104, 255, 0.55);
+}
+@keyframes cta-phone-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6); }
+  70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
 }
 .social-list ul{
   display: flex;

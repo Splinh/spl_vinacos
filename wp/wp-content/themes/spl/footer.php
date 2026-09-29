@@ -22,16 +22,24 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 	<div class="backdrop backdrop-category"></div>
 	<div class="cta-fixed">
 		<ul>
-			<li><a href="tel:0906941088" title="Gọi hotline" aria-label="Gọi hotline"><?= spl_icon( 'phone', '', 22 ) ?></a></li>
-			<li><a href="mailto:bbvinacos@gmail.com" title="Gửi email" aria-label="Gửi email"><?= spl_icon( 'envelope', '', 22 ) ?></a></li>
-			<li>
+			<li class="item-phone">
+				<a href="tel:0906941088" title="Gọi hotline" aria-label="Gọi hotline">
+					<?= spl_icon( 'phone', '', 22 ) ?>
+				</a>
+			</li>
+			<li class="item-email">
+				<a href="mailto:bbvinacos@gmail.com" title="Gửi email" aria-label="Gửi email">
+					<?= spl_icon( 'envelope', '', 22 ) ?>
+				</a>
+			</li>
+			<li class="item-messenger">
 				<a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" title="Messenger" aria-label="Messenger">
 					<?= spl_icon( 'messenger', '', 24 ) ?>
 				</a>
 			</li>
 			<li class="item-zalo">
 				<a href="https://zalo.me/0906941088" target="_blank" rel="noopener noreferrer" title="Zalo" aria-label="Zalo">
-					<span class="zalo-text">Zalo</span>
+					<?= spl_icon( 'zalo', '', 26 ) ?>
 				</a>
 			</li>
 		</ul>
