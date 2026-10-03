@@ -39,7 +39,7 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 			</li>
 			<li class="item-zalo">
 				<a href="https://zalo.me/0906941088" target="_blank" rel="noopener noreferrer" title="Zalo" aria-label="Zalo">
-					<?= spl_icon( 'zalo', '', 26 ) ?>
+					<span class="zalo-text">Zalo</span>
 				</a>
 			</li>
 		</ul>

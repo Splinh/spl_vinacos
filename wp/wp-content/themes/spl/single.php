@@ -38,7 +38,7 @@ $post_date    = get_the_date( 'd/m/Y', $post_id );
 	<div class="container">
 		<div class="row -mt-10">
 			<!-- Main Article Body (8/12) -->
-			<div class="col w-full mt-10 lg:w-2/3">
+			<div class="col col-content w-full mt-10 lg:w-2/3">
 				<div class="box-news-detail">
 					<h1 class="site-sub-title font-bold text-2xl lg:text-3xl text-neutral-900 leading-snug">
 						<?php echo esc_html( $post_title ); ?>
@@ -54,7 +54,7 @@ $post_date    = get_the_date( 'd/m/Y', $post_id );
 			</div>
 
 			<!-- Sidebar Right (4/12) -->
-			<div class="col w-full mt-10 lg:w-1/3">
+			<div class="col col-sidebar w-full mt-10 lg:w-1/3">
 				<div class="box-sticky">
 					<!-- Categories Box -->
 					<div class="box-news box-news-category mb-8">

@@ -48,7 +48,7 @@ $val_tax     = '2601138503';
 <section class="contact-section section-large pt-6 md:pt-10">
 	<div class="container">
 		<div class="row -mt-10">
-			<div class="col w-full mt-10 lg:w-1/3">
+			<div class="col col-info w-full mt-10 lg:w-1/3">
 				<div class="box-contact">
 					<h1 class="site-title text-2xl md:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4"><?= esc_html( $title_lbl ) ?></h1>
 					<div class="footer-address mt-6 border-t border-slate-100 pt-6">
@@ -84,7 +84,7 @@ $val_tax     = '2601138503';
 					</div>
 				</div>
 			</div>
-			<div class="col w-full mt-10 lg:w-2/3">
+			<div class="col col-form w-full mt-10 lg:w-2/3">
 				<div class="contact-form">
 					<form action="#" method="post" class="wpcf7-form">
 						<h3><?= esc_html( $sub_lbl ) ?></h3>
