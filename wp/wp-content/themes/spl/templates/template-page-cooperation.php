@@ -10,7 +10,73 @@ defined( 'ABSPATH' ) || exit;
 get_header();
 
 global $post;
-$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+$page_id = $post->ID ?? get_the_ID();
+$is_en   = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+
+// Resolve Hero Banner image dynamically from WordPress Admin
+$hero_banner_img = '';
+
+// 1. Check Featured Image (Ảnh đại diện trang trong WP Admin)
+if ( $page_id && has_post_thumbnail( $page_id ) ) {
+	$hero_banner_img = get_the_post_thumbnail_url( $page_id, 'full' );
+}
+
+// 2. Check ACF Flexible Content `cooperation_sections`
+$coop_sections = ( $page_id && function_exists( 'get_field' ) ) ? get_field( 'cooperation_sections', $page_id ) : false;
+if ( empty( $hero_banner_img ) && ! empty( $coop_sections ) && is_array( $coop_sections ) ) {
+	foreach ( $coop_sections as $sec ) {
+		$layout = $sec['acf_fc_layout'] ?? '';
+		if ( 'cooperation_hero' === $layout || 'hero' === $layout ) {
+			if ( ! empty( $sec['banner_image'] ) ) {
+				$hero_banner_img = spl_get_image_url( $sec['banner_image'] );
+			}
+			break;
+		}
+	}
+}
+
+// 3. Check direct ACF / meta fields: `banner_image`, `hero_banner`, `banner`, `page_banner`, `hero_image`
+if ( empty( $hero_banner_img ) && $page_id ) {
+	foreach ( array( 'banner_image', 'hero_banner', 'banner', 'page_banner', 'hero_image', 'top_banner' ) as $f_key ) {
+		$val = function_exists( 'get_field' ) ? get_field( $f_key, $page_id ) : get_post_meta( $page_id, $f_key, true );
+		if ( ! empty( $val ) ) {
+			$hero_banner_img = spl_get_image_url( $val );
+			break;
+		}
+	}
+}
+
+// 4. Check Polylang translated page counterpart
+if ( empty( $hero_banner_img ) && $page_id && function_exists( 'pll_get_post' ) ) {
+	$other_lang = $is_en ? 'vi' : 'en';
+	$other_id   = pll_get_post( $page_id, $other_lang );
+	if ( $other_id && has_post_thumbnail( $other_id ) ) {
+		$hero_banner_img = get_the_post_thumbnail_url( $other_id, 'full' );
+	}
+}
+
+// 5. Fallback to static theme banner
+if ( empty( $hero_banner_img ) ) {
+	$rd_banner_rel = '/static/img/banner/' . ( $is_en ? 'rd-system-banner-en.jpg' : 'rd-system-banner-vi.jpg' );
+	if ( file_exists( get_template_directory() . $rd_banner_rel ) ) {
+		$hero_banner_img = get_template_directory_uri() . $rd_banner_rel;
+	} else {
+		$hero_banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg' );
+	}
+}
+
+// Resolve custom benefit items from ACF if available
+$custom_benefit_items = array();
+if ( ! empty( $coop_sections ) && is_array( $coop_sections ) ) {
+	foreach ( $coop_sections as $sec ) {
+		if ( ( $sec['acf_fc_layout'] ?? '' ) === 'cooperation_benefits' ) {
+			if ( ! empty( $sec['benefit_items'] ) && is_array( $sec['benefit_items'] ) ) {
+				$custom_benefit_items = $sec['benefit_items'];
+			}
+			break;
+		}
+	}
+}
 ?>
 
 <section class="banner-child">
@@ -18,7 +84,6 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 		<div class="swiper-wrapper">
 			<div class="swiper-slide">
 				<div class="image img-cover">
-					<?php $hero_banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg' ) . '?v=brand'; ?>
 					<img src="<?php echo esc_url( $hero_banner_img ); ?>" alt="OEM/ODM VINACOS">
 				</div>
 			</div>
@@ -55,21 +120,35 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 			</div>
 		</div>
 		<div class="oem-1-list mt-10">
-			<div class="oem-1-item" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
-				<div class="image">
-					<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-1.png" data-src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-1.png" loading="lazy" alt="R&D Publication 1">
+			<?php if ( ! empty( $custom_benefit_items ) ) : ?>
+				<?php foreach ( $custom_benefit_items as $b_idx => $b_item ) :
+					$b_img = spl_get_image_url( $b_item['image'] ?? '' );
+					if ( empty( $b_img ) ) continue;
+					$delay = 300 + ( $b_idx * 300 );
+				?>
+					<div class="oem-1-item" data-aos="fade-up" data-aos-duration="700" data-aos-delay="<?= esc_attr( $delay ) ?>">
+						<div class="image">
+							<img class="lozad" src="<?= esc_url( $b_img ) ?>" data-src="<?= esc_url( $b_img ) ?>" loading="lazy" alt="<?= esc_attr( $b_item['title'] ?? 'R&D Publication' ) ?>">
+						</div>
+					</div>
+				<?php endforeach; ?>
+			<?php else : ?>
+				<div class="oem-1-item" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
+					<div class="image">
+						<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-1.png" data-src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-1.png" loading="lazy" alt="R&D Publication 1">
+					</div>
 				</div>
-			</div>
-			<div class="oem-1-item" data-aos="fade-up" data-aos-duration="700" data-aos-delay="600">
-				<div class="image">
-					<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-2.png" data-src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-2.png" loading="lazy" alt="R&D Publication 2">
+				<div class="oem-1-item" data-aos="fade-up" data-aos-duration="700" data-aos-delay="600">
+					<div class="image">
+						<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-2.png" data-src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-2.png" loading="lazy" alt="R&D Publication 2">
+					</div>
 				</div>
-			</div>
-			<div class="oem-1-item" data-aos="fade-up" data-aos-duration="700" data-aos-delay="900">
-				<div class="image">
-					<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-3.png" data-src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-3.png" loading="lazy" alt="R&D Publication 3">
+				<div class="oem-1-item" data-aos="fade-up" data-aos-duration="700" data-aos-delay="900">
+					<div class="image">
+						<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-3.png" data-src="https://unila.com.vn/wp-content/uploads/2026/03/bai-bao-3.png" loading="lazy" alt="R&D Publication 3">
+					</div>
 				</div>
-			</div>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>
@@ -152,7 +231,10 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 						<div class="swiper-wrapper">
 							<div class="swiper-slide">
 								<div class="image img-cover">
-									<?php $rd_img = get_template_directory_uri() . '/static/img/nghien-cuu-nen-chat-vinacos.png'; ?>
+									<?php
+									$rd_img_custom = function_exists( 'get_field' ) ? ( get_field( 'rd_image', $page_id ) ?: get_field( 'formulation_image', $page_id ) ) : null;
+									$rd_img = ! empty( $rd_img_custom ) ? spl_get_image_url( $rd_img_custom ) : ( get_template_directory_uri() . '/static/img/nghien-cuu-nen-chat-vinacos.png' );
+									?>
 									<img class="lozad" src="<?php echo esc_url( $rd_img ); ?>" data-src="<?php echo esc_url( $rd_img ); ?>" loading="lazy" alt="VINACOS R&D Formulation Base">
 								</div>
 							</div>
@@ -184,7 +266,11 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 					<div class="swiper-slide">
 						<div class="oem-3-item">
 							<div class="image img-cover">
-								<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/03/Dong-hanh-nguyen-lieu.jpg" data-src="https://unila.com.vn/wp-content/uploads/2026/03/Dong-hanh-nguyen-lieu.jpg" loading="lazy" alt="Raw Materials Partner">
+								<?php
+								$partner_img_custom = function_exists( 'get_field' ) ? ( get_field( 'partner_image', $page_id ) ?: get_field( 'partners_image', $page_id ) ) : null;
+								$partner_img = ! empty( $partner_img_custom ) ? spl_get_image_url( $partner_img_custom ) : 'https://unila.com.vn/wp-content/uploads/2026/03/Dong-hanh-nguyen-lieu.jpg';
+								?>
+								<img class="lozad" src="<?php echo esc_url( $partner_img ); ?>" data-src="<?php echo esc_url( $partner_img ); ?>" loading="lazy" alt="Raw Materials Partner">
 							</div>
 						</div>
 					</div>
@@ -217,7 +303,11 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 		<div class="oem-5-list mt-10 xl:mt-14">
 			<div class="oem-5-item" data-aos="fade-up" data-aos-duration="700" data-aos-delay="300">
 				<div class="image img-cover">
-					<img class="lozad" src="https://unila.com.vn/wp-content/uploads/2026/04/LAB.jpg" data-src="https://unila.com.vn/wp-content/uploads/2026/04/LAB.jpg" loading="lazy" alt="VINACOS R&D Center">
+					<?php
+					$lab_img_custom = function_exists( 'get_field' ) ? ( get_field( 'lab_image', $page_id ) ?: get_field( 'process_image', $page_id ) ) : null;
+					$lab_img = ! empty( $lab_img_custom ) ? spl_get_image_url( $lab_img_custom ) : 'https://unila.com.vn/wp-content/uploads/2026/04/LAB.jpg';
+					?>
+					<img class="lozad" src="<?php echo esc_url( $lab_img ); ?>" data-src="<?php echo esc_url( $lab_img ); ?>" loading="lazy" alt="VINACOS R&D Center">
 				</div>
 				<div class="caption">
 					<div class="desc" style="max-width: 540px; font-size: 15px; line-height: 1.65; color: #475569;">

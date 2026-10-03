@@ -11,6 +11,10 @@ $is_en      = function_exists( 'pll_current_language' ) && 'en' === pll_current_
 $section    = $args ?? array();
 $banner_img = is_array( $section['banner_image'] ?? null ) ? ( $section['banner_image']['url'] ?? '' ) : ( is_numeric( $section['banner_image'] ?? null ) ? wp_get_attachment_url( $section['banner_image'] ) : ( $section['banner_image'] ?? '' ) );
 
+if ( empty( $banner_img ) && has_post_thumbnail() ) {
+	$banner_img = get_the_post_thumbnail_url( null, 'full' );
+}
+
 if ( empty( $banner_img ) || false !== strpos( $banner_img, 'brand-banner-' ) ) {
 	$banner_img = get_template_directory_uri() . '/static/img/banner/banner-about.webp';
 }

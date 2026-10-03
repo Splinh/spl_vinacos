@@ -9,8 +9,12 @@ defined( 'ABSPATH' ) || exit;
 
 get_header();
 
-$is_en      = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
-$banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg' );
+$is_en        = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+$shop_page_id = function_exists( 'wc_get_page_id' ) ? wc_get_page_id( 'shop' ) : 0;
+$banner_img   = ( $shop_page_id && has_post_thumbnail( $shop_page_id ) ) ? get_the_post_thumbnail_url( $shop_page_id, 'full' ) : '';
+if ( empty( $banner_img ) ) {
+	$banner_img = get_template_directory_uri() . '/static/img/banner/' . ( $is_en ? 'brand-banner-en.jpg' : 'brand-banner-vi.jpg' );
+}
 
 $home_label     = $is_en ? 'Home' : 'Trang chủ';
 $products_label = $is_en ? 'Cosmetics Portfolio' : 'Sản phẩm';
