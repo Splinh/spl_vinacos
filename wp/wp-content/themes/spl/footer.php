@@ -44,6 +44,46 @@ $is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_langu
 			</li>
 		</ul>
 	</div>
+	<script>
+	(function () {
+		if (window.__splCtaFooterInit) return;
+		window.__splCtaFooterInit = true;
+
+		function initCtaFooterDetection() {
+			var cta = document.querySelector('.cta-fixed');
+			var footer = document.querySelector('footer.footer-vinacos') || document.querySelector('footer');
+			if (!cta || !footer) return;
+
+			var ticking = false;
+			function checkOverlap() {
+				var ctaRect = cta.getBoundingClientRect();
+				var footerRect = footer.getBoundingClientRect();
+				if (footerRect.top <= ctaRect.bottom) {
+					cta.classList.add('is-in-footer');
+				} else {
+					cta.classList.remove('is-in-footer');
+				}
+				ticking = false;
+			}
+
+			window.addEventListener('scroll', function () {
+				if (!ticking) {
+					window.requestAnimationFrame(checkOverlap);
+					ticking = true;
+				}
+			}, { passive: true });
+
+			window.addEventListener('resize', checkOverlap, { passive: true });
+			checkOverlap();
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', initCtaFooterDetection);
+		} else {
+			initCtaFooterDetection();
+		}
+	})();
+	</script>
 </main>
 
 <footer class="footer-vinacos bg-[#1e60a3] text-white">

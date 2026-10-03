@@ -427,6 +427,34 @@ function initFullPageScroll() {
 	});
 }
 
+function initCtaFooterDetection() {
+	var cta = document.querySelector('.cta-fixed');
+	var footer = document.querySelector('footer.footer-vinacos') || document.querySelector('footer');
+	if (!cta || !footer) return;
+
+	var ticking = false;
+	function checkOverlap() {
+		var ctaRect = cta.getBoundingClientRect();
+		var footerRect = footer.getBoundingClientRect();
+		if (footerRect.top <= ctaRect.bottom) {
+			cta.classList.add('is-in-footer');
+		} else {
+			cta.classList.remove('is-in-footer');
+		}
+		ticking = false;
+	}
+
+	window.addEventListener('scroll', function () {
+		if (!ticking) {
+			window.requestAnimationFrame(checkOverlap);
+			ticking = true;
+		}
+	}, { passive: true });
+
+	window.addEventListener('resize', checkOverlap, { passive: true });
+	checkOverlap();
+}
+
 function mainStart(){
 	initKeySwiper();
 	initHome5Swiper();
@@ -436,6 +464,7 @@ function mainStart(){
 	initAbout6Swiper();
 	toggleMegaProduct();
 	initFullPageScroll();
+	initCtaFooterDetection();
 	$(".key-visual-swiper").removeClass("start");
 	$("[data-aos]").addClass("aos-animate");
 }
