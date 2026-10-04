@@ -2211,7 +2211,7 @@ footer {
 			width: 100% !important;
 			height: 100% !important;
 			object-fit: cover !important;
-			object-position: right center !important;
+			object-position: 65% center !important;
 			display: block !important;
 		}
 	}
@@ -3387,10 +3387,10 @@ header {
 			}
 
 			.home-rd-content {
-				width: 52% !important;
-				max-width: 700px !important;
+				width: 45% !important;
+				max-width: 540px !important;
 				height: 100% !important;
-				padding: clamp(40px, 6vh, 80px) clamp(40px, 6vw, 110px) !important;
+				padding: clamp(40px, 6vh, 80px) clamp(32px, 4vw, 80px) !important;
 				display: flex !important;
 				flex-direction: column !important;
 				justify-content: center !important;
@@ -3417,7 +3417,7 @@ header {
 				margin-top: 0 !important;
 				margin-bottom: 0 !important;
 				padding: 0 !important;
-				max-width: 580px !important;
+				max-width: 440px !important;
 			}
 
 			.home-rd-title {
