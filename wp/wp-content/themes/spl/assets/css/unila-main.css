@@ -11503,11 +11503,11 @@ body.woocommerce-shop .product-section {
   padding: 0 !important;
   margin: 0 !important;
   box-sizing: border-box !important;
-  background-color: #ffffff !important;
+  background-color: #1e60a3 !important;
 }
 
 .about-message-card {
-  background-color: #ffffff !important;
+  background-color: #1e60a3 !important;
   border-radius: 0 !important;
   box-shadow: none !important;
   border: none !important;
@@ -11522,6 +11522,7 @@ body.woocommerce-shop .product-section {
 
 /* Mobile photo banner (< 1025px) */
 .about-message-mobile-media {
+  order: 2 !important;
   display: block !important;
   width: 100% !important;
   height: 280px !important;
@@ -11545,6 +11546,7 @@ body.woocommerce-shop .product-section {
 
 /* Content area */
 .about-message-content {
+  order: 1 !important;
   padding: 36px 24px 32px !important;
   display: flex !important;
   flex-direction: column !important;
@@ -11552,6 +11554,15 @@ body.woocommerce-shop .product-section {
   box-sizing: border-box !important;
   position: relative !important;
   z-index: 2 !important;
+  background-color: #1e60a3 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+@media (min-width: 400px) {
+  .about-message-content {
+    padding: 40px 28px 36px !important;
+  }
 }
 
 @media (min-width: 640px) {
@@ -11574,13 +11585,14 @@ body.woocommerce-shop .product-section {
   object-fit: contain !important;
   flex-shrink: 0 !important;
   display: block !important;
+  filter: brightness(0) invert(1) !important;
 }
 
 .about-message-badge-text {
   font-size: 16px !important;
   line-height: 1.35 !important;
   font-weight: 600 !important;
-  color: #1e293b !important;
+  color: #ffffff !important;
   display: inline-block !important;
 }
 
@@ -11595,7 +11607,7 @@ body.woocommerce-shop .product-section {
   font-size: clamp(24px, 2.7vw, 42px) !important;
   line-height: 1.3 !important;
   letter-spacing: -0.02em !important;
-  color: #1e293b !important;
+  color: #ffffff !important;
   font-weight: 400 !important;
   margin: 0 !important;
   padding: 0 !important;
@@ -11607,7 +11619,7 @@ body.woocommerce-shop .product-section {
 .about-message-quote strong,
 .about-message-quote b {
   font-weight: 800 !important;
-  color: #0f172a !important;
+  color: #ffffff !important;
 }
 
 /* Desktop >= 1025px: Full Canva Slide 18 Layout Edge-to-Edge */
@@ -11618,6 +11630,7 @@ body.woocommerce-shop .product-section {
 
   .about-message-card {
     background-image: var(--msg-bg, url('../img/vinacos/bg-tam-the-cong-su.webp')) !important;
+    background-color: #1e60a3 !important;
     background-repeat: no-repeat !important;
     background-position: right center !important;
     background-size: cover !important;
@@ -11641,6 +11654,7 @@ body.woocommerce-shop .product-section {
     align-self: stretch !important;
     box-sizing: border-box !important;
     padding: clamp(40px, 6vh, 80px) clamp(40px, 6vw, 110px) !important;
+    background-color: transparent !important;
   }
 
   .about-message-badge {
@@ -11651,10 +11665,12 @@ body.woocommerce-shop .product-section {
   .about-message-icon {
     width: 48px !important;
     height: 48px !important;
+    filter: brightness(0) invert(1) !important;
   }
 
   .about-message-badge-text {
     font-size: 17px !important;
+    color: #ffffff !important;
   }
 
   .about-message-quote-wrap {
@@ -11664,6 +11680,12 @@ body.woocommerce-shop .product-section {
 
   .about-message-quote {
     max-width: 520px !important;
+    color: #ffffff !important;
+  }
+
+  .about-message-quote strong,
+  .about-message-quote b {
+    color: #ffffff !important;
   }
 }
 
