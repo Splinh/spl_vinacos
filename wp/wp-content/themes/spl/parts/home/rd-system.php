@@ -80,15 +80,15 @@ if ( $is_en && ( 'Tìm hiểu thêm' === $btn_text || 'Xem thêm' === $btn_text 
 	$btn_text = 'Learn More';
 }
 
-// Background image: Dùng ảnh trang Tâm thế cộng sự (bg-tam-the-cong-su.webp) theo yêu cầu, hoặc ảnh custom từ ACF nếu có
+// Background image: Dùng ảnh trang Tâm thế cộng sự phông xanh dương (bg-rd-system-blue.webp) theo yêu cầu, hoặc ảnh custom từ ACF nếu có
 $custom_bg_id = $section['image'] ?? ( $first_item['image'] ?? 0 );
 $bg_url       = '';
 if ( ! empty( $custom_bg_id ) ) {
 	$bg_url = is_numeric( $custom_bg_id ) ? wp_get_attachment_image_url( (int) $custom_bg_id, 'full' ) : (string) $custom_bg_id;
 }
-// Nếu chưa upload ảnh riêng hoặc đang dùng ảnh cũ, mặc định dùng ảnh trang Tâm thế cộng sự
-if ( empty( $bg_url ) || false !== strpos( $bg_url, 'tam-the-cong-su-vinacos.jpg' ) || false !== strpos( $bg_url, 'bg-rd-system.webp' ) ) {
-	$bg_url = get_template_directory_uri() . '/static/img/vinacos/bg-tam-the-cong-su.webp';
+// Nếu chưa upload ảnh riêng hoặc đang dùng ảnh cũ, mặc định dùng ảnh phông xanh dương bg-rd-system-blue.webp
+if ( empty( $bg_url ) || false !== strpos( $bg_url, 'tam-the-cong-su-vinacos.jpg' ) || false !== strpos( $bg_url, 'bg-rd-system.webp' ) || false !== strpos( $bg_url, 'bg-tam-the-cong-su.webp' ) ) {
+	$bg_url = get_template_directory_uri() . '/static/img/vinacos/bg-rd-system-blue.webp';
 }
 
 $icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-cong-su.webp';
