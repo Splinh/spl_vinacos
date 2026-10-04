@@ -80,7 +80,7 @@ if ( $is_en && ( 'Tìm hiểu thêm' === $btn_text || 'Xem thêm' === $btn_text 
 	$btn_text = 'Learn More';
 }
 
-// Background image: Dùng ảnh trang Tâm thế cộng sự phông xanh dương (bg-rd-system-blue.webp) theo yêu cầu, hoặc ảnh custom từ ACF nếu có
+// Background image (Desktop): Dùng ảnh trang Tâm thế cộng sự phông xanh dương (bg-rd-system-blue.webp) theo yêu cầu, hoặc ảnh custom từ ACF nếu có
 $custom_bg_id = $section['image'] ?? ( $first_item['image'] ?? 0 );
 $bg_url       = '';
 if ( ! empty( $custom_bg_id ) ) {
@@ -89,6 +89,16 @@ if ( ! empty( $custom_bg_id ) ) {
 // Nếu chưa upload ảnh riêng hoặc đang dùng ảnh cũ, mặc định dùng ảnh phông xanh dương bg-rd-system-blue.webp
 if ( empty( $bg_url ) || false !== strpos( $bg_url, 'tam-the-cong-su-vinacos.jpg' ) || false !== strpos( $bg_url, 'bg-rd-system.webp' ) || false !== strpos( $bg_url, 'bg-tam-the-cong-su.webp' ) ) {
 	$bg_url = get_template_directory_uri() . '/static/img/vinacos/bg-rd-system-blue.webp';
+}
+
+// Background image (Mobile): Có field riêng trong ACF để đổi ảnh phù hợp cho mobile
+$custom_mobi_id = $section['image_mobile'] ?? ( $first_item['image_mobile'] ?? 0 );
+$bg_mobi_url    = '';
+if ( ! empty( $custom_mobi_id ) ) {
+	$bg_mobi_url = is_numeric( $custom_mobi_id ) ? wp_get_attachment_image_url( (int) $custom_mobi_id, 'full' ) : (string) $custom_mobi_id;
+}
+if ( empty( $bg_mobi_url ) ) {
+	$bg_mobi_url = $bg_url;
 }
 
 $icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-cong-su.webp';
@@ -127,7 +137,7 @@ $icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-con
 
 		<!-- Mobile Photo Banner (Visible only on < 1025px, Below text on Mobile) -->
 		<div class="home-rd-mobile-media" data-aos="fade-up" data-aos-duration="700" data-aos-delay="400">
-			<img src="<?php echo esc_url( $bg_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $badge_text ) ); ?> - VINACOS" loading="lazy" width="800" height="450">
+			<img src="<?php echo esc_url( $bg_mobi_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $badge_text ) ); ?> - VINACOS" loading="lazy" width="800" height="450">
 		</div>
 	</div>
 </section>

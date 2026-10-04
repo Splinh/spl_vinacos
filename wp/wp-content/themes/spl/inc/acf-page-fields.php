@@ -237,8 +237,17 @@ function spl_register_all_vinacos_page_acf_fields(): void {
 									],
 									[
 										'key'           => 'field_rd_item_img',
-										'label'         => __( 'Ảnh minh họa', 'spl' ),
+										'label'         => __( 'Ảnh minh họa (Desktop)', 'spl' ),
 										'name'          => 'image',
+										'type'          => 'image',
+										'return_format' => 'id',
+										'preview_size'  => 'medium',
+										'wrapper'       => [ 'width' => '50' ],
+									],
+									[
+										'key'           => 'field_rd_item_img_mobile',
+										'label'         => __( 'Ảnh minh họa (Mobile)', 'spl' ),
+										'name'          => 'image_mobile',
 										'type'          => 'image',
 										'return_format' => 'id',
 										'preview_size'  => 'medium',
