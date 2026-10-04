@@ -2035,6 +2035,7 @@ footer {
 
 	/* Mobile photo banner (< 1025px) */
 	.about-message-mobile-media {
+		order: 2 !important;
 		display: block !important;
 		width: 100% !important;
 		height: 280px !important;
@@ -2056,6 +2057,7 @@ footer {
 
 	/* Content area */
 	.about-message-content {
+		order: 1 !important;
 		padding: 36px 24px 32px !important;
 		display: flex !important;
 		flex-direction: column !important;
@@ -2063,6 +2065,12 @@ footer {
 		box-sizing: border-box !important;
 		position: relative !important;
 		z-index: 2 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+
+		@media (min-width: 400px) {
+			padding: 40px 28px 36px !important;
+		}
 
 		@media (min-width: 640px) {
 			padding: 44px 36px 40px !important;
@@ -2197,6 +2205,7 @@ footer {
 	}
 
 	.home-rd-mobile-media {
+		order: 2 !important;
 		display: block !important;
 		width: 100% !important;
 		height: 280px !important;
@@ -2217,6 +2226,7 @@ footer {
 	}
 
 	.home-rd-content {
+		order: 1 !important;
 		padding: 36px 24px 32px !important;
 		display: flex !important;
 		flex-direction: column !important;
@@ -2224,6 +2234,12 @@ footer {
 		position: relative !important;
 		z-index: 2 !important;
 		background-color: #1e60a3 !important;
+		width: 100% !important;
+		max-width: 100% !important;
+
+		@media (min-width: 400px) {
+			padding: 40px 28px 36px !important;
+		}
 
 		@media (min-width: 640px) {
 			padding: 44px 36px 40px !important;
@@ -4726,6 +4742,82 @@ body.woocommerce-shop {
 		box-sizing: border-box !important;
 	}
 
+	/* About 1 (Tâm thế cộng sự) Mobile Optimization: Text on Top, Image on Bottom */
+	.about-1-section {
+		height: auto !important;
+		min-height: 0 !important;
+		max-height: none !important;
+		padding: 35px 0 !important;
+		overflow: visible !important;
+
+		.about-container {
+			padding: 0 20px !important;
+			width: 100% !important;
+			max-width: 100% !important;
+			height: auto !important;
+			box-sizing: border-box !important;
+		}
+
+		.about-grid {
+			display: flex !important;
+			flex-direction: column !important;
+			height: auto !important;
+			width: 100% !important;
+			gap: 24px !important;
+			align-items: stretch !important;
+		}
+
+		.about-col-content {
+			order: 1 !important;
+			width: 100% !important;
+			height: auto !important;
+			padding: 0 !important;
+			display: block !important;
+			box-sizing: border-box !important;
+
+			.about-content {
+				width: 100% !important;
+				max-width: 100% !important;
+				padding: 0 !important;
+				box-sizing: border-box !important;
+			}
+		}
+
+		.about-col-image {
+			order: 2 !important;
+			width: 100% !important;
+			height: auto !important;
+			min-height: 0 !important;
+			display: block !important;
+			padding: 0 !important;
+			margin: 10px 0 0 0 !important;
+			position: relative !important;
+			overflow: visible !important;
+
+			.about-image {
+				width: 100% !important;
+				height: auto !important;
+				max-height: none !important;
+				display: block !important;
+				position: relative !important;
+				overflow: visible !important;
+
+				img {
+					position: static !important;
+					width: 100% !important;
+					height: auto !important;
+					max-height: 480px !important;
+					object-fit: contain !important;
+					object-position: center !important;
+					display: block !important;
+					margin: 0 auto !important;
+					border-radius: 0 !important;
+					box-shadow: none !important;
+				}
+			}
+		}
+	}
+
 	/* About Story (Nghiên cứu sản xuất mỹ phẩm) Mobile Spacing Optimization */
 	.about-story-section {
 		.about-story-shape-col {
@@ -4971,10 +5063,23 @@ body.woocommerce-shop {
 				display: flex !important;
 				flex-direction: column !important;
 				background-color: #1e60a3 !important;
+				width: 100% !important;
 			}
 			.home-rd-content {
 				order: 1 !important;
 				background-color: #1e60a3 !important;
+				padding: 36px 24px 32px !important;
+				box-sizing: border-box !important;
+				width: 100% !important;
+				max-width: 100% !important;
+
+				@media (min-width: 400px) {
+					padding: 40px 28px 36px !important;
+				}
+
+				@media (min-width: 640px) {
+					padding: 44px 36px 40px !important;
+				}
 			}
 			.home-rd-mobile-media {
 				order: 2 !important;
