@@ -59,6 +59,16 @@ if ( empty( $bg_url ) ) {
 	$bg_url = get_template_directory_uri() . '/static/img/vinacos/bg-tam-the-cong-su.webp';
 }
 
+// Custom mobile image override for About message section
+$custom_mobi_id = $section['image_mobile'] ?? 0;
+$bg_mobi_url    = '';
+if ( ! empty( $custom_mobi_id ) ) {
+	$bg_mobi_url = is_numeric( $custom_mobi_id ) ? wp_get_attachment_image_url( (int) $custom_mobi_id, 'full' ) : (string) $custom_mobi_id;
+}
+if ( empty( $bg_mobi_url ) ) {
+	$bg_mobi_url = $bg_url;
+}
+
 $icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-cong-su.webp';
 ?>
 
@@ -66,7 +76,7 @@ $icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-con
 	<div class="about-message-card" style="--msg-bg: url('<?php echo esc_url( $bg_url ); ?>');" data-aos="fade-up" data-aos-duration="700">
 		<!-- Mobile Photo (Visible only on < 1025px) -->
 		<div class="about-message-mobile-media">
-			<img src="<?php echo esc_url( $bg_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $subtitle ) ); ?> - VINACOS" loading="lazy" width="800" height="450">
+			<img src="<?php echo esc_url( $bg_mobi_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $subtitle ) ); ?> - VINACOS" loading="lazy" width="800" height="450">
 		</div>
 
 		<!-- Content Area (Left on Desktop, Below photo on Mobile) -->

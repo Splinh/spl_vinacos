@@ -689,11 +689,21 @@ function spl_register_all_vinacos_page_acf_fields(): void {
 							],
 							[
 								'key'           => 'field_abm_image',
-								'label'         => __( 'Ảnh chân dung CEO', 'spl' ),
+								'label'         => __( 'Ảnh minh họa (Desktop)', 'spl' ),
 								'name'          => 'image',
 								'type'          => 'image',
 								'return_format' => 'id',
 								'preview_size'  => 'medium',
+								'wrapper'       => [ 'width' => '50' ],
+							],
+							[
+								'key'           => 'field_abm_image_mobile',
+								'label'         => __( 'Ảnh minh họa (Mobile)', 'spl' ),
+								'name'          => 'image_mobile',
+								'type'          => 'image',
+								'return_format' => 'id',
+								'preview_size'  => 'medium',
+								'wrapper'       => [ 'width' => '50' ],
 							],
 							[
 								'key'          => 'field_abm_content',
