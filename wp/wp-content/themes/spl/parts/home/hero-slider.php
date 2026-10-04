@@ -77,13 +77,11 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 					$raw_desk = ! empty( $s['bg_image'] ) ? $s['bg_image'] : ( ! empty( $s['desktop_image'] ) ? $s['desktop_image'] : ( ! empty( $s['image'] ) ? $s['image'] : '' ) );
 					$raw_mobi = ! empty( $s['bg_image_mobile'] ) ? $s['bg_image_mobile'] : ( ! empty( $s['mobile_image'] ) ? $s['mobile_image'] : '' );
 
-					$desktop_img = function_exists( 'spl_get_image_url' ) ? spl_get_image_url( $raw_desk, $img_base . '/slide' . ( $i + 1 ) . '-desktop.jpg' ) : ( $img_base . '/slide' . ( $i + 1 ) . '-desktop.jpg' );
-					$mobile_img  = function_exists( 'spl_get_image_url' ) ? spl_get_image_url( $raw_mobi, $img_base . '/slide' . ( $i + 1 ) . '-mobile.jpg' ) : ( $img_base . '/slide' . ( $i + 1 ) . '-mobile.jpg' );
+					$fallback_desk = ( 0 === $i ) ? ( $img_base . '/slide1-desktop.webp' ) : ( $img_base . '/slide' . ( $i + 1 ) . '-desktop.jpg' );
+					$fallback_mobi = ( 0 === $i ) ? ( $img_base . '/slide1-mobile.webp' ) : ( $img_base . '/slide' . ( $i + 1 ) . '-mobile.jpg' );
 
-					if ( 0 === $i ) {
-						$desktop_img = $img_base . '/slide1-desktop.webp';
-						$mobile_img  = $img_base . '/slide1-mobile.webp';
-					}
+					$desktop_img = function_exists( 'spl_get_image_url' ) ? spl_get_image_url( $raw_desk, $fallback_desk ) : ( ! empty( $raw_desk ) ? $raw_desk : $fallback_desk );
+					$mobile_img  = function_exists( 'spl_get_image_url' ) ? spl_get_image_url( $raw_mobi, ( ! empty( $raw_desk ) ? $desktop_img : $fallback_mobi ) ) : ( ! empty( $raw_mobi ) ? $raw_mobi : ( ! empty( $raw_desk ) ? $desktop_img : $fallback_mobi ) );
 
 					$title_lines = array();
 					if ( ! empty( $s['title_line_1'] ) ) { $title_lines[] = $s['title_line_1']; }
@@ -105,12 +103,36 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 						$desc = $v['desc'];
 					}
 
-					$btn_text = ! empty( $s['button_text'] ) ? $s['button_text'] : $v['btn_text'];
-					if ( $is_en && ( 'Xem thêm' === $btn_text || 'Tìm hiểu thêm' === $btn_text || preg_match( '/[\x{00C0}-\x{1EF9}]/u', $btn_text ) ) ) {
-						$btn_text = $v['btn_text'];
+					$btn_text = '';
+					$raw_url  = '';
+
+					if ( ! empty( $s['link'] ) && is_array( $s['link'] ) ) {
+						$btn_text = $s['link']['title'] ?? '';
+						$raw_url  = $s['link']['url'] ?? '';
+					} elseif ( ! empty( $s['link'] ) && is_string( $s['link'] ) ) {
+						$raw_url  = $s['link'];
 					}
 
-					$raw_url  = ! empty( $s['button_url'] ) ? $s['button_url'] : ( ! empty( $s['btn_link'] ) ? $s['btn_link'] : $v['btn_link'] );
+					if ( empty( $btn_text ) && ! empty( $s['button_text'] ) ) {
+						$btn_text = $s['button_text'];
+					}
+					if ( empty( $raw_url ) && ! empty( $s['button_url'] ) ) {
+						$raw_url = $s['button_url'];
+					} elseif ( empty( $raw_url ) && ! empty( $s['btn_link'] ) ) {
+						$raw_url = $s['btn_link'];
+					}
+
+					if ( empty( $btn_text ) ) {
+						$btn_text = $v['btn_text'] ?? ( $is_en ? 'Explore More' : 'Xem thêm' );
+					}
+					if ( empty( $raw_url ) ) {
+						$raw_url = $v['btn_link'] ?? '#';
+					}
+
+					if ( $is_en && ( 'Xem thêm' === $btn_text || 'Tìm hiểu thêm' === $btn_text || preg_match( '/[\x{00C0}-\x{1EF9}]/u', $btn_text ) ) ) {
+						$btn_text = $v['btn_text'] ?? 'Explore More';
+					}
+
 					if ( $is_en && is_string( $raw_url ) ) {
 						$raw_url = str_replace(
 							array( '/ve-chung-toi/', '/ve-chung-toi', '/about-us/', '/about-us', '/cosmetics-oem-products/', '/cosmetics-oem-products', '/san-pham-gia-cong-unila-viet-nam/', '/san-pham-gia-cong-unila-viet-nam', '/oem-odm-gia-cong-unila-viet-nam/', '/oem-odm-gia-cong-unila-viet-nam', '/oem-odm-cosmetics-manufacturing/' ),
@@ -134,7 +156,11 @@ $img_base = get_template_directory_uri() . '/static/img/banner';
 							</div>
 							<?php endif; ?>
 						</div>
-						<?php if ( ! empty( $btn_text ) && ( 0 !== $i || ! empty( $s['button_text'] ) ) ) : ?>
+						<?php 
+						$has_custom_btn = ! empty( $s['link'] ) || ! empty( $s['button_text'] );
+						$show_btn       = ( 0 !== $i ) || $has_custom_btn;
+						if ( $show_btn && ! empty( $btn_text ) && ! empty( $btn_url ) ) : 
+						?>
 						<div class="button mt-4 xl:mt-6">
 							<a class="btn-lined" href="<?php echo esc_url( $btn_url ); ?>" title="<?php echo esc_attr( $btn_text ); ?>">
 								<span><?php echo esc_html( $btn_text ); ?></span>
