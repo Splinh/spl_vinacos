@@ -5,8 +5,7 @@
  * Exact 1:1 full-bleed layout matching the Canva Slide format:
  * - Desktop: Full-screen (100vw, 100vh - header) edge-to-edge layout with Canva organic curve and team meeting photo.
  * - Mobile/Tablet: Clean stacked responsive layout with photo banner on top, content below.
- * - Left Content area:
- *   - Badge with custom icon (icon-tam-the-cong-su.webp) and Subtitle/Label at top-left.
+ *   - Badge with Subtitle/Label at top-left (no icon).
  *   - Main Title & Description positioned lower down matching the slide rhythm.
  *   - Button is hidden by default; only displayed when a custom link is entered via ACF.
  * - Appearance animations: Consistent with Home page data-aos standard (fade-up sequence).
@@ -100,17 +99,14 @@ if ( ! empty( $custom_mobi_id ) ) {
 if ( empty( $bg_mobi_url ) ) {
 	$bg_mobi_url = $bg_url;
 }
-
-$icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-cong-su.webp';
 ?>
 
 <section class="home-3-section home-rd-section" id="rd-system">
 	<div class="home-rd-card" style="--rd-bg: url('<?php echo esc_url( $bg_url ); ?>');" data-aos="fade-up" data-aos-duration="700">
 		<!-- Content Area (Left on Desktop, Top on Mobile: Text first) -->
 		<div class="home-rd-content">
-			<!-- Top Badge: Icon + Subtitle -->
+			<!-- Top Badge: Subtitle -->
 			<div class="home-rd-badge" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
-				<img src="<?php echo esc_url( $icon_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $badge_text ) ); ?>" class="home-rd-icon" width="48" height="48" loading="lazy">
 				<span class="home-rd-badge-text">
 					<?php echo wp_kses_post( $badge_text ); ?>
 				</span>
