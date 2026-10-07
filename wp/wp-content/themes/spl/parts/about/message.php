@@ -68,8 +68,6 @@ if ( ! empty( $custom_mobi_id ) ) {
 if ( empty( $bg_mobi_url ) ) {
 	$bg_mobi_url = $bg_url;
 }
-
-$icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-cong-su.webp';
 ?>
 
 <section class="about-message-section about-brand" id="message">
@@ -81,9 +79,8 @@ $icon_url = get_template_directory_uri() . '/static/img/vinacos/icon-tam-the-con
 
 		<!-- Content Area (Left on Desktop, Below photo on Mobile) -->
 		<div class="about-message-content">
-			<!-- Top Badge: Icon + Text 1 (Subtitle) -->
+			<!-- Top Badge: Subtitle -->
 			<div class="about-message-badge" data-aos="fade-right" data-aos-duration="600" data-aos-delay="200">
-				<img src="<?php echo esc_url( $icon_url ); ?>" alt="<?php echo esc_attr( wp_strip_all_tags( $subtitle ) ); ?>" class="about-message-icon" width="48" height="48" loading="lazy">
 				<span class="about-message-badge-text">
 					<?php echo wp_kses_post( nl2br( $subtitle ) ); ?>
 				</span>

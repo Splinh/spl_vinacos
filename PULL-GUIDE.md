@@ -32,12 +32,10 @@ git pull origin main
 
 ---
 
-## 4. Biên dịch lại giao diện (Compile Assets)
-Do dự án sử dụng Vite và Tailwind 4, sau khi pull code mới về, bạn cần chạy build để tạo các file CSS/JS tối ưu cho môi trường Production:
-```bash
-pnpm build
-```
-*(Nếu trên VPS chưa cài pnpm, bạn có thể chạy `npm run build` hoặc cài pnpm toàn cục bằng lệnh: `npm install -g pnpm`)*.
+## 4. Lưu ý về Biên dịch giao diện (Compile Assets)
+- **Không chạy build trên VPS**: Do VPS không cài đặt môi trường NodeJS/pnpm hoặc không chạy build trực tiếp.
+- Các file build (CSS/JS) được **biên dịch ở máy local** (`pnpm build`), sau đó commit và push lên GitHub.
+- Trên VPS chỉ cần pull về là áp dụng ngay.
 
 ---
 
