@@ -215,6 +215,10 @@ final class Plugin {
 	 * Show admin notice when emergency login security bypass is active.
 	 */
 	private function maybeShowEmergencyBypassNotice(): void {
+		if ( ! apply_filters( 'hda_show_emergency_bypass_notice', false ) ) {
+			return;
+		}
+
 		$bypassOtp      = defined( 'HDA_DISABLE_OTP' ) && \HDA_DISABLE_OTP;
 		$bypassSecurity = defined( 'HDA_DISABLE_LOGIN_SECURITY' ) && \HDA_DISABLE_LOGIN_SECURITY;
 		$bypassCaptcha  = defined( 'HDA_DISABLE_LOGIN_CAPTCHA' ) && \HDA_DISABLE_LOGIN_CAPTCHA;
