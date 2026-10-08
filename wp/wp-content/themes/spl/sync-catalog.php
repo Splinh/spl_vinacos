@@ -117,6 +117,19 @@ foreach ( $terms as $t ) {
 }
 spl_log( "  -> Đã dọn {$del_terms_count} danh mục cũ." );
 
+// Đảm bảo slug trang Shop WooCommerce là 'san-pham'
+$shop_page_id = function_exists( 'wc_get_page_id' ) ? (int) wc_get_page_id( 'shop' ) : 0;
+if ( $shop_page_id > 0 ) {
+	$shop_page = get_post( $shop_page_id );
+	if ( $shop_page && $shop_page->post_name !== 'san-pham' ) {
+		wp_update_post( array(
+			'ID'        => $shop_page_id,
+			'post_name' => 'san-pham',
+		) );
+		spl_log( "  ✓ Đã cập nhật slug trang Shop (#{$shop_page_id}): '{$shop_page->post_name}' -> 'san-pham'" );
+	}
+}
+
 // --------------------------------------------------
 // 2. TẠO & LIÊN KẾT 3 DANH MỤC (VI <-> EN)
 // --------------------------------------------------

@@ -603,6 +603,122 @@ function spl_admin_remove_table_fixed_class(): void {
 	<?php
 }
 
+/**
+ * Fallback slug edit handler for admin edit post screen (handles WooCommerce Shop page & permalink edge cases).
+ */
+add_action( 'admin_footer', 'spl_admin_slug_edit_fallback', 100 );
+function spl_admin_slug_edit_fallback(): void {
+	global $pagenow;
+	if ( ! in_array( $pagenow, [ 'post.php', 'post-new.php' ], true ) ) {
+		return;
+	}
+	?>
+	<script id="spl-slug-edit-fallback">
+	jQuery(function($) {
+		$(document).on('click', '#titlediv .edit-slug', function() {
+			setTimeout(function() {
+				if ($('#new-post-slug').length === 0) {
+					var box = $('#edit-slug-box');
+					var buttons = $('#edit-slug-buttons');
+					var realSlugInput = $('#post_name');
+					if (!realSlugInput.length) {
+						realSlugInput = $('<input type="hidden" id="post_name" name="post_name" />').appendTo('#titlediv');
+					}
+					var currentSlug = realSlugInput.val() || '';
+					if (!currentSlug) {
+						var full = $('#editable-post-name-full').text();
+						currentSlug = full || '';
+					}
+					if (!currentSlug) {
+						var linkText = $('#sample-permalink').text().trim();
+						var parts = linkText.replace(/\/$/, '').split('/');
+						currentSlug = parts.pop() || '';
+					}
+
+					var editableSpan = $('#editable-post-name');
+					if (editableSpan.length) {
+						editableSpan.html('<input type="text" id="new-post-slug" value="' + currentSlug + '" style="font-size:13px; font-weight:normal; min-height:30px; padding:2px 8px; width:18em;" autocomplete="off" spellcheck="false" />');
+					} else {
+						var sampleA = $('#sample-permalink a');
+						if (sampleA.length) {
+							var base = sampleA.text().replace(currentSlug, '').replace(/\/$/, '');
+							sampleA.replaceWith('<span id="spl-base">' + base + '/</span><input type="text" id="new-post-slug" value="' + currentSlug + '" style="font-size:13px; font-weight:normal; min-height:30px; padding:2px 8px; width:18em;" autocomplete="off" spellcheck="false" /><span id="spl-slash">/</span>');
+						}
+					}
+
+					buttons.html(
+						'<button type="button" class="save button button-compact" id="spl-ok-btn" style="margin-right:4px;">OK</button>' +
+						'<button type="button" class="cancel button-link" id="spl-cancel-btn">Hủy</button>'
+					);
+
+					var input = $('#new-post-slug').trigger('focus');
+
+					input.on('keydown', function(e) {
+						if (e.which === 13) {
+							e.preventDefault();
+							$('#spl-ok-btn').trigger('click');
+						}
+						if (e.which === 27) {
+							$('#spl-cancel-btn').trigger('click');
+						}
+					}).on('input', function() {
+						realSlugInput.val($(this).val());
+					});
+
+					$('#spl-ok-btn').on('click', function() {
+						var val = $('#new-post-slug').val().trim();
+						realSlugInput.val(val);
+						var postId = $('#post_ID').val() || 0;
+						var nonce = $('#samplepermalinknonce').val() || '';
+
+						if (postId && nonce && window.ajaxurl) {
+							$.post(ajaxurl, {
+								action: 'sample-permalink',
+								post_id: postId,
+								new_slug: val,
+								new_title: $('#title').val() || '',
+								samplepermalinknonce: nonce
+							}, function(resp) {
+								if (resp && resp !== '-1') {
+									box.html(resp);
+								} else {
+									finishFallback(val);
+								}
+							}).fail(function() {
+								finishFallback(val);
+							});
+						} else {
+							finishFallback(val);
+						}
+					});
+
+					function finishFallback(slugVal) {
+						var container = $('#editable-post-name');
+						if (container.length) {
+							container.text(slugVal);
+						} else {
+							$('#spl-base').replaceWith('<a href="' + (window.location.origin || '') + '/' + slugVal + '/">' + (window.location.origin || '') + '/' + slugVal + '/</a>');
+							$('#spl-slash, #new-post-slug').remove();
+						}
+						buttons.html('<button type="button" class="edit-slug button button-small hide-if-no-js">Edit</button>');
+					}
+
+					$('#spl-cancel-btn').on('click', function() {
+						var editableSpan = $('#editable-post-name');
+						if (editableSpan.length) {
+							editableSpan.text(currentSlug);
+						}
+						buttons.html('<button type="button" class="edit-slug button button-small hide-if-no-js">Edit</button>');
+						$('#spl-base, #spl-slash, #new-post-slug').remove();
+					});
+				}
+			}, 30);
+		});
+	});
+	</script>
+	<?php
+}
+
 require_once __DIR__ . '/acf-page-fields.php';
 
 
