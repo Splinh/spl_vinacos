@@ -17,5 +17,10 @@ jQuery(function ($) {
 	});
 
 	// Remove 'fixed' class from admin list tables (prevents sticky column issues).
-	$('.wp-list-table.fixed').removeClass('fixed');
+	function unfixTables() {
+		$('.wp-list-table.fixed, table.widefat.fixed, table.fixed').removeClass('fixed');
+	}
+
+	unfixTables();
+	$(document).ajaxComplete(unfixTables);
 });

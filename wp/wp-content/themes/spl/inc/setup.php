@@ -563,6 +563,46 @@ add_filter( 'acf/format_value/type=link', function( $value ) {
 	return $value;
 }, 9999 );
 
+/**
+ * Remove 'fixed' class from admin list tables so columns size naturally.
+ */
+add_action( 'admin_footer', 'spl_admin_remove_table_fixed_class', 99 );
+function spl_admin_remove_table_fixed_class(): void {
+	?>
+	<script id="spl-unfix-admin-tables">
+	(function() {
+		function unfixTables() {
+			var tables = document.querySelectorAll('table.fixed, table.wp-list-table.fixed, table.widefat.fixed');
+			for (var i = 0; i < tables.length; i++) {
+				tables[i].classList.remove('fixed');
+			}
+		}
+
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', unfixTables);
+		} else {
+			unfixTables();
+		}
+
+		window.addEventListener('load', unfixTables);
+
+		if (window.MutationObserver && document.body) {
+			var observer = new MutationObserver(function() {
+				unfixTables();
+			});
+			observer.observe(document.body, { childList: true, subtree: true });
+		}
+
+		if (window.jQuery) {
+			window.jQuery(document).ajaxComplete(function() {
+				unfixTables();
+			});
+		}
+	})();
+	</script>
+	<?php
+}
+
 require_once __DIR__ . '/acf-page-fields.php';
 
 

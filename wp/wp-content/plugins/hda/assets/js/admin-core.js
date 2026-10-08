@@ -1,1 +1,1 @@
-jQuery(function(e){e(document).on(`click`,`.notice-dismiss`,function(){e(this).closest(`.notice.is-dismissible`).fadeOut(500,function(){e(this).remove()})}),e(`.wp-list-table.fixed`).removeClass(`fixed`)});
+jQuery(function(e){function t(){e(".wp-list-table.fixed, table.widefat.fixed, table.fixed").removeClass("fixed")}e(document).on("click",".notice-dismiss",function(){e(this).closest(".notice.is-dismissible").fadeOut(500,function(){e(this).remove()})}),t(),e(document).ajaxComplete(t)});
