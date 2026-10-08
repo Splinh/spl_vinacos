@@ -141,15 +141,13 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 								<ul class="sub-menu">
 									<?php
 									$mega_cats = $is_en ? array(
-										array( 'slug' => 'facial-care', 'title' => 'Facial & Body Care' ),
-										array( 'slug' => 'essential-oils', 'title' => 'Natural Essential Oils' ),
-										array( 'slug' => 'carrier-oils', 'title' => 'Pure Carrier Oils' ),
-										array( 'slug' => 'raw-cosmetic-powders', 'title' => 'Raw Cosmetic Powders' ),
+										array( 'slug' => 'serums', 'title' => 'Serums' ),
+										array( 'slug' => 'creams', 'title' => 'Creams' ),
+										array( 'slug' => 'gels-cleansers', 'title' => 'Gels & Cleansers' ),
 									) : array(
-										array( 'slug' => 'cham-soc-da-mat', 'title' => 'Chăm sóc da mặt & Body' ),
-										array( 'slug' => 'tinh-dau', 'title' => 'Tinh dầu thiên nhiên' ),
-										array( 'slug' => 'dau-nen', 'title' => 'Dầu nền nguyên chất' ),
-										array( 'slug' => 'bot-nguyen-lieu', 'title' => 'Bột nguyên liệu & Gia dụng' ),
+										array( 'slug' => 'serum', 'title' => 'Serum' ),
+										array( 'slug' => 'kem', 'title' => 'Kem' ),
+										array( 'slug' => 'gel', 'title' => 'Gel' ),
 									);
 
 									foreach ( $mega_cats as $mc ) :
@@ -158,7 +156,8 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 										
 										$prods = get_posts( array(
 											'post_type'      => 'product',
-											'posts_per_page' => 5,
+											'posts_per_page' => 20,
+											'orderby'        => array( 'menu_order' => 'ASC', 'ID' => 'ASC' ),
 											'lang'           => $is_en ? 'en' : 'vi',
 											'tax_query'      => array(
 												array(
@@ -168,12 +167,10 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 												),
 											),
 										) );
-										
-										$preview_img = ! empty( $prods ) ? get_the_post_thumbnail_url( $prods[0]->ID, 'medium' ) : get_template_directory_uri() . '/static/img/logo.png';
 										?>
 										<li class="menu-item menu-item-has-children">
 											<a href="<?php echo esc_url( $term_url ); ?>"><?php echo esc_html( $mc['title'] ); ?></a>
-											<div class="mega-wrap">
+											<div class="mega-wrap mega-wrap--products">
 												<ul class="sub-menu">
 													<?php if ( ! empty( $prods ) ) : ?>
 														<?php foreach ( $prods as $p ) : ?>
@@ -183,7 +180,6 @@ if ( empty( $logo_url ) || stripos( $logo_url, 'Logo-tong-hop' ) !== false || st
 														<li><a href="<?php echo esc_url( $term_url ); ?>"><?= $is_en ? 'View All' : 'Xem tất cả' ?></a></li>
 													<?php endif; ?>
 												</ul>
-												<div class="walker-preview img-cover"><img src="<?php echo esc_url( $preview_img ); ?>" alt="<?php echo esc_attr( $mc['title'] ); ?>"></div>
 											</div>
 										</li>
 									<?php endforeach; ?>

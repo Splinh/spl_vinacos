@@ -115,7 +115,13 @@ TEST*.xml
 *.csv
 *.xml
 .phpcs-cache
-tools/
+/tools/
+tools-thamkhao/
+**/vendor/**/tools/
+**/vendor/**/Tools/
+**/plugins/**/tools/
+**/plugins/**/Tools/
+wp/wp-includes/**/Tools/
 2026-master/
 hd-thamkhao/
 spl-thamkhao/
@@ -126,5 +132,12 @@ scratch/
 inspect.php
 test-*.php
 test_*.php
+check_*.php
+find_*.php
+list_*.php
+make_*.php
+thumb_*.png
+slide*.png
+vps_vinacos.png
 wp/wp-content/exports/
 wp/wp-content/cache/

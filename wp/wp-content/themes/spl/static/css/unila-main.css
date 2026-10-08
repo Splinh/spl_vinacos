@@ -5017,6 +5017,9 @@ header .mega-wrap > .sub-menu > li > a{
   font-size: 16px;
   line-height: 1.25;
 }
+header .mega-wrap--products > .sub-menu > li > a{
+  white-space: nowrap;
+}
 @media (min-width: 1200px){
   header .mega-wrap > .sub-menu > li > a{
     font-size: calc(16/1920*100rem);
