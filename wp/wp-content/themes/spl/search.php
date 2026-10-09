@@ -121,35 +121,15 @@ $btn_search   = $is_en ? 'Search' : 'Tìm kiếm';
 
 			<?php if ( $is_product && Helper::isWoocommerceActive() ) : ?>
 				<!-- Product results: grid layout -->
-				<div class="products-grid">
-					<?php
-					while ( have_posts() ) :
-						the_post();
-						$product = wc_get_product( get_the_ID() );
-						if ( ! $product ) {
-							continue;
-						}
-
-						$image_url = wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) ?: wc_placeholder_img_src();
-						$is_sale   = $product->is_on_sale();
+				<div class="product-section">
+					<div class="product-list error-404__product-list">
+						<?php
+						while ( have_posts() ) :
+							the_post();
+							get_template_part( 'parts/product-card', null, array( 'id' => get_the_ID() ) );
+						endwhile;
 						?>
-						<div class="product-card reveal">
-							<?php if ( $is_sale ) : ?>
-								<span class="product-card__badge"><?php esc_html_e( 'Giảm giá', 'spl' ); ?></span>
-							<?php endif; ?>
-							<a href="<?php the_permalink(); ?>" class="product-card__link">
-								<div class="product-card__image">
-									<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>" loading="lazy" />
-								</div>
-								<div class="product-card__body">
-									<h3 class="product-card__name"><?php echo esc_html( $product->get_name() ); ?></h3>
-									<div class="product-card__price">
-										<?php echo wp_kses_post( $product->get_price_html() ); ?>
-									</div>
-								</div>
-							</a>
-						</div>
-					<?php endwhile; ?>
+					</div>
 				</div>
 
 			<?php else : ?>
@@ -238,48 +218,16 @@ $btn_search   = $is_en ? 'Search' : 'Tìm kiếm';
 				<?php if ( Helper::isWoocommerceActive() ) : ?>
 					<div class="search-no-results__popular">
 						<h3><?php esc_html_e( 'Sản phẩm phổ biến:', 'spl' ); ?></h3>
-						<div class="products-grid products-grid--compact">
-							<?php
-							$popular = new \WP_Query( [
-								'post_type'      => 'product',
-								'posts_per_page' => 4,
-								'meta_key'       => 'total_sales',
-								'orderby'        => 'meta_value_num',
-								'order'          => 'DESC',
-							] );
-
-							if ( ! $popular->have_posts() ) {
-								$popular = new \WP_Query( [
-									'post_type'      => 'product',
-									'posts_per_page' => 4,
-									'orderby'        => 'date',
-									'order'          => 'DESC',
-								] );
-							}
-
-							while ( $popular->have_posts() ) :
-								$popular->the_post();
-								$product   = wc_get_product( get_the_ID() );
-								if ( ! $product ) {
-									continue;
-								}
-								$image_url = wp_get_attachment_image_url( $product->get_image_id(), 'woocommerce_thumbnail' ) ?: wc_placeholder_img_src();
+						<div class="product-section mt-6">
+							<div class="product-list error-404__product-list">
+								<?php
+								while ( $popular->have_posts() ) :
+									$popular->the_post();
+									get_template_part( 'parts/product-card', null, array( 'id' => get_the_ID() ) );
+								endwhile;
+								wp_reset_postdata();
 								?>
-								<div class="product-card reveal">
-									<a href="<?php the_permalink(); ?>" class="product-card__link">
-										<div class="product-card__image">
-											<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>" loading="lazy" />
-										</div>
-										<div class="product-card__body">
-											<h3 class="product-card__name"><?php echo esc_html( $product->get_name() ); ?></h3>
-											<div class="product-card__price">
-												<?php echo wp_kses_post( $product->get_price_html() ); ?>
-											</div>
-										</div>
-									</a>
-								</div>
-							<?php endwhile; ?>
-							<?php wp_reset_postdata(); ?>
+							</div>
 						</div>
 					</div>
 				<?php endif; ?>

@@ -117,25 +117,25 @@ $pills = $is_en ? array(
 			if ( $suggested->have_posts() ) :
 				?>
 				<div class="error-404__suggest">
-					<div class="section-title reveal">
-						<div class="section-title__label">
-							<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+					<div class="error-404__suggest-head">
+						<span class="error-404__suggest-badge">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
 							<?php echo esc_html( $lbl_suggest ); ?>
-						</div>
-						<h2 class="section-title__heading">
-							<svg class="section-title__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+						</span>
+						<h2 class="error-404__suggest-title">
 							<?php echo esc_html( $lbl_sug_head ); ?>
 						</h2>
-						<div class="section-title__line"></div>
 					</div>
-					<div class="products-grid">
-						<?php
-						while ( $suggested->have_posts() ) :
-							$suggested->the_post();
-							get_template_part( 'parts/product-card', null, array( 'id' => get_the_ID() ) );
-						endwhile;
-						wp_reset_postdata();
-						?>
+					<div class="product-section">
+						<div class="product-list error-404__product-list">
+							<?php
+							while ( $suggested->have_posts() ) :
+								$suggested->the_post();
+								get_template_part( 'parts/product-card', null, array( 'id' => get_the_ID() ) );
+							endwhile;
+							wp_reset_postdata();
+							?>
+						</div>
 					</div>
 				</div>
 				<?php

@@ -1,181 +1,81 @@
 <?php
 /**
- * Shared product card — dailyxedien.vn.
+ * Shared product card — Vinacos / Unila design.
  *
  * @package SPL
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$data = $args ?? [];
-
-$extra_classes = array_filter(
-	array_map(
-		'sanitize_html_class',
-		preg_split( '/\s+/', (string) ( $data['class'] ?? '' ) ) ?: []
-	)
-);
-$card_classes  = implode( ' ', array_merge( [ 'bg-white border border-slate-100 rounded-xl overflow-hidden shadow-premium hover:shadow-hover-card transition-all duration-300 flex flex-col justify-between group relative' ], $extra_classes ) );
+$data = $args ?? array();
 
 /** @var \WC_Product|null $card_product */
 $card_product = $data['product'] ?? null;
 if ( ! $card_product instanceof \WC_Product ) {
-	$card_product = function_exists( 'wc_get_product' ) ? wc_get_product( $data['id'] ?? get_the_ID() ) : null;
+	$prod_id      = $data['id'] ?? get_the_ID();
+	$card_product = function_exists( 'wc_get_product' ) ? wc_get_product( $prod_id ) : null;
 }
 if ( ! $card_product instanceof \WC_Product ) {
 	return;
 }
 
-$pid = $card_product->get_id();
+$pid     = $card_product->get_id();
+$p_title = $card_product->get_name();
+$p_url   = get_permalink( $pid );
 
-static $spl_product_card_cache = [];
+$thumb_id = $card_product->get_image_id();
+$p_thumb  = $thumb_id ? wp_get_attachment_image_url( $thumb_id, 'medium_large' ) : ( get_template_directory_uri() . '/static/img/logo.png' );
 
-if ( isset( $spl_product_card_cache[ $pid ] ) ) {
-	[
-		'permalink'          => $permalink,
-		'name'               => $name,
-		'image_url'          => $image_url,
-		'cat_name'           => $cat_name,
-		'badge'              => $badge,
-		'price_current_html' => $price_current_html,
-		'price_old_html'     => $price_old_html,
-		'purchasable'        => $purchasable,
-		'average_rating'     => $average_rating,
-		'total_sales'        => $total_sales,
-	] = $spl_product_card_cache[ $pid ];
-} else {
-	$permalink = get_permalink( $pid );
-	$name      = $card_product->get_name();
-	$image_url = wp_get_attachment_image_url( $card_product->get_image_id(), 'woocommerce_thumbnail' ) ?: wc_placeholder_img_src();
+// 2nd image for hover flipper effect (if available).
+$gallery_ids = $card_product->get_gallery_image_ids();
+$back_thumb  = ( ! empty( $gallery_ids ) && ! empty( $gallery_ids[0] ) )
+	? ( wp_get_attachment_image_url( $gallery_ids[0], 'medium_large' ) ?: $p_thumb )
+	: $p_thumb;
 
-	$cat_name = '';
-	$terms    = get_the_terms( $pid, 'product_cat' );
+$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
+
+$p_desc = $card_product->get_short_description();
+if ( empty( $p_desc ) ) {
+	$p_desc = $card_product->get_description();
+}
+if ( empty( $p_desc ) ) {
+	$terms = get_the_terms( $pid, 'product_cat' );
 	if ( $terms && ! is_wp_error( $terms ) ) {
-		$cat_name = $terms[0]->name;
+		$p_desc = $terms[0]->name;
 	}
-
-	$badge          = '';
-	$price_old_html = '';
-
-	if ( $card_product->is_type( 'variable' ) ) {
-		$prices = $card_product->get_variation_prices( true );
-
-		if ( empty( $prices['price'] ) ) {
-			$price_current_html = $card_product->get_price_html();
-		} else {
-			$min_id      = array_key_first( $prices['price'] );
-			$min_price   = (float) $prices['price'][ $min_id ];
-			$min_regular = (float) ( $prices['regular_price'][ $min_id ] ?? $min_price );
-
-			$price_current_html = wc_price( $min_price );
-
-			if ( $min_regular > $min_price ) {
-				$price_old_html = wc_price( $min_regular );
-				$badge          = '-' . round( ( ( $min_regular - $min_price ) / $min_regular ) * 100 ) . '%';
-			}
-		}
-	} elseif ( $card_product->is_on_sale() ) {
-		$reg                = (float) $card_product->get_regular_price();
-		$sale               = (float) $card_product->get_sale_price();
-		$price_current_html = wc_price( wc_get_price_to_display( $card_product ) );
-		$price_old_html     = wc_price( wc_get_price_to_display( $card_product, [ 'price' => $reg ] ) );
-		$badge              = ( $reg > 0 && $sale > 0 )
-			? '-' . round( ( ( $reg - $sale ) / $reg ) * 100 ) . '%'
-			: __( 'Giảm giá', 'spl' );
-	} else {
-		$price_current_html = $card_product->get_price_html();
-	}
-
-	// Dynamic badges (Hot, Mới)
-	$is_new = ( time() - get_post_time( 'U', false, $pid ) ) < ( 30 * DAY_IN_SECONDS );
-	$is_featured = $card_product->is_featured();
-	if ( ! $badge ) {
-		if ( $is_featured ) {
-			$badge = __( 'Hot', 'spl' );
-		} elseif ( $is_new ) {
-			$badge = __( 'Mới', 'spl' );
-		}
-	}
-
-	$purchasable = $card_product->is_purchasable() && $card_product->is_in_stock() && ! $card_product->is_type( 'variable' );
-	$average_rating = $card_product->get_average_rating();
-	$total_sales = $card_product->get_total_sales();
-
-	$spl_product_card_cache[ $pid ] = compact(
-		'permalink',
-		'name',
-		'image_url',
-		'cat_name',
-		'badge',
-		'price_current_html',
-		'price_old_html',
-		'purchasable',
-		'average_rating',
-		'total_sales'
-	);
+}
+if ( empty( $p_desc ) ) {
+	$p_desc = $is_en ? 'High quality OEM/ODM cosmetic formulation by VINACOS.' : 'Dòng sản phẩm gia công mỹ phẩm chuẩn y khoa nghiên cứu bởi VINACOS.';
 }
 
-$sales_formatted = $total_sales >= 1000 ? round( $total_sales / 1000, 1 ) . 'k' : $total_sales;
-$stars_count     = $average_rating > 0 ? round( $average_rating ) : 5;
+// Dynamic badge.
+$badge = '';
+if ( $card_product->is_featured() ) {
+	$badge = 'HOT';
+} elseif ( ( time() - get_post_time( 'U', false, $pid ) ) < ( 30 * DAY_IN_SECONDS ) ) {
+	$badge = $is_en ? 'NEW' : 'MỚI';
+}
 ?>
-<div class="<?php echo esc_attr( $card_classes ); ?>">
-	<?php if ( $badge ) :
-		$badge_color = ( stripos( $badge, 'hot' ) !== false || stripos( $badge, '-' ) !== false ) ? 'bg-red-500' : 'bg-emerald-500';
-		?>
-		<span class="absolute top-2.5 left-2.5 <?php echo esc_attr( $badge_color ); ?> text-white font-black text-[9px] md:text-[10px] px-2 py-0.5 md:px-2.5 md:py-1 rounded-lg z-10 shadow-sm uppercase"><?php echo esc_html( $badge ); ?></span>
-	<?php endif; ?>
-
-	<a href="<?php echo esc_url( $permalink ); ?>" class="block">
-		<div class="bg-slate-50/50 flex items-center justify-center h-36 md:h-48 relative overflow-hidden">
-			<img src="<?php echo esc_url( $image_url ); ?>" alt="<?php echo esc_attr( $name ); ?>" width="300" height="300" loading="lazy" class="max-h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-300" style="aspect-ratio: 1;" />
-		</div>
-	</a>
-
-	<div class="px-4 pt-[15px] pb-4 flex-grow flex flex-col justify-between">
-		<div>
-			<?php if ( $cat_name ) : ?>
-				<span class="text-[9px] md:text-[10px] text-slate-400 font-bold uppercase tracking-wider"><?php echo esc_html( $cat_name ); ?></span>
-			<?php endif; ?>
-			<h3 class="font-bold text-slate-800 text-xs md:text-sm line-clamp-2 mt-0.5 group-hover:text-primary transition-colors leading-snug">
-				<a href="<?php echo esc_url( $permalink ); ?>"><?php echo esc_html( $name ); ?></a>
-			</h3>
-<?php
-$is_en = function_exists( 'pll_current_language' ) && 'en' === pll_current_language();
-$txt_details = $is_en ? 'View Details' : 'Xem chi tiết';
-$txt_quote   = $is_en ? 'Request Quote' : 'Yêu cầu báo giá';
-$txt_sold    = $is_en ? sprintf( 'Sold %s', $sales_formatted ) : sprintf( 'Đã bán %s', $sales_formatted );
-$txt_rating  = $is_en ? sprintf( 'Rating %s stars', $stars_count ) : sprintf( 'Đánh giá %s sao', $stars_count );
-?>
-			<div class="flex flex-wrap items-center gap-y-1 gap-x-0.5 mt-1.5 text-amber-400 text-[10px]" aria-label="<?php echo esc_attr( $txt_rating ); ?>">
-				<?php for ( $i = 0; $i < 5; $i++ ) :
-					$fill_class = $i < $stars_count ? 'fill-current' : 'text-slate-200';
-					?>
-					<svg class="w-3 h-3 <?php echo esc_attr( $fill_class ); ?>" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-				<?php endfor; ?>
-				<span class="text-slate-400 ml-1 font-semibold"><?php echo esc_html( $txt_sold ); ?></span>
-			</div>
-		</div>
-
-		<div class="mt-3">
-			<div class="flex flex-wrap items-baseline gap-1 md:gap-2">
-				<span class="text-sm md:text-base font-extrabold text-slate-900"><?php echo wp_kses_post( $price_current_html ); ?></span>
-				<?php if ( $price_old_html ) : ?>
-					<span class="text-[10px] md:text-xs text-slate-400 line-through"><?php echo wp_kses_post( $price_old_html ); ?></span>
-				<?php endif; ?>
-			</div>
-
-			<?php if ( $purchasable ) : ?>
-				<div class="grid grid-cols-5 gap-1.5 mt-3">
-					<a href="<?php echo esc_url( $permalink ); ?>" class="col-span-4 bg-primary hover:bg-primary-hover active:scale-95 text-white text-[10px] md:text-xs font-bold py-2 md:py-2.5 rounded-lg transition-all text-center flex items-center justify-center"><?php echo esc_html( $txt_details ); ?></a>
-					<a href="<?php echo esc_url( $permalink ); ?>" class="add-cart-btn active:scale-95 flex items-center justify-center rounded-lg transition-all" title="<?php echo esc_attr( $txt_details ); ?>">
-						<?php echo spl_icon( 'arrow-right', 'w-3.5 h-3.5' ); ?>
-					</a>
-				</div>
-			<?php else : ?>
-				<div class="mt-3">
-					<a href="<?php echo esc_url( $permalink ); ?>" class="w-full bg-primary hover:bg-primary-hover active:scale-95 text-white text-[10px] md:text-xs font-bold py-2 md:py-2.5 rounded-lg transition-all text-center flex items-center justify-center"><?php echo esc_html( $txt_details ); ?></a>
-				</div>
-			<?php endif; ?>
-		</div>
+<article class="product-item">
+	<div class="image">
+		<a class="img-scale flipper" href="<?php echo esc_url( $p_url ); ?>" title="<?php echo esc_attr( $p_title ); ?>">
+			<img class="lozad front" src="<?php echo esc_url( $p_thumb ); ?>" data-src="<?php echo esc_url( $p_thumb ); ?>" loading="lazy" alt="<?php echo esc_attr( $p_title ); ?>">
+			<img class="lozad back" src="<?php echo esc_url( $back_thumb ); ?>" data-src="<?php echo esc_url( $back_thumb ); ?>" loading="lazy" alt="<?php echo esc_attr( $p_title ); ?>">
+		</a>
+		<?php if ( $badge ) : ?>
+			<span class="product-tag"><?php echo esc_html( $badge ); ?></span>
+		<?php endif; ?>
 	</div>
-</div>
+	<div class="caption">
+		<h3 class="title">
+			<a href="<?php echo esc_url( $p_url ); ?>" title="<?php echo esc_attr( $p_title ); ?>">
+				<?php echo esc_html( $p_title ); ?>
+			</a>
+		</h3>
+		<?php if ( ! empty( $p_desc ) ) : ?>
+			<div class="desc">
+				<?php echo esc_html( wp_trim_words( wp_strip_all_tags( $p_desc ), 15 ) ); ?>
+			</div>
+		<?php endif; ?>
+	</div>
+</article>
